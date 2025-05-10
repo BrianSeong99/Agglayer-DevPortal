@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🥚 Eggshell
 
-## Getting Started
+**Eggshell** is an educational dashboard and showcase platform for exploring and building cross-chain dApps on [AggLayer](https://github.com/agglayer). It features frontend dApp demos, cross-chain wallet views, and interactive tutorials to help developers learn and build more easily in a multichain environment.
 
-First, run the development server:
+## 🌐 What is Eggshell?
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Eggshell is your shell to the AggLayer multichain universe.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It lets you:
+- Explore live cross-chain dApp demos.
+- Understand how they work with step-by-step tutorials.
+- Simulate interact with your assets and apps through a unified cross-chain wallet dashboard.
+- Launch directly from a Metamask Snap — with support for more wallets coming soon.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Wallet Dashboard
+- Track tokens, NFTs, and activity across AggLayer chains.
+- Initial integration with Metamask Snap.
 
-## Learn More
+### Dapp Dashboard
+- Browse a growing library of dApp examples.
+- Visual explanations of how AggLayer cross-chain UX works.
 
-To learn more about Next.js, take a look at the following resources:
+### Modular dApp Showcases
+Each dApp example includes:
+- Live frontend interaction
+- Code view or GitHub link
+- Tutorial walkthrough explaining mechanics and cross-chain logic
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Chains Status Page
+- Real-time heartbeats and metadata of all AggLayer-connected chains
+- Inspired by tools like L2Beat
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Roadmap & Milestones
 
-## Deploy on Vercel
+We build iteratively with weekly releases and additions. See [GitHub Issues](#) for task tracking.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Stage 1: Core Scaffolding
+- [ ] Build main dashboard layout
+- [ ] Wallet dashboard UI
+- [ ] Individual dApp page scaffold
+- [ ] Metamask Snap stub integration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Stage 2: First dApp Launch
+- [ ] Deploy Uniswap-style cross-chain dApp
+- [ ] Add code + tutorial walkthrough
+- [ ] Integrate wallet state UI
+
+### Stage 3+: Continuous Expansion
+- [ ] Add more dApp examples (e.g., NFT bridge, cross-chain swap)
+- [ ] Improve chain monitoring
+- [ ] Add social sharing + embed
+- [ ] Chains status page
+
+## 🛠 Local Development
+
+_Coming soon._ You’ll be able to clone and run the frontend locally, or build your own example dApp.
+
+## 🤝 Contributing
+
+We’re building this to onboard and support the next generation of AggLayer developers.  
+Feel free to open an issue or submit a PR — especially for:
+- New dApp examples
+- UI/UX improvements
+- Docs and tutorials
+
+## 📣 Questions?
+
+Reach out to [Brian Seong](https://x.com/BrianSeong99) or [Akshat Gada](https://x.com/gada_akshat)
+
+**Made with 💜 by Polygon DevRel**
