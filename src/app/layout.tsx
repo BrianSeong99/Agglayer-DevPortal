@@ -1,6 +1,7 @@
 import './globals.css'
 import Sidebar from '../components/Sidebar'
 import Providers from '../components/Providers'
+import { usePathname } from 'next/navigation'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
