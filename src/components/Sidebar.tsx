@@ -15,8 +15,8 @@ export default function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="m-6 rounded-2xl bg-white shadow-2xl w-64 h-[90vh] flex flex-col p-8">
-      <h1 className="text-2xl font-bold mb-8 text-black">🥚 Eggshell</h1>
+    <aside className="rounded-2xl bg-white shadow-2xl w-64 h-full flex flex-col p-8">
+      <h1 className="text-2xl font-bold mb-8 text-black">🥚 EggShell</h1>
       <nav className="space-y-3 flex-1">
         {links.map(({ href, label }) => (
           <Link
