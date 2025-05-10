@@ -27,6 +27,7 @@
     "react-dom": "^19.0.0",
     "stream-browserify": "^3.0.0",
     "stream-http": "^3.2.0",
+    "tailwindcss": "^4.1.6",
     "url": "^0.11.4",
     "util": "^0.12.5",
     "viem": "^2.29.1",
