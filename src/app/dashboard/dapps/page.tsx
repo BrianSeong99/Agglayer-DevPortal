@@ -2,17 +2,17 @@ const dapps = [
     {
       name: 'Uniswap',
       description: 'Decentralized exchange for swapping tokens.',
-      url: '/dashboard/dapps/example',
+      url: '/dashboard/dapps/uniswap',
     },
     {
       name: 'Stargate',
       description: 'Omnichain bridge for cross-chain liquidity.',
-      url: '/dashboard/dapps/example',
+      url: '/dashboard/dapps/stargate',
     },
     {
       name: 'Aave',
       description: 'Decentralized lending protocol.',
-      url: '/dashboard/dapps/example',
+      url: '/dashboard/dapps/aave',
     },
   ]
   
