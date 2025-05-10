@@ -15,25 +15,27 @@ export default function Sidebar() {
   const pathname = usePathname()
 
   return (
-    <aside className="w-64 bg-red-500 border-r border-black shadow-lg h-screen sticky top-0 p-6">
-      <h1 className="text-2xl font-bold mb-6 text-black">🥚 Eggshell</h1>
-      <nav className="space-y-3">
+    <aside className="m-6 rounded-2xl bg-white shadow-2xl w-64 h-[90vh] flex flex-col p-8">
+      <h1 className="text-2xl font-bold mb-8 text-black">🥚 Eggshell</h1>
+      <nav className="space-y-3 flex-1">
         {links.map(({ href, label }) => (
           <Link
             key={href}
             href={href}
             className={clsx(
-              'block rounded px-4 py-2 border border-transparent transition font-medium',
+              'block rounded px-4 py-2 transition font-medium',
               pathname === href
-                ? 'bg-yellow-300 text-black border-black shadow'
-                : 'text-black hover:bg-yellow-200 hover:border-black'
+                ? 'bg-yellow-300 text-black shadow'
+                : 'text-black hover:bg-yellow-200'
             )}
           >
             {label}
           </Link>
         ))}
       </nav>
-      <ConnectWallet />
+      <div className="mt-8">
+        <ConnectWallet />
+      </div>
     </aside>
   )
 }
