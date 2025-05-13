@@ -1,0 +1,3 @@
+[submodule "src/app/dashboard/dapps/aggswap/unified-bridge-scripts"]
+	path = src/app/dashboard/dapps/aggswap/unified-bridge-scripts
+	url = https://github.com/BrianSeong99/AggLayer_UnifiedBridge.git

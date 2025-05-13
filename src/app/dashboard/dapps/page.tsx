@@ -1,8 +1,10 @@
+import styles from './DappDashboard.module.css';
+
 const dapps = [
     {
-      name: 'Uniswap',
+      name: 'Aggswap',
       description: 'Decentralized exchange for swapping tokens.',
-      url: '/dashboard/dapps/uniswap',
+      url: '/dashboard/dapps/aggswap',
     },
     {
       name: 'Stargate',
@@ -18,17 +20,19 @@ const dapps = [
   
   export default function DappDashboardPage() {
     return (
-      <div>
-        <h2 className="text-2xl font-semibold mb-6">dApps</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {dapps.map((dapp) => (
+      <div className={styles.dashboard}>
+        <h2 className={styles.heading}>dApps</h2>
+        <div className={styles.grid}>
+          {dapps.map((dapp, i) => (
             <a
               key={dapp.name}
               href={dapp.url}
-              className="block p-4 border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition bg-white"
+              className={styles.card}
+              style={{ animationDelay: `${i * 0.08 + 0.1}s` }}
             >
-              <h3 className="text-lg font-bold mb-1">{dapp.name}</h3>
-              <p className="text-sm text-gray-600">{dapp.description}</p>
+              <h3 className={styles.cardTitle}>{dapp.name}</h3>
+              <p className={styles.cardDesc}>{dapp.description}</p>
+              <button className={styles.openBtn}>Open {dapp.name}</button>
             </a>
           ))}
         </div>
