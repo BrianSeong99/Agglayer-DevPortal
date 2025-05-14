@@ -5,12 +5,13 @@ import ConnectWallet from './ConnectWallet'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
-import { FaSun, FaMoon } from 'react-icons/fa'
+import { FaSun, FaMoon, FaCode, FaThLarge, FaLink, FaHome } from 'react-icons/fa'
 
 const links = [
-  { href: '/dashboard/wallet', label: 'Wallet' },
-  { href: '/dashboard/dapps', label: 'dApps' },
-  { href: '/dashboard/chains', label: 'Chains' },
+  { href: '/', label: 'Home', icon: <FaHome className="w-5 h-5 mr-3" /> },
+  { href: '/dashboard/chains', label: 'Chains', icon: <FaLink className="w-5 h-5 mr-3" /> },
+  { href: '/dashboard/examples', label: 'Examples', icon: <FaThLarge className="w-5 h-5 mr-3" /> },
+  { href: '/dashboard/developers', label: 'Developers', icon: <FaCode className="w-5 h-5 mr-3" /> },
 ]
 
 export default function Sidebar() {
@@ -35,7 +36,7 @@ export default function Sidebar() {
         <span className="text-2xl font-bold" style={{ color: 'var(--sidebar-text)' }}>AggShell</span>
       </div>
       <nav className="space-y-3 flex-1">
-        {links.map(({ href, label }) => {
+        {links.map(({ href, label, icon }) => {
           const isActive =
             href === '/dashboard/dapps'
               ? pathname && pathname.startsWith('/dashboard/dapps')
@@ -49,12 +50,13 @@ export default function Sidebar() {
                 color: isActive ? 'var(--link-active-text)' : 'var(--sidebar-text)'
               }}
               className={clsx(
-                'block rounded-full px-6 py-3 font-semibold text-lg transition text-left',
+                'flex items-center rounded-full px-6 py-3 font-semibold text-lg transition text-left',
                 isActive
                   ? 'bg-[var(--link-active-bg)]'
                   : 'hover:bg-[var(--link-hover-bg)]'
               )}
             >
+              {icon}
               {label}
             </Link>
           )
@@ -67,7 +69,7 @@ export default function Sidebar() {
           className="mb-6 w-10 h-10 rounded-full font-medium shadow hover:bg-[var(--button-hover-bg)] transition flex items-center justify-center mx-auto"
           aria-label={isDark ? 'Switch to daylight mode' : 'Switch to night mode'}
         >
-          {isDark ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5"/>}
+          {isDark ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5" style={{ color: 'white' }} />}
         </button>
         <ConnectWallet />
       </div>
