@@ -6,53 +6,92 @@
 @tailwind utilities;
 
 :root {
-  /* Palette */
-  --yellow: #F7C948;
-  --yellow-light: #ffe066;
-  --yellow-dark: #e0b200;
-  --blue: #2563eb;
-  --blue-light: #3b82f6;
-  --blue-dark: #1e40af;
-  --gray: #23272f;
-  --gray-light: #ededed;
-  --white: #ffffff;
-  --white-light: #fffffff0;
-  --black: #171717;
-  --black-light: #17171797;
+  /* === Palette === */
+  --color-blue: #0071F7;
+  --color-blue-light: #e6f1fd;
+  --color-blue-dark: #005ac1;
+  --color-orange: #FF8E08;
+  --color-orange-light: #ffe7cc;
+  --color-orange-dark: #cc7000;
+  --color-black: #000000;
+  --color-black-light: #17171797;
+  --color-white: #FFFFFF;
+  --color-white-light: #fffffff0;
+  --color-gray: #D9D9D9;
+  --color-gray-light: #f5f5f5;
+  --color-gray-dark: #23272f;
+  --color-gray-text: #6b7280;
+  --color-gray-text-dark: #a1a1aa;
 
-  --bg-main: #fff;
-  --text-main: #171717;
-  --text-secondary: #6b7280;
-  --sidebar-bg: #fff;
-  --sidebar-text: #171717;
-  --card-bg: #fff;
-  --card-shadow: 0 8px 32px 0 rgba(60, 60, 60, 0.10);
-  --card-bg-light: #fffffff0;
-  --card-border: #ececec;
-  --button-bg: var(--yellow);
-  --button-text: #171717;
-  --button-hover-bg: var(--yellow-dark);
-  --link-active-bg: var(--yellow-light);
-  --link-active-text: #171717;
-  --link-hover-bg: var(--yellow);
+  /* === Backgrounds === */
+  --bg-main: var(--color-white);
+  --bg-sidebar: var(--color-white);
+  --bg-dashboard: var(--color-white-light);
+  --bg-card: var(--color-white);
+  --bg-card-light: var(--color-white-light);
+
+  /* === Text === */
+  --text-main: var(--color-black);
+  --text-secondary: var(--color-gray-text);
+  --text-sidebar: var(--color-black);
+
+  /* === Borders & Shadows === */
+  --border-card: var(--color-gray);
+  --shadow-card: 0 8px 32px 0 rgba(60, 60, 60, 0.10);
+
+  /* === Primary (Blue) === */
+  --primary: var(--color-blue);
+  --primary-light: var(--color-blue-light);
+  --primary-dark: var(--color-blue-dark);
+
+  /* === Accent (Orange) === */
+  --accent: var(--color-orange);
+  --accent-light: var(--color-orange-light);
+  --accent-dark: var(--color-orange-dark);
+
+  /* === Buttons & Links === */
+  --button-bg: var(--primary);
+  --button-text: var(--color-white);
+  --button-hover-bg: var(--primary-dark);
+  --link-active-bg: var(--primary-light);
+  --link-active-text: var(--primary-dark);
+  --link-hover-bg: var(--primary);
 }
 
 .dark {
-  --bg-main: var(--gray);
-  --text-main: var(--gray-light);
-  --text-secondary: #a1a1aa;
-  --sidebar-bg: #2e343f;
-  --sidebar-text: var(--gray-light);
-  --card-bg: #2d323c;
-  --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.30);
-  --card-bg-light: var(--black-light);
-  --card-border: #23272f;
-  --button-bg: var(--yellow-light);
-  --button-text: var(--gray);
-  --button-hover-bg: var(--yellow);
-  --link-active-bg: var(--yellow-light);
-  --link-active-text: var(--gray);
-  --link-hover-bg: var(--yellow);
+  /* === Backgrounds === */
+  --bg-main: var(--color-black);
+  --bg-sidebar: var(--color-gray-dark);
+  --bg-dashboard: var(--color-black-light);
+  --bg-card: var(--color-black-light);
+  --bg-card-light: var(--color-black-light);
+
+  /* === Text === */
+  --text-main: var(--color-gray-light);
+  --text-secondary: var(--color-gray-text-dark);
+  --text-sidebar: var(--color-gray-light);
+
+  /* === Borders & Shadows === */
+  --border-card: var(--color-gray-dark);
+  --shadow-card: 0 8px 32px 0 rgba(0,0,0,0.30);
+
+  /* === Primary (Blue) === */
+  --primary: var(--color-blue);
+  --primary-light: var(--color-blue-light);
+  --primary-dark: var(--color-blue-dark);
+
+  /* === Accent (Orange) === */
+  --accent: var(--color-orange);
+  --accent-light: var(--color-orange-light);
+  --accent-dark: var(--color-orange-dark);
+
+  /* === Buttons & Links === */
+  --button-bg: var(--primary);
+  --button-text: var(--color-white);
+  --button-hover-bg: var(--primary-dark);
+  --link-active-bg: var(--primary-light);
+  --link-active-text: var(--primary-dark);
+  --link-hover-bg: var(--primary);
 }
 
 @theme inline {

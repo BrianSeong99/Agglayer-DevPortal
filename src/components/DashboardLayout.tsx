@@ -4,7 +4,7 @@ export default function DashboardLayout({ children, className = '' }: { children
   return (
     <div
       className={`rounded-2xl p-8 h-full w-full flex flex-col shadow-2xl ${className}`}
-      style={{ background: 'var(--card-bg-dashboard)', color: 'var(--text-main)', boxShadow: 'var(--card-shadow)' }}
+      style={{ background: 'var(--bg-dashboard)', color: 'var(--text-main)', boxShadow: 'var(--shadow-card)' }}
     >
       {children}
     </div>

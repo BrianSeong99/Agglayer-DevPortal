@@ -4,11 +4,11 @@ import DashboardLayout from '../components/DashboardLayout'
 
 // Example ecosystem icons (replace with actual SVGs or images as needed)
 const ecosystem: { name: string; color: string; icon: React.ReactNode }[] = [
-  { name: 'Eco 1', color: 'text-green-500', icon: <div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaBook className="text-[var(--yellow)] text-4xl" /></div> },
-  { name: 'Eco 2', color: 'text-blue-500', icon: <div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaHammer className="text-[var(--yellow)] text-4xl" /></div> },
-  { name: 'Eco 3', color: 'text-purple-500', icon: <div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaCrown className="text-[var(--yellow)] text-4xl" /></div> },
-  { name: 'Eco 4', color: 'text-red-500', icon: <div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaRegFileAlt className="text-[var(--yellow)] text-4xl" /></div> },
-  { name: 'Eco 5', color: 'text-orange-500', icon: <div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaStar className="text-[var(--yellow)] text-4xl" /></div> },
+  { name: 'Eco 1', color: 'text-green-500', icon: <div className="w-full h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-t-2xl flex items-center justify-center"><FaBook className="text-[var(--primary)] text-4xl" /></div> },
+  { name: 'Eco 2', color: 'text-blue-500', icon: <div className="w-full h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-t-2xl flex items-center justify-center"><FaHammer className="text-[var(--primary)] text-4xl" /></div> },
+  { name: 'Eco 3', color: 'text-purple-500', icon: <div className="w-full h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-t-2xl flex items-center justify-center"><FaCrown className="text-[var(--primary)] text-4xl" /></div> },
+  { name: 'Eco 4', color: 'text-red-500', icon: <div className="w-full h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-t-2xl flex items-center justify-center"><FaRegFileAlt className="text-[var(--primary)] text-4xl" /></div> },
+  { name: 'Eco 5', color: 'text-orange-500', icon: <div className="w-full h-24 bg-gradient-to-r from-[var(--accent-light)] to-[var(--accent)] rounded-t-2xl flex items-center justify-center"><FaStar className="text-[var(--accent)] text-4xl" /></div> },
 ]
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <Tile
             href="https://docs.agglayer.com/"
-            illustration={<div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaBook className="text-[var(--yellow)] text-4xl" /></div>}
+            illustration={<div className="w-full h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-t-2xl flex items-center justify-center"><FaBook className="text-[var(--primary)] text-4xl" /></div>}
             title="Learn About Agglayer"
             description="Read the docs and understand how Agglayer works."
             variant="main"
@@ -30,7 +30,7 @@ export default function Home() {
           />
           <Tile
             href="https://github.com/Polygon-Edge/Agglayer"
-            illustration={<div className="w-full h-24 bg-gradient-to-r from-yellow-100 to-yellow-200 rounded-t-2xl flex items-center justify-center"><FaHammer className="text-[var(--yellow)] text-4xl" /></div>}
+            illustration={<div className="w-full h-24 bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary)] rounded-t-2xl flex items-center justify-center"><FaHammer className="text-[var(--primary)] text-4xl" /></div>}
             title="Build Agglayer apps"
             description="Start building cross-chain apps with Agglayer."
             variant="main"
@@ -51,16 +51,16 @@ export default function Home() {
         </div>
         <div className="flex justify-center gap-6 mt-8">
           <a href="https://twitter.com/0xPolygon" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-            <FaTwitter className="w-7 h-7 text-[var(--yellow)] hover:text-[var(--yellow-dark)] transition" />
+            <FaTwitter className="w-7 h-7 text-[var(--primary)] hover:text-[var(--primary-dark)] transition" />
           </a>
           <a href="https://github.com/Polygon-Edge/Agglayer" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-            <FaGithub className="w-7 h-7 text-[var(--yellow)] hover:text-[var(--yellow-dark)] transition" />
+            <FaGithub className="w-7 h-7 text-[var(--primary)] hover:text-[var(--primary-dark)] transition" />
           </a>
           <a href="https://discord.gg/polygon" target="_blank" rel="noopener noreferrer" aria-label="Discord">
-            <FaDiscord className="w-7 h-7 text-[var(--yellow)] hover:text-[var(--yellow-dark)] transition" />
+            <FaDiscord className="w-7 h-7 text-[var(--primary)] hover:text-[var(--primary-dark)] transition" />
           </a>
         </div>
-        <div className="mt-12">
+        {/* <div className="mt-12">
           <h3 className="font-semibold text-base mb-3 text-left">Explore Agglayer ecosystem</h3>
           <div className="flex flex-wrap gap-4 items-center">
             {ecosystem.map((eco) => (
@@ -70,7 +70,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </DashboardLayout>
   )

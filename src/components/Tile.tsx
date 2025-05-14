@@ -36,12 +36,12 @@ export default function Tile({
     )
     const baseClasses = [
       'rounded-2xl',
-      'bg-[var(--card-bg)]',
-      'border-[var(--card-border)]',
+      'bg-[var(--bg-card)]',
+      'border-[var(--border-card)]',
       'border',
       'shadow-lg',
       'hover:shadow-md',
-      'hover:border-[var(--yellow)]',
+      'hover:border-[var(--primary)]',
       'transition',
       'flex',
       'flex-col',
@@ -64,7 +64,7 @@ export default function Tile({
   // Small tile style
   const content = (
     <div className="flex items-center gap-4">
-      {icon && <div className="w-10 h-10 flex items-center justify-center text-[var(--yellow)]">{icon}</div>}
+      {icon && <div className="w-10 h-10 flex items-center justify-center text-[var(--primary)]">{icon}</div>}
       <div className="flex flex-col">
         {title && <h3 className="font-bold text-lg mb-1 text-left">{title}</h3>}
         {description && <p className="text-[var(--text-secondary)] text-sm text-left">{description}</p>}
@@ -74,12 +74,12 @@ export default function Tile({
   )
   const baseClasses = [
     'rounded-2xl',
-    'bg-[var(--card-bg-light)]',
-    'border-[var(--card-border)]',
+    'bg-[var(--bg-card-light)]',
+    'border-[var(--border-card)]',
     'border',
     'shadow-lg',
     'hover:shadow-md',
-    'hover:border-[var(--yellow)]',
+    'hover:border-[var(--primary)]',
     'transition',
     'p-6',
     'flex',
