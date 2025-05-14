@@ -15,19 +15,24 @@
   --blue-dark: #1e40af;
   --gray: #23272f;
   --gray-light: #ededed;
-  --white: #fff;
+  --white: #ffffff;
+  --white-light: #fffffff0;
   --black: #171717;
+  --black-light: #17171797;
 
-  --bg-main: var(--yellow);
+  --bg-main: var(--yellow-light);
   --text-main: var(--black);
-  --sidebar-bg: #ffffffd7;
+  --text-secondary: #6b7280;
+  --sidebar-bg: #ffffff97;
   --sidebar-text: var(--black);
-  --card-bg: #ffffffd7;
+  --card-bg: var(--white);
   --card-shadow: 0 8px 32px 0 rgba(60, 60, 60, 0.10);
-  --button-bg: var(--yellow);
+  --card-bg-light: var(--white-light);
+  --card-border: #ececec;
+  --button-bg: var(--white);
   --button-text: var(--black);
   --button-hover-bg: var(--yellow-light);
-  --link-active-bg: var(--yellow);
+  --link-active-bg: var(--white);
   --link-active-text: var(--black);
   --link-hover-bg: var(--yellow-light);
 }
@@ -35,10 +40,13 @@
 .dark {
   --bg-main: var(--gray);
   --text-main: var(--gray-light);
+  --text-secondary: #a1a1aa;
   --sidebar-bg: #2e343f;
   --sidebar-text: var(--gray-light);
   --card-bg: #2d323c;
   --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.30);
+  --card-bg-light: var(--black-light);
+  --card-border: #23272f;
   --button-bg: var(--yellow-light);
   --button-text: var(--gray);
   --button-hover-bg: var(--yellow);

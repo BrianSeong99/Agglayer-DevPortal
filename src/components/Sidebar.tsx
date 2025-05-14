@@ -69,7 +69,7 @@ export default function Sidebar() {
           className="mb-6 w-10 h-10 rounded-full font-medium shadow hover:bg-[var(--button-hover-bg)] transition flex items-center justify-center mx-auto"
           aria-label={isDark ? 'Switch to daylight mode' : 'Switch to night mode'}
         >
-          {isDark ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5" style={{ color: 'white' }} />}
+          {isDark ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5"/>}
         </button>
         <ConnectWallet />
       </div>
