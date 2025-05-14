@@ -20,21 +20,21 @@
   --black: #171717;
   --black-light: #17171797;
 
-  --bg-main: var(--yellow-light);
-  --text-main: var(--black);
+  --bg-main: #fff;
+  --text-main: #171717;
   --text-secondary: #6b7280;
-  --sidebar-bg: #ffffff97;
-  --sidebar-text: var(--black);
-  --card-bg: var(--white);
+  --sidebar-bg: #fff;
+  --sidebar-text: #171717;
+  --card-bg: #fff;
   --card-shadow: 0 8px 32px 0 rgba(60, 60, 60, 0.10);
-  --card-bg-light: var(--white-light);
+  --card-bg-light: #fffffff0;
   --card-border: #ececec;
-  --button-bg: var(--white);
-  --button-text: var(--black);
-  --button-hover-bg: var(--yellow-light);
-  --link-active-bg: var(--white);
-  --link-active-text: var(--black);
-  --link-hover-bg: var(--yellow-light);
+  --button-bg: var(--yellow);
+  --button-text: #171717;
+  --button-hover-bg: var(--yellow-dark);
+  --link-active-bg: var(--yellow-light);
+  --link-active-text: #171717;
+  --link-hover-bg: var(--yellow);
 }
 
 .dark {
