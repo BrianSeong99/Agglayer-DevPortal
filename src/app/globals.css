@@ -5,8 +5,45 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette */
+  --yellow: #F7C948;
+  --yellow-light: #ffe066;
+  --yellow-dark: #e0b200;
+  --blue: #2563eb;
+  --blue-light: #3b82f6;
+  --blue-dark: #1e40af;
+  --gray: #23272f;
+  --gray-light: #ededed;
+  --white: #fff;
+  --black: #171717;
+
+  --bg-main: var(--yellow);
+  --text-main: var(--black);
+  --sidebar-bg: #ffffffd7;
+  --sidebar-text: var(--black);
+  --card-bg: #ffffffd7;
+  --card-shadow: 0 8px 32px 0 rgba(60, 60, 60, 0.10);
+  --button-bg: var(--yellow);
+  --button-text: var(--black);
+  --button-hover-bg: var(--yellow-light);
+  --link-active-bg: var(--yellow);
+  --link-active-text: var(--black);
+  --link-hover-bg: var(--yellow-light);
+}
+
+.dark {
+  --bg-main: var(--gray);
+  --text-main: var(--gray-light);
+  --sidebar-bg: #2e343f;
+  --sidebar-text: var(--gray-light);
+  --card-bg: #2d323c;
+  --card-shadow: 0 8px 32px 0 rgba(0,0,0,0.30);
+  --button-bg: var(--yellow-light);
+  --button-text: var(--gray);
+  --button-hover-bg: var(--yellow);
+  --link-active-bg: var(--yellow-light);
+  --link-active-text: var(--gray);
+  --link-hover-bg: var(--yellow);
 }
 
 @theme inline {
@@ -18,13 +55,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-main: #23272f;
+    --text-main: #ededed;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-main);
+  color: var(--text-main);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.theme-btn {
+  background: var(--button-bg);
+  color: var(--button-text);
+  transition: background 0.2s;
+}
+.theme-btn:hover, .theme-btn:focus {
+  background: var(--button-hover-bg);
 }

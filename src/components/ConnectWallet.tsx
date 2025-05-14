@@ -3,7 +3,7 @@
 import { useConnect, useAccount, useDisconnect } from 'wagmi'
 
 export default function ConnectWallet() {
-  const { connect, connectors, isPending, pendingConnector } = useConnect()
+  const { connect, connectors, isPending } = useConnect()
   const { disconnect } = useDisconnect()
   const { address, status } = useAccount()
 
@@ -14,7 +14,8 @@ export default function ConnectWallet() {
         <div className="font-mono text-sm">{address}</div>
         <button
           onClick={() => disconnect()}
-          className="mt-2 text-sm bg-red-100 text-red-600 px-4 py-1 rounded hover:bg-red-200"
+          style={{ background: 'var(--button-bg)', color: 'var(--button-text)' }}
+          className="block w-full rounded-full px-6 py-3 font-semibold text-lg shadow theme-btn mt-2 whitespace-nowrap"
         >
           Disconnect
         </button>
@@ -28,10 +29,11 @@ export default function ConnectWallet() {
         <button
           key={connector.uid}
           onClick={() => connect({ connector })}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full"
+          style={{ background: 'var(--button-bg)', color: 'var(--button-text)' }}
+          className="block w-full rounded-full px-6 py-3 font-semibold text-lg shadow theme-btn whitespace-nowrap"
           disabled={!connector.ready || isPending}
         >
-          {isPending && pendingConnector?.uid === connector.uid
+          {isPending
             ? 'Connecting...'
             : `Connect ${connector.name}`}
         </button>
