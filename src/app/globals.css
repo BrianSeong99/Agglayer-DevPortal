@@ -51,7 +51,7 @@
 
   /* === Buttons & Links === */
   --button-bg: var(--primary);
-  --button-text: var(--color-white);
+  --button-text: var(--color-black);
   --button-hover-bg: var(--primary-dark);
   --link-active-bg: var(--primary-light);
   --link-active-text: var(--primary-dark);
@@ -75,15 +75,15 @@
   --border-card: var(--color-gray-dark);
   --shadow-card: 0 8px 32px 0 rgba(0,0,0,0.30);
 
-  /* === Primary (Blue) === */
-  --primary: var(--color-blue);
-  --primary-light: var(--color-blue-light);
-  --primary-dark: var(--color-blue-dark);
+  /* === Primary (Orange) === */
+  --primary: var(--color-orange);
+  --primary-light: var(--color-orange-light);
+  --primary-dark: var(--color-orange-dark);
 
-  /* === Accent (Orange) === */
-  --accent: var(--color-orange);
-  --accent-light: var(--color-orange-light);
-  --accent-dark: var(--color-orange-dark);
+  /* === Accent (Blue) === */
+  --accent: var(--color-blue);
+  --accent-light: var(--color-blue-light);
+  --accent-dark: var(--color-blue-dark);
 
   /* === Buttons & Links === */
   --button-bg: var(--primary);
