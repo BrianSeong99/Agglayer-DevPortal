@@ -320,7 +320,7 @@ export function CrossChainSwapForm() {
       <div className="mt-1 text-xs text-gray-500 grid grid-cols-2 gap-1">
         <p>• Bridge between fixed token pairs</p>
         <p>• Uses AggLayer's unified bridge</p>
-      </div>
+    </div>
     </form>
   );
 }

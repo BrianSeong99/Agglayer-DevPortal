@@ -16,6 +16,7 @@ export const SCALING_FACTOR = new BN(10).pow(new BN(18));
 
 interface NetworkConfiguration {
   rpc: string;
+  fallbackRpcs?: string[];
   bridgeAddress: string;
   bridgeExtensionAddress?: string;
   wrapperAddress?: string;
@@ -26,9 +27,23 @@ interface NetworkConfigurations {
   [key: number]: NetworkConfiguration;
 }
 
+// Define fallback RPC endpoints in case the primary ones hit rate limits
+const SEPOLIA_FALLBACKS = [
+  "https://rpc.ankr.com/eth_sepolia",
+  "https://ethereum-sepolia.publicnode.com",
+  "https://sepolia.gateway.tenderly.co",
+  "https://eth-sepolia.g.alchemy.com/v2/demo"
+];
+
+const CARDONA_FALLBACKS = [
+  process.env.NETWORK_1_FALLBACK_RPC || "",
+  "https://cardona-testnet.rpc.caldera.xyz/http"
+];
+
 const networkConfigurations: NetworkConfigurations = {
   0: { // Sepolia
     rpc: process.env.NETWORK_0_RPC || '',
+    fallbackRpcs: SEPOLIA_FALLBACKS,
     bridgeAddress: process.env.NETWORK_0_BRIDGE || '',
     bridgeExtensionAddress: process.env.NETWORK_0_BRIDGE_EXTENSION || '',
     wrapperAddress: process.env.NETWORK_0_WRAPPER || '',
@@ -36,6 +51,7 @@ const networkConfigurations: NetworkConfigurations = {
   },
   1: { // Cardona
     rpc: process.env.NETWORK_1_RPC || '',
+    fallbackRpcs: CARDONA_FALLBACKS,
     bridgeAddress: process.env.NETWORK_1_BRIDGE || '',
     bridgeExtensionAddress: process.env.NETWORK_1_BRIDGE_EXTENSION || '',
     isEIP1559Supported: false
@@ -60,11 +76,48 @@ const tempProvider = new HDWalletProvider(privateKey, 'https://rpc.ankr.com/eth'
 const userAddress = tempProvider.getAddress(0);
 tempProvider.engine.stop(); // Clean up the provider
 
+// Function to create a provider with automatic fallback in case of rate limiting
+const createProviderWithFallback = (privateKey: string, rpcs: string[]) => {
+  // Filter out empty RPCs
+  const validRpcs = rpcs.filter(rpc => !!rpc);
+  
+  if (validRpcs.length === 0) {
+    throw new Error("No valid RPC URLs provided");
+  }
+  
+  console.log(`Creating provider with ${validRpcs.length} potential RPCs`);
+  
+  // Create a provider that will use the first RPC initially
+  // HDWalletProvider doesn't support auto-switching RPCs, but this setup
+  // at least gives us multiple options when initializing
+  return new HDWalletProvider(
+    [privateKey], 
+    validRpcs[0]
+  );
+};
 
 export const getLxLyClient = async (network = 'testnet'): Promise<LxLyClient> => {
   if (!privateKey) {
     throw new Error('Private key is not set');
   }
+
+  console.log("Initializing LxLy client with RPC fallbacks...");
+  
+  // Combine primary and fallback RPCs for Sepolia
+  const sepoliaRpcs = [
+    networkConfigurations[0].rpc,
+    ...(networkConfigurations[0].fallbackRpcs || [])
+  ];
+  
+  // Combine primary and fallback RPCs for Cardona
+  const cardonaRpcs = [
+    networkConfigurations[1].rpc,
+    ...(networkConfigurations[1].fallbackRpcs || [])
+  ];
+  
+  // Create providers with fallback capability
+  const sepoliaProvider = createProviderWithFallback(privateKey, sepoliaRpcs);
+  const cardonaProvider = createProviderWithFallback(privateKey, cardonaRpcs);
 
   const lxLyClient = new LxLyClient();
   return await lxLyClient.init({
@@ -72,10 +125,7 @@ export const getLxLyClient = async (network = 'testnet'): Promise<LxLyClient> =>
     network: network,
     providers: {
       0: { // Sepolia
-        provider: new HDWalletProvider(
-          [privateKey], 
-          networkConfigurations[0].rpc
-        ),
+        provider: sepoliaProvider,
         configuration: {
           bridgeAddress: networkConfigurations[0].bridgeAddress,
           bridgeExtensionAddress: networkConfigurations[0].bridgeExtensionAddress,
@@ -87,10 +137,7 @@ export const getLxLyClient = async (network = 'testnet'): Promise<LxLyClient> =>
         }
       },
       1: { // Cardona
-        provider: new HDWalletProvider(
-          [privateKey], 
-          networkConfigurations[1].rpc
-        ),
+        provider: cardonaProvider,
         configuration: {
           bridgeAddress: networkConfigurations[1].bridgeAddress,
           bridgeExtensionAddress: networkConfigurations[1].bridgeExtensionAddress,
