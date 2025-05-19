@@ -6,7 +6,7 @@ export type DappData = {
   description: string
   bullets: string[]
   repoUrl: string
-  walkthrough: string[]
+  walkthrough: string
 }
 
 export const dapps: Record<string, DappData> = {
@@ -22,11 +22,7 @@ export const dapps: Record<string, DappData> = {
       'Cross-chain settlement via AggLayer Bridge-and-Call',
     ],
     repoUrl: 'https://github.com/BrianSeong99/zkHyperliquid',
-    walkthrough: [
-      '/src/sp1 – zkVM order engine',
-      '/src/frontend – React + Tailwind UI',
-      '/src/router – Cross-chain router logic',
-    ],
+    walkthrough: 'src/data/docs/zkHyperliquid.md',
   },
   uniswap: {
     logo: 'https://placehold.co/80x80?text=UNI',
@@ -40,11 +36,7 @@ export const dapps: Record<string, DappData> = {
       'Permissionless listings',
     ],
     repoUrl: 'https://github.com/Uniswap/v3-core',
-    walkthrough: [
-      '/contracts/core – AMM core logic',
-      '/contracts/periphery – Router + helper functions',
-      '/interface – Trade UI',
-    ],
+    walkthrough: "./docs/uniswap.md",
   },
   // Add more dApps here
 }
