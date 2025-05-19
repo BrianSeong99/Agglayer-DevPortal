@@ -1,8 +1,4 @@
-import DappProfile from '../../../../components/DappProfile'
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-
-type DappData = {
+export type DappData = {
   logo: string
   name: string
   tagline: string
@@ -13,7 +9,7 @@ type DappData = {
   walkthrough: string[]
 }
 
-const dapps: Record<string, DappData> = {
+export const dapps: Record<string, DappData> = {
   zkhyperliquid: {
     logo: 'https://placehold.co/80x80?text=ZK',
     name: 'zkHyperLiquid',
@@ -51,17 +47,4 @@ const dapps: Record<string, DappData> = {
     ],
   },
   // Add more dApps here
-}
-
-export default function DappDetailPage({ params }: { params: { slug: string } }) {
-  const data = dapps[params.slug]
-
-  if (!data) return notFound()
-
-  return (
-    <div>
-      <Link href="/dashboard/dapps" className="inline-block mb-4 px-4 py-2 rounded text-black font-medium shadow hover:bg-yellow-400 transition">←</Link>
-      <DappProfile {...data} />
-    </div>
-  )
 }

@@ -1,42 +1,23 @@
-import styles from './DappDashboard.module.css';
+import { dapps } from '@/data/dapps'
+import Link from 'next/link'
 
-const dapps = [
-    {
-      name: 'Aggswap',
-      description: 'Decentralized exchange for swapping tokens.',
-      url: '/dashboard/dapps/aggswap',
-    },
-    {
-      name: 'Stargate',
-      description: 'Omnichain bridge for cross-chain liquidity.',
-      url: '/dashboard/dapps/stargate',
-    },
-    {
-      name: 'Aave',
-      description: 'Decentralized lending protocol.',
-      url: '/dashboard/dapps/aave',
-    },
-  ]
-  
-  export default function DappDashboardPage() {
-    return (
-      <div className={styles.dashboard}>
-        <h2 className={styles.heading}>dApps</h2>
-        <div className={styles.grid}>
-          {dapps.map((dapp, i) => (
-            <a
-              key={dapp.name}
-              href={dapp.url}
-              className={styles.card}
-              style={{ animationDelay: `${i * 0.08 + 0.1}s` }}
-            >
-              <h3 className={styles.cardTitle}>{dapp.name}</h3>
-              <p className={styles.cardDesc}>{dapp.description}</p>
-              <button className={styles.openBtn}>Open {dapp.name}</button>
-            </a>
-          ))}
-        </div>
-      </div>
-    )
-  }
-  
+export default function ExamplesListPage() {
+  return (
+    <div>
+      <h1 className="text-2xl font-bold mb-6">Dapp Examples</h1>
+      <ul className="space-y-4">
+        {Object.entries(dapps).map(([slug, dapp]) => (
+          <li key={slug} className="p-4 rounded shadow bg-white flex items-center">
+            <img src={dapp.logo} alt={dapp.name} className="w-12 h-12 rounded mr-4" />
+            <div className="flex-1">
+              <Link href={`/dashboard/examples/${slug}`} className="text-lg font-semibold hover:underline">
+                {dapp.name}
+              </Link>
+              <div className="text-gray-500">{dapp.tagline}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
