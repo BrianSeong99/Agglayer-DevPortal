@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+@import 'github-markdown-css/github-markdown.css';
 
 @tailwind base;
 @tailwind components;
@@ -51,7 +52,7 @@
 
   /* === Buttons & Links === */
   --button-bg: var(--primary);
-  --button-text: var(--color-black);
+  --button-text: var(--color-white);
   --button-hover-bg: var(--primary-dark);
   --link-active-bg: var(--primary-light);
   --link-active-text: var(--primary-dark);
@@ -87,7 +88,7 @@
 
   /* === Buttons & Links === */
   --button-bg: var(--primary);
-  --button-text: var(--color-white);
+  --button-text: var(--color-black);
   --button-hover-bg: var(--primary-dark);
   --link-active-bg: var(--primary-light);
   --link-active-text: var(--primary-dark);

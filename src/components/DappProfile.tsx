@@ -1,6 +1,11 @@
+"use client";
 import { DappData } from '@/data/dapps'
 import ReactMarkdown from 'react-markdown'
-  
+import remarkGfm from 'remark-gfm'
+import { useEffect, useState } from 'react'
+import 'github-markdown-css/github-markdown.css'
+import Button from './Button'
+
 export default function DappProfile({
   logo,
   name,
@@ -11,6 +16,22 @@ export default function DappProfile({
   repoUrl,
   walkthrough,
 }: DappData) {
+  const [markdown, setMarkdown] = useState('')
+
+  useEffect(() => {
+    if (walkthrough.endsWith('.md')) {
+      fetch(walkthrough.startsWith('/') ? walkthrough : `/docs/${walkthrough}`)
+        .then(res => res.text())
+        .then(text => {
+          setMarkdown(text)
+          console.log(text)
+        }
+      )
+    } else {
+      setMarkdown(walkthrough)
+    }
+  }, [walkthrough])
+
   return (
     <div className="max-w-5xl mx-auto space-y-10">
       {/* App Header */}
@@ -24,6 +45,16 @@ export default function DappProfile({
           <h1 className="text-3xl font-bold">{name}</h1>
           <p className="text-gray-600">{tagline}</p>
         </div>
+      </div>
+
+      {/* Links */}
+      <div className="flex gap-2">
+        <Button href={repoUrl} className="w-fit">
+          ▶️ Try the App
+        </Button>
+        <Button href={repoUrl} className="w-fit">
+          🔗 View Source Code
+        </Button>
       </div>
 
       {/* Screenshots */}
@@ -50,18 +81,13 @@ export default function DappProfile({
         </ul>
       </div>
 
-      {/* Code Walkthrough */}
-      <div className="space-y-2">
-        <h2 className="text-xl font-semibold">Code Walkthrough</h2>
-        <a
-          href={repoUrl}
-          className="inline-block bg-gray-900 text-white px-4 py-2 rounded hover:bg-gray-800 transition"
-          target="_blank"
-        >
-          🔗 View Source Code
-        </a>
-        <div className="prose prose-sm prose-pre:bg-gray-900 prose-pre:text-white prose-pre:p-0 prose-pre:m-0">
-          <ReactMarkdown>{walkthrough}</ReactMarkdown>
+      {/* Project Walkthrough */}
+      <hr className="my-8 border-t border-gray-200" />
+      <div className="bg-white rounded-2xl shadow-lg p-6 mt-4">
+        <div className="markdown-body" style={{ padding: 0 }}>
+          <ReactMarkdown remarkPlugins={[remarkGfm]}>
+            {markdown}
+          </ReactMarkdown>
         </div>
       </div>
     </div>

@@ -43,10 +43,13 @@ export default function Sidebar() {
       </div>
       <nav className="space-y-3 flex-1">
         {links.map(({ href, label, icon }) => {
-          const isActive =
-            href === '/dashboard/dapps'
-              ? pathname && pathname.startsWith('/dashboard/dapps')
-              : pathname === href
+          const currentPath = pathname || '';
+          let isActive = false;
+          if (href === '/dashboard/examples') {
+            isActive = currentPath.startsWith('/dashboard/examples');
+          } else {
+            isActive = currentPath === href;
+          }
           return (
             <Link
               key={href}

@@ -6,7 +6,7 @@
 
 zkHyperliquid is a high-performance trading platform built on zero-knowledge proofs. It uses the Vapp framework to enable secure and cross-chain interoperability via AggLayer.
 
-![zkHyperliquid](../assets/zkhl-app.png)
+![zkHyperliquid](../pics/zkhl-app.png)
 
 ## Goal
 - Provide an efficient, scalable trading platform with low-latency order execution.
@@ -69,7 +69,7 @@ bun dev --port 3001
 
 ## Architecture Diagram
 
-![zkHyperliquid Architecture Diagram](../assets/zkHyperliquid.png)
+![zkHyperliquid Architecture Diagram](../pics/zkHyperliquid.png)
 Black components are complimented, the rest are not implemented yet.
 
 ## Key Features & Functionalities
