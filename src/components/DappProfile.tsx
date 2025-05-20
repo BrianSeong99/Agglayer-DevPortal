@@ -41,7 +41,7 @@ export default function DappProfile({
         />
         <div>
           <h1 className="text-3xl font-bold">{name}</h1>
-          <p className="text-gray-600">{tagline}</p>
+          <p className="text-[var(--text-secondary)]">{tagline}</p>
         </div>
       </div>
 
@@ -73,8 +73,8 @@ export default function DappProfile({
       {/* Project Description */}
       <div className="space-y-2">
         <h2 className="text-xl font-semibold">Project Description</h2>
-        <p className="text-gray-700">{description}</p>
-        <ul className="list-disc list-inside text-gray-700 mt-2">
+        <p className="text-[var(--text-secondary)]">{description}</p>
+        <ul className="list-disc list-inside text-[var(--text-secondary)] mt-2">
           {bullets.map((point, i) => <li key={i}>{point}</li>)}
         </ul>
       </div>
