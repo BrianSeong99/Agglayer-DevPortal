@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
+import { parseLink } from '@/utils/linkParser'
 
 interface TileProps {
   href?: string
@@ -52,11 +53,17 @@ export default function Tile({
       className,
     ].join(' ')
     if (href) {
-      return (
-        <Link href={href} target="_blank" rel="noopener noreferrer" className={baseClasses}>
-          {content}
-        </Link>
-      )
+      const { Component, props: linkProps } = parseLink({
+        href,
+        className: baseClasses,
+        children: content
+      });
+
+      return Component === 'Link' ? (
+        <Link {...linkProps} />
+      ) : (
+        <a {...linkProps} />
+      );
     }
     return <div className={baseClasses}>{content}</div>
   }
@@ -87,11 +94,17 @@ export default function Tile({
     className,
   ].join(' ')
   if (href) {
-    return (
-      <Link href={href} target="_blank" rel="noopener noreferrer" className={baseClasses}>
-        {content}
-      </Link>
-    )
+    const { Component, props: linkProps } = parseLink({
+      href,
+      className: baseClasses,
+      children: content
+    });
+
+    return Component === 'Link' ? (
+      <Link {...linkProps} />
+    ) : (
+      <a {...linkProps} />
+    );
   }
   return <div className={baseClasses}>{content}</div>
 } 

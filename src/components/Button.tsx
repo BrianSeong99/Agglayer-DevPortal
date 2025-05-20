@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
+import { parseLink } from '@/utils/linkParser';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -21,21 +22,20 @@ export default function Button({
   const style = { background: 'var(--button-bg)', color: 'var(--button-text)' };
 
   if (href) {
-    // Internal links use next/link, external use <a>
-    if (href.startsWith('/')) {
-      return (
-        <Link href={href} className={baseClasses} style={style}>
-          {children}
-        </Link>
-      );
-    } else {
-      return (
-        <a href={href} className={baseClasses} style={style} target="_blank" rel="noopener noreferrer">
-          {children}
-        </a>
-      );
-    }
+    const { Component, props: linkProps } = parseLink({
+      href,
+      className: baseClasses,
+      style,
+      children
+    });
+
+    return Component === 'Link' ? (
+      <Link {...linkProps} />
+    ) : (
+      <a {...linkProps} />
+    );
   }
+
   return (
     <button className={baseClasses} style={style} {...props}>
       {children}

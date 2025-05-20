@@ -1,12 +1,8 @@
 # zkHyperliquid
 
-[![TypeScript](https://img.shields.io/badge/TypeScript-^5.0.0-3178C6)](https://www.typescriptlang.org)
-[![Rust](https://img.shields.io/badge/Rust-nightly-B7410E)](https://www.rust-lang.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
 zkHyperliquid is a high-performance trading platform built on zero-knowledge proofs. It uses the Vapp framework to enable secure and cross-chain interoperability via AggLayer.
 
-![zkHyperliquid](../pics/zkhl-app.png)
+![zkHyperliquid](/dapps/pics/zkhl-app.png)
 
 ## Goal
 - Provide an efficient, scalable trading platform with low-latency order execution.
@@ -69,7 +65,7 @@ bun dev --port 3001
 
 ## Architecture Diagram
 
-![zkHyperliquid Architecture Diagram](../pics/zkHyperliquid.png)
+![zkHyperliquid Architecture Diagram](/dapps/pics/zkHyperliquid.png)
 Black components are complimented, the rest are not implemented yet.
 
 ## Key Features & Functionalities
