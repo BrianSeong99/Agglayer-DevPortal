@@ -16,15 +16,6 @@ const links = [
 
 export default function Sidebar() {
   const pathname = usePathname()
-  const [isDark, setIsDark] = useState(false)
-
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [isDark])
 
   return (
     <aside
@@ -33,11 +24,14 @@ export default function Sidebar() {
     >
       <div className="flex items-center mb-8">
         <span className="relative w-8 h-8 mr-2">
-          <img
-            src={isDark ? "/AggShell-Night.png" : "/AggShell-Day.png"}
-            alt="AggShell Logo"
-            className="w-8 h-8"
-          />
+          <picture>
+            <source srcSet="/AggShell-Night.png" media="(prefers-color-scheme: dark)" />
+            <img
+              src="/AggShell-Day.png"
+              alt="AggShell Logo"
+              className="w-8 h-8"
+            />
+          </picture>
         </span>
         <span className="text-2xl font-bold" style={{ color: 'var(--text-sidebar)' }}>AggShell</span>
       </div>
@@ -72,14 +66,6 @@ export default function Sidebar() {
         })}
       </nav>
       <div className="mt-8">
-        <button
-          onClick={() => setIsDark((d) => !d)}
-          style={{ background: 'var(--button-bg)', color: 'var(--button-text)' }}
-          className="mb-6 w-10 h-10 rounded-full font-medium shadow hover:bg-[var(--button-hover-bg)] transition flex items-center justify-center mx-auto"
-          aria-label={isDark ? 'Switch to daylight mode' : 'Switch to night mode'}
-        >
-          {isDark ? <FaMoon className="w-5 h-5" /> : <FaSun className="w-5 h-5"/>}
-        </button>
         <ConnectWallet />
       </div>
     </aside>

@@ -24,9 +24,7 @@ export default function DappProfile({
         .then(res => res.text())
         .then(text => {
           setMarkdown(text)
-          console.log(text)
-        }
-      )
+        })
     } else {
       setMarkdown(walkthrough)
     }
@@ -83,7 +81,10 @@ export default function DappProfile({
 
       {/* Project Walkthrough */}
       <hr className="my-8 border-t border-gray-200" />
-      <div className="bg-white rounded-2xl shadow-lg p-6 mt-4">
+      <div
+        className="rounded-2xl p-6 mt-4"
+        style={{ background: 'var(--bg-card)', color: 'var(--text-main)', boxShadow: 'var(--shadow-card)' }}
+      >
         <div className="markdown-body" style={{ padding: 0 }}>
           <ReactMarkdown remarkPlugins={[remarkGfm]}>
             {markdown}
