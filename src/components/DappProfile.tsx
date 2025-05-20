@@ -37,7 +37,7 @@ export default function DappProfile({
         <img
           src={logo}
           alt={`${name} logo`}
-          className="w-20 h-20 rounded-lg border"
+          className="w-20 h-20 rounded-lg"
         />
         <div>
           <h1 className="text-3xl font-bold">{name}</h1>
@@ -64,7 +64,7 @@ export default function DappProfile({
               key={i}
               src={src}
               alt={`Screenshot ${i + 1}`}
-              className="w-[400px] h-[250px] object-cover rounded-lg border"
+              className="w-[400px] h-[250px] object-cover rounded-lg"
             />
           ))}
         </div>

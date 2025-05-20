@@ -11,10 +11,10 @@ export type DappData = {
 
 export const dapps: Record<string, DappData> = {
   zkhyperliquid: {
-    logo: 'https://placehold.co/80x80?text=ZK',
+    logo: '/dapps/pics/zkhl/zkhl-logo.png',
     name: 'zkHyperLiquid',
     tagline: 'High-performance ZK trading with cross-chain interoperability',
-    screenshots: ["/dapps/pics/zkhl-app.png", "/dapps/pics/zkhl-app.png", "/dapps/pics/zkhl-app.png", "/dapps/pics/zkhl-app.png", "/dapps/pics/zkhl-app.png"],
+    screenshots: ["/dapps/pics/zkhl/zkhl-app.png", "/dapps/pics/zkhl/zkhl-app.png", "/dapps/pics/zkhl/zkhl-app.png", "/dapps/pics/zkhl/zkhl-app.png", "/dapps/pics/zkhl/zkhl-app.png"],
     description: 'zkHyperLiquid is a trading platform combining high-performance matching with ZK security. It uses SP1 to verifiably match orders and settle cross-chain using AggLayer.',
     bullets: [
       'Verifiable order matching via SP1',
