@@ -26,10 +26,10 @@
   --color-gray-text-dark: #a1a1aa;
 
   /* === Backgrounds === */
-  --bg-main: var(--color-white);
-  --bg-sidebar: var(--color-white);
+  --bg-main: var(--color-gray-light);
+  --bg-sidebar: var(--color-white-light);
   --bg-dashboard: var(--color-white-light);
-  --bg-card: var(--color-white);
+  --bg-card: var(--color-white-light);
   --bg-card-light: var(--color-white-light);
 
   /* === Text === */
@@ -69,9 +69,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-main: var(--color-black);
+    --bg-main: var(--color-gray-dark);
     --text-main: var(--color-gray-light);
-    --bg-sidebar: var(--color-gray-dark);
+    --bg-sidebar: var(--color-black-light);
     --bg-dashboard: var(--color-black-light);
     --bg-card: var(--color-black-light);
     --bg-card-light: var(--color-black-light);
