@@ -1,7 +1,7 @@
 // pages/api/swap-tokens.js
 import { ethers } from "ethers";
-import RouterAbi from "../../src/app/dashboard/examples/aggswap/abis/UniswapV2Router02.json";
-import ERC20Abi from "../../src/app/dashboard/examples/aggswap/abis/ERC-20.json";
+import RouterAbi from "../../src/app/dashboard/examples/[slug]/aggswap/abis/UniswapV2Router02.json";
+import ERC20Abi from "../../src/app/dashboard/examples/[slug]/aggswap/abis/ERC-20.json";
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
