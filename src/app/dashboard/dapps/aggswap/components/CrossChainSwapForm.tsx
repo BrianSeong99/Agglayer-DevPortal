@@ -36,6 +36,15 @@ export function CrossChainSwapForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [pollingInterval, setPollingInterval] = useState<NodeJS.Timeout | null>(null);
+  const [destinationTxHash, setDestinationTxHash] = useState("");
+  const [transactionDetails, setTransactionDetails] = useState("");
+  const [assetClaimed, setAssetClaimed] = useState(false);
+  const [showMessageClaimButton, setShowMessageClaimButton] = useState(false);
+  const [messageClaimState, setMessageClaimState] = useState<"idle" | "claiming" | "claimed" | "error">("idle");
+  const [messageClaimTxHash, setMessageClaimTxHash] = useState("");
+  const [claimButtonTimer, setClaimButtonTimer] = useState<NodeJS.Timeout | null>(null);
+  const [showPoweredByText, setShowPoweredByText] = useState(false);
+  const [poweredByTimer, setPoweredByTimer] = useState<NodeJS.Timeout | null>(null);
 
   // Fetch token options when component mounts
   useEffect(() => {
@@ -67,31 +76,66 @@ export function CrossChainSwapForm() {
     return tokenOptions.find(option => option.value === selectedOption);
   };
 
-  // Effect to check transaction status periodically
+  // Modify the existing useEffect that checks transaction status
   useEffect(() => {
-    if (txHash && address && txState === "bridging") {
+    if (txHash && address && txState !== "claimed") {
       const checkStatus = async () => {
         try {
-          // Call an API endpoint that checks transaction status
+          // Call our API endpoint to check transaction status
           const response = await axios.get(`/api/check-transaction-status?txHash=${txHash}&address=${address}`);
           
-          if (response.data.state === "READY_TO_CLAIM") {
+          const { state, destinationTxHash, details } = response.data;
+          
+          // Update UI based on transaction state
+          if (state === "BRIDGED" && txState === "idle") {
+            setTxState("bridging");
+          } else if (state === "READY_TO_CLAIM" && txState !== "ready_to_claim") {
             setTxState("ready_to_claim");
-          } else if (response.data.state === "CLAIMED") {
+          } else if (state === "CLAIMED" && !assetClaimed) {
+            setAssetClaimed(true);
             setTxState("claimed");
             setStatus("success");
+            
+            // Set a 5-second timer before showing the claim message button
+            if (claimButtonTimer) clearTimeout(claimButtonTimer);
+            const timer = setTimeout(() => {
+              setShowMessageClaimButton(true);
+            }, 5000);
+            setClaimButtonTimer(timer);
+            
+            // Save destination transaction hash if available
+            if (destinationTxHash) {
+              setDestinationTxHash(destinationTxHash);
+            }
+            
+            // Stop polling once asset is claimed
+            if (pollingInterval) {
+              clearInterval(pollingInterval);
+              setPollingInterval(null);
+            }
+          } else if (state === "FAILED") {
+            setTxState("idle");
+            setStatus("error");
+            setErrorMessage("Transaction failed on the destination chain");
+            // Stop polling on failure
             if (pollingInterval) {
               clearInterval(pollingInterval);
               setPollingInterval(null);
             }
           }
+          
+          // Save transaction details if available
+          if (details) {
+            setTransactionDetails(details);
+          }
         } catch (error) {
           console.error("Error checking transaction status:", error);
+          // Don't set error state here to avoid interrupting the polling
         }
       };
 
-      // Check every 30 seconds
-      const interval = setInterval(checkStatus, 30000);
+      // Check every 20 seconds (don't poll too frequently to avoid API rate limits)
+      const interval = setInterval(checkStatus, 20000);
       setPollingInterval(interval);
 
       // Initial check
@@ -99,8 +143,14 @@ export function CrossChainSwapForm() {
 
       // Cleanup interval on unmount
       return () => {
-        clearInterval(interval);
-        setPollingInterval(null);
+        if (interval) {
+          clearInterval(interval);
+          setPollingInterval(null);
+        }
+        if (claimButtonTimer) {
+          clearTimeout(claimButtonTimer);
+          setClaimButtonTimer(null);
+        }
       };
     }
 
@@ -109,6 +159,10 @@ export function CrossChainSwapForm() {
       if (pollingInterval) {
         clearInterval(pollingInterval);
         setPollingInterval(null);
+      }
+      if (claimButtonTimer) {
+        clearTimeout(claimButtonTimer);
+        setClaimButtonTimer(null);
       }
     };
   }, [txHash, address, txState]);
@@ -137,6 +191,14 @@ export function CrossChainSwapForm() {
     }
 
     setLoading(true);
+    setShowPoweredByText(true);
+    
+    // Set a timer to hide the "powered by agglayer" text after 5 seconds
+    if (poweredByTimer) clearTimeout(poweredByTimer);
+    const timer = setTimeout(() => {
+      setShowPoweredByText(false);
+    }, 5000);
+    setPoweredByTimer(timer);
     
     try {
       console.log("Sending request with:", {
@@ -179,7 +241,7 @@ export function CrossChainSwapForm() {
   function getStatusMessage() {
     switch (txState) {
       case "bridging":
-        return "Transaction is being bridged from Sepolia to Cardona. This process typically takes 5-10 minutes.";
+        return "";
       case "ready_to_claim":
         return "Transaction is ready to be claimed on Cardona. The backend will automatically claim it shortly.";
       case "claimed":
@@ -192,135 +254,271 @@ export function CrossChainSwapForm() {
   // Get current token pair details for display
   const selectedTokenInfo = getSelectedTokenInfo();
 
-  return (
-    <form onSubmit={handleCrossSwap} className="space-y-2">
-      <div className="mb-1">
-        <h3 className="text-base font-semibold mb-0.5">Cross-chain swap (Sepolia → Cardona)</h3>
-        <p className="text-xs text-gray-600">Bridge tokens from Sepolia to Cardona in one transaction</p>
-      </div>
+  async function handleClaimMessage() {
+    if (!txHash || !address) return;
+    
+    setMessageClaimState("claiming");
+    
+    try {
+      const response = await axios.post("/api/claim-message", {
+        bridgeTransactionHash: txHash,
+        userAddress: address
+      });
       
+      console.log("Message claim response:", response.data);
+      
+      if (response.data.success) {
+        setMessageClaimState("claimed");
+        setMessageClaimTxHash(response.data.messageClaimTxHash);
+      } else {
+        setMessageClaimState("error");
+        setErrorMessage(response.data.message || "Unknown error occurred");
+      }
+    } catch (err: any) {
+      console.error("Error claiming message:", err);
+      setMessageClaimState("error");
+      
+      // Extract the error message from the response
+      const errorMsg = err.response?.data?.message || 
+                      err.response?.data?.error || 
+                      err.message || 
+                      "Failed to claim message";
+                      
+      // Handle specific error cases
+      if (err.response?.status === 409) {
+        // Already claimed error - this is actually good news
+        setMessageClaimState("claimed");
+        setErrorMessage("Message was already claimed successfully!");
+      } else if (err.response?.status === 404) {
+        setErrorMessage(`Transaction not found: ${errorMsg}`);
+      } else if (err.response?.status === 400) {
+        setErrorMessage(`Cannot claim yet: ${errorMsg}`);
+      } else {
+        setErrorMessage(errorMsg);
+      }
+    }
+  }
+
+  // Cleanup function in useEffect
+  useEffect(() => {
+    return () => {
+      if (pollingInterval) {
+        clearInterval(pollingInterval);
+        setPollingInterval(null);
+      }
+      if (claimButtonTimer) {
+        clearTimeout(claimButtonTimer);
+        setClaimButtonTimer(null);
+      }
+      if (poweredByTimer) {
+        clearTimeout(poweredByTimer);
+        setPoweredByTimer(null);
+      }
+    };
+  }, []);
+
+  return (
+    <div>
+      {/* Transaction Status Display */}
       {(txState === "bridging" || txState === "ready_to_claim" || txState === "claimed") && (
-        <div className="bg-blue-50 border border-blue-200 text-blue-800 rounded-md p-2 mb-2">
-          <div className="flex items-center justify-between mb-1">
-            <p className="text-sm font-medium">Transaction in progress</p>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">
+        <div className="status-display mb-4">
+          <div className="status-header">
+            <h3 className="status-title">Transaction Status</h3>
+            <span className={`status-badge ${txState === "bridging" ? "bridging" : txState === "claimed" ? "claimed" : ""}`}>
               {txState === "bridging" ? "Bridging" : txState === "ready_to_claim" ? "Ready to Claim" : "Claimed"}
             </span>
           </div>
+          
           {txHash && (
-            <p className="text-xs mt-0.5">
-              Transaction: <a href={`https://sepolia.etherscan.io/tx/${txHash}`} target="_blank" rel="noopener noreferrer" className="font-mono underline">{txHash.slice(0,8)}...{txHash.slice(-6)}</a>
+            <p className="text-xs mt-1 text-gray-400">
+              Source: <a href={`https://sepolia.etherscan.io/tx/${txHash}`} target="_blank" rel="noopener noreferrer" className="tx-link">
+                {txHash.slice(0,8)}...{txHash.slice(-6)} ↗
+              </a>
             </p>
           )}
-          <p className="text-xs mt-1">{getStatusMessage()}</p>
           
-          {/* Progress bar */}
-          <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+          <div className="progress-bar">
             <div 
-              className="bg-blue-600 h-2 rounded-full transition-all duration-500" 
+              className="progress-fill" 
               style={{ 
                 width: txState === "bridging" ? "33%" : 
                        txState === "ready_to_claim" ? "66%" : 
-                       "100%" 
+                       txState === "claimed" ? "100%" : "0%" 
               }}
             ></div>
           </div>
-          <div className="flex justify-between text-xs mt-1 text-blue-800">
+          
+          <div className="flex justify-between text-xs text-gray-400">
             <span>Initiated</span>
             <span>Processing</span>
             <span>Completed</span>
           </div>
+          
+          <p className="text-sm mt-3 text-gray-300">{getStatusMessage()}</p>
+          
+          {/* Message Claim Button - Only show after asset is claimed and 5-second timer completes */}
+          {assetClaimed && showMessageClaimButton && (
+            <div className="mt-3 pt-3 border-t border-gray-800">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm text-gray-300">
+                  <span className="font-medium text-green-300">Asset claimed successfully!</span> 
+                  <span className="text-xs block mt-1">Please claim the message to complete the swap:</span>
+                </p>
+              </div>
+              
+              {messageClaimState === "idle" && (
+                <button 
+                  onClick={handleClaimMessage}
+                  className="claim-button"
+                >
+                  Claim Message to Complete Swap
+                </button>
+              )}
+              
+              {messageClaimState === "claiming" && (
+                <button disabled className="claim-button opacity-70 flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Claiming Message...
+                </button>
+              )}
+              
+              {messageClaimState === "claimed" && (
+                <div className="mt-1 text-xs text-green-300">
+                  <p className="font-medium">✓ Message successfully claimed!</p>
+                  {messageClaimTxHash && (
+                    <p className="mt-1">
+                      View Transaction: <a href={`https://explorer.cardona.zkevm-rpc.com/tx/${messageClaimTxHash}`} target="_blank" rel="noopener noreferrer" className="tx-link">
+                        {messageClaimTxHash.slice(0,8)}...{messageClaimTxHash.slice(-6)} ↗
+                      </a>
+                    </p>
+                  )}
+                </div>
+              )}
+              
+              {messageClaimState === "error" && (
+                <div className="mt-1">
+                  <p className="text-xs text-red-400">{errorMessage || "Error claiming message. Please try again."}</p>
+                  <button 
+                    onClick={handleClaimMessage}
+                    className="claim-button mt-2 bg-red-900/30 text-red-300 hover:bg-red-900/40"
+                  >
+                    Retry Message Claim
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
       
-      {status === "error" && (
-        <div className="bg-red-50 border border-red-200 text-red-800 rounded-md p-2 mb-2">
+      {/* Error display */}
+      {status === "error" && txState === "idle" && (
+        <div className="bg-red-900/20 border border-red-500/30 text-red-300 rounded-md p-3 mb-4">
           <p className="text-sm font-medium">Transaction failed</p>
-          <p className="text-xs mt-0.5">{errorMessage}</p>
+          <p className="text-xs mt-1">{errorMessage}</p>
         </div>
       )}
       
-      <div className="form-group mb-3">
-        <label htmlFor="tokenPair" className="form-label text-sm mb-0.5">Select Token Pair</label>
-        <select 
-          id="tokenPair"
-          className="input py-1.5 w-full" 
-          value={selectedOption}
-          onChange={(e) => setSelectedOption(e.target.value as TokenSelection)}
-          disabled={loading || txState !== "idle" || loadingOptions}
+      {/* Form */}
+      <form onSubmit={handleCrossSwap}>
+        {/* Token selection */}
+        <div className="token-section-label">
+          Select Token Pair
+        </div>
+        <div className="token-section mb-4">
+          <select 
+            className="w-full bg-transparent text-white border-none outline-none p-2 text-lg"
+            value={selectedOption}
+            onChange={(e) => setSelectedOption(e.target.value as TokenSelection)}
+            disabled={loading || txState !== "idle" || loadingOptions}
+          >
+            <option value="" className="bg-gray-900">-- Select Token Pair --</option>
+            {tokenOptions.map((option) => (
+              <option key={option.value} value={option.value} className="bg-gray-900">
+                {option.label}
+              </option>
+            ))}
+          </select>
+          
+          {selectedTokenInfo && (
+            <div className="mt-3 px-2 text-xs text-gray-300 flex flex-col gap-2">
+              <div className="flex items-center">
+                <span className="inline-block h-2 w-2 rounded-full bg-blue-500 mr-2"></span>
+                <span className="font-medium">Source:</span>
+                <span className="ml-1">{selectedTokenInfo.sourceToken.name}</span>
+                <span className="ml-1 text-gray-500 font-mono">{selectedTokenInfo.sourceToken.address.slice(0,6)}...{selectedTokenInfo.sourceToken.address.slice(-4)}</span>
+              </div>
+              <div className="flex items-center">
+                <span className="inline-block h-2 w-2 rounded-full bg-pink-500 mr-2"></span>
+                <span className="font-medium">Destination:</span>
+                <span className="ml-1">{selectedTokenInfo.destinationToken.name}</span>
+                <span className="ml-1 text-gray-500 font-mono">{selectedTokenInfo.destinationToken.address.slice(0,6)}...{selectedTokenInfo.destinationToken.address.slice(-4)}</span>
+              </div>
+            </div>
+          )}
+        </div>
+        
+        {/* Amount input */}
+        <div className="token-section-label">
+          Amount to bridge and swap
+        </div>
+        <div className="token-section">
+          <input 
+            className="token-amount-input"
+            placeholder="0.0" 
+            type="number"
+            min="0.000001"
+            step="0.000001"
+            value={amountIn} 
+            onChange={(e) => setAmountIn(e.target.value)} 
+            disabled={loading || txState !== "idle"}
+          />
+          <p className="mt-2 text-xs text-gray-400">Cross-chain transactions may take 20-25 minutes to complete</p>
+        </div>
+        
+        {/* Submit button */}
+        <button 
+          type="submit" 
+          className="action-button"
+          disabled={loading || txState !== "idle" || !selectedOption || !amountIn || amountIn === "0" || loadingOptions}
         >
-          <option value="">-- Select Token Pair --</option>
-          {tokenOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        
-        {selectedTokenInfo && (
-          <div className="mt-2 text-xs text-gray-700 bg-gray-50 p-2 rounded">
-            <div className="flex items-center mb-1">
-              <span className="h-2 w-2 rounded-full bg-blue-500 mr-1.5"></span>
-              <span className="font-medium">Source:</span>
-              <span className="ml-1">{selectedTokenInfo.sourceToken.name}</span>
-              <span className="ml-1 text-gray-500 font-mono">{selectedTokenInfo.sourceToken.address.slice(0,6)}...{selectedTokenInfo.sourceToken.address.slice(-4)}</span>
-            </div>
-            <div className="flex items-center">
-              <span className="h-2 w-2 rounded-full bg-purple-500 mr-1.5"></span>
-              <span className="font-medium">Destination:</span>
-              <span className="ml-1">{selectedTokenInfo.destinationToken.name}</span>
-              <span className="ml-1 text-gray-500 font-mono">{selectedTokenInfo.destinationToken.address.slice(0,6)}...{selectedTokenInfo.destinationToken.address.slice(-4)}</span>
-            </div>
-          </div>
-        )}
-      </div>
-      
-      <div className="form-group mb-3">
-        <label htmlFor="amountCross" className="form-label text-sm mb-0.5">Amount to bridge and swap</label>
-        <input 
-          id="amountCross"
-          className="input py-1.5" 
-          placeholder="0.0" 
-          type="number"
-          min="0.000001"
-          step="0.000001"
-          value={amountIn} 
-          onChange={(e) => setAmountIn(e.target.value)} 
-          disabled={loading || txState !== "idle"}
-        />
-        <p className="mt-0.5 text-xs text-gray-500">Cross-chain transactions may take a few minutes to complete</p>
-      </div>
-      
-      <button 
-        type="submit" 
-        className="btn btn-accent relative overflow-hidden py-2"
-        disabled={loading || txState !== "idle" || !selectedOption || !amountIn || amountIn === "0" || loadingOptions}
-      >
-        {loading ? (
-          <span className="flex items-center justify-center">
-            <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Processing Bridge + Swap...
-          </span>
-        ) : loadingOptions ? (
-          "Loading Token Options..."
-        ) : txState !== "idle" ? (
-          "Transaction in Progress..."
-        ) : (
-          "Bridge + Swap"
-        )}
-        
-        {loading && (
-          <span className="absolute bottom-0 left-0 h-1 bg-white/20 animate-progress"></span>
-        )}
+          {loading ? (
+            <span className="flex items-center justify-center relative">
+              {showPoweredByText ? (
+                <span className="powered-by-text">Powered by the AgglLayer</span>
+              ) : (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing...
+                </>
+              )}
+            </span>
+          ) : loadingOptions ? (
+            "Loading Token Options..."
+          ) : txState !== "idle" ? (
+            "Transaction in Progress..."
+          ) : (
+            "Bridge + Swap"
+          )}
       </button>
       
-      <div className="mt-1 text-xs text-gray-500 grid grid-cols-2 gap-1">
-        <p>• Bridge between fixed token pairs</p>
-        <p>• Uses AggLayer's unified bridge</p>
+        {/* Information about the two-step process */}
+        <div className="mt-4 text-xs text-gray-400 p-3 bg-black/30 rounded-md">
+          <p className="font-medium mb-1 text-gray-300">About Cross-Chain Bridging:</p>
+          <ul className="space-y-1">
+            <li>• Bridging has two components: Asset and Message</li>
+            <li>• Assets are automatically claimed by the bridge</li>
+            <li>• Messages (for swap execution) need manual claiming</li>
+            <li>• The claim button will appear after asset bridging completes</li>
+          </ul>
+        </div>
+      </form>
     </div>
-    </form>
   );
 }
