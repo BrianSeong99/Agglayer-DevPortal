@@ -10,6 +10,21 @@ export type DappData = {
 }
 
 export const dapps: Record<string, DappData> = {
+  aggswap: {
+    logo: '/dapps/pics/aggswap/logo.svg',
+    name: 'AggSwap',
+    tagline: 'Cross-chain swaps made easy with AggLayer',
+    screenshots: ['/dapps/pics/aggswap/aggswap-info-page.png', '/dapps/pics/aggswap/aggswap-swap-interface.png'],
+    description: 'AggSwap is a decentralized exchange that enables token swaps across different blockchains using AggLayer technology.',
+    bullets: [
+      'Seamless cross-chain swaps',
+      'Seploia to Cardona testnet',
+      'Powered by AggLayer Unified bridge'
+      
+    ],
+    repoUrl: 'https://github.com/Polygon-Edge/Agglayer',
+    walkthrough: '/dapps/docs/aggswap.md',
+  },
   zkhyperliquid: {
     logo: '/dapps/pics/zkhl/zkhl-logo.png',
     name: 'zkHyperLiquid',

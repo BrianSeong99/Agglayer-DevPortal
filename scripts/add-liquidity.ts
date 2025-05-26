@@ -1,8 +1,8 @@
 import "dotenv/config";
 import { ethers } from "ethers";
-import ERC20Abi from "../src/app/dashboard/examples/[slug]/aggswap/abis/ERC-20.json";
-import RouterAbi from "../src/app/dashboard/examples/[slug]/aggswap/abis/UniswapV2Router02.json";
-import FactoryAbi from "../src/app/dashboard/examples/[slug]/aggswap/abis/UniswapV2Factory.json";
+import ERC20Abi from "../src/app/dashboard/examples/aggswap-app/abis/ERC-20.json";
+import RouterAbi from "../src/app/dashboard/examples/aggswap-app/abis/UniswapV2Router02.json";
+import FactoryAbi from "../src/app/dashboard/examples/aggswap-app/abis/UniswapV2Factory.json";
 
 // Function to add liquidity on Cardona
 async function addLiquidity(

@@ -1,6 +1,6 @@
 .dashboard {
   min-height: 100vh;
-  background: linear-gradient(135deg, #fff 0%, #f3f4f6 100%);
+  background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-card-light) 100%);
   padding: 2rem 0 4rem 0;
 }
 
@@ -8,7 +8,7 @@
   font-size: 2.25rem;
   font-weight: 800;
   letter-spacing: -0.02em;
-  color: #18181b;
+  color: var(--text-primary);
   margin-bottom: 2rem;
   text-align: center;
 }
@@ -33,20 +33,22 @@
 }
 
 .card {
-  background: rgba(255,255,255,0.92);
-  border: 1.5px solid #e5e7eb;
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-card);
   border-radius: 1.25rem;
-  box-shadow: 0 4px 24px 0 rgba(0,0,0,0.07);
+  box-shadow: var(--shadow-card);
   padding: 2rem 1.5rem 1.5rem 1.5rem;
   transition: box-shadow 0.25s cubic-bezier(.4,0,.2,1), transform 0.22s cubic-bezier(.4,0,.2,1), border 0.22s;
   position: relative;
   overflow: hidden;
   animation: fadeInUpSlide 0.8s cubic-bezier(.4,0,.2,1);
   animation-fill-mode: both;
+  display: block;
+  text-decoration: none;
 }
 .card:hover {
   box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
-  border-color: #18181b;
+  border-color: var(--primary);
   transform: translateY(-6px) scale(1.03);
 }
 
@@ -68,43 +70,26 @@
 .cardTitle {
   font-size: 1.25rem;
   font-weight: 700;
-  color: #18181b;
+  color: var(--text-primary);
   margin-bottom: 0.25rem;
 }
 .cardDesc {
-  color: #64748b;
+  color: var(--text-secondary);
   font-size: 1rem;
   margin-bottom: 1.25rem;
 }
 
 .openBtn {
-  display: inline-block;
-  width: 100%;
-  padding: 0.75rem 0;
-  font-size: 1.1rem;
-  font-weight: 700;
-  border-radius: 0.75rem;
-  background: #18181b;
-  color: #fff;
+  background: var(--button-bg);
+  color: var(--button-text);
   border: none;
-  box-shadow: 0 2px 8px 0 rgba(24,24,27,0.10);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
-  outline: none;
-  position: relative;
-  overflow: hidden;
-  /* Add subtle SVG texture overlay */
-  background-image:
-    repeating-linear-gradient(135deg, rgba(255,255,255,0.04) 0 2px, transparent 2px 8px),
-    url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='0' y='0' width='2' height='2' fill='%23fff' fill-opacity='0.04'/%3E%3C/svg%3E");
-  background-size: 100% 100%, 20px 20px;
+  transition: background 0.2s ease;
 }
-.openBtn:hover, .openBtn:focus {
-  background: #232323;
-  box-shadow: 0 4px 16px 0 rgba(24,24,27,0.18);
-  transform: scale(1.035) translateY(-2px);
-}
-.openBtn:active {
-  transform: scale(0.98);
-  box-shadow: 0 1px 4px 0 rgba(24,24,27,0.10);
+
+.openBtn:hover {
+  background: var(--button-hover-bg);
 } 

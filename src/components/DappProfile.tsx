@@ -19,16 +19,25 @@ export default function DappProfile({
   const [markdown, setMarkdown] = useState('')
 
   useEffect(() => {
-    if (walkthrough.endsWith('.md')) {
+    if (typeof walkthrough === 'string' && walkthrough.endsWith('.md')) {
       fetch(walkthrough.startsWith('/') ? walkthrough : `/docs/${walkthrough}`)
         .then(res => res.text())
         .then(text => {
           setMarkdown(text)
         })
     } else {
-      setMarkdown(walkthrough)
+      setMarkdown(typeof walkthrough === 'string' ? walkthrough : '')
     }
   }, [walkthrough])
+
+  // Determine the app URL based on the app name
+  const getAppUrl = () => {
+    if (name === 'AggSwap') {
+      return '/dashboard/examples/aggswap-app'
+    }
+    // Default to repo URL for other apps
+    return repoUrl
+  }
 
   return (
     <div className="max-w-5xl mx-auto space-y-10">
@@ -47,7 +56,7 @@ export default function DappProfile({
 
       {/* Links */}
       <div className="flex gap-2">
-        <Button href={repoUrl} className="w-fit">
+        <Button href={getAppUrl()} className="w-fit">
           ▶️ Try the App
         </Button>
         <Button href={repoUrl} className="w-fit">

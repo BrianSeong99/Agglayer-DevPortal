@@ -18,7 +18,7 @@ use(Web3ClientPlugin);
 const { getLxLyClient, from, to } = require('./utils_lxly');
 
 // Load ERC20 ABI (for token approvals)
-const erc20AbiPath = path.resolve(__dirname, '../src/app/dashboard/dapps/aggswap/abis/ERC-20.json');
+const erc20AbiPath = path.resolve(__dirname, '../src/app/dashboard/examples/aggswap-app/abis/ERC-20.json');
 const erc20AbiJson = fs.readFileSync(erc20AbiPath, 'utf-8');
 const ERC20Abi = JSON.parse(erc20AbiJson);
 

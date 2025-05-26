@@ -1,42 +1,28 @@
-import styles from './DappDashboard.module.css';
+import { dapps } from '@/data/dapps'
+import Tile from '@/components/Tile'
+import DashboardHeader from '@/components/DashboardHeader'
 
-const dapps = [
-    {
-      name: 'Aggswap',
-      description: 'Decentralized exchange for swapping tokens.',
-      url: '/dashboard/dapps/aggswap',
-    },
-    {
-      name: 'Stargate',
-      description: 'Omnichain bridge for cross-chain liquidity.',
-      url: '/dashboard/dapps/stargate',
-    },
-    {
-      name: 'Aave',
-      description: 'Decentralized lending protocol.',
-      url: '/dashboard/dapps/aave',
-    },
-  ]
-  
-  export default function DappDashboardPage() {
-    return (
-      <div className={styles.dashboard}>
-        <h2 className={styles.heading}>dApps</h2>
-        <div className={styles.grid}>
-          {dapps.map((dapp, i) => (
-            <a
-              key={dapp.name}
-              href={dapp.url}
-              className={styles.card}
-              style={{ animationDelay: `${i * 0.08 + 0.1}s` }}
-            >
-              <h3 className={styles.cardTitle}>{dapp.name}</h3>
-              <p className={styles.cardDesc}>{dapp.description}</p>
-              <button className={styles.openBtn}>Open {dapp.name}</button>
-            </a>
+export default function ExamplesListPage() {
+  return (
+    <div>
+      <DashboardHeader 
+        title="Examples"
+        subtitle="Explore example dApps built for Agglayer. Click a tile to view more details and code walkthroughs."
+      />
+      <div className="px-4 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {Object.entries(dapps).map(([slug, dapp]) => (
+            <Tile
+              key={slug}
+              href={`/dashboard/examples/${slug}`}
+              icon={<img src={dapp.logo} alt={dapp.name} className="w-10 h-10 rounded" />}
+              title={dapp.name}
+              description={dapp.tagline}
+              variant="secondary"
+            />
           ))}
         </div>
       </div>
-    )
-  }
-  
+    </div>
+  )
+}
