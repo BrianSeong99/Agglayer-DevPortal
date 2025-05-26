@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import RouterAbi from "../src/app/dashboard/dapps/aggswap/abis/UniswapV2Router02.json";
-import FactoryAbi from "../src/app/dashboard/dapps/aggswap/abis/UniswapV2Factory.json";
-import ERC20Abi from "../src/app/dashboard/dapps/aggswap/abis/ERC-20.json";
+import RouterAbi from "../src/app/dashboard/examples/[slug]/aggswap/abis/UniswapV2Router02.json";
+import FactoryAbi from "../src/app/dashboard/examples/[slug]/aggswap/abis/UniswapV2Factory.json";
+import ERC20Abi from "../src/app/dashboard/examples/[slug]/aggswap/abis/ERC-20.json";
 import { ethers } from "ethers";
 import { getLxLyClient, from, to, configuration, tokens, SCALING_FACTOR } from './utils_lxly';
 
