@@ -1,9 +1,10 @@
 'use client'
 
 import { useConnect, useAccount, useDisconnect } from 'wagmi'
+import Button from './Button'
 
 export default function ConnectWallet() {
-  const { connect, connectors, isPending, pendingConnector } = useConnect()
+  const { connect, connectors, isPending } = useConnect()
   const { disconnect } = useDisconnect()
   const { address, status } = useAccount()
 
@@ -12,12 +13,9 @@ export default function ConnectWallet() {
       <div className="mt-6">
         <p className="text-sm mb-2 text-gray-600">Connected as:</p>
         <div className="font-mono text-sm">{address}</div>
-        <button
-          onClick={() => disconnect()}
-          className="mt-2 text-sm bg-red-100 text-red-600 px-4 py-1 rounded hover:bg-red-200"
-        >
+        <Button onClick={() => disconnect()} className="mt-2">
           Disconnect
-        </button>
+        </Button>
       </div>
     )
   }
@@ -25,16 +23,15 @@ export default function ConnectWallet() {
   return (
     <div className="mt-6 space-y-2">
       {connectors.map((connector) => (
-        <button
+        <Button
           key={connector.uid}
           onClick={() => connect({ connector })}
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition w-full"
           disabled={!connector.ready || isPending}
         >
-          {isPending && pendingConnector?.uid === connector.uid
+          {isPending
             ? 'Connecting...'
             : `Connect ${connector.name}`}
-        </button>
+        </Button>
       ))}
     </div>
   )

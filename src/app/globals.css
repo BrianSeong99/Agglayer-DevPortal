@@ -1,12 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
+@import 'github-markdown-css/github-markdown.css';
+@import 'github-markdown-css/github-markdown-dark.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* === Palette === */
+  --color-blue: #0071F7;
+  --color-blue-light: #e6f1fd;
+  --color-blue-dark: #005ac1;
+  --color-orange: #FF8E08;
+  --color-orange-light: #ffe7cc;
+  --color-orange-dark: #cc7000;
+  --color-black: #000000;
+  --color-black-light: #17171797;
+  --color-white: #FFFFFF;
+  --color-white-light: #fffffff0;
+  --color-gray: #D9D9D9;
+  --color-gray-light: #f5f5f5;
+  --color-gray-dark: #23272f;
+  --color-gray-text: #6b7280;
+  --color-gray-text-dark: #a1a1aa;
+
+  /* === Backgrounds === */
+  --bg-main: var(--color-gray-light);
+  --bg-sidebar: var(--color-white-light);
+  --bg-dashboard: var(--color-white-light);
+  --bg-card: var(--color-white-light);
+  --bg-card-light: var(--color-white-light);
+
+  /* === Text === */
+  --text-main: var(--color-black);
+  --text-secondary: var(--color-gray-text);
+  --text-sidebar: var(--color-black);
+
+  /* === Borders & Shadows === */
+  --border-card: var(--color-gray);
+  --shadow-card: 0 8px 32px 0 rgba(60, 60, 60, 0.10);
+
+  /* === Primary (Blue) === */
+  --primary: var(--color-blue);
+  --primary-light: var(--color-blue-light);
+  --primary-dark: var(--color-blue-dark);
+
+  /* === Accent (Orange) === */
+  --accent: var(--color-orange);
+  --accent-light: var(--color-orange-light);
+  --accent-dark: var(--color-orange-dark);
+
+  /* === Buttons & Links === */
+  --button-bg: var(--primary);
+  --button-text: var(--color-white);
+  --button-hover-bg: var(--primary-dark);
+  --link-active-bg: var(--primary-light);
+  --link-active-text: var(--primary-dark);
+  --link-hover-bg: var(--primary);
 }
 
 @theme inline {
@@ -18,13 +69,49 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg-main: var(--color-gray-dark);
+    --text-main: var(--color-gray-light);
+    --bg-sidebar: var(--color-black-light);
+    --bg-dashboard: var(--color-black-light);
+    --bg-card: var(--color-black-light);
+    --bg-card-light: var(--color-black-light);
+    --text-secondary: var(--color-gray-text-dark);
+    --text-sidebar: var(--color-gray-light);
+    --border-card: var(--color-gray-dark);
+    --shadow-card: 0 8px 32px 0 rgba(0,0,0,0.30);
+    --primary: var(--color-orange);
+    --primary-light: var(--color-orange-light);
+    --primary-dark: var(--color-orange-dark);
+    --accent: var(--color-blue);
+    --accent-light: var(--color-blue-light);
+    --accent-dark: var(--color-blue-dark);
+    --button-bg: var(--primary);
+    --button-text: var(--color-black);
+    --button-hover-bg: var(--primary-dark);
+    --link-active-bg: var(--primary-light);
+    --link-active-text: var(--primary-dark);
+    --link-hover-bg: var(--primary);
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+}
+
+.theme-btn {
+  background: var(--button-bg);
+  color: var(--button-text);
+  transition: background 0.2s;
+}
+.theme-btn:hover, .theme-btn:focus {
+  background: var(--button-hover-bg);
+}
+
+/* Only apply the dark GitHub markdown theme when .dark is on the html */
+.dark .markdown-body {
+  /* The dark theme uses the .markdown-body-dark class, so copy its styles */
+  /* This import will do it for you: */
+  @import 'github-markdown-css/github-markdown-dark.css';
 }
