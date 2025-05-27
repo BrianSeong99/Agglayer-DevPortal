@@ -3,9 +3,9 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { dapps } from '@/data/dapps'
 
-export default function DappDetailPage({ params }: { params: { slug: string } }) {
-  // Next.js dynamic route params are always available synchronously in App Router
-  const slug = params.slug
+export default async function DappDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  // Await the params as required by Next.js 15
+  const { slug } = await params
   const data = dapps[slug]
 
   if (!data) {
