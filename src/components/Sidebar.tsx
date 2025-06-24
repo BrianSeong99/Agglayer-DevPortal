@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import ConnectWallet from './ConnectWallet'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'
@@ -65,9 +64,6 @@ export default function Sidebar() {
           )
         })}
       </nav>
-      <div className="mt-8">
-        <ConnectWallet />
-      </div>
     </aside>
   )
 }
