@@ -1,10 +1,10 @@
 "use client";
-import { DappData } from '@/app/dashboard/examples/dapps'
+import { DappData } from '@/app/dashboard/examples/data/dapps'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useEffect, useState } from 'react'
 import 'github-markdown-css/github-markdown.css'
-import Button from './Button'
+import Button from '@/shared/components/Button'
 
 export default function DappProfile({
   logo,

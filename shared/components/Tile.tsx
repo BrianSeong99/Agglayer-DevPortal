@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import Link from 'next/link'
-import { parseLink } from '@/utils/linkParser'
+import { parseLink } from '@/shared/utils/linkParser'
 
 interface TileProps {
   href?: string

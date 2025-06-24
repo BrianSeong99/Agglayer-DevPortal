@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { parseLink } from '@/utils/linkParser';
+import { parseLink } from '@/shared/utils/linkParser';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;

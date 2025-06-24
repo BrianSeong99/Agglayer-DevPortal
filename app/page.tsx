@@ -1,7 +1,7 @@
 import { FaBook, FaHammer, FaCrown, FaRegFileAlt, FaStar, FaTwitter, FaGithub, FaDiscord } from 'react-icons/fa'
-import Tile from '@/components/Tile'
-import DashboardLayout from '@/components/DashboardLayout'
-import DashboardHeader from '@/components/DashboardHeader'
+import Tile from '@/shared/components/Tile'
+import DashboardLayout from '@/app/dashboard/components/DashboardLayout'
+import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
 
 export default function Home() {
   return (

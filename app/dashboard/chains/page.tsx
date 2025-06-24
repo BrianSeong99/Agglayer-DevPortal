@@ -1,4 +1,4 @@
-import DashboardHeader from '@/components/DashboardHeader'
+import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
 
 export default function ChainsPage() {
     return (

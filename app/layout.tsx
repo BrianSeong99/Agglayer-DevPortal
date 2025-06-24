@@ -1,6 +1,6 @@
 import './globals.css'
-import Sidebar from '../components/Sidebar'
-import Providers from '../components/Providers'
+import Sidebar from './dashboard/components/Sidebar'
+import Providers from '../shared/components/Providers'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

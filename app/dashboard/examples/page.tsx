@@ -1,6 +1,6 @@
-import { dapps } from '@/app/dashboard/examples/dapps'
-import Tile from '@/components/Tile'
-import DashboardHeader from '@/components/DashboardHeader'
+import { dapps } from '@/app/dashboard/examples/data/dapps'
+import Tile from '@/shared/components/Tile'
+import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
 
 export default function ExamplesListPage() {
   return (
