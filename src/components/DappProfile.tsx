@@ -1,5 +1,5 @@
 "use client";
-import { DappData } from '@/data/dapps'
+import { DappData } from '@/app/dashboard/examples/dapps'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useEffect, useState } from 'react'

@@ -1,7 +1,7 @@
 import DappProfile from '@/components/DappProfile'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { dapps } from '@/data/dapps'
+import { dapps } from '@/app/dashboard/examples/dapps'
 
 export default async function DappDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   // Await the params as required by Next.js 15

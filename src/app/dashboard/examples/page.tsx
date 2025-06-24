@@ -1,4 +1,4 @@
-import { dapps } from '@/data/dapps'
+import { dapps } from '@/app/dashboard/examples/dapps'
 import Tile from '@/components/Tile'
 import DashboardHeader from '@/components/DashboardHeader'
 
