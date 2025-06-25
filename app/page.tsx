@@ -1,5 +1,4 @@
 import { FaBook, FaHammer, FaCrown, FaRegFileAlt, FaStar, FaTwitter, FaGithub, FaDiscord } from 'react-icons/fa'
-import Tile from '@/shared/components/Tile'
 import DashboardLayout from '@/app/dashboard/components/DashboardLayout'
 import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
 
@@ -10,7 +9,7 @@ export default function Home() {
         title="AggShell"
         subtitle="Tools to help you build, launch, and grow your app on Agglayer."
       />
-      <div className="w-full max-w-5xl mx-auto px-4 md:px-8">
+      {/* <div className="w-full max-w-5xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
           <Tile
             href="https://docs.agglayer.dev/"
@@ -40,8 +39,8 @@ export default function Home() {
             description="Experiment and test in the Agglayer Sandbox environment."
             variant="secondary"
           />
-        </div>
-        <div className="flex justify-center gap-6 mt-8">
+        </div> */}
+        {/* <div className="flex justify-center gap-6 mt-8">
           <a href="https://twitter.com/0xPolygon" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
             <FaTwitter className="w-7 h-7 text-[var(--primary)] hover:text-[var(--primary-dark)] transition" />
           </a>
@@ -52,7 +51,7 @@ export default function Home() {
             <FaDiscord className="w-7 h-7 text-[var(--primary)] hover:text-[var(--primary-dark)] transition" />
           </a>
         </div>
-      </div>
+      </div> */}
     </DashboardLayout>
   )
 }
