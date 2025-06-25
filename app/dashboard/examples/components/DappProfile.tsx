@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useEffect, useState } from 'react'
 import 'github-markdown-css/github-markdown.css'
-import Button from '@/shared/components/Button'
+// import Button from '@/shared/components/Button'
 
 export default function DappProfile({
   logo,
@@ -55,14 +55,14 @@ export default function DappProfile({
       </div>
 
       {/* Links */}
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <Button href={getAppUrl()} className="w-fit">
           ▶️ Try the App
         </Button>
         <Button href={repoUrl} className="w-fit">
           🔗 View Source Code
         </Button>
-      </div>
+      </div> */}
 
       {/* Screenshots */}
       <div className="space-y-2">
