@@ -23,7 +23,7 @@
   --color-gray-text-dark: #a1a1aa;
 
   /* === Backgrounds === */
-  --bg-main: var(--color-gray-dark);
+  --bg-main: var(--color-black);
   --bg-sidebar: var(--color-black-light);
   --bg-dashboard: var(--color-black-light);
   --bg-card: var(--color-black-light);
@@ -59,7 +59,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-main: var(--color-gray-dark);
+    --bg-main: var(--color-black);
     --text-primary: var(--color-white);
     --bg-sidebar: var(--color-black-light);
     --bg-dashboard: var(--color-black-light);
