@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 type Chain = {
   name: string;
   logo: string;
+  network_id: number;
   txVolume: number;
   blockSpeed: number;
   tvl: number;
@@ -16,7 +17,8 @@ const chains: Chain[] = [
   {
     name: "Mercury",
     logo: "/chains/agglayer-logo-mark-black-rgb.svg",
-    txVolume: 1000,
+    network_id: 1,
+    txVolume: 500,
     blockSpeed: 2,
     tvl: 1000,
     color: "#b1b1b1",
@@ -24,7 +26,8 @@ const chains: Chain[] = [
   {
     name: "Venus",
     logo: "/chains/agglayer-logo-mark-black-rgb.svg",
-    txVolume: 3000,
+    network_id: 2,
+    txVolume: 1000,
     blockSpeed: 1.5,
     tvl: 1000,
     color: "#e6c200",
@@ -32,7 +35,8 @@ const chains: Chain[] = [
   {
     name: "Earth",
     logo: "/chains/agglayer-logo-mark-black-rgb.svg",
-    txVolume: 8000,
+    network_id: 3,
+    txVolume: 2000,
     blockSpeed: 1,
     tvl: 1000,
     color: "#2e8b57",
@@ -40,15 +44,17 @@ const chains: Chain[] = [
   {
     name: "Mars",
     logo: "/chains/agglayer-logo-mark-black-rgb.svg",
-    txVolume: 2000,
-    blockSpeed: 2.5,
+    network_id: 4,
+    txVolume: 2500,
+    blockSpeed: 5,
     tvl: 1000,
     color: "#c1440e",
   },
   {
     name: "Jupiter",
     logo: "/chains/agglayer-logo-mark-black-rgb.svg",
-    txVolume: 20000,
+    network_id: 5,
+    txVolume: 4000,
     blockSpeed: 3.5,
     tvl: 1000,
     color: "#e3a857",
