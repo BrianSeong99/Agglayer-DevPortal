@@ -1,6 +1,11 @@
 import { dapps } from '@/app/dashboard/examples/data/dapps'
-import Tile from '@/shared/components/Tile'
 import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
+import {
+  MinimalCard,
+  MinimalCardDescription,
+  MinimalCardImage,
+  MinimalCardTitle,
+} from "./components/ui/minimal-card"
 
 export default function ExamplesListPage() {
   return (
@@ -9,17 +14,18 @@ export default function ExamplesListPage() {
         title="Examples"
         subtitle="Explore example dApps built for Agglayer. Click a tile to view more details and code walkthroughs."
       />
-      <div className="px-4 md:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="min-h-[500px] p-4 rounded-lg">
+        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto max-w-[1100px]">
           {Object.entries(dapps).map(([slug, dapp]) => (
-            <Tile
-              key={slug}
-              href={`/dashboard/examples/${slug}`}
-              icon={<img src={dapp.logo} alt={dapp.name} className="w-10 h-10 rounded" />}
-              title={dapp.name}
-              description={dapp.tagline}
-              variant="secondary"
-            />
+            <a key={slug} href={`/dashboard/examples/${slug}`} className="block">
+              <MinimalCard className="w-[340px] h-[280px] flex flex-col">
+                <MinimalCardImage src={dapp.logo} alt={dapp.name} className="h-[160px]" />
+                <MinimalCardTitle>{dapp.name}</MinimalCardTitle>
+                <MinimalCardDescription>
+                  {dapp.tagline}
+                </MinimalCardDescription>
+              </MinimalCard>
+            </a>
           ))}
         </div>
       </div>
