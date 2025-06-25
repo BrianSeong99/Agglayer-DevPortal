@@ -31,7 +31,7 @@ const chains = [
   {
     name: "Jupiter",
     txAmount: 20000,
-    blockSpeed: 0.5,
+    blockSpeed: 3.5,
     color: "#e3a857",
   },
 ];
@@ -86,6 +86,7 @@ export default function AggniversePlanets() {
         const duration = scale(chain.blockSpeed, minSpeed, maxSpeed, 8, 20);
         // Spread planets evenly around the orbit
         const initialAngle = (i / chains.length) * 2 * Math.PI;
+        const initialAngleDeg = (initialAngle * 180) / Math.PI;
 
         return (
           <motion.div
@@ -97,13 +98,11 @@ export default function AggniversePlanets() {
               zIndex: 2,
             }}
             animate={{
-              rotate: 360,
-            }}
-            initial={{
-              rotate: (initialAngle * 180) / Math.PI,
+              rotate: [initialAngleDeg, initialAngleDeg + 360],
             }}
             transition={{
               repeat: Infinity,
+              repeatType: "loop",
               ease: "linear",
               duration,
             }}
