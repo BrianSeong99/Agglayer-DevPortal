@@ -1,5 +1,5 @@
 import './globals.css'
-import Sidebar from './dashboard/components/Sidebar'
+import FloatingNavigation from '../shared/components/FloatingNavigation'
 import Providers from '../shared/components/Providers'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -15,11 +15,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <Providers>
           <div className="flex h-screen items-stretch gap-8 p-8">
-            <Sidebar />
             <main className="flex-1 flex items-center justify-center">
               {children}
             </main>
           </div>
+          <FloatingNavigation />
         </Providers>
       </body>
     </html>
