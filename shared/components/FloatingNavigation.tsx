@@ -5,10 +5,13 @@ import { FloatingDock } from "@/shared/components/ui/floating-dock";
 import { usePathname } from 'next/navigation';
 import {
   IconHome,
-  IconLink,
   IconApps,
   IconCode,
+  IconBrandX,
   IconBrandGithub,
+  IconSun,
+  IconUniverse,
+  IconScript
 } from "@tabler/icons-react";
 
 export default function FloatingNavigation() {
@@ -23,11 +26,11 @@ export default function FloatingNavigation() {
       href: "/",
     },
     {
-      title: "Chains",
+      title: "Aggniverse",
       icon: (
-        <IconLink className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+        <IconUniverse className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "/dashboard/chains",
+      href: "/dashboard/aggniverse",
     },
     {
       title: "Examples",
@@ -42,6 +45,39 @@ export default function FloatingNavigation() {
         <IconCode className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "/dashboard/developers",
+    },
+    { type: 'divider' as const },
+    {
+      title: "Twitter",
+      icon: (
+        <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "https://x.com/Agglayer",
+      target: "_blank" as const,
+    },
+    {
+      title: "GitHub",
+      icon: (
+        <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "https://github.com/agglayer",
+      target: "_blank" as const,
+    },
+    {
+      title: "Docs",
+      icon: (
+        <IconScript className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "https://docs.agglayer.dev/",
+      target: "_blank" as const,
+    },
+    { type: 'divider' as const },
+    {
+      title: "Theme",
+      icon: (
+        <IconSun className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      ),
+      href: "/dashboard/theme",
     }
   ];
 

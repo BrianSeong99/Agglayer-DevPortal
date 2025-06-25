@@ -13,12 +13,16 @@ import {
 
 import { useRef, useState } from "react";
 
+type DockItem = 
+  | { title: string; icon: React.ReactNode; href: string; type?: 'link'; target?: '_blank' | '_self' }
+  | { type: 'divider' };
+
 export const FloatingDock = ({
   items,
   desktopClassName,
   mobileClassName,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: DockItem[];
   desktopClassName?: string;
   mobileClassName?: string;
 }) => {
@@ -34,7 +38,7 @@ const FloatingDockMobile = ({
   items,
   className,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: DockItem[];
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
@@ -46,32 +50,48 @@ const FloatingDockMobile = ({
             layoutId="nav"
             className="absolute inset-x-0 bottom-full mb-2 flex flex-col gap-2"
           >
-            {items.map((item, idx) => (
-              <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                exit={{
-                  opacity: 0,
-                  y: 10,
-                  transition: {
-                    delay: idx * 0.05,
-                  },
-                }}
-                transition={{ delay: (items.length - 1 - idx) * 0.05 }}
-              >
-                <a
-                  href={item.href}
+            {items.map((item, idx) => {
+              if (item.type === 'divider') {
+                return (
+                  <motion.div
+                    key={`divider-${idx}`}
+                    initial={{ opacity: 0, scaleX: 0 }}
+                    animate={{ opacity: 1, scaleX: 1 }}
+                    exit={{ opacity: 0, scaleX: 0 }}
+                    transition={{ delay: idx * 0.05 }}
+                    className="h-px bg-gray-300 dark:bg-neutral-700 mx-2"
+                  />
+                );
+              }
+              
+              return (
+                <motion.div
                   key={item.title}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: 1,
+                    y: 0,
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: 10,
+                    transition: {
+                      delay: idx * 0.05,
+                    },
+                  }}
+                  transition={{ delay: (items.length - 1 - idx) * 0.05 }}
                 >
-                  <div className="h-4 w-4">{item.icon}</div>
-                </a>
-              </motion.div>
-            ))}
+                  <a
+                    href={item.href}
+                    target={item.target || '_self'}
+                    rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                  >
+                    <div className="h-4 w-4">{item.icon}</div>
+                  </a>
+                </motion.div>
+              );
+            })}
           </motion.div>
         )}
       </AnimatePresence>
@@ -89,7 +109,7 @@ const FloatingDockDesktop = ({
   items,
   className,
 }: {
-  items: { title: string; icon: React.ReactNode; href: string }[];
+  items: DockItem[];
   className?: string;
 }) => {
   let mouseX = useMotionValue(Infinity);
@@ -102,9 +122,20 @@ const FloatingDockDesktop = ({
         className,
       )}
     >
-      {items.map((item) => (
-        <IconContainer mouseX={mouseX} key={item.title} {...item} />
-      ))}
+      {items.map((item, idx) => {
+        if (item.type === 'divider') {
+          return (
+            <motion.div
+              key={`divider-${idx}`}
+              className="h-8 w-px bg-gray-300 dark:bg-neutral-700"
+            />
+          );
+        }
+        
+        return (
+          <IconContainer mouseX={mouseX} key={item.title} {...item} />
+        );
+      })}
     </motion.div>
   );
 };
@@ -114,11 +145,13 @@ function IconContainer({
   title,
   icon,
   href,
+  target,
 }: {
   mouseX: MotionValue;
   title: string;
   icon: React.ReactNode;
   href: string;
+  target?: '_blank' | '_self';
 }) {
   let ref = useRef<HTMLDivElement>(null);
 
@@ -163,7 +196,11 @@ function IconContainer({
   const [hovered, setHovered] = useState(false);
 
   return (
-    <a href={href}>
+    <a 
+      href={href}
+      target={target || '_self'}
+      rel={target === '_blank' ? 'noopener noreferrer' : undefined}
+    >
       <motion.div
         ref={ref}
         style={{ width, height }}

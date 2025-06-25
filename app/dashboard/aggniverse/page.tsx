@@ -1,9 +1,9 @@
 import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
 
-export default function ChainsPage() {
+export default function AggniversePage() {
     return (
       <DashboardHeader 
-        title="Chains Overview"
+        title="Aggniverse Overview"
         subtitle="Coming Soon 🚧"
       />
     )
