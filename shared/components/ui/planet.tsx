@@ -70,4 +70,4 @@ export default function Planet({
       </div>
     </motion.div>
   );
-}
+} 

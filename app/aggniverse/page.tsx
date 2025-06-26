@@ -1,30 +1,19 @@
 import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
-import AggniversePlanets from './components/AggniversePlanets'
-import Particles from './components/Particles'
+import AggniversePlanets from '@/shared/components/AggniversePlanets'
 
 export default function AggniversePage() {
   return (
-    <div className="relative w-full min-h-screen overflow-hidden">
-      {/* Background Particles */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <Particles
-          particleColors={['#ffffff', '#ffffff']}
-          particleCount={200}
-          particleSpread={10}
-          speed={0.03}
-          particleBaseSize={100}
-          moveParticlesOnHover={true}
-          alphaParticles={false}
-          disableRotation={false}
-        />
-      </div>
+    <div className="relative w-full min-h-screen">
       {/* Foreground Content */}
-      <div className="relative z-10">
+      <div className="relative z-20">
         <DashboardHeader 
           title="Aggniverse Overview"
           subtitle="Each planet is a chain. Orbit and size are based on transaction amount and block speed."
         />
-        <AggniversePlanets />
+        {/* Full-size solar system for this page */}
+        <div className="flex items-center justify-center w-full h-[600px]">
+          <AggniversePlanets />
+        </div>
       </div>
     </div>
   )

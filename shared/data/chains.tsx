@@ -82,4 +82,4 @@ export const getScalingData = (chains: Chain[]) => {
 
 export const scale = (val: number, min: number, max: number, outMin: number, outMax: number) => {
   return ((val - min) / (max - min)) * (outMax - outMin) + outMin;
-};
+}; 
