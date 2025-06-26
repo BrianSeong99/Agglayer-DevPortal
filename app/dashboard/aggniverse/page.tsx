@@ -10,10 +10,10 @@ export default function AggniversePage() {
           title="Aggniverse Overview"
           subtitle="Each planet is a chain. Orbit and size are based on transaction amount and block speed."
         />
-        {/* Full-size solar system for this page */}
+        {/* Full-size solar system for this page
         <div className="flex items-center justify-center w-full h-[600px]">
           <AggniversePlanets />
-        </div>
+        </div> */}
       </div>
     </div>
   )

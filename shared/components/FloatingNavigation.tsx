@@ -30,7 +30,7 @@ export default function FloatingNavigation() {
       icon: (
         <IconUniverse className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
-      href: "/aggniverse",
+      href: "/dashboard/aggniverse",
     },
     {
       title: "Examples",
@@ -82,7 +82,7 @@ export default function FloatingNavigation() {
   ];
 
   return (
-    <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-50">
       <FloatingDock
         items={links}
         desktopClassName="bg-[var(--bg-sidebar)] border border-[var(--border-card)] shadow-[var(--shadow-card)]"

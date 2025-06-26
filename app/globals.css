@@ -105,3 +105,39 @@ body {
   /* This import will do it for you: */
   @import 'github-markdown-css/github-markdown-dark.css';
 }
+
+.o {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+.o1 {
+  background: url(//image.ibb.co/nBJ818/bg.png);
+  z-index: 0;
+}
+.o2 {
+  background: url(//image.ibb.co/czVo18/stars.png);
+  z-index: 0;
+  animation: 200s scroll infinite linear;
+  opacity: 0.5;
+}
+.o3 {
+  background: url(//image.ibb.co/g76HuT/nebula.png);
+  z-index: 0;
+  animation: 200s scroll2 infinite linear;
+}
+.o4 {
+  background: url(//image.ibb.co/b8VcuT/clouds.png);
+  z-index: 0;
+  animation: 400s scroll infinite linear;
+}
+
+@keyframes scroll {
+  100% { background-position: -3000px 0px; }
+}
+@keyframes scroll2 {
+  100% { background-position: 3000px 0px; }
+}
