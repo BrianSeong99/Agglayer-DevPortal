@@ -24,7 +24,7 @@ export default function AggniverseBackground() {
       
       {/* Planets above everything else */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="scale-75 opacity-30">
+        <div className="scale-75">
           <AggniversePlanets />
         </div>
       </div>
