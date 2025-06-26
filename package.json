@@ -12,6 +12,10 @@
     "@heroicons/react": "^2.2.0",
     "@maticnetwork/lxlyjs": "^2.3.2",
     "@maticnetwork/maticjs-web3": "^1.0.5",
+    "@radix-ui/react-dialog": "^1.1.14",
+    "@radix-ui/react-separator": "^1.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tooltip": "^1.2.7",
     "@rainbow-me/rainbowkit": "^2.2.4",
     "@tabler/icons-react": "^3.34.0",
     "@tailwindcss/typography": "^0.5.16",
@@ -23,6 +27,7 @@
     "browserify-fs": "^1.0.0",
     "browserify-zlib": "^0.2.0",
     "buffer": "^6.0.3",
+    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "crypto-browserify": "^3.12.1",
     "dotenv": "^16.5.0",
@@ -31,6 +36,7 @@
     "framer-motion": "^12.19.1",
     "github-markdown-css": "^5.8.1",
     "https-browserify": "^1.0.0",
+    "lucide-react": "^0.523.0",
     "motion": "^12.19.1",
     "next": "15.3.2",
     "ogl": "^1.0.11",
@@ -62,6 +68,7 @@
     "eslint-config-next": "15.3.2",
     "postcss": "^8.5.3",
     "postcss-import": "^16.1.0",
+    "tw-animate-css": "^1.3.4",
     "typescript": "^5"
   }
 }

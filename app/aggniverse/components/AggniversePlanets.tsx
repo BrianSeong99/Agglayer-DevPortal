@@ -91,6 +91,22 @@ export default function AggniversePlanets() {
           console.log(`Ring ${i}: isHovered=${isHovered}, hoveredRing=${hoveredRing}`);
           return (
             <g key={chain.name}>
+              {/* Visible orbit ring */}
+              <circle
+                cx={center}
+                cy={center}
+                r={orbit}
+                fill="none"
+                stroke={isHovered ? chain.color : "#444"}
+                strokeWidth={isHovered ? 3 : 1}
+                opacity={isHovered ? 0.7 : 0.3}
+                style={{ cursor: 'pointer', transition: 'stroke 0.2s, stroke-width 0.2s, opacity 0.2s' }}
+                // onMouseEnter={() => {
+                //   console.log("hovered", i)
+                //   setHoveredRing(i)
+                // }}
+                // onMouseLeave={() => setHoveredRing(null)}
+              />
               {/* Invisible hover area */}
               <circle
                 cx={center}
@@ -108,22 +124,6 @@ export default function AggniversePlanets() {
                   console.log("unhovered", i)
                   setHoveredRing(null)
                 }}
-              />
-              {/* Visible orbit ring */}
-              <circle
-                cx={center}
-                cy={center}
-                r={orbit}
-                fill="none"
-                stroke={isHovered ? chain.color : "#444"}
-                strokeWidth={isHovered ? 3 : 1}
-                opacity={isHovered ? 0.7 : 0.3}
-                style={{ cursor: 'pointer', transition: 'stroke 0.2s, stroke-width 0.2s, opacity 0.2s' }}
-                // onMouseEnter={() => {
-                //   console.log("hovered", i)
-                //   setHoveredRing(i)
-                // }}
-                // onMouseLeave={() => setHoveredRing(null)}
               />
             </g>
           );
@@ -149,7 +149,7 @@ export default function AggniversePlanets() {
             style={{
               width: 0,
               height: 0,
-              zIndex: 2,
+              zIndex: 3,
             }}
             animate={{
               rotate: [initialAngleDeg, initialAngleDeg + 360],
