@@ -21,43 +21,43 @@ export default function FloatingNavigation() {
   const links = [
     {
       title: "Home",
-      icon: (
-        <IconHome className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      icon: (isActive: boolean) => (
+        <IconHome className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/",
     },
     {
       title: "Dashboard",
-      icon: (
-        <IconLayoutDashboard className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      icon: (isActive: boolean) => (
+        <IconLayoutDashboard className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/dashboard",
     },
     {
       title: "Aggniverse",
-      icon: (
-        <IconUniverse className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      icon: (isActive: boolean) => (
+        <IconUniverse className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/dashboard/aggniverse",
     },
     {
       title: "Examples",
-      icon: (
-        <IconApps className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      icon: (isActive: boolean) => (
+        <IconApps className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/dashboard/examples",
     },
     {
       title: "Developers",
-      icon: (
-        <IconCode className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      icon: (isActive: boolean) => (
+        <IconCode className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/dashboard/developers",
     },
     { type: 'divider' as const },
     {
       title: "Twitter",
-      icon: (
+      icon: () => (
         <IconBrandX className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "https://x.com/Agglayer",
@@ -65,7 +65,7 @@ export default function FloatingNavigation() {
     },
     {
       title: "GitHub",
-      icon: (
+      icon: () => (
         <IconBrandGithub className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "https://github.com/agglayer",
@@ -73,7 +73,7 @@ export default function FloatingNavigation() {
     },
     {
       title: "Docs",
-      icon: (
+      icon: () => (
         <IconScript className="h-full w-full text-neutral-500 dark:text-neutral-300" />
       ),
       href: "https://docs.agglayer.dev/",
@@ -82,8 +82,8 @@ export default function FloatingNavigation() {
     { type: 'divider' as const },
     {
       title: "Theme",
-      icon: (
-        <IconSun className="h-full w-full text-neutral-500 dark:text-neutral-300" />
+      icon: (isActive: boolean) => (
+        <IconSun className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/dashboard/theme",
     }
@@ -93,6 +93,7 @@ export default function FloatingNavigation() {
     <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-50">
       <FloatingDock
         items={links}
+        activePath={pathname}
         desktopClassName="bg-[var(--bg-sidebar)] border border-[var(--border-card)] shadow-[var(--shadow-card)]"
         mobileClassName="bg-[var(--bg-sidebar)] border border-[var(--border-card)] shadow-[var(--shadow-card)]"
       />

@@ -15,31 +15,35 @@ import Link from 'next/link';
 import { useRef, useState } from "react";
 
 type DockItem = 
-  | { title: string; icon: React.ReactNode; href: string; type?: 'link'; target?: '_blank' | '_self' }
-  | { type: 'divider' };
+  | { title: string; icon: (isActive: boolean) => React.ReactNode; href: string; type?: 'link'; target?: '_blank' | '_self' }
+  | { type: 'divider' | 'external'; icon?: React.ReactNode; title?: string; href?: string; target?: '_blank' | '_self' };
 
 export const FloatingDock = ({
   items,
+  activePath,
   desktopClassName,
   mobileClassName,
 }: {
   items: DockItem[];
+  activePath?: string;
   desktopClassName?: string;
   mobileClassName?: string;
 }) => {
   return (
     <>
-      <FloatingDockDesktop items={items} className={desktopClassName} />
-      <FloatingDockMobile items={items} className={mobileClassName} />
+      <FloatingDockDesktop items={items} activePath={activePath} className={desktopClassName} />
+      <FloatingDockMobile items={items} activePath={activePath} className={mobileClassName} />
     </>
   );
 };
 
 const FloatingDockMobile = ({
   items,
+  activePath,
   className,
 }: {
   items: DockItem[];
+  activePath?: string;
   className?: string;
 }) => {
   const [open, setOpen] = useState(false);
@@ -65,7 +69,8 @@ const FloatingDockMobile = ({
                 );
               }
               
-              const isExternal = item.target === '_blank' || item.href.startsWith('http');
+              const isExternal = item.target === '_blank' || (item.href && item.href.startsWith('http'));
+              const isActive = activePath === item.href;
               
               return (
                 <motion.div
@@ -89,16 +94,30 @@ const FloatingDockMobile = ({
                       href={item.href}
                       target={item.target || '_self'}
                       rel={item.target === '_blank' ? 'noopener noreferrer' : undefined}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                      className={cn(
+                        "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+                        isActive 
+                          ? "bg-white dark:bg-white" 
+                          : "bg-gray-50 dark:bg-neutral-900"
+                      )}
                     >
-                      <div className="h-4 w-4">{item.icon}</div>
+                      <div className="h-4 w-4">
+                        {typeof item.icon === 'function' ? item.icon(isActive) : item.icon}
+                      </div>
                     </a>
                   ) : (
                     <Link
-                      href={item.href}
-                      className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-50 dark:bg-neutral-900"
+                      href={item.href!}
+                      className={cn(
+                        "flex h-10 w-10 items-center justify-center rounded-full transition-colors",
+                        isActive 
+                          ? "bg-white dark:bg-white" 
+                          : "bg-gray-50 dark:bg-neutral-900"
+                      )}
                     >
-                      <div className="h-4 w-4">{item.icon}</div>
+                      <div className="h-4 w-4">
+                        {typeof item.icon === 'function' ? item.icon(isActive) : item.icon}
+                      </div>
                     </Link>
                   )}
                 </motion.div>
@@ -119,9 +138,11 @@ const FloatingDockMobile = ({
 
 const FloatingDockDesktop = ({
   items,
+  activePath,
   className,
 }: {
   items: DockItem[];
+  activePath?: string;
   className?: string;
 }) => {
   let mouseX = useMotionValue(Infinity);
@@ -143,10 +164,21 @@ const FloatingDockDesktop = ({
             />
           );
         }
-        
-        return (
-          <IconContainer mouseX={mouseX} key={item.title} {...item} />
-        );
+        if ('title' in item && 'href' in item && item.title && item.href) {
+          const { title, icon, href, target } = item;
+          return (
+            <IconContainer 
+              mouseX={mouseX} 
+              key={title} 
+              title={title}
+              icon={icon}
+              href={href}
+              target={target}
+              isActive={activePath === href}
+            />
+          );
+        }
+        return null;
       })}
     </motion.div>
   );
@@ -158,12 +190,14 @@ function IconContainer({
   icon,
   href,
   target,
+  isActive,
 }: {
   mouseX: MotionValue;
   title: string;
-  icon: React.ReactNode;
+  icon: ((isActive: boolean) => React.ReactNode) | React.ReactNode;
   href: string;
   target?: '_blank' | '_self';
+  isActive?: boolean;
 }) {
   let ref = useRef<HTMLDivElement>(null);
 
@@ -221,7 +255,22 @@ function IconContainer({
             style={{ width, height }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+            className={cn(
+              "relative flex aspect-square items-center justify-center rounded-full cursor-pointer transition-colors",
+              isActive 
+                ? "bg-white dark:bg-white" 
+                : "bg-gray-200 dark:bg-neutral-800"
+            )}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 400, 
+              damping: 17 
+            }}
           >
             <AnimatePresence>
               {hovered && (
@@ -238,8 +287,10 @@ function IconContainer({
             <motion.div
               style={{ width: widthIcon, height: heightIcon }}
               className="flex items-center justify-center"
+              whileHover={{ rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              {icon}
+              {typeof icon === 'function' ? icon(!!isActive) : icon}
             </motion.div>
           </motion.div>
         </a>
@@ -250,7 +301,22 @@ function IconContainer({
             style={{ width, height }}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            className="relative flex aspect-square items-center justify-center rounded-full bg-gray-200 dark:bg-neutral-800"
+            className={cn(
+              "relative flex aspect-square items-center justify-center rounded-full cursor-pointer transition-colors",
+              isActive 
+                ? "bg-white dark:bg-white" 
+                : "bg-gray-200 dark:bg-neutral-800"
+            )}
+            whileHover={{ 
+              scale: 1.05,
+              boxShadow: "0 10px 25px rgba(0, 0, 0, 0.2)"
+            }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ 
+              type: "spring", 
+              stiffness: 400, 
+              damping: 17 
+            }}
           >
             <AnimatePresence>
               {hovered && (
@@ -267,8 +333,10 @@ function IconContainer({
             <motion.div
               style={{ width: widthIcon, height: heightIcon }}
               className="flex items-center justify-center"
+              whileHover={{ rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300 }}
             >
-              {icon}
+              {typeof icon === 'function' ? icon(!!isActive) : icon}
             </motion.div>
           </motion.div>
         </Link>
