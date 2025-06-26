@@ -1,6 +1,7 @@
 import './globals.css'
 import FloatingNavigation from '../shared/components/FloatingNavigation'
 import AggniverseBackground from '../shared/components/AggniverseBackground'
+import WindowArea from '../shared/components/WindowArea'
 
 const DOCK_HEIGHT = 80; // px, adjust to match your dock
 
@@ -13,18 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         {/* Background with particles and solar system */}
         <AggniverseBackground />
-        
-        {/* Window area, always above the dock */}
-        <div
-          className="relative z-10 flex justify-center items-center w-full p-[5px]"
-          style={{ height: `calc(100vh - ${DOCK_HEIGHT}px)` }}
-        >
-          <div className="w-full h-full border border-gray-700 rounded-2xl bg-black/30 backdrop-blur-xs flex items-center justify-center">
-            <main className="w-full h-full flex items-center justify-center">
-              {children}
-            </main>
-          </div>
-        </div>
+        <WindowArea>{children}</WindowArea>
         {/* Dock at the bottom */}
         <div
           className="relative z-10 w-full flex justify-center"

@@ -1,9 +1,9 @@
-import DashboardHeader from "../components/DashboardHeader";
+import DashboardHeader from "./components/DashboardHeader";
 
-export default function DevelopersPage() {
+export default function HomePage() {
     return (
         <DashboardHeader 
-            title="Developers"
+            title="AggShell"
             subtitle="Tools to help you build, launch, and grow your app on Agglayer."
         />
     )
