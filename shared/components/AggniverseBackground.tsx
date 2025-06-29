@@ -7,7 +7,7 @@ export default function AggniverseBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       {/* Cosmic background at the very back */}
-      <CosmicBackground />
+      {/* <CosmicBackground /> */}
       {/* Particles above cosmic background */}
       <div className="absolute inset-0">
         <Particles
