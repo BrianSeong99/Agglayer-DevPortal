@@ -34,44 +34,33 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
             ease: "easeInOut"
           }}
         >
-          <motion.div 
-            className="w-full h-full border border-gray-700 rounded-2xl bg-black/30 backdrop-blur-xs flex items-center justify-center overflow-hidden"
-            layout
-            transition={{ 
-              layout: { 
-                duration: 0.4, 
-                ease: "easeInOut" 
-              } 
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.main
-                key={pathname}
-                className="w-full h-full flex items-center justify-center"
-                initial={{ 
-                  opacity: 0, 
-                  x: 50,
-                  scale: 0.95
-                }}
-                animate={{ 
-                  opacity: 1, 
-                  x: 0,
-                  scale: 1
-                }}
-                exit={{ 
-                  opacity: 0, 
-                  x: -50,
-                  scale: 0.95
-                }}
-                transition={{ 
-                  duration: 0.3, 
-                  ease: "easeInOut"
-                }}
-              >
-                {children}
-              </motion.main>
-            </AnimatePresence>
-          </motion.div>
+          <div className="w-full h-full border border-gray-700 rounded-2xl bg-black/30 backdrop-blur-xs flex items-center justify-center overflow-hidden">
+            <motion.main
+              key={pathname}
+              className="w-full h-full flex items-center justify-center"
+              initial={{ 
+                opacity: 0, 
+                x: 50,
+                scale: 0.95
+              }}
+              animate={{ 
+                opacity: 1, 
+                x: 0,
+                scale: 1
+              }}
+              exit={{ 
+                opacity: 0, 
+                x: -50,
+                scale: 0.95
+              }}
+              transition={{ 
+                duration: 0.3, 
+                ease: "easeInOut"
+              }}
+            >
+              {children}
+            </motion.main>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
