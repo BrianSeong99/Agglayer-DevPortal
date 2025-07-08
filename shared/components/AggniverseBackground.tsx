@@ -6,7 +6,7 @@ export default function AggniverseBackground() {
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
       {/* Particles above cosmic background */}
-      <div className="absolute inset-0">
+      {/* <div className="absolute inset-0">
         <Particles
           particleColors={[
             '#ffcc6f', // Red/Orange (M-type)
@@ -23,14 +23,10 @@ export default function AggniverseBackground() {
           alphaParticles={false}
           disableRotation={false}
         />
-      </div>
+      </div> */}
       
       {/* Planets above everything else */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="scale-75">
-          <AggniversePlanets />
-        </div>
-      </div>
+      <AggniversePlanets />
     </div>
   );
 } 

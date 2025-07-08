@@ -1,3 +1,4 @@
+// "use client";
 import { dapps } from '@/app/dashboard/examples/data/dapps'
 import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
 import { HoverEffect } from "./components/ui/card-hover-effect"

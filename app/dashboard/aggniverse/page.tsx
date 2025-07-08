@@ -1,5 +1,5 @@
 import DashboardHeader from '@/app/dashboard/components/DashboardHeader'
-import AggniversePlanets from '@/shared/components/AggniversePlanets'
+// import AggniversePlanets from '@/shared/components/AggniversePlanets'
 
 export default function AggniversePage() {
   return (

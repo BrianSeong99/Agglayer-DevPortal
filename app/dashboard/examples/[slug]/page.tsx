@@ -1,3 +1,4 @@
+// "use client";
 import DappProfile from '@/app/dashboard/examples/components/DappProfile'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
