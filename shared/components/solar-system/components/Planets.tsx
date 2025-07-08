@@ -6,7 +6,8 @@ import { Vector3 } from 'three'
 import { calculateInitialPosition, calculateInitialVelocity } from '../utils/planetCalculations'
 import { useTrails } from '../context/Trails'
 
-import Planet from './Planet'
+import Planet, { Chain } from './Planet'
+
 
 interface PlanetData {
     key: string
@@ -17,35 +18,37 @@ interface PlanetData {
 }
 
 interface PlanetsProps {
-    count?: number
+    chains: Chain[];
 }
 
 // Planets component
-const Planets = ({ count = 14 }: PlanetsProps) => {
+const Planets = ({ chains }: PlanetsProps) => {
     const { addTrailPoint } = useTrails()
 
     const planetsRef = useRef<any>()
-    const [planetCount, setPlanetCount] = useState(count)
+    const [planetCount, setPlanetCount] = useState(chains.length)
 
-    // Planet props
-    const newPlanet = (): PlanetData => {
-        const key = 'instance_' + Math.random()
-        const position = calculateInitialPosition(false)
-        const velocity = calculateInitialVelocity(position, false)
-        const linearVelocity: [number, number, number] = [velocity.x, velocity.y, velocity.z]
-        const scale = 0.5 + Math.random() * 1.5
 
-        return { key, position, linearVelocity, scale, userData: { type: 'Planet', key } }
-    }
-
-    // Set up the initial planet data
+    // Set up the initial planet data based on chains
     const planetData = useMemo(() => {
         const planets: PlanetData[] = []
-        for (let i = 0; i < count; i++) {
-            planets.push(newPlanet())
-        }
+        chains.forEach((chain, index) => {
+            const key = `chain_${chain.rollupId}_${index}`
+            const position = calculateInitialPosition(false, chain.rollupId)
+            const velocity = calculateInitialVelocity(position, false)
+            const linearVelocity: [number, number, number] = [velocity.x, velocity.y, velocity.z]
+            const scale = 0.5 + Math.random()
+            
+            planets.push({ 
+                key, 
+                position, 
+                linearVelocity, 
+                scale, 
+                userData: { type: 'Planet', key } 
+            })
+        })
         return planets
-    }, [count])
+    }, [chains])
 
     // Update the planet count
     useEffect(() => {
@@ -77,7 +80,7 @@ const Planets = ({ count = 14 }: PlanetsProps) => {
             collisionGroups={0x0002} // Group 2
             solverGroups={0x0002} // Only solve with group 2 (no actual collision solving)
         >
-            <Planet count={planetCount} />
+            <Planet count={planetCount} chains={chains} />
         </InstancedRigidBodies>
     )
 }

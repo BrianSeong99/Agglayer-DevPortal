@@ -2,37 +2,49 @@ import React, { useRef, useMemo } from 'react'
 import { Color } from 'three'
 import { useCamera } from '../context/Camera'
 
-interface PlanetProps {
-    count: number
+export interface Chain {
+  name: string;
+  rollupId: number;
+  chainId: number;
+  forkId: number;
+  rollupTypeId: number;
+  rollupVerifierType: string;
+  lastVerified: string;
+  sequencerUrl: string;
+  networkLiveness: string;
 }
 
-const Planet = ({ count }: PlanetProps) => {
+interface PlanetProps {
+    count: number;
+    chains?: Chain[];
+}
+
+const Planet = ({ count, chains }: PlanetProps) => {
     const mesh = useRef<any>()
     const { handleFocus } = useCamera()
 
-    // Create a random color for each instance
-    const instanceColors = useMemo(() => {
-        const colors = new Float32Array(count * 3)
-        for (let i = 0; i < count; i++) {
-            // Random natural looking planet hue
-            const hue = 250 + Math.random() * 50
-
-            // Random saturation and lightness
-            const saturation = 40 + Math.random() * 60
-            const lightness = 60
-
-            const hslColor = new Color(`hsl(${hue}, ${saturation}%, ${lightness}%)`)
-            hslColor.toArray(colors, i * 3)
+    // Generate colors for each instance based on chain data if available
+    const colors = useMemo(() => {
+        if (!chains) {
+            // Fallback to random colors if no chains provided
+            return Array.from({ length: count }, () => new Color(Math.random(), Math.random(), Math.random()))
         }
-        return colors
-    }, [count])
+        
+        return chains.map((chain: Chain) => {
+            // Hash the chain name to a hue
+            let hash = 0;
+            for (let i = 0; i < chain.name.length; i++) {
+                hash = chain.name.charCodeAt(i) + ((hash << 5) - hash);
+            }
+            const hue = 200 + (hash % 100); // 200-300 range
+            return new Color(`hsl(${hue}, 60%, 60%)`);
+        })
+    }, [count, chains]);
 
     return (
-        <instancedMesh ref={mesh} args={[null, null, count]} onClick={handleFocus} castShadow receiveShadow>
-            <sphereGeometry args={[2, 32, 32]}>
-                <instancedBufferAttribute attach='attributes-color' args={[instanceColors, 3]} />
-            </sphereGeometry>
-            <meshStandardMaterial vertexColors />
+        <instancedMesh ref={mesh} args={[undefined, undefined, count]} onClick={handleFocus} castShadow receiveShadow>
+            <sphereGeometry args={[5, 32, 32]} />
+            <meshStandardMaterial color="orange" metalness={0.1} roughness={0.5} />
         </instancedMesh>
     )
 }
