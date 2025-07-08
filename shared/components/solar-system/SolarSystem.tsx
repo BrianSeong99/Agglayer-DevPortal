@@ -45,7 +45,16 @@ const SolarSystem = ({ className = "" }: SolarSystemProps) => {
           <color attach='background' args={['black']} />
           <ambientLight intensity={0.25} />
 
-          <OrbitControls maxDistance={450} minDistance={50} makeDefault />
+          <OrbitControls 
+            maxDistance={450} 
+            minDistance={50} 
+            makeDefault 
+            enablePan={true}
+            enableZoom={true}
+            enableRotate={true}
+            enableDamping={true}
+            dampingFactor={0.05}
+          />
 
           <Physics gravity={[0, 0, 0]}>
             <Scene />

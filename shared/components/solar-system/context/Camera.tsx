@@ -41,8 +41,16 @@ export const CameraProvider = ({ children }: CameraProviderProps) => {
                 const instanceMatrix = new Matrix4()
                 focusedObject.object.getMatrixAt(focusedObject.instanceId, instanceMatrix)
                 target = new Vector3().setFromMatrixPosition(instanceMatrix)
-            } else {
+            } else if (focusedObject.object.translation) {
+                // For physics bodies (RigidBody objects)
+                const position = focusedObject.object.translation()
+                target = new Vector3(position.x, position.y, position.z)
+            } else if (focusedObject.object.position) {
+                // For regular meshes
                 target = focusedObject.object.position.clone()
+            } else {
+                // Fallback to origin if no position available
+                target = new Vector3(0, 0, 0)
             }
 
             const smoothness = 0.05

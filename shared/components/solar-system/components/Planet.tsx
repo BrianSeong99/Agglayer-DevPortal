@@ -1,7 +1,5 @@
-import React, { useRef, useMemo } from 'react'
-import { Color, Texture } from 'three'
+import React, { useRef, memo, useMemo } from 'react'
 import { useTexture } from '@react-three/drei'
-import { useCamera } from '../context/Camera'
 
 export interface Chain {
   name: string;
@@ -22,7 +20,6 @@ interface PlanetProps {
 
 const Planet = ({ count, chains }: PlanetProps) => {
     const mesh = useRef<any>()
-    const { handleFocus } = useCamera()
 
     // Helper function to convert chain name to filename
     const getTextureFileName = (chainName: string): string => {
@@ -39,29 +36,31 @@ const Planet = ({ count, chains }: PlanetProps) => {
         })
     }, [chains])
 
-    // Load textures (with fallback)
+    // Load textures with repeat settings
     const textures = useTexture(texturePaths, (textures) => {
-        // Handle successful load
         const textureArray = Array.isArray(textures) ? textures : [textures]
         
-        // Set repeat for each texture to reduce stretching
         textureArray.forEach(texture => {
             texture.repeat.set(2, 1)
-            texture.wrapS = texture.wrapT = 1000 // RepeatWrapping
+            texture.wrapS = texture.wrapT = 1000
             texture.needsUpdate = true
         })
         
         return textureArray
     })
 
-    // Use first texture as default for instanced material
     const primaryTexture = Array.isArray(textures) ? textures[0] : textures
 
     return (
-        <instancedMesh ref={mesh} args={[undefined, undefined, count]} onClick={handleFocus} castShadow receiveShadow>
+        <instancedMesh 
+            ref={mesh} 
+            args={[undefined, undefined, count]} 
+            castShadow 
+            receiveShadow
+        >
             <sphereGeometry args={[5, 32, 32]} />
             <meshStandardMaterial 
-                map={primaryTexture} 
+                map={primaryTexture}
                 metalness={0.1} 
                 roughness={0.5} 
             />
@@ -69,4 +68,4 @@ const Planet = ({ count, chains }: PlanetProps) => {
     )
 }
 
-export default Planet 
+export default memo(Planet) 

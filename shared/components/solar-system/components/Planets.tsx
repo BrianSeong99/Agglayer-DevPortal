@@ -5,8 +5,36 @@ import { Vector3 } from 'three'
 
 import { calculateInitialPosition, calculateInitialVelocity } from '../utils/planetCalculations'
 import { useTrails } from '../context/Trails'
+import { useCamera } from '../context/Camera'
 
 import Planet, { Chain } from './Planet'
+
+// Click helper component that tracks physics body position
+const PlanetClickHelper = ({ index, planetsRef, onPlanetClick }: {
+    index: number
+    planetsRef: React.RefObject<any>
+    onPlanetClick: (index: number) => void
+}) => {
+    const meshRef = useRef<any>()
+
+    useFrame(() => {
+        if (meshRef.current && planetsRef.current && planetsRef.current[index]) {
+            const position = planetsRef.current[index].translation()
+            meshRef.current.position.copy(position)
+        }
+    })
+
+    return (
+        <mesh
+            ref={meshRef}
+            onClick={() => onPlanetClick(index)}
+            visible={false}
+        >
+            <sphereGeometry args={[8, 8, 8]} />
+            <meshBasicMaterial transparent opacity={0} />
+        </mesh>
+    )
+}
 
 
 interface PlanetData {
@@ -24,9 +52,11 @@ interface PlanetsProps {
 // Planets component
 const Planets = ({ chains }: PlanetsProps) => {
     const { addTrailPoint } = useTrails()
+    const { handleFocus } = useCamera()
 
     const planetsRef = useRef<any>()
     const [planetCount, setPlanetCount] = useState(chains.length)
+
 
 
     // Set up the initial planet data based on chains
@@ -37,7 +67,7 @@ const Planets = ({ chains }: PlanetsProps) => {
             const position = calculateInitialPosition(false, chain.rollupId)
             const velocity = calculateInitialVelocity(position, false)
             const linearVelocity: [number, number, number] = [velocity.x, velocity.y, velocity.z]
-            const scale = 0.5 + Math.random()
+            const scale = 0.8 + (chain.rollupId % 10) / 10 * 0.7 // Scale between 0.8-1.5 based on rollupId
             
             planets.push({ 
                 key, 
@@ -71,17 +101,39 @@ const Planets = ({ chains }: PlanetsProps) => {
         })
     })
 
+    // Handle planet click
+    const handlePlanetClick = (index: number) => {
+        if (planetsRef?.current && planetsRef.current[index]) {
+            handleFocus({
+                object: planetsRef.current[index],
+                instanceId: index
+            })
+        }
+    }
+
 
     return (
-        <InstancedRigidBodies 
-            ref={planetsRef} 
-            instances={planetData} 
-            colliders="ball"
-            collisionGroups={0x0002} // Group 2
-            solverGroups={0x0002} // Only solve with group 2 (no actual collision solving)
-        >
-            <Planet count={planetCount} chains={chains} />
-        </InstancedRigidBodies>
+        <>
+            <InstancedRigidBodies 
+                ref={planetsRef} 
+                instances={planetData} 
+                colliders="ball"
+                collisionGroups={0x0002} // Group 2
+                solverGroups={0x0002} // Only solve with group 2 (no actual collision solving)
+            >
+                <Planet count={planetCount} chains={chains} />
+            </InstancedRigidBodies>
+            
+            {/* Click helper meshes that follow physics bodies */}
+            {chains.map((chain, index) => (
+                <PlanetClickHelper 
+                    key={`click-helper-${index}`}
+                    index={index}
+                    planetsRef={planetsRef}
+                    onPlanetClick={handlePlanetClick}
+                />
+            ))}
+        </>
     )
 }
 
