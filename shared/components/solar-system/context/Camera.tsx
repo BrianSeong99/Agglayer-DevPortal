@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useRef, ReactNode } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { Vector3, Matrix4, Object3D } from 'three'
+import { Vector3, Matrix4, Object3D, InstancedMesh } from 'three'
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib'
 
 interface FocusedObject {
     object: Object3D
@@ -30,12 +31,13 @@ export const CameraProvider = ({ children }: CameraProviderProps) => {
     const { camera, controls } = useThree()
     const cameraTarget = useRef(new Vector3())
     const [focusedObject, setFocusedObject] = useState<FocusedObject | null>(null)
+    const orbitControls = controls as unknown as OrbitControlsImpl | undefined
 
     useFrame(() => {
         if (focusedObject) {
             let target
 
-            if (focusedObject.instanceId !== undefined) {
+            if (focusedObject.instanceId !== undefined && focusedObject.object instanceof InstancedMesh) {
                 const instanceMatrix = new Matrix4()
                 focusedObject.object.getMatrixAt(focusedObject.instanceId, instanceMatrix)
                 target = new Vector3().setFromMatrixPosition(instanceMatrix)
@@ -47,9 +49,9 @@ export const CameraProvider = ({ children }: CameraProviderProps) => {
             cameraTarget.current.lerp(target, smoothness)
             camera.lookAt(cameraTarget.current)
 
-            if (controls) {
-                controls.target.copy(cameraTarget.current)
-                controls.update()
+            if (orbitControls) {
+                orbitControls.target.copy(cameraTarget.current)
+                orbitControls.update()
             }
         }
     })
