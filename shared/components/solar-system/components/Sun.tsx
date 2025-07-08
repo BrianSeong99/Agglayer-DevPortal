@@ -157,4 +157,16 @@ const Sun = () => {
     )
 }
 
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      customShaderMaterial: React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
+        emissiveIntensity?: number
+        time?: number
+        ref?: React.Ref<any>
+      }
+    }
+  }
+}
+
 export default Sun 
