@@ -1,5 +1,6 @@
 import React, { useRef, useMemo } from 'react'
-import { Color } from 'three'
+import { Color, Texture } from 'three'
+import { useTexture } from '@react-three/drei'
 import { useCamera } from '../context/Camera'
 
 export interface Chain {
@@ -23,28 +24,47 @@ const Planet = ({ count, chains }: PlanetProps) => {
     const mesh = useRef<any>()
     const { handleFocus } = useCamera()
 
-    // Generate colors for each instance based on chain data if available
-    const colors = useMemo(() => {
-        if (!chains) {
-            // Fallback to random colors if no chains provided
-            return Array.from({ length: count }, () => new Color(Math.random(), Math.random(), Math.random()))
-        }
+    // Helper function to convert chain name to filename
+    const getTextureFileName = (chainName: string): string => {
+        return chainName.toLowerCase().replace(/[^a-z0-9]/g, '-')
+    }
+
+    // Create texture paths for all chains
+    const texturePaths = useMemo(() => {
+        if (!chains) return ['/textures/planets/default.jpg']
         
-        return chains.map((chain: Chain) => {
-            // Hash the chain name to a hue
-            let hash = 0;
-            for (let i = 0; i < chain.name.length; i++) {
-                hash = chain.name.charCodeAt(i) + ((hash << 5) - hash);
-            }
-            const hue = 200 + (hash % 100); // 200-300 range
-            return new Color(`hsl(${hue}, 60%, 60%)`);
+        return chains.map(chain => {
+            const fileName = getTextureFileName(chain.name)
+            return `/chains/${fileName}.png`
         })
-    }, [count, chains]);
+    }, [chains])
+
+    // Load textures (with fallback)
+    const textures = useTexture(texturePaths, (textures) => {
+        // Handle successful load
+        const textureArray = Array.isArray(textures) ? textures : [textures]
+        
+        // Set repeat for each texture to reduce stretching
+        textureArray.forEach(texture => {
+            texture.repeat.set(2, 1)
+            texture.wrapS = texture.wrapT = 1000 // RepeatWrapping
+            texture.needsUpdate = true
+        })
+        
+        return textureArray
+    })
+
+    // Use first texture as default for instanced material
+    const primaryTexture = Array.isArray(textures) ? textures[0] : textures
 
     return (
         <instancedMesh ref={mesh} args={[undefined, undefined, count]} onClick={handleFocus} castShadow receiveShadow>
             <sphereGeometry args={[5, 32, 32]} />
-            <meshStandardMaterial color="orange" metalness={0.1} roughness={0.5} />
+            <meshStandardMaterial 
+                map={primaryTexture} 
+                metalness={0.1} 
+                roughness={0.5} 
+            />
         </instancedMesh>
     )
 }
