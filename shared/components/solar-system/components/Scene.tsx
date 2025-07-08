@@ -1,6 +1,5 @@
 import useGravity from '../hooks/useGravity'
 import { CameraProvider } from '../context/Camera'
-import { ExplosionProvider } from '../context/Explosions'
 import { TrailProvider } from '../context/Trails'
 
 import Sun from './Sun'
@@ -14,15 +13,13 @@ const Scene = () => {
 
     return (
         <CameraProvider>
-            <ExplosionProvider>
-                <Sun />
+            <Sun />
 
-                <TrailProvider>
-                    <Planets />
-                </TrailProvider>
+            <TrailProvider>
+                <Planets />
+            </TrailProvider>
 
-                <Stars />
-            </ExplosionProvider>
+            <Stars />
         </CameraProvider>
     )
 }

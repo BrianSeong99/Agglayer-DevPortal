@@ -4,7 +4,6 @@ import { InstancedRigidBodies } from '@react-three/rapier'
 import { Vector3 } from 'three'
 
 import { calculateInitialPosition, calculateInitialVelocity } from '../utils/planetCalculations'
-import { useExplosion } from '../context/Explosions'
 import { useTrails } from '../context/Trails'
 
 import Planet from './Planet'
@@ -12,7 +11,7 @@ import Planet from './Planet'
 interface PlanetData {
     key: string
     position: Vector3
-    linearVelocity: Vector3
+    linearVelocity: [number, number, number]
     scale: number
     userData: { type: string; key: string }
 }
@@ -23,17 +22,17 @@ interface PlanetsProps {
 
 // Planets component
 const Planets = ({ count = 14 }: PlanetsProps) => {
-    const { triggerExplosion } = useExplosion()
-    const { addTrailPoint, clearTrail } = useTrails()
+    const { addTrailPoint } = useTrails()
 
     const planetsRef = useRef<any>()
     const [planetCount, setPlanetCount] = useState(count)
 
     // Planet props
-    const newPlanet = (respawn = false): PlanetData => {
+    const newPlanet = (): PlanetData => {
         const key = 'instance_' + Math.random()
-        const position = calculateInitialPosition(respawn)
-        const linearVelocity = calculateInitialVelocity(position, respawn)
+        const position = calculateInitialPosition(false)
+        const velocity = calculateInitialVelocity(position, false)
+        const linearVelocity: [number, number, number] = [velocity.x, velocity.y, velocity.z]
         const scale = 0.5 + Math.random() * 1.5
 
         return { key, position, linearVelocity, scale, userData: { type: 'Planet', key } }
@@ -69,53 +68,15 @@ const Planets = ({ count = 14 }: PlanetsProps) => {
         })
     })
 
-    // Handle collisions
-    const handleCollision = ({ manifold, target, other }: any) => {
-        console.log('Planet collision')
-
-        // get the mass of both objects
-        const targetMass = target.rigidBody.mass()
-        const otherMass = other.rigidBody.mass()
-
-        // If other object is more massive
-        if (otherMass > targetMass) {
-            // Get the collision and target positions
-            const targetPosition = target.rigidBody.translation()
-            const collisionWorldPosition = manifold.solverContactPoint(0)
-
-            // Get the velocities of both objects
-            const targetVelocity = target.rigidBody.linvel()
-            const otherVelocity = other.rigidBody.linvel()
-
-            // Calculate the combined velocity using conservation of momentum
-            const combinedMass = targetMass + otherMass
-            const combinedVelocity = new Vector3().addScaledVector(targetVelocity, targetMass).addScaledVector(otherVelocity, otherMass).divideScalar(combinedMass)
-
-            // Set the combined velocity to the other
-            if (other.rigidBody.userData.type === 'Planet') {
-                other.rigidBody.setLinvel(combinedVelocity)
-            }
-
-            // Clear trail of the target planet
-            clearTrail(target.rigidBody.userData.key)
-
-            // Trigger explosion.
-            triggerExplosion(
-                new Vector3(collisionWorldPosition.x, collisionWorldPosition.y, collisionWorldPosition.z),
-                new Vector3(targetPosition.x, targetPosition.y, targetPosition.z)
-            )
-
-            // Respawn the target planet
-            const newPlanetData = newPlanet(true)
-
-            target.rigidBody.userData.key = newPlanetData.key
-            target.rigidBody.setTranslation(newPlanetData.position)
-            target.rigidBody.setLinvel(newPlanetData.linearVelocity)
-        }
-    }
 
     return (
-        <InstancedRigidBodies ref={planetsRef} instances={planetData} colliders='ball' onCollisionEnter={handleCollision}>
+        <InstancedRigidBodies 
+            ref={planetsRef} 
+            instances={planetData} 
+            colliders="ball"
+            collisionGroups={0x0002} // Group 2
+            solverGroups={0x0002} // Only solve with group 2 (no actual collision solving)
+        >
             <Planet count={planetCount} />
         </InstancedRigidBodies>
     )

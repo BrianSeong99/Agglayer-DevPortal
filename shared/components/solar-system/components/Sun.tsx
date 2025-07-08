@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useFrame, extend } from '@react-three/fiber'
 import { shaderMaterial } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
-import { SUN_RADIUS } from '../config/constants'
+import { SUN_RADIUS, SUN_MASS } from '../config/constants'
 import { useCamera } from '../context/Camera'
 
 // Import the noise shader
@@ -139,8 +139,15 @@ const Sun = () => {
     })
 
     return (
-        <RigidBody colliders='ball' userData={{ type: 'Sun' }} type='kinematicPosition' onClick={handleFocus}>
-            <mesh>
+        <RigidBody 
+            colliders="ball" 
+            userData={{ type: 'Sun' }} 
+            type='kinematicPosition' 
+            mass={SUN_MASS}
+            collisionGroups={0x0001} // Group 1
+            solverGroups={0x0001} // Only solve with group 1 (no collision with planets)
+        >
+            <mesh onClick={handleFocus}>
                 <sphereGeometry args={[SUN_RADIUS, 32, 32]} />
                 <customShaderMaterial ref={shaderRef} emissiveIntensity={5} time={0} />
             </mesh>
