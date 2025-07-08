@@ -57,12 +57,15 @@ const Planet = ({ count, chains }: PlanetProps) => {
             args={[undefined, undefined, count]} 
             castShadow 
             receiveShadow
+            frustumCulled={false}
         >
             <sphereGeometry args={[5, 32, 32]} />
             <meshStandardMaterial 
                 map={primaryTexture}
                 metalness={0.1} 
-                roughness={0.5} 
+                roughness={0.8}
+                emissive={0x000000}
+                emissiveIntensity={0}
             />
         </instancedMesh>
     )

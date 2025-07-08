@@ -17,10 +17,11 @@ const PlanetClickHelper = ({ index, planetsRef, onPlanetClick }: {
 }) => {
     const meshRef = useRef<any>()
 
-    useFrame(() => {
+    useFrame(({ camera }) => {
         if (meshRef.current && planetsRef.current && planetsRef.current[index]) {
             const position = planetsRef.current[index].translation()
             meshRef.current.position.copy(position)
+            
         }
     })
 

@@ -36,7 +36,7 @@ const SolarSystem = ({ className = "" }: SolarSystemProps) => {
     <div ref={containerRef} className={`w-full h-full ${className}`}>
       <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}>
         <Canvas 
-          camera={{ position: [0, 50, 150], far: 200000 }}
+          camera={{ position: [0, 50, 150], near: 1, far: 200000 }}
           gl={{ antialias: true, alpha: false }}
           onCreated={({ gl }) => {
             gl.setClearColor('#000000');
@@ -61,7 +61,7 @@ const SolarSystem = ({ className = "" }: SolarSystemProps) => {
           </Physics>
 
           <EffectComposer>
-            <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
+            <Bloom luminanceThreshold={0.8} luminanceSmoothing={0.9} height={300} intensity={0.5} />
           </EffectComposer>
         </Canvas>
       </Suspense>
