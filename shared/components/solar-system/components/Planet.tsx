@@ -1,4 +1,4 @@
-import React, { useRef, memo, useMemo } from 'react'
+import React, { useRef, memo } from 'react'
 import { useTexture } from '@react-three/drei'
 
 export interface Chain {
@@ -14,61 +14,36 @@ export interface Chain {
 }
 
 interface PlanetProps {
-    count: number;
-    chains?: Chain[];
+    chains: Chain[];
 }
 
-const Planet = ({ count, chains }: PlanetProps) => {
+const Planet = ({ chains }: PlanetProps) => {
     const mesh = useRef<any>()
+    const count = chains.length
 
-    // Helper function to convert chain name to filename
-    const getTextureFileName = (chainName: string): string => {
-        return chainName.toLowerCase().replace(/[^a-z0-9]/g, '-')
-    }
-
-    // Create texture paths for all chains
-    const texturePaths = useMemo(() => {
-        if (!chains) return ['/textures/planets/default.jpg']
-        
-        return chains.map(chain => {
-            const fileName = getTextureFileName(chain.name)
-            return `/chains/${fileName}.png`
-        })
-    }, [chains])
-
-    // Load textures with repeat settings
-    const textures = useTexture(texturePaths, (textures) => {
-        const textureArray = Array.isArray(textures) ? textures : [textures]
-        
-        textureArray.forEach(texture => {
-            texture.repeat.set(2, 1)
-            texture.wrapS = texture.wrapT = 1000
-            texture.needsUpdate = true
-        })
-        
-        return textureArray
+    // Load the katana texture with horizontal repeat
+    const katanaTexture = useTexture('/chains/katana.png', (texture) => {
+        texture.repeat.set(2, 1) // Repeat twice horizontally, once vertically
+        texture.wrapS = texture.wrapT = 1000 // RepeatWrapping
+        texture.needsUpdate = true
     })
-
-    const primaryTexture = Array.isArray(textures) ? textures[0] : textures
 
     return (
         <instancedMesh 
             ref={mesh} 
-            args={[undefined, undefined, count]} 
+            args={[undefined, undefined, count]}
             castShadow 
             receiveShadow
             frustumCulled={false}
         >
             <sphereGeometry args={[5, 32, 32]} />
             <meshStandardMaterial 
-                map={primaryTexture}
+                map={katanaTexture}
                 metalness={0.1} 
-                roughness={0.8}
-                emissive={0x000000}
-                emissiveIntensity={0}
+                roughness={0.5}
             />
         </instancedMesh>
     )
 }
 
-export default memo(Planet) 
+export default memo(Planet)

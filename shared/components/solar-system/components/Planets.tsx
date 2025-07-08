@@ -9,7 +9,7 @@ import { useCamera } from '../context/Camera'
 
 import Planet, { Chain } from './Planet'
 
-// Click helper component that tracks physics body position
+// Click helper component
 const PlanetClickHelper = ({ index, planetsRef, onPlanetClick }: {
     index: number
     planetsRef: React.RefObject<any>
@@ -17,11 +17,10 @@ const PlanetClickHelper = ({ index, planetsRef, onPlanetClick }: {
 }) => {
     const meshRef = useRef<any>()
 
-    useFrame(({ camera }) => {
+    useFrame(() => {
         if (meshRef.current && planetsRef.current && planetsRef.current[index]) {
             const position = planetsRef.current[index].translation()
             meshRef.current.position.copy(position)
-            
         }
     })
 
@@ -36,7 +35,6 @@ const PlanetClickHelper = ({ index, planetsRef, onPlanetClick }: {
         </mesh>
     )
 }
-
 
 interface PlanetData {
     key: string
@@ -57,8 +55,6 @@ const Planets = ({ chains }: PlanetsProps) => {
 
     const planetsRef = useRef<any>()
     const [planetCount, setPlanetCount] = useState(chains.length)
-
-
 
     // Set up the initial planet data based on chains
     const planetData = useMemo(() => {
@@ -84,10 +80,9 @@ const Planets = ({ chains }: PlanetsProps) => {
     // Update the planet count
     useEffect(() => {
         if (planetsRef.current) {
-            // Set the planet count
             setPlanetCount(planetsRef.current.length)
-
-            // add some initial spin to the planets
+            
+            // Add initial spin
             planetsRef.current.forEach((planet: any) => {
                 planet.setAngvel(new Vector3(0, Math.random() - 0.5, 0))
             })
@@ -102,40 +97,36 @@ const Planets = ({ chains }: PlanetsProps) => {
         })
     })
 
-    // Handle planet click
-    const handlePlanetClick = (index: number) => {
-        if (planetsRef?.current && planetsRef.current[index]) {
-            handleFocus({
-                object: planetsRef.current[index],
-                instanceId: index
-            })
-        }
-    }
-
-
     return (
         <>
             <InstancedRigidBodies 
                 ref={planetsRef} 
                 instances={planetData} 
                 colliders="ball"
-                collisionGroups={0x0002} // Group 2
-                solverGroups={0x0002} // Only solve with group 2 (no actual collision solving)
+                collisionGroups={0x0002}
+                solverGroups={0x0002}
             >
-                <Planet count={planetCount} chains={chains} />
+                <Planet chains={chains} />
             </InstancedRigidBodies>
             
-            {/* Click helper meshes that follow physics bodies */}
+            {/* Click helper meshes */}
             {chains.map((chain, index) => (
                 <PlanetClickHelper 
-                    key={`click-helper-${index}`}
+                    key={`click-${index}`}
                     index={index}
                     planetsRef={planetsRef}
-                    onPlanetClick={handlePlanetClick}
+                    onPlanetClick={(idx) => {
+                        if (planetsRef.current && planetsRef.current[idx]) {
+                            handleFocus({
+                                object: planetsRef.current[idx],
+                                instanceId: idx
+                            })
+                        }
+                    }}
                 />
             ))}
         </>
     )
 }
 
-export default Planets 
+export default Planets
