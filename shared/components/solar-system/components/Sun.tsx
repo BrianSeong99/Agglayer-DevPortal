@@ -4,10 +4,12 @@ import { useTexture } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
 import { SUN_RADIUS, SUN_MASS } from '../config/constants'
 import { useCamera } from '../context/Camera'
+import { useSidebar } from '../context/Sidebar'
 
 
 const Sun = () => {
     const { handleFocus } = useCamera()
+    const { openSidebar } = useSidebar()
     const meshRef = useRef<any>()
 
     // Load a texture with horizontal repeat (fallback to katana since SVG doesn't work well)
@@ -33,12 +35,16 @@ const Sun = () => {
             collisionGroups={0x0001} // Group 1
             solverGroups={0x0001} // Only solve with group 1 (no collision with planets)
         >
-            <mesh ref={meshRef} onClick={handleFocus}>
+            <mesh ref={meshRef} onClick={(e) => {
+                e.stopPropagation()
+                handleFocus(e)
+                openSidebar({ type: 'sun' })
+            }}>
                 <sphereGeometry args={[SUN_RADIUS, 32, 32]} />
                 <meshStandardMaterial 
                     map={sunTexture}
                     emissive={'#ffffff'}
-                    emissiveIntensity={0.2}
+                    emissiveIntensity={1}
                     metalness={0.2}
                     roughness={0.4}
                 />

@@ -1,6 +1,7 @@
 import useGravity from '../hooks/useGravity'
 import { CameraProvider } from '../context/Camera'
 import { TrailProvider } from '../context/Trails'
+import { SidebarProvider } from '../context/Sidebar'
 
 import Sun from './Sun'
 import Stars from './Stars'

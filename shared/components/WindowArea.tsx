@@ -12,7 +12,7 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
       {pathname !== "/" && (
         <motion.div
           key="window-area"
-          className="relative z-10 flex justify-center items-center w-full p-[5px]"
+          className="relative z-10 flex justify-center items-center w-full p-4"
           style={{ height: `calc(100vh - ${DOCK_HEIGHT}px)` }}
           initial={{ 
             opacity: 0, 

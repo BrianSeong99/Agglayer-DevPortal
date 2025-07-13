@@ -6,15 +6,19 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { Physics } from '@react-three/rapier'
 
 import Scene from './solar-system/components/Scene'
+import { SidebarProvider, useSidebar } from './solar-system/context/Sidebar'
+import CelestialSidebar from './solar-system/components/CelestialSidebar'
 
-// AggniversePlanets component
-const AggniversePlanets = () => {
+// Inner component that uses the sidebar
+const AggniverseContent = () => {
+  const { isOpen, selectedBody, closeSidebar } = useSidebar();
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 w-full h-full pointer-events-auto">
-      {/* <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}> */}
-        <Canvas 
+    <>
+      <div ref={containerRef} className="absolute inset-0 w-full h-full pointer-events-auto">
+        {/* <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}> */}
+          <Canvas 
           camera={{ position: [0, 50, 150], far: 200000 }}
           gl={{ antialias: true, alpha: false }}
           onCreated={({ gl, scene }) => {
@@ -42,9 +46,25 @@ const AggniversePlanets = () => {
           <EffectComposer>
             <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
           </EffectComposer>
-        </Canvas>
-      {/* </Suspense> */}
-    </div>
+          </Canvas>
+        {/* </Suspense> */}
+      </div>
+      
+      <CelestialSidebar 
+        isOpen={isOpen}
+        onClose={closeSidebar}
+        celestialBody={selectedBody}
+      />
+    </>
+  );
+}
+
+// AggniversePlanets component
+const AggniversePlanets = () => {
+  return (
+    <SidebarProvider>
+      <AggniverseContent />
+    </SidebarProvider>
   );
 }
 

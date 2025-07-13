@@ -6,6 +6,7 @@ import { Vector3 } from 'three'
 import { calculateInitialPosition, calculateInitialVelocity } from '../utils/planetCalculations'
 import { useTrails } from '../context/Trails'
 import { useCamera } from '../context/Camera'
+import { useSidebar } from '../context/Sidebar'
 
 import Planet, { Chain } from './Planet'
 
@@ -52,6 +53,7 @@ interface PlanetsProps {
 const Planets = ({ chains }: PlanetsProps) => {
     const { addTrailPoint } = useTrails()
     const { handleFocus } = useCamera()
+    const { openSidebar } = useSidebar()
 
     const planetsRef = useRef<any>()
     const [planetCount, setPlanetCount] = useState(chains.length)
@@ -121,6 +123,7 @@ const Planets = ({ chains }: PlanetsProps) => {
                                 object: planetsRef.current[idx],
                                 instanceId: idx
                             })
+                            openSidebar({ type: 'planet', data: chains[idx] })
                         }
                     }}
                 />
