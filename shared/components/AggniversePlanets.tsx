@@ -1,24 +1,30 @@
 "use client";
 import React, { useRef } from "react";
 import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { OrbitControls, Html } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { Physics } from '@react-three/rapier'
 
 import Scene from './solar-system/components/Scene'
 import { SidebarProvider, useSidebar } from './solar-system/context/Sidebar'
 import CelestialSidebar from './solar-system/components/CelestialSidebar'
+import { CelestialSearchBar } from './solar-system/components/CelestialSearchBar'
 
 // Inner component that uses the sidebar
 const AggniverseContent = () => {
-  const { isOpen, selectedBody, closeSidebar } = useSidebar();
+  const { isOpen, selectedBody, isSearchVisible, closeSidebar } = useSidebar();
   const containerRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
-      <div ref={containerRef} className="absolute inset-0 w-full h-full pointer-events-auto">
+      <div 
+        ref={containerRef} 
+        className="absolute inset-0 w-full h-full"
+        style={{ pointerEvents: 'none' }}
+      >
         {/* <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}> */}
           <Canvas 
+          className="pointer-events-auto"
           camera={{ position: [0, 50, 150], far: 200000 }}
           gl={{ antialias: true, alpha: false }}
           onCreated={({ gl, scene }) => {
@@ -43,6 +49,7 @@ const AggniverseContent = () => {
             <Scene />
           </Physics>
 
+
           <EffectComposer>
             <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
           </EffectComposer>
@@ -50,11 +57,37 @@ const AggniverseContent = () => {
         {/* </Suspense> */}
       </div>
       
-      <CelestialSidebar 
-        isOpen={isOpen}
-        onClose={closeSidebar}
-        celestialBody={selectedBody}
-      />
+      {/* Search bar positioned at top-left */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '16px',
+          left: '16px',
+          zIndex: 9999,
+          pointerEvents: 'auto'
+        }}
+      >
+        <CelestialSearchBar isVisible={isSearchVisible} />
+      </div>
+
+      {/* Sidebar positioned below search bar */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '104px',
+          left: '16px',
+          width: '25%',
+          height: 'calc(100vh - 80px - 104px)',
+          zIndex: 9999,
+          pointerEvents: 'auto'
+        }}
+      >
+        <CelestialSidebar 
+          isOpen={isOpen}
+          onClose={closeSidebar}
+          celestialBody={selectedBody}
+        />
+      </div>
     </>
   );
 }
