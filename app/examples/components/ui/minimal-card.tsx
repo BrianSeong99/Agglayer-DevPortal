@@ -1,7 +1,7 @@
 import * as React from "react"
 import Image from "next/image"
 
-import { cn } from "../../../../../shared/utils/cn"
+import { cn } from "@/shared/utils/cn"
 
 const MinimalCard = React.forwardRef<
   HTMLDivElement,

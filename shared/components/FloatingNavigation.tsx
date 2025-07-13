@@ -9,10 +9,8 @@ import {
   IconCode,
   IconBrandX,
   IconBrandGithub,
-  IconSun,
   IconUniverse,
-  IconScript,
-  IconHome
+  IconScript
 } from "@tabler/icons-react";
 
 export default function FloatingNavigation() {
@@ -20,39 +18,32 @@ export default function FloatingNavigation() {
 
   const links = [
     {
-      title: "Home",
-      icon: (isActive: boolean) => (
-        <IconHome className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
-      ),
-      href: "/",
-    },
-    {
       title: "Dashboard",
       icon: (isActive: boolean) => (
         <IconLayoutDashboard className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/dashboard",
+      href: "/",
     },
     {
       title: "Aggniverse",
       icon: (isActive: boolean) => (
         <IconUniverse className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/dashboard/aggniverse",
+      href: "/aggniverse",
     },
     {
       title: "Examples",
       icon: (isActive: boolean) => (
         <IconApps className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/dashboard/examples",
+      href: "/examples",
     },
     {
       title: "Developers",
       icon: (isActive: boolean) => (
         <IconCode className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/dashboard/developers",
+      href: "/developers",
     },
     { type: 'divider' as const },
     {
@@ -78,14 +69,6 @@ export default function FloatingNavigation() {
       ),
       href: "https://docs.agglayer.dev/",
       target: "_blank" as const,
-    },
-    { type: 'divider' as const },
-    {
-      title: "Theme",
-      icon: (isActive: boolean) => (
-        <IconSun className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
-      ),
-      href: "/dashboard/theme",
     }
   ];
 

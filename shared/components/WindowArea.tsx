@@ -9,7 +9,7 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
   
   return (
     <AnimatePresence mode="wait">
-      {pathname !== "/" && (
+      {pathname !== "/aggniverse" && (
         <motion.div
           key="window-area"
           className="relative z-10 flex justify-center items-center w-full p-4"

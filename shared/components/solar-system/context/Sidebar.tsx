@@ -1,4 +1,5 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 interface CelestialBody {
   type: 'sun' | 'planet'
@@ -17,6 +18,24 @@ const SidebarContext = createContext<SidebarContextType | undefined>(undefined)
 export const SidebarProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedBody, setSelectedBody] = useState<CelestialBody | null>(null)
+  const [savedState, setSavedState] = useState<{ isOpen: boolean; selectedBody: CelestialBody | null }>({ isOpen: false, selectedBody: null })
+  const pathname = usePathname()
+
+  // Save state when leaving aggniverse and restore when returning
+  useEffect(() => {
+    if (pathname === '/aggniverse') {
+      // Returning to aggniverse - restore saved state
+      setIsOpen(savedState.isOpen)
+      setSelectedBody(savedState.selectedBody)
+    } else {
+      // Leaving aggniverse - save current state and hide sidebar
+      if (isOpen || selectedBody) {
+        setSavedState({ isOpen, selectedBody })
+      }
+      setIsOpen(false)
+      setSelectedBody(null)
+    }
+  }, [pathname])
 
   const openSidebar = (body: CelestialBody) => {
     setSelectedBody(body)
