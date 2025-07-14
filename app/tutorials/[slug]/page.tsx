@@ -16,17 +16,26 @@ import {
 } from 'lucide-react'
 import { dapps } from '@/app/tutorials/data/dapps'
 import DashboardLayout from '@/shared/components/dashboard/DashboardLayout'
-import DashboardHeader from '@/shared/components/dashboard/DashboardHeader'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function DappDetailPage({ params }: { params: { slug: string } }) {
   const { slug } = params
   const data = dapps[slug]
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [markdownContent, setMarkdownContent] = useState<string>('')
 
   if (!data) {
     return notFound()
   }
+
+  useEffect(() => {
+    if (data.walkthrough) {
+      fetch(data.walkthrough)
+        .then(res => res.text())
+        .then(text => setMarkdownContent(text))
+        .catch(err => console.error('Failed to load documentation:', err))
+    }
+  }, [data.walkthrough])
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % data.screenshots.length)
@@ -36,14 +45,48 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
     setCurrentImageIndex((prev) => (prev - 1 + data.screenshots.length) % data.screenshots.length)
   }
 
+  // Simple markdown to HTML converter
+  const parseMarkdown = (markdown: string): string => {
+    let html = markdown
+      // Headers
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+      // Bold
+      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+      // Code blocks
+      .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
+      // Inline code
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      // Line breaks
+      .replace(/\n\n/g, '</p><p>')
+      // Lists
+      .replace(/^\* (.+)$/gim, '<li>$1</li>')
+      // Horizontal rules
+      .replace(/^---$/gim, '<hr>')
+    
+    // Wrap lists
+    html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    
+    // Wrap in paragraphs
+    html = '<p>' + html + '</p>'
+    
+    // Clean up
+    html = html
+      .replace(/<p><h/g, '<h')
+      .replace(/<\/h(\d)><\/p>/g, '</h$1>')
+      .replace(/<p><ul>/g, '<ul>')
+      .replace(/<\/ul><\/p>/g, '</ul>')
+      .replace(/<p><pre>/g, '<pre>')
+      .replace(/<\/pre><\/p>/g, '</pre>')
+      .replace(/<p><hr><\/p>/g, '<hr>')
+    
+    return html
+  }
+
   return (
     <DashboardLayout>
-      <DashboardHeader 
-        title={data.name}
-        subtitle={data.tagline}
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-6 pb-20">
         {/* Back Link */}
         <Link 
           href="/tutorials" 
@@ -53,6 +96,26 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
           <span>Back to Examples</span>
         </Link>
 
+        {/* Custom Header with Logo */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex items-start gap-4 mb-10 mt-10"
+        >
+          {data.logo && (
+            <img 
+              src={data.logo} 
+              alt={data.name} 
+              className="w-20 h-20 rounded-2xl shadow-lg" 
+            />
+          )}
+          <div className="flex-1">
+            <h1 className="text-5xl font-bold text-white mb-3">{data.name}</h1>
+            <p className="text-lg text-[#D9D9D9]/80">{data.tagline}</p>
+          </div>
+        </motion.div>
+
         {/* Hero Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -61,7 +124,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
           className="grid lg:grid-cols-2 gap-12 mb-12"
         >
           {/* Screenshots Carousel */}
-          <div className="relative">
+          <div className="relative p-6 rounded-2xl bg-gray-900/30 backdrop-blur-md border border-gray-800">
             {data.screenshots.length > 0 ? (
               <div className="relative aspect-video bg-gray-900 rounded-2xl overflow-hidden border border-gray-800">
                 <img
@@ -114,21 +177,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
           </div>
 
           {/* Details */}
-          <div>
-            <div className="flex items-start gap-4 mb-6">
-              {data.logo && (
-                <img 
-                  src={data.logo} 
-                  alt={data.name} 
-                  className="w-20 h-20 rounded-2xl shadow-lg" 
-                />
-              )}
-              <div className="flex-1">
-                <h1 className="text-3xl font-bold text-white mb-2">{data.name}</h1>
-                <p className="text-lg text-[#D9D9D9]/80">{data.tagline}</p>
-              </div>
-            </div>
-
+          <div className="p-6 rounded-2xl bg-gray-900/30 backdrop-blur-md border border-gray-800">
             <p className="text-[#D9D9D9]/70 mb-8 leading-relaxed">
               {data.description}
             </p>
@@ -161,62 +210,48 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
                   View on GitHub
                 </a>
               )}
-              {data.walkthrough && (
+              {data.appUrl && (
                 <a
-                  href={data.walkthrough}
+                  href={data.appUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-[#0071F7] hover:bg-[#0071F7]/90 text-white font-medium rounded-xl transition-colors"
                 >
-                  <Book className="w-5 h-5" />
-                  Read Documentation
+                  <ExternalLink className="w-5 h-5" />
+                  Try App
                 </a>
               )}
             </div>
+
           </div>
         </motion.div>
 
-        {/* Technical Details */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="grid md:grid-cols-3 gap-6"
-        >
-          <div className="p-6 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#0071F7] to-[#0071F7]/80 text-white">
-                <Zap className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white">Performance</h3>
+        {/* Documentation Content - Full Width */}
+        {data.walkthrough && markdownContent && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-16 p-8 rounded-2xl bg-gray-900/30 backdrop-blur-md border border-gray-800"
+          >
+            <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+              <Book className="w-5 h-5" />
+              Documentation
+            </h3>
+            <div className="prose prose-invert prose-gray max-w-none
+              prose-headings:text-white prose-h1:text-3xl prose-h2:text-2xl prose-h3:text-xl
+              prose-p:text-[#D9D9D9]/80 prose-p:leading-relaxed
+              prose-strong:text-white prose-strong:font-semibold
+              prose-code:text-[#0071F7] prose-code:bg-gray-800 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded
+              prose-pre:bg-gray-900 prose-pre:border prose-pre:border-gray-800
+              prose-li:text-[#D9D9D9]/80 prose-li:marker:text-[#0071F7]
+              prose-blockquote:border-l-[#0071F7] prose-blockquote:text-[#D9D9D9]/60"
+            >
+              <div dangerouslySetInnerHTML={{ __html: parseMarkdown(markdownContent) }} />
             </div>
-            <p className="text-[#D9D9D9]/70">
-              Built for speed and scalability with cross-chain capabilities powered by Agglayer
-            </p>
-          </div>
+          </motion.div>
+        )}
 
-          <div className="p-6 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-white to-white/80 text-black">
-                <Shield className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white">Security</h3>
-            </div>
-            <p className="text-[#D9D9D9]/70">
-              Leveraging Agglayer's unified security model for safe cross-chain operations
-            </p>
-          </div>
-
-          <div className="p-6 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#0071F7] to-white text-white">
-                <Globe className="w-5 h-5" />
-              </div>
-              <h3 className="text-lg font-semibold text-white">Interoperability</h3>
-            </div>
-            <p className="text-[#D9D9D9]/70">
-              Seamless integration with multiple chains through Agglayer's unified bridge
-            </p>
-          </div>
-        </motion.div>
       </div>
     </DashboardLayout>
   )
