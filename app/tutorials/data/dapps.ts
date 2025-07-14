@@ -7,6 +7,7 @@ export type DappData = {
   bullets: string[]
   repoUrl: string
   walkthrough: string
+  appUrl?: string
 }
 
 export const dapps: Record<string, DappData> = {
