@@ -28,10 +28,12 @@ const PlanetClickHelper = ({ index, planetsRef, onPlanetClick }: {
     return (
         <mesh
             ref={meshRef}
-            onClick={() => onPlanetClick(index)}
-            visible={false}
+            onClick={(e) => {
+                e.stopPropagation()
+                onPlanetClick(index)
+            }}
         >
-            <sphereGeometry args={[8, 8, 8]} />
+            <sphereGeometry args={[3, 8, 8]} />
             <meshBasicMaterial transparent opacity={0} />
         </mesh>
     )
@@ -47,10 +49,11 @@ interface PlanetData {
 
 interface PlanetsProps {
     chains: Chain[];
+    onPlanetsRefReady?: (ref: React.RefObject<any>) => void;
 }
 
 // Planets component
-const Planets = ({ chains }: PlanetsProps) => {
+const Planets = ({ chains, onPlanetsRefReady }: PlanetsProps) => {
     const { addTrailPoint } = useTrails()
     const { handleFocus } = useCamera()
     const { openSidebar } = useSidebar()
@@ -79,7 +82,7 @@ const Planets = ({ chains }: PlanetsProps) => {
         return planets
     }, [chains])
 
-    // Update the planet count
+    // Update the planet count and notify parent when ref is ready
     useEffect(() => {
         if (planetsRef.current) {
             setPlanetCount(planetsRef.current.length)
@@ -88,8 +91,11 @@ const Planets = ({ chains }: PlanetsProps) => {
             planetsRef.current.forEach((planet: any) => {
                 planet.setAngvel(new Vector3(0, Math.random() - 0.5, 0))
             })
+            
+            // Notify parent that planets ref is ready
+            onPlanetsRefReady?.(planetsRef)
         }
-    }, [planetsRef.current])
+    }, [planetsRef.current, onPlanetsRefReady])
 
     // Add a trail point for each planet
     useFrame(() => {

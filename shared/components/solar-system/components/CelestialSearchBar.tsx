@@ -35,9 +35,10 @@ const celestialBodies = [
 
 interface CelestialSearchBarProps {
   isVisible: boolean;
+  onSuggestionSelect?: (suggestion: { name: string; type: string; environment: string }) => void;
 }
 
-export const CelestialSearchBar = ({ isVisible }: CelestialSearchBarProps) => {
+export const CelestialSearchBar = ({ isVisible, onSuggestionSelect }: CelestialSearchBarProps) => {
   const [searchValue, setSearchValue] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [maxDropdownHeight, setMaxDropdownHeight] = useState(400);
@@ -76,9 +77,10 @@ export const CelestialSearchBar = ({ isVisible }: CelestialSearchBarProps) => {
   };
 
   // Handle suggestion click
-  const handleSuggestionClick = (suggestion: { name: string; type: string }) => {
+  const handleSuggestionClick = (suggestion: { name: string; type: string; environment: string }) => {
     setSearchValue(suggestion.name);
     setIsDropdownOpen(false);
+    onSuggestionSelect?.(suggestion);
   };
 
   return (

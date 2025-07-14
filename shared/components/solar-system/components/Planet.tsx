@@ -3,13 +3,11 @@ import { useTexture } from '@react-three/drei'
 
 export interface Chain {
   name: string;
+  environment: string;
   rollupId: number;
   chainId: number;
-  forkId: number;
-  rollupTypeId: number;
   rollupVerifierType: string;
   lastVerified: string;
-  sequencerUrl: string;
   networkLiveness: string;
 }
 

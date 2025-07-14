@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useRef, useState, useCallback } from "react";
 import { Canvas, useThree } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
@@ -15,6 +15,23 @@ import { CelestialSearchBar } from './solar-system/components/CelestialSearchBar
 const AggniverseContent = () => {
   const { isOpen, selectedBody, isSearchVisible, closeSidebar } = useSidebar();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectPlanetByName, setSelectPlanetByName] = useState<((name: string) => void) | null>(null);
+  const [selectSun, setSelectSun] = useState<(() => void) | null>(null);
+  
+  // Handle when planet selection functions become available
+  const handlePlanetSelectionReady = useCallback((selectPlanet: (name: string) => void, selectSunFn: () => void) => {
+    setSelectPlanetByName(() => selectPlanet);
+    setSelectSun(() => selectSunFn);
+  }, []);
+  
+  // Handle search suggestion selection
+  const handleSuggestionSelect = useCallback((suggestion: { name: string; type: string; environment: string }) => {
+    if (suggestion.type === 'sun') {
+      selectSun?.();
+    } else {
+      selectPlanetByName?.(suggestion.name);
+    }
+  }, [selectPlanetByName, selectSun]);
 
   // No transform - let camera system handle all positioning
 
@@ -24,7 +41,7 @@ const AggniverseContent = () => {
         ref={containerRef} 
         className="absolute inset-0 w-full h-full"
         style={{ 
-          pointerEvents: isOpen ? 'none' : 'none'
+          pointerEvents: 'auto'
         }}
       >
         {/* <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}> */}
@@ -51,7 +68,7 @@ const AggniverseContent = () => {
           </mesh>
 
           <Physics gravity={[0, 0, 0]}>
-            <Scene />
+            <Scene onPlanetSelectionReady={handlePlanetSelectionReady} />
           </Physics>
           
           <EffectComposer>
@@ -72,7 +89,10 @@ const AggniverseContent = () => {
           transition: 'left 0.4s ease-in-out'
         }}
       >
-        <CelestialSearchBar isVisible={isSearchVisible} />
+        <CelestialSearchBar 
+          isVisible={isSearchVisible} 
+          onSuggestionSelect={handleSuggestionSelect}
+        />
       </div>
 
       {/* Sidebar positioned as full height panel */}

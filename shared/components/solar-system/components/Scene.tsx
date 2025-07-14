@@ -2,6 +2,7 @@ import useGravity from '../hooks/useGravity'
 import { CameraProvider, useCamera } from '../context/Camera'
 import { TrailProvider } from '../context/Trails'
 import { useSidebar } from '../context/Sidebar'
+import { useState, useCallback, useEffect, useRef } from 'react'
 
 import Sun from './Sun'
 import Stars from './Stars'
@@ -29,7 +30,7 @@ const EmptySpaceHandler = () => {
   );
 };
 
-const chains = [
+export const chains = [
   // Mainnet chains
   {
     name: "X Layer",
@@ -218,25 +219,91 @@ const chains = [
 ];
 
 // Scene component
-const Scene = () => {
-    // Custom hook for gravity logic
-    useGravity()
+interface SceneProps {
+    onPlanetSelectionReady?: (selectPlanet: (name: string) => void, selectSun: () => void) => void;
+}
+
+// Inner scene content that has access to providers
+const SceneContent = ({ onPlanetSelectionReady }: { onPlanetSelectionReady?: (selectPlanet: (name: string) => void, selectSun: () => void) => void }) => {
+    const [planetsRef, setPlanetsRef] = useState<React.RefObject<any> | null>(null);
+    const sunRef = useRef<any>();
+    const { handleFocus } = useCamera();
+    const { openSidebar } = useSidebar();
+    
+    // Planet selection functions
+    const selectPlanetByName = useCallback((name: string) => {
+        if (!planetsRef?.current) {
+            console.warn('Planets ref not available');
+            return;
+        }
+
+        const chainIndex = chains.findIndex(chain => chain.name === name);
+        if (chainIndex === -1) {
+            console.warn(`Planet with name "${name}" not found`);
+            return;
+        }
+
+        const planetObject = planetsRef.current[chainIndex];
+        if (planetObject) {
+            handleFocus({
+                object: planetObject,
+                instanceId: chainIndex
+            });
+            
+            openSidebar({ 
+                type: 'planet', 
+                data: chains[chainIndex] 
+            });
+        }
+    }, [planetsRef, handleFocus, openSidebar]);
+
+    const selectSun = useCallback(() => {
+        if (sunRef.current) {
+            handleFocus({
+                object: sunRef.current
+            });
+        }
+        openSidebar({ 
+            type: 'sun', 
+            data: { name: 'Agglayer' } 
+        });
+    }, [handleFocus, openSidebar]);
+    
+    // Notify parent when planet selection functions are ready
+    useEffect(() => {
+        onPlanetSelectionReady?.(selectPlanetByName, selectSun);
+    }, [selectPlanetByName, selectSun, onPlanetSelectionReady]);
+    
+    const handlePlanetsRefReady = useCallback((ref: React.RefObject<any>) => {
+        setPlanetsRef(ref);
+    }, []);
 
     return (
-        <CameraProvider>
+        <>
             <EmptySpaceHandler />
-            <Sun />
+            <Sun ref={sunRef} />
 
             <TrailProvider>
-                <Planets chains={chains} />
+                <Planets chains={chains} onPlanetsRefReady={handlePlanetsRefReady} />
             </TrailProvider>
 
             <Stars />
             
             {/* Global highlight for any selected celestial body */}
             <CelestialHighlight chains={chains} />
+        </>
+    );
+};
+
+const Scene = ({ onPlanetSelectionReady }: SceneProps = {}) => {
+    // Custom hook for gravity logic
+    useGravity()
+
+    return (
+        <CameraProvider>
+            <SceneContent onPlanetSelectionReady={onPlanetSelectionReady} />
         </CameraProvider>
     )
 }
 
-export default Scene 
+export default Scene

@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, forwardRef } from 'react'
 import { useFrame } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
@@ -7,7 +7,7 @@ import { useCamera } from '../context/Camera'
 import { useSidebar } from '../context/Sidebar'
 
 
-const Sun = () => {
+const Sun = forwardRef<any, {}>((props, ref) => {
     const { handleFocus } = useCamera()
     const { openSidebar } = useSidebar()
     const meshRef = useRef<any>()
@@ -28,6 +28,7 @@ const Sun = () => {
 
     return (
         <RigidBody 
+            ref={ref}
             colliders="ball" 
             userData={{ type: 'Sun' }} 
             type='kinematicPosition' 
@@ -53,7 +54,8 @@ const Sun = () => {
             <pointLight position={[0, 0, 0]} intensity={50000} color={'rgb(255, 255, 255)'} />
         </RigidBody>
     )
-}
+});
 
+Sun.displayName = 'Sun';
 
 export default Sun 
