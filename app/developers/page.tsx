@@ -1,15 +1,12 @@
-// "use client";
-import DashboardHeader from "@/shared/components/dashboard/DashboardHeader";
+"use client";
 import DashboardLayout from "@/shared/components/dashboard/DashboardLayout";
+import DevelopmentDashboard from "@/app/developers/components/DevelopmentDashboard";
 
 export default function DevelopersPage() {
     return (
         <DashboardLayout>
-            <DashboardHeader 
-                title="Developers"
-                subtitle="Tools to help you build, launch, and grow your app on Agglayer."
-            />
+            <DevelopmentDashboard />
         </DashboardLayout>
     )
-  }
+}
   

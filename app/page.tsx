@@ -1,13 +1,14 @@
-import DashboardHeader from "@/shared/components/dashboard/DashboardHeader";
+import DevPortalHero from "@/app/components/DevPortalHero";
+import EcosystemOverview from "@/app/components/EcosystemOverview";
+import NavigationGuidance from "@/app/components/NavigationGuidance";
 import DashboardLayout from "@/shared/components/dashboard/DashboardLayout";
 
 export default function HomePage() {
     return (
         <DashboardLayout>
-            <DashboardHeader 
-                title="AggShell"
-                subtitle="Tools to help you build, launch, and grow your app on Agglayer."
-            />
+            <DevPortalHero />
+            <EcosystemOverview />
+            <NavigationGuidance />
         </DashboardLayout>
     )
 }
