@@ -38,12 +38,11 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
 
   return (
     <DashboardLayout>
-      <DashboardHeader 
-        title={data.name}
-        subtitle={data.tagline}
-      />
-      
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
+      <div className="max-w-7xl mx-auto px-6 pb-20">
+        <DashboardHeader 
+          title={data.name}
+          subtitle={data.tagline}
+        />
         {/* Back Link */}
         <Link 
           href="/tutorials" 
