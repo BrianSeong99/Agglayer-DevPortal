@@ -1,72 +1,151 @@
-# 🥚 Eggshell
+# 🌌 Agglayer Developer Portal
 
-**Eggshell** is an educational dashboard and showcase platform for exploring and building cross-chain dApps on [AggLayer](https://github.com/agglayer). It features frontend dApp demos, cross-chain wallet views, and interactive tutorials to help developers learn and build more easily in a multichain environment.
+**Agglayer Developer Portal** is the official developer portal for [Agglayer](https://github.com/agglayer), providing a comprehensive interface for developers to explore, learn, and build on Agglayer's unified cross-chain infrastructure. It features an interactive chain explorer, technical tutorials, and development tools to help developers navigate the multichain ecosystem.
 
-## 🌐 What is Eggshell?
+## 🚀 What is Agglayer Developer Portal?
 
-Eggshell is your shell to the AggLayer multichain universe.
+The Agglayer Developer Portal is your gateway to the Agglayer multichain universe, offering:
 
-It lets you:
-- Explore live cross-chain dApp demos.
-- Understand how they work with step-by-step tutorials.
-- Simulate interact with your assets and apps through a unified cross-chain wallet dashboard.
-- Launch directly from a Metamask Snap — with support for more wallets coming soon.
+- **Interactive Chain Explorer**: Visualize and explore 20+ chains connected to Agglayer
+- **Technical Tutorials**: Learn cross-chain development with hands-on examples
+- **Development Tools**: Access resources for building on Agglayer
+- **Real-time Network Status**: Monitor chain health and metrics
 
-## Key Features
+## 📄 Page Architecture
 
-### Wallet Dashboard
-- Track tokens, NFTs, and activity across AggLayer chains.
-- Initial integration with Metamask Snap.
+### 🏠 Homepage (`/`) - Information & Navigation Hub
+**Purpose**: Guide users to appropriate destinations based on their needs
+- Explains what Agglayer is and why it matters
+- Provides ecosystem overview and navigation guidance
+- Directs users to AggNiverse, Examples, or Developers pages
 
-### Dapp Dashboard
-- Browse a growing library of dApp examples.
-- Visual explanations of how AggLayer cross-chain UX works.
+### 🌌 AggNiverse (`/aggniverse`) - Chain Explorer & Discovery
+**Purpose**: Visual exploration of all chains connected to Agglayer
+- 3D solar system interface for chain discovery
+- Detailed chain information with developer resources
+- Real-time network status and metrics
+- 20+ chains across mainnet, cardona, and bali environments
 
-### Modular dApp Showcases
-Each dApp example includes:
-- Live frontend interaction
-- Code view or GitHub link
-- Tutorial walkthrough explaining mechanics and cross-chain logic
+### 💡 Examples (`/examples`) - Learning Hub with Technical Tutorials
+**Purpose**: Educational content and hands-on learning resources
+- Technical tutorials explaining Agglayer architecture
+- Developer journey categorization (Beginner, dApp, Chain Builder, ZK)
+- Real implementations and case studies
+- Progressive learning paths
 
-### Chains Status Page
-- Real-time heartbeats and metadata of all AggLayer-connected chains
-- Inspired by tools like L2Beat
+### 🛠️ Developers (`/developers`) - Active Development Portal
+**Purpose**: Interactive environment for active Agglayer development
+- Live development tools and resources
+- Interactive testing interfaces
+- Stage-specific resources (Local → Testnet → Mainnet)
+- Real-time monitoring and debugging tools
 
-## 🚀 Roadmap & Milestones
+## 🔧 Technical Stack
 
-We build iteratively with weekly releases and additions. See [GitHub Issues](#) for task tracking.
+- **Frontend**: Next.js 14, React, TypeScript
+- **3D Graphics**: React Three Fiber, Three.js
+- **Physics**: Rapier physics engine
+- **Styling**: Tailwind CSS
+- **Animation**: Framer Motion
+- **UI Components**: Custom design system
 
-### Stage 1: Core Scaffolding
-- [ ] Build main dashboard layout
-- [ ] Wallet dashboard UI
-- [ ] Individual dApp page scaffold
-- [ ] Metamask Snap stub integration
+## 🚀 Getting Started
 
-### Stage 2: First dApp Launch
-- [ ] Deploy Uniswap-style cross-chain dApp
-- [ ] Add code + tutorial walkthrough
-- [ ] Integrate wallet state UI
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
-### Stage 3+: Continuous Expansion
-- [ ] Add more dApp examples (e.g., NFT bridge, cross-chain swap)
-- [ ] Improve chain monitoring
-- [ ] Add social sharing + embed
-- [ ] Chains status page
+### Installation
 
-## 🛠 Local Development
+```bash
+# Clone the repository
+git clone https://github.com/agglayer/agglayer-developer-portal.git
+cd agglayer-developer-portal
 
-_Coming soon._ You’ll be able to clone and run the frontend locally, or build your own example dApp.
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+Visit `http://localhost:3000` to see the application.
+
+### Development Commands
+
+```bash
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+
+# Run linting
+npm run lint
+
+# Run type checking
+npm run typecheck
+```
+
+## 📚 Key Agglayer Resources
+
+### Core Repositories
+- **[Unified Bridge](https://github.com/BrianSeong99/Agglayer_UnifiedBridge)**: Cross-chain communication infrastructure
+- **[Pessimistic Proof](https://github.com/BrianSeong99/Agglayer_PessimisticProof_Benchmark)**: Security boundary mechanism
+- **[State Transition Proof](https://github.com/BrianSeong99/Agglayer_StateTransitionProof)**: Cross-chain integrity verification
+- **[lxly.js SDK](https://github.com/0xPolygon/lxly.js)**: JavaScript library for cross-chain interactions
+
+### Developer Tools
+- **[AggSandbox](https://github.com/NethermindEth/agg-sandbox)**: Local development environment
+- **[Visualizer](https://visualizer.agglayer.dev/)**: Network visualization tool
+- **[Documentation](https://docs.agglayer.dev/)**: Official Agglayer documentation
+- **[CDK](https://www.agglayer.dev/cdk)**: Chain Development Kit
+
+## 🌐 Network Information
+
+### Connected Chains (20+)
+- **Mainnet Environment**: 8 production chains
+- **Cardona Testnet**: 8 semi-production testing chains
+- **Bali Testnet**: 4 development testing chains
+
+### Environment Color Coding
+- **Mainnet**: Green (#00d4aa)
+- **Cardona**: Orange (#ff8c42)
+- **Bali**: Purple (#8b5cf6)
+- **Agglayer**: Blue (#3b82f6)
+
+## 📁 Project Structure
+
+```
+/app                 # Next.js app directory
+  /page.tsx         # Homepage (Information Hub)
+  /aggniverse       # Chain explorer
+  /examples         # Learning tutorials
+  /developers       # Development portal
+/shared             # Shared components and utilities
+  /components       # Reusable UI components
+  /data            # Static data and configurations
+```
 
 ## 🤝 Contributing
 
-We’re building this to onboard and support the next generation of AggLayer developers.  
-Feel free to open an issue or submit a PR — especially for:
-- New dApp examples
+We welcome contributions! When working on this project:
+
+1. Follow the established component structure
+2. Use the existing design system and color schemes
+3. Maintain consistency across the four main pages
+4. Test all interactive elements and 3D components
+5. Ensure responsive design works across devices
+
+Feel free to open an issue or submit a PR, especially for:
+- New tutorial content
 - UI/UX improvements
-- Docs and tutorials
+- Additional chain integrations
+- Documentation enhancements
 
 ## 📣 Questions?
 
-Reach out to [Brian Seong](https://x.com/BrianSeong99) or [Akshat Gada](https://x.com/gada_akshat)
+- Visit [Agglayer Documentation](https://docs.agglayer.dev/)
+- Reach out to [Brian Seong](https://x.com/BrianSeong99) or [Akshat Gada](https://x.com/gada_akshat)
 
 **Made with 💜 by Polygon DevRel**
