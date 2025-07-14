@@ -30,88 +30,189 @@ const EmptySpaceHandler = () => {
 };
 
 const chains = [
+  // Mainnet chains
+  {
+    name: "X Layer",
+    environment: "mainnet",
+    rollupId: 3,
+    chainId: 196,
+    rollupVerifierType: "Validium",
+    lastVerified: "2 minutes ago",
+    networkLiveness: "Active"
+  },
   {
     name: "katana",
+    environment: "mainnet", 
     rollupId: 20,
     chainId: 747474,
-    forkId: 0,
-    rollupTypeId: 12,
     rollupVerifierType: "ALGateway",
-    lastVerified: "40min ago",
-    batch: 233,
-    sequencerUrl: "https://rpc.katanarpc.com",
+    lastVerified: "an hour ago",
     networkLiveness: "Active"
   },
   {
     name: "Pentagon Games",
+    environment: "mainnet",
     rollupId: 16,
     chainId: 3344,
-    forkId: 12,
-    rollupTypeId: 7,
-    rollupVerifierType: "zkEVM",
-    lastVerified: "2h ago",
-    batch: 2902,
-    sequencerUrl: "https://rpc.pentagon.games",
-    networkLiveness: "Active"
-  },
-  {
-    name: "Ternoa",
-    rollupId: 13,
-    chainId: 752025,
-    forkId: 12,
-    rollupTypeId: 7,
-    rollupVerifierType: "zkEVM",
-    lastVerified: "7min ago",
-    batch: 10344,
-    sequencerUrl: "https://rpc-mainnet.zkevm.ternoa.network",
-    networkLiveness: "Active"
-  },
-  {
-    name: "silicon-zk",
-    rollupId: 10,
-    chainId: 2355,
-    forkId: 12,
-    rollupTypeId: 7,
-    rollupVerifierType: "zkEVM",
-    lastVerified: "1h ago",
-    batch: 43115,
-    sequencerUrl: "https://rpc.silicon.network",
+    rollupVerifierType: "Validium",
+    lastVerified: "2 hours ago",
     networkLiveness: "Active"
   },
   {
     name: "pay-chain",
+    environment: "mainnet",
     rollupId: 8,
     chainId: 31415,
-    forkId: 9,
-    rollupTypeId: 4,
+    rollupVerifierType: "Validium",
+    lastVerified: "36 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "polygon zkEVM",
+    environment: "mainnet",
+    rollupId: 1,
+    chainId: 1101,
     rollupVerifierType: "zkEVM",
-    lastVerified: "26min ago",
-    batch: 24896,
-    sequencerUrl: "https://rpc.wirexpaychain.com",
+    lastVerified: "23 minutes ago",
     networkLiveness: "Active"
   },
   {
     name: "prism",
+    environment: "mainnet",
     rollupId: 7,
     chainId: 994873017,
-    forkId: 12,
-    rollupTypeId: 7,
-    rollupVerifierType: "zkEVM",
-    lastVerified: "1h ago",
-    batch: 71324,
-    sequencerUrl: "https://prism-sequencer.eu-north-2.gateway.fm/",
+    rollupVerifierType: "Validium",
+    lastVerified: "an hour ago",
     networkLiveness: "Active"
   },
   {
-    name: "X Layer",
-    rollupId: 3,
-    chainId: 196,
-    forkId: 13,
-    rollupTypeId: 8,
+    name: "silicon-zk",
+    environment: "mainnet",
+    rollupId: 10,
+    chainId: 2355,
+    rollupVerifierType: "Validium",
+    lastVerified: "35 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "Ternoa",
+    environment: "mainnet",
+    rollupId: 13,
+    chainId: 752025,
+    rollupVerifierType: "Validium",
+    lastVerified: "2 hours ago",
+    networkLiveness: "Active"
+  },
+
+  // Cardona testnet chains
+  {
+    name: "Lumia Beam Testnet",
+    environment: "cardona",
+    rollupId: 100,
+    chainId: 1000,
+    rollupVerifierType: "Validium",
+    lastVerified: "2 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "ppxlayer-testnet",
+    environment: "cardona",
+    rollupId: 101,
+    chainId: 1001,
+    rollupVerifierType: "Validium",
+    lastVerified: "16 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "bokuto",
+    environment: "cardona",
+    rollupId: 102,
+    chainId: 1002,
+    rollupVerifierType: "ALGateway",
+    lastVerified: "31 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "zkevm-testnet",
+    environment: "cardona",
+    rollupId: 103,
+    chainId: 1003,
     rollupVerifierType: "zkEVM",
-    lastVerified: "25min ago",
-    batch: 230962,
-    sequencerUrl: "https://rpc.xlayer.tech",
+    lastVerified: "20 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "moonveil-testnet",
+    environment: "cardona",
+    rollupId: 104,
+    chainId: 1004,
+    rollupVerifierType: "Validium",
+    lastVerified: "38 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "stavanger",
+    environment: "cardona",
+    rollupId: 105,
+    chainId: 1005,
+    rollupVerifierType: "Validium",
+    lastVerified: "16 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "Zephyr",
+    environment: "cardona",
+    rollupId: 106,
+    chainId: 1006,
+    rollupVerifierType: "PPv0.3.3",
+    lastVerified: "7 days ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "tac-turin-testnet",
+    environment: "cardona",
+    rollupId: 107,
+    chainId: 1007,
+    rollupVerifierType: "PPv0.3.3",
+    lastVerified: "3 days ago",
+    networkLiveness: "Active"
+  },
+
+  // Bali testnet chains
+  {
+    name: "zkevm-internal",
+    environment: "bali",
+    rollupId: 200,
+    chainId: 2000,
+    rollupVerifierType: "zkEVM",
+    lastVerified: "20 minutes ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "bali-35-op",
+    environment: "bali",
+    rollupId: 201,
+    chainId: 2001,
+    rollupVerifierType: "PPv0.3.3",
+    lastVerified: "3 days ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "bolt",
+    environment: "bali",
+    rollupId: 202,
+    chainId: 2002,
+    rollupVerifierType: "ALGateway",
+    lastVerified: "3 days ago",
+    networkLiveness: "Active"
+  },
+  {
+    name: "bali-39",
+    environment: "bali",
+    rollupId: 203,
+    chainId: 2003,
+    rollupVerifierType: "PPv0.3.3",
+    lastVerified: "2 days ago",
     networkLiveness: "Active"
   }
 ];

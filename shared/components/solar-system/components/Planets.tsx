@@ -66,7 +66,7 @@ const Planets = ({ chains }: PlanetsProps) => {
             const position = calculateInitialPosition(false, chain.rollupId)
             const velocity = calculateInitialVelocity(position, false)
             const linearVelocity: [number, number, number] = [velocity.x, velocity.y, velocity.z]
-            const scale = 0.8 + (chain.rollupId % 10) / 10 * 0.7 // Scale between 0.8-1.5 based on rollupId
+            const scale = 0.5 // All planets same size
             
             planets.push({ 
                 key, 

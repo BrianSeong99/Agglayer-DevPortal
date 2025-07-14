@@ -8,10 +8,15 @@ export const calculateInitialPosition = (isEntry = false, rollupId?: number): Ve
     let y: number
     
     if (rollupId !== undefined) {
-        // Use rollupId to create deterministic position
-        theta = (rollupId) % (Math.PI * 2) // Spread around circle based on rollupId
-        radius = isEntry ? SPAWN_RADIUS * 1.5 : (rollupId % 100) / 100 * SPAWN_RADIUS * 1.5 + SUN_RADIUS * 3
-        y = (rollupId % 20) - 10 // Y position between -10 and 10 based on rollupId
+        // Use rollupId to create deterministic position with much better spacing
+        theta = (rollupId * 1.618) % (Math.PI * 2) // Golden ratio for better distribution
+        // Create multiple orbital rings based on rollupId ranges
+        let ringRadius = SUN_RADIUS * 5 // Better distance from sun
+        if (rollupId >= 100) ringRadius = SUN_RADIUS * 7 // Cardona ring
+        if (rollupId >= 200) ringRadius = SUN_RADIUS * 9 // Bali ring
+        
+        radius = isEntry ? SPAWN_RADIUS * 2 : ringRadius + (rollupId % 50) / 50 * SUN_RADIUS * 2
+        y = (rollupId % 40) - 20 // Y position between -20 and 20 for more vertical spread
     } else {
         // Fallback to random
         theta = Math.random() * Math.PI * 2
