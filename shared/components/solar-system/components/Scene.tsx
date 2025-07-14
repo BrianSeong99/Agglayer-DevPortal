@@ -290,7 +290,7 @@ const SceneContent = ({ onPlanetSelectionReady }: { onPlanetSelectionReady?: (se
             <Stars />
             
             {/* Global highlight for any selected celestial body */}
-            <CelestialHighlight chains={chains} />
+            <CelestialHighlight />
         </>
     );
 };

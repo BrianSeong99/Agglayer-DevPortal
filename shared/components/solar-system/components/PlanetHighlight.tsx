@@ -17,11 +17,11 @@ const CelestialHighlight: React.FC<CelestialHighlightProps> = ({ chains = [] }) 
   // Get color scheme based on environment - matching screenshot colors
   const getColorScheme = () => {
     if (selectedBody?.type === 'sun') {
-      // Core environment - orange themes
+      // Core environment - blue themes
       return {
-        outer: '#ffa500',     // Orange
-        inner: '#ffb347',     // Light orange  
-        spinning: '#ff8c00'   // Dark orange
+        outer: '#3b82f6',     // Blue
+        inner: '#60a5fa',     // Light blue  
+        spinning: '#1d4ed8'   // Dark blue
       }
     } else if (selectedBody?.type === 'planet' && selectedBody?.data) {
       const environment = selectedBody.data.environment
@@ -77,7 +77,7 @@ const CelestialHighlight: React.FC<CelestialHighlightProps> = ({ chains = [] }) 
       } else if (selectedBody?.type === 'sun') {
         // Get sun position (at origin for most cases)
         targetPosition = new Vector3(0, 0, 0)
-        ringSize = 20 // Larger ring for sun
+        ringSize = 30 // Larger ring for sun
       }
 
       if (targetPosition) {
@@ -89,7 +89,7 @@ const CelestialHighlight: React.FC<CelestialHighlightProps> = ({ chains = [] }) 
         groupRef.current.scale.setScalar(scale)
         
         // Set ring sizes based on celestial body type
-        const baseSize = selectedBody?.type === 'sun' ? 20 : 12
+        const baseSize = selectedBody?.type === 'sun' ? 30 : 12
         
         // Update geometry if needed (simplified approach)
         groupRef.current.children.forEach((child: any, index) => {
