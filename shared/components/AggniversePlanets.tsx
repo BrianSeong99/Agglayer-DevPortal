@@ -20,11 +20,11 @@ const AggniverseContent = () => {
       <div 
         ref={containerRef} 
         className="absolute inset-0 w-full h-full"
-        style={{ pointerEvents: 'none' }}
+        style={{ pointerEvents: isOpen ? 'none' : 'none' }}
       >
         {/* <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}> */}
           <Canvas 
-          className="pointer-events-auto"
+          className={isOpen ? "pointer-events-none" : "pointer-events-auto"}
           camera={{ position: [0, 50, 150], far: 200000 }}
           gl={{ antialias: true, alpha: false }}
           onCreated={({ gl, scene }) => {
@@ -48,8 +48,7 @@ const AggniverseContent = () => {
           <Physics gravity={[0, 0, 0]}>
             <Scene />
           </Physics>
-
-
+          
           <EffectComposer>
             <Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />
           </EffectComposer>
@@ -57,27 +56,14 @@ const AggniverseContent = () => {
         {/* </Suspense> */}
       </div>
       
-      {/* Search bar positioned at top-left */}
+      {/* Sidebar positioned at top-left */}
       <div
         style={{
           position: 'fixed',
           top: '16px',
           left: '16px',
-          zIndex: 9999,
-          pointerEvents: 'auto'
-        }}
-      >
-        <CelestialSearchBar isVisible={isSearchVisible} />
-      </div>
-
-      {/* Sidebar positioned below search bar */}
-      <div
-        style={{
-          position: 'fixed',
-          top: '104px',
-          left: '16px',
           width: '25%',
-          height: 'calc(100vh - 80px - 104px)',
+          height: 'calc(100vh - 80px - 16px)',
           zIndex: 9999,
           pointerEvents: 'auto'
         }}

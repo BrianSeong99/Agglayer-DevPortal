@@ -16,12 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AggniverseBackground />
         <WindowArea>{children}</WindowArea>
         {/* Dock at the bottom */}
-        <div
-          className="relative z-10 w-full flex justify-center"
-          style={{ height: `${DOCK_HEIGHT}px` }}
-        >
-          <FloatingNavigation />
-        </div>
+        <FloatingNavigation />
       </body>
     </html>
   )

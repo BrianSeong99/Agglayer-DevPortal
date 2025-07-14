@@ -19,15 +19,21 @@ const CelestialSidebar = ({ isOpen, onClose, celestialBody }: CelestialSidebarPr
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: -400, opacity: 0 }}
           transition={{ duration: 0.4, ease: 'easeInOut' }}
-          className="w-full h-full"
+          className="w-full h-full pointer-events-auto"
           style={{ 
-            padding: '0px' // Remove padding since it's handled by the Html component
+            padding: '0px', // Remove padding since it's handled by the Html component
+            pointerEvents: 'auto'
           }}
         >
-          <div className="relative h-full w-full rounded-2xl border border-gray-700 bg-black/30 backdrop-blur-xs overflow-hidden">
+          <div className="relative h-full w-full rounded-2xl border border-gray-700 bg-black/30 backdrop-blur-xs overflow-hidden pointer-events-auto">
             <button
-              onClick={onClose}
-              className="absolute right-4 top-4 z-10 rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20"
+              onClick={(e) => {
+                console.log('Close button clicked');
+                e.stopPropagation();
+                onClose();
+              }}
+              className="absolute right-4 top-4 z-10 rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20 pointer-events-auto"
+              style={{ pointerEvents: 'auto' }}
             >
               <X className="h-5 w-5 text-white" />
             </button>
