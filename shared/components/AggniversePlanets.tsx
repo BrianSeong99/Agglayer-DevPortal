@@ -1,26 +1,79 @@
 "use client";
 import React, { useRef } from "react";
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls, Html } from '@react-three/drei'
+import { Canvas, useThree } from '@react-three/fiber'
+import { OrbitControls } from '@react-three/drei'
 import { EffectComposer, Bloom } from '@react-three/postprocessing'
 import { Physics } from '@react-three/rapier'
+import { useEffect } from 'react'
 
 import Scene from './solar-system/components/Scene'
 import { SidebarProvider, useSidebar } from './solar-system/context/Sidebar'
 import CelestialSidebar from './solar-system/components/CelestialSidebar'
 import { CelestialSearchBar } from './solar-system/components/CelestialSearchBar'
 
+// Component to adjust camera position for sidebar
+const SidebarCameraAdjuster = () => {
+  const { camera, controls } = useThree();
+  const { isOpen } = useSidebar();
+
+  useEffect(() => {
+    if (!camera || !controls) return;
+
+    // Calculate the offset needed to center the view in the available space
+    const sidebarWidth = 400;
+    const windowWidth = window.innerWidth;
+    const centerX = sidebarWidth + (windowWidth - sidebarWidth) / 2;
+    const screenCenter = windowWidth / 2;
+    const offsetFromCenter = centerX - screenCenter;
+    
+    // Convert pixel offset to camera world space
+    const scaleFactor = 0.8; // Adjust this to match the visual centering
+    const targetOffsetX = (offsetFromCenter * scaleFactor) * (isOpen ? 1 : 0);
+    
+    // Smoothly adjust camera position
+    const currentPos = camera.position.clone();
+    const targetPos = currentPos.clone();
+    targetPos.x = targetOffsetX;
+    
+    // Animate to target position
+    const duration = 400; // Match CSS transition duration
+    const startTime = Date.now();
+    const startPos = currentPos.clone();
+    
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+      
+      camera.position.lerpVectors(startPos, targetPos, eased);
+      controls.update();
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    
+    animate();
+  }, [isOpen, camera, controls]);
+
+  return null;
+};
+
 // Inner component that uses the sidebar
 const AggniverseContent = () => {
   const { isOpen, selectedBody, isSearchVisible, closeSidebar } = useSidebar();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // No transform - let camera system handle all positioning
 
   return (
     <>
       <div 
         ref={containerRef} 
         className="absolute inset-0 w-full h-full"
-        style={{ pointerEvents: isOpen ? 'none' : 'none' }}
+        style={{ 
+          pointerEvents: isOpen ? 'none' : 'none'
+        }}
       >
         {/* <Suspense fallback={<div className="w-full h-full bg-black flex items-center justify-center text-white">Loading...</div>}> */}
           <Canvas 
@@ -38,6 +91,7 @@ const AggniverseContent = () => {
           <directionalLight position={[10, 10, 5]} intensity={1} />
 
           <OrbitControls maxDistance={450} minDistance={50} makeDefault />
+          <SidebarCameraAdjuster />
 
           {/* Debug: Simple box to test if rendering works */}
           <mesh position={[0, 0, 0]}>
@@ -56,27 +110,28 @@ const AggniverseContent = () => {
         {/* </Suspense> */}
       </div>
       
-      {/* Search bar positioned at top-left */}
+      {/* Search bar positioned at top-left, above sidebar */}
       <div
         style={{
           position: 'fixed',
           top: '16px',
-          left: '16px',
+          left: isOpen ? `${400 + 16}px` : '16px', // sidebar width + padding
           zIndex: 9999,
-          pointerEvents: 'auto'
+          pointerEvents: 'auto',
+          transition: 'left 0.4s ease-in-out'
         }}
       >
         <CelestialSearchBar isVisible={isSearchVisible} />
       </div>
 
-      {/* Sidebar positioned below search bar */}
+      {/* Sidebar positioned as full height panel */}
       <div
         style={{
           position: 'fixed',
-          top: '85px',
-          left: '16px',
-          width: '320px',
-          height: 'calc(100vh - 80px - 85px - 20px)',
+          top: '0',
+          left: '0',
+          width: '400px',
+          height: '100vh',
           zIndex: 9998,
           pointerEvents: isOpen ? 'auto' : 'none'
         }}

@@ -25,14 +25,14 @@ const CelestialSidebar = ({ isOpen, onClose, celestialBody }: CelestialSidebarPr
             pointerEvents: 'auto'
           }}
         >
-          <div className="relative h-full w-full rounded-2xl border border-gray-700 bg-black/30 backdrop-blur-xs overflow-hidden pointer-events-auto">
+          <div className="relative h-full w-full border-r border-gray-700 bg-black/40 backdrop-blur-md overflow-hidden pointer-events-auto">
             <button
               onClick={(e) => {
                 console.log('Close button clicked');
                 e.stopPropagation();
                 onClose();
               }}
-              className="absolute right-4 top-4 z-10 rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20 pointer-events-auto"
+              className="absolute right-6 top-6 z-10 rounded-lg bg-white/10 p-2 transition-colors hover:bg-white/20 pointer-events-auto"
               style={{ pointerEvents: 'auto' }}
             >
               <X className="h-5 w-5 text-white" />
@@ -43,7 +43,7 @@ const CelestialSidebar = ({ isOpen, onClose, celestialBody }: CelestialSidebarPr
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="flex h-full w-full flex-col p-8"
+              className="flex h-full w-full flex-col p-6 pt-16"
             >
               {celestialBody.type === 'sun' ? (
                 <div className="text-white">
