@@ -26,7 +26,7 @@ The Agglayer Developer Portal is your gateway to the Agglayer multichain univers
 - Real-time network status and metrics
 - 20+ chains across mainnet, cardona, and bali environments
 
-### 💡 Examples (`/examples`) - Learning Hub with Technical Tutorials
+### 💡 Tutorials (`/tutorials`) - Learning Hub with Technical Tutorials
 **Purpose**: Educational content and hands-on learning resources
 - Technical tutorials explaining Agglayer architecture
 - Developer journey categorization (Beginner, dApp, Chain Builder, ZK)
