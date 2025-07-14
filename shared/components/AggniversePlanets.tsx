@@ -56,14 +56,27 @@ const AggniverseContent = () => {
         {/* </Suspense> */}
       </div>
       
-      {/* Sidebar positioned at top-left */}
+      {/* Search bar positioned at top-left */}
       <div
         style={{
           position: 'fixed',
           top: '16px',
           left: '16px',
+          zIndex: 9999,
+          pointerEvents: 'auto'
+        }}
+      >
+        <CelestialSearchBar isVisible={isSearchVisible} />
+      </div>
+
+      {/* Sidebar positioned below search bar */}
+      <div
+        style={{
+          position: 'fixed',
+          top: '104px',
+          left: '16px',
           width: '25%',
-          height: 'calc(100vh - 80px - 16px)',
+          height: 'calc(100vh - 80px - 104px)',
           zIndex: 9999,
           pointerEvents: 'auto'
         }}
