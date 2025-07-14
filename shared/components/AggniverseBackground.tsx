@@ -1,6 +1,6 @@
 "use client";
 import { usePathname } from 'next/navigation';
-import AggniversePlanets from './AggniversePlanets';
+import AggniversePlanets from './aggniverse/AggniversePlanets';
 
 export default function AggniverseBackground() {
   const pathname = usePathname();
