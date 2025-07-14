@@ -37,9 +37,9 @@ const NavigationGuidance = () => {
       description: "Comprehensive tutorials, examples, and hands-on learning resources",
       href: "/tutorials",
       icon: <GraduationCap className="w-8 h-8" />,
-      color: "from-[#FF8E08] to-[#FF8E08]/80",
-      bgColor: "bg-[#FF8E08]/10",
-      borderColor: "border-[#FF8E08]/30",
+      color: "from-[#0071F7] to-[#0071F7]/80",
+      bgColor: "bg-[#0071F7]/10",
+      borderColor: "border-[#0071F7]/30",
       features: [
         "Step-by-step tutorials",
         "Real working examples",
@@ -53,7 +53,7 @@ const NavigationGuidance = () => {
       description: "Interactive development portal with live tools and resources",
       href: "/developers",
       icon: <Wrench className="w-8 h-8" />,
-      color: "from-[#0071F7] to-[#FF8E08]",
+      color: "from-[#0071F7] to-[#0071F7]/80",
       bgColor: "bg-[#0071F7]/10",
       borderColor: "border-[#0071F7]/30",
       features: [

@@ -11,9 +11,6 @@
   --color-blue: #0071F7;
   --color-blue-light: #e6f1fd;
   --color-blue-dark: #005ac1;
-  --color-orange: #FF8E08;
-  --color-orange-light: #ffe7cc;
-  --color-orange-dark: #cc7000;
   --color-black: #000000;
   --color-black-light: #17171797;
   --color-white: #FFFFFF;
@@ -45,10 +42,10 @@
   --primary-light: var(--color-blue-light);
   --primary-dark: var(--color-blue-dark);
 
-  /* === Accent (Orange) === */
-  --accent: var(--color-orange);
-  --accent-light: var(--color-orange-light);
-  --accent-dark: var(--color-orange-dark);
+  /* === Accent (Blue) === */
+  --accent: var(--color-blue);
+  --accent-light: var(--color-blue-light);
+  --accent-dark: var(--color-blue-dark);
 
   /* === Buttons & Links === */
   --button-bg: var(--primary);
@@ -71,9 +68,9 @@
     --text-sidebar: var(--color-white);
     --border-card: var(--color-gray-dark);
     --shadow-card: 0 8px 32px 0 rgba(0,0,0,0.30);
-    --primary: var(--color-orange);
-    --primary-light: var(--color-orange-light);
-    --primary-dark: var(--color-orange-dark);
+    --primary: var(--color-blue);
+    --primary-light: var(--color-blue-light);
+    --primary-dark: var(--color-blue-dark);
     --accent: var(--color-blue);
     --accent-light: var(--color-blue-light);
     --accent-dark: var(--color-blue-dark);

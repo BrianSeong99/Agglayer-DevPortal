@@ -38,8 +38,8 @@ const iconMap: { [key: string]: React.ReactNode } = {
 const getDifficultyColor = (difficulty: string) => {
   switch (difficulty) {
     case 'Beginner': return 'text-[#0071F7] bg-[#0071F7]/10';
-    case 'Intermediate': return 'text-[#FF8E08] bg-[#FF8E08]/10';
-    case 'Advanced': return 'text-[#FF8E08] bg-[#FF8E08]/10';
+    case 'Intermediate': return 'text-white bg-white/10';
+    case 'Advanced': return 'text-white bg-white/10';
     default: return 'text-[#D9D9D9]/80 bg-[#D9D9D9]/10';
   }
 };
@@ -263,7 +263,7 @@ export default function ExamplesListPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
-          className="mt-20 relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0071F7]/20 via-[#FF8E08]/10 to-[#0071F7]/20 backdrop-blur-sm border border-[#0071F7]/20"
+          className="mt-20 relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#0071F7]/20 via-white/10 to-[#0071F7]/20 backdrop-blur-sm border border-[#0071F7]/20"
         >
           <div className="relative z-10 p-12 text-center">
             <h3 className="text-3xl font-bold text-white mb-4">
@@ -285,7 +285,7 @@ export default function ExamplesListPage() {
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-0 left-0 w-96 h-96 bg-[#0071F7] rounded-full filter blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#FF8E08] rounded-full filter blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full filter blur-3xl" />
           </div>
         </motion.div>
       </div>

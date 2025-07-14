@@ -10,9 +10,9 @@ const EcosystemOverview = () => {
       icon: <Shield className="w-8 h-8" />,
       title: "Pessimistic Proofs",
       description: "Security without trust assumptions. Each chain is isolated, preventing cross-chain vulnerabilities.",
-      color: "from-[#FF8E08] to-[#FF8E08]/80",
-      bgColor: "bg-[#FF8E08]/10",
-      borderColor: "border-[#FF8E08]/20"
+      color: "from-[#0071F7] to-[#0071F7]/80",
+      bgColor: "bg-[#0071F7]/10",
+      borderColor: "border-[#0071F7]/20"
     },
     {
       icon: <Zap className="w-8 h-8" />,
@@ -26,7 +26,7 @@ const EcosystemOverview = () => {
       icon: <Globe className="w-8 h-8" />,
       title: "Unified Bridge",
       description: "L1-L2, L2-L1, and L2-L2 transactions with bridge-and-call functionality.",
-      color: "from-[#0071F7] to-[#FF8E08]",
+      color: "from-[#0071F7] to-[#0071F7]/80",
       bgColor: "bg-[#0071F7]/10",
       borderColor: "border-[#0071F7]/20"
     }
@@ -34,7 +34,7 @@ const EcosystemOverview = () => {
 
   const ecosystemStats = [
     { label: "Mainnet Chains", value: "8", environment: "mainnet", color: "text-[#0071F7]" },
-    { label: "Cardona Testnet", value: "8", environment: "cardona", color: "text-[#FF8E08]" },
+    { label: "Cardona Testnet", value: "8", environment: "cardona", color: "text-[#0071F7]" },
     { label: "Bali Testnet", value: "4", environment: "bali", color: "text-[#0071F7]" },
   ];
 

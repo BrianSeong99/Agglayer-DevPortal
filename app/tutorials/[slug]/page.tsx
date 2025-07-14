@@ -195,7 +195,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
 
           <div className="p-6 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#FF8E08] to-[#FF8E08]/80 text-white">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-white to-white/80 text-black">
                 <Shield className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Security</h3>
@@ -207,7 +207,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
 
           <div className="p-6 bg-gray-900/50 backdrop-blur-sm rounded-2xl border border-gray-800">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#0071F7] to-[#FF8E08] text-white">
+              <div className="p-2.5 rounded-xl bg-gradient-to-br from-[#0071F7] to-white text-white">
                 <Globe className="w-5 h-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">Interoperability</h3>
