@@ -55,7 +55,7 @@ export const CelestialSearchBar = ({ isVisible }: CelestialSearchBarProps) => {
         >
           {/* Main search bar */}
           <div className="relative w-80">
-            <div className="relative h-12 bg-black/30 backdrop-blur-xs rounded-full shadow-lg border border-gray-700">
+            <div className="relative h-12 bg-black backdrop-blur-xs rounded-full shadow-lg border border-gray-700">
               <div className="flex items-center h-full px-4">
                 <Search className="h-5 w-5 text-gray-400 mr-3 flex-shrink-0" />
                 <input
@@ -91,7 +91,7 @@ export const CelestialSearchBar = ({ isVisible }: CelestialSearchBarProps) => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -10, scale: 0.95 }}
                   transition={{ duration: 0.2, ease: "easeOut" }}
-                  className="absolute top-full left-0 right-0 mt-2 bg-black/40 backdrop-blur-md rounded-2xl shadow-xl border border-gray-700 overflow-hidden z-50"
+                  className="absolute top-full left-0 right-0 mt-2 bg-black backdrop-blur-md rounded-2xl shadow-xl border border-gray-700 overflow-hidden z-[10000]"
                 >
                   {filteredSuggestions.map((suggestion, index) => (
                     <motion.button

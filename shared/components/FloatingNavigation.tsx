@@ -73,7 +73,7 @@ export default function FloatingNavigation() {
   ];
 
   return (
-    <div className="fixed bottom-3 left-1/2 transform -translate-x-1/2 z-50">
+    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
       <FloatingDock
         items={links}
         activePath={pathname}

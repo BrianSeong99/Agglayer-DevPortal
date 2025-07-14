@@ -73,12 +73,12 @@ const AggniverseContent = () => {
       <div
         style={{
           position: 'fixed',
-          top: '104px',
+          top: '85px',
           left: '16px',
-          width: '25%',
-          height: 'calc(100vh - 80px - 104px)',
-          zIndex: 9999,
-          pointerEvents: 'auto'
+          width: '320px',
+          height: 'calc(100vh - 80px - 85px - 20px)',
+          zIndex: 9998,
+          pointerEvents: isOpen ? 'auto' : 'none'
         }}
       >
         <CelestialSidebar 
