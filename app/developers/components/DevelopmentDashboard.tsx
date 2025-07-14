@@ -94,28 +94,8 @@ const DevelopmentDashboard: React.FC = () => {
       title: 'Stop AggSandbox',
       description: 'Stop local environment',
       icon: <Square className="w-5 h-5" />,
-      color: 'from-[#FF8E08] to-[#FF8E08]/80',
+      color: 'from-[#0071F7]/30 to-[#0071F7]/30',
       action: () => setSandboxStatus('stopped')
-    },
-    {
-      id: 'visualizer',
-      title: 'Open Visualizer',
-      description: 'Explore cross-chain interop in 3D',
-      icon: <Globe className="w-5 h-5" />,
-      color: 'from-[#0071F7] to-[#FF8E08]',
-      action: () => window.open('https://visualizer.agglayer.dev/', '_blank'),
-      isExternal: true,
-      url: 'https://visualizer.agglayer.dev/'
-    },
-    {
-      id: 'docs',
-      title: 'View Documentation',
-      description: 'Complete API references',
-      icon: <Book className="w-5 h-5" />,
-      color: 'from-[#FF8E08] to-[#0071F7]',
-      action: () => window.open('https://docs.agglayer.dev/', '_blank'),
-      isExternal: true,
-      url: 'https://docs.agglayer.dev/'
     }
   ];
 
@@ -140,7 +120,7 @@ const DevelopmentDashboard: React.FC = () => {
       chainId: '2442',
       rpcUrl: 'https://rpc.cardona.polygon.technology',
       explorerUrl: 'https://cardona-zkevm.polygonscan.com',
-      color: 'text-[#FF8E08]'
+      color: 'text-white'
     },
     {
       name: 'Polygon zkEVM',
@@ -165,8 +145,8 @@ const DevelopmentDashboard: React.FC = () => {
   const getStatusIcon = (status: string) => {
     switch (status) {
       case 'online': return <CheckCircle className="w-4 h-4 text-[#0071F7]" />;
-      case 'starting': return <Clock className="w-4 h-4 text-[#FF8E08] animate-spin" />;
-      case 'offline': return <AlertCircle className="w-4 h-4 text-[#FF8E08]" />;
+      case 'starting': return <Clock className="w-4 h-4 text-white animate-spin" />;
+      case 'offline': return <AlertCircle className="w-4 h-4 text-white" />;
       default: return <AlertCircle className="w-4 h-4 text-[#D9D9D9]/80" />;
     }
   };
@@ -360,14 +340,14 @@ const DevelopmentDashboard: React.FC = () => {
             <div className="space-y-3">
               <a
                 href="#"
-                className="flex items-center gap-2 text-[#FF8E08] hover:text-[#FF8E08]/80 transition-colors"
+                className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Discord Community</span>
               </a>
               <a
                 href="#"
-                className="flex items-center gap-2 text-[#FF8E08] hover:text-[#FF8E08]/80 transition-colors"
+                className="flex items-center gap-2 text-white hover:text-white/80 transition-colors"
               >
                 <Book className="w-4 h-4" />
                 <span>Developer Forums</span>
