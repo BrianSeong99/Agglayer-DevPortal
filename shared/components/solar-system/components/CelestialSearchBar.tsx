@@ -4,38 +4,45 @@ import { Search } from "lucide-react";
 
 // Celestial body data for search suggestions - complete list
 const celestialBodies = [
-  { name: "Agglayer Sun", type: "sun", environment: "core" },
+  { name: "Agglayer Sun", type: "sun", environment: "core", rollupVerifierType: "Core" },
   
   // Mainnet chains
-  { name: "X Layer", type: "planet", environment: "mainnet" },
-  { name: "katana", type: "planet", environment: "mainnet" },
-  { name: "Pentagon Games", type: "planet", environment: "mainnet" },
-  { name: "pay-chain", type: "planet", environment: "mainnet" },
-  { name: "polygon zkEVM", type: "planet", environment: "mainnet" },
-  { name: "prism", type: "planet", environment: "mainnet" },
-  { name: "silicon-zk", type: "planet", environment: "mainnet" },
-  { name: "Ternoa", type: "planet", environment: "mainnet" },
+  { name: "X Layer", type: "planet", environment: "mainnet", rollupVerifierType: "Validium" },
+  { name: "katana", type: "planet", environment: "mainnet", rollupVerifierType: "ALGateway" },
+  { name: "Pentagon Games", type: "planet", environment: "mainnet", rollupVerifierType: "Validium" },
+  { name: "pay-chain", type: "planet", environment: "mainnet", rollupVerifierType: "Validium" },
+  { name: "polygon zkEVM", type: "planet", environment: "mainnet", rollupVerifierType: "zkEVM" },
+  { name: "prism", type: "planet", environment: "mainnet", rollupVerifierType: "Validium" },
+  { name: "silicon-zk", type: "planet", environment: "mainnet", rollupVerifierType: "Validium" },
+  { name: "Ternoa", type: "planet", environment: "mainnet", rollupVerifierType: "Validium" },
 
   // Cardona testnet chains
-  { name: "Lumia Beam Testnet", type: "planet", environment: "cardona" },
-  { name: "ppxlayer-testnet", type: "planet", environment: "cardona" },
-  { name: "bokuto", type: "planet", environment: "cardona" },
-  { name: "zkevm-testnet", type: "planet", environment: "cardona" },
-  { name: "moonveil-testnet", type: "planet", environment: "cardona" },
-  { name: "stavanger", type: "planet", environment: "cardona" },
-  { name: "Zephyr", type: "planet", environment: "cardona" },
-  { name: "tac-turin-testnet", type: "planet", environment: "cardona" },
+  { name: "Lumia Beam Testnet", type: "planet", environment: "cardona", rollupVerifierType: "Validium" },
+  { name: "ppxlayer-testnet", type: "planet", environment: "cardona", rollupVerifierType: "Validium" },
+  { name: "bokuto", type: "planet", environment: "cardona", rollupVerifierType: "ALGateway" },
+  { name: "zkevm-testnet", type: "planet", environment: "cardona", rollupVerifierType: "zkEVM" },
+  { name: "moonveil-testnet", type: "planet", environment: "cardona", rollupVerifierType: "Validium" },
+  { name: "stavanger", type: "planet", environment: "cardona", rollupVerifierType: "Validium" },
+  { name: "Zephyr", type: "planet", environment: "cardona", rollupVerifierType: "PPv0.3.3" },
+  { name: "tac-turin-testnet", type: "planet", environment: "cardona", rollupVerifierType: "PPv0.3.3" },
 
   // Bali testnet chains
-  { name: "zkevm-internal", type: "planet", environment: "bali" },
-  { name: "bali-35-op", type: "planet", environment: "bali" },
-  { name: "bolt", type: "planet", environment: "bali" },
-  { name: "bali-39", type: "planet", environment: "bali" },
+  { name: "zkevm-internal", type: "planet", environment: "bali", rollupVerifierType: "zkEVM" },
+  { name: "bali-35-op", type: "planet", environment: "bali", rollupVerifierType: "PPv0.3.3" },
+  { name: "bolt", type: "planet", environment: "bali", rollupVerifierType: "ALGateway" },
+  { name: "bali-39", type: "planet", environment: "bali", rollupVerifierType: "PPv0.3.3" },
 ];
+
+export interface CelestialSuggestion {
+  name: string;
+  type: string;
+  environment: string;
+  rollupVerifierType: string;
+}
 
 interface CelestialSearchBarProps {
   isVisible: boolean;
-  onSuggestionSelect?: (suggestion: { name: string; type: string; environment: string }) => void;
+  onSuggestionSelect?: (suggestion: CelestialSuggestion) => void;
 }
 
 export const CelestialSearchBar = ({ isVisible, onSuggestionSelect }: CelestialSearchBarProps) => {
@@ -43,6 +50,45 @@ export const CelestialSearchBar = ({ isVisible, onSuggestionSelect }: CelestialS
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [maxDropdownHeight, setMaxDropdownHeight] = useState(400);
   const searchBarRef = useRef<HTMLDivElement>(null);
+
+  // Get environment color matching the screenshot
+  const getEnvironmentColor = (environment: string, type: string) => {
+    if (type === 'sun') {
+      return '#ffa500'; // Orange for core/sun
+    }
+    
+    switch (environment) {
+      case 'mainnet':
+        return '#00d4aa'; // Teal (matching screenshot)
+      case 'cardona':
+        return '#ff8c42'; // Orange (matching screenshot)
+      case 'bali':
+        return '#8b5cf6'; // Purple/violet (matching screenshot)
+      case 'core':
+        return '#ffa500'; // Orange
+      default:
+        return '#00d4aa'; // Default to mainnet teal
+    }
+  };
+
+  // Get type color matching the screenshot
+  const getTypeColor = (rollupVerifierType: string) => {
+    switch (rollupVerifierType) {
+      case 'zkEVM':
+        return '#8b5cf6'; // Purple
+      case 'Validium':
+        return '#3b82f6'; // Blue  
+      case 'ALGateway':
+        return '#ec4899'; // Pink
+      case 'PP':
+      case 'PPv0.3.3':
+        return '#f59e0b'; // Amber/orange
+      case 'Core':
+        return '#ffa500'; // Orange for sun
+      default:
+        return '#6b7280'; // Gray
+    }
+  };
 
   // Calculate dynamic dropdown height based on window size
   useEffect(() => {
@@ -77,7 +123,7 @@ export const CelestialSearchBar = ({ isVisible, onSuggestionSelect }: CelestialS
   };
 
   // Handle suggestion click
-  const handleSuggestionClick = (suggestion: { name: string; type: string; environment: string }) => {
+  const handleSuggestionClick = (suggestion: CelestialSuggestion) => {
     setSearchValue(suggestion.name);
     setIsDropdownOpen(false);
     onSuggestionSelect?.(suggestion);
@@ -148,8 +194,38 @@ export const CelestialSearchBar = ({ isVisible, onSuggestionSelect }: CelestialS
                       </span>
                       <div className="flex-1">
                         <div className="text-sm font-medium">{suggestion.name}</div>
-                        <div className="text-xs text-gray-400 capitalize">
-                          {suggestion.environment}
+                        <div className="text-xs font-medium flex items-center gap-1">
+                          {suggestion.type === 'sun' ? (
+                            <span 
+                              style={{ 
+                                color: getEnvironmentColor(suggestion.environment, suggestion.type),
+                                textShadow: `0 0 4px ${getEnvironmentColor(suggestion.environment, suggestion.type)}40`
+                              }}
+                            >
+                              v0.3
+                            </span>
+                          ) : (
+                            <>
+                              <span 
+                                className="capitalize"
+                                style={{ 
+                                  color: getEnvironmentColor(suggestion.environment, suggestion.type),
+                                  textShadow: `0 0 4px ${getEnvironmentColor(suggestion.environment, suggestion.type)}40`
+                                }}
+                              >
+                                {suggestion.environment}
+                              </span>
+                              <span className="text-gray-500">|</span>
+                              <span 
+                                style={{ 
+                                  color: getTypeColor(suggestion.rollupVerifierType),
+                                  textShadow: `0 0 4px ${getTypeColor(suggestion.rollupVerifierType)}40`
+                                }}
+                              >
+                                {suggestion.rollupVerifierType}
+                              </span>
+                            </>
+                          )}
                         </div>
                       </div>
                     </motion.button>

@@ -28,7 +28,6 @@ const CelestialSidebar = ({ isOpen, onClose, celestialBody }: CelestialSidebarPr
           <div className="relative h-full w-full border-r border-gray-700 bg-black/40 backdrop-blur-md overflow-hidden pointer-events-auto">
             <button
               onClick={(e) => {
-                console.log('Close button clicked');
                 e.stopPropagation();
                 onClose();
               }}

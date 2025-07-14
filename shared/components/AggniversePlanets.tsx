@@ -8,7 +8,7 @@ import { Physics } from '@react-three/rapier'
 import Scene from './solar-system/components/Scene'
 import { SidebarProvider, useSidebar } from './solar-system/context/Sidebar'
 import CelestialSidebar from './solar-system/components/CelestialSidebar'
-import { CelestialSearchBar } from './solar-system/components/CelestialSearchBar'
+import { CelestialSearchBar, CelestialSuggestion } from './solar-system/components/CelestialSearchBar'
 
 
 // Inner component that uses the sidebar
@@ -25,7 +25,7 @@ const AggniverseContent = () => {
   }, []);
   
   // Handle search suggestion selection
-  const handleSuggestionSelect = useCallback((suggestion: { name: string; type: string; environment: string }) => {
+  const handleSuggestionSelect = useCallback((suggestion: CelestialSuggestion) => {
     if (suggestion.type === 'sun') {
       selectSun?.();
     } else {
