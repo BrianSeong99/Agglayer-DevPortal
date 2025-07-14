@@ -32,11 +32,11 @@ export default function FloatingNavigation() {
       href: "/aggniverse",
     },
     {
-      title: "Examples",
+      title: "Tutorials",
       icon: (isActive: boolean) => (
         <IconApps className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/examples",
+      href: "/tutorials",
     },
     {
       title: "Developers",

@@ -16,8 +16,8 @@ import {
   Clock,
   BookOpen
 } from 'lucide-react';
-import { dapps } from '@/app/examples/data/dapps';
-import { tutorials } from '@/app/examples/data/tutorials';
+import { dapps } from '@/app/tutorials/data/dapps';
+import { tutorials } from '@/app/tutorials/data/tutorials';
 import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
 import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
 
@@ -56,36 +56,11 @@ export default function ExamplesListPage() {
   return (
     <DashboardLayout>
       <DashboardHeader 
-        title="Learn & Build"
+        title="Tutorials"
         subtitle="Explore tutorials, guides, and example applications to accelerate your Agglayer development journey"
       />
       
       <div className="max-w-7xl mx-auto px-4 md:px-8 pb-20">
-        {/* Quick Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12"
-        >
-          <div className="bg-gradient-to-br from-[#0071F7]/10 to-transparent p-6 rounded-2xl border border-[#0071F7]/20">
-            <div className="text-3xl font-bold text-[#0071F7] mb-1">{tutorials.length}</div>
-            <div className="text-sm text-[#D9D9D9]/80">Tutorials</div>
-          </div>
-          <div className="bg-gradient-to-br from-[#FF8E08]/10 to-transparent p-6 rounded-2xl border border-[#FF8E08]/20">
-            <div className="text-3xl font-bold text-[#FF8E08] mb-1">{dappItems.length}</div>
-            <div className="text-sm text-[#D9D9D9]/80">Example dApps</div>
-          </div>
-          <div className="bg-gradient-to-br from-[#0071F7]/10 to-transparent p-6 rounded-2xl border border-[#0071F7]/20">
-            <div className="text-3xl font-bold text-[#0071F7] mb-1">{categories.length}</div>
-            <div className="text-sm text-[#D9D9D9]/80">Categories</div>
-          </div>
-          <div className="bg-gradient-to-br from-[#FF8E08]/10 to-transparent p-6 rounded-2xl border border-[#FF8E08]/20">
-            <div className="text-3xl font-bold text-[#FF8E08] mb-1">5 min</div>
-            <div className="text-sm text-[#D9D9D9]/80">Quick Start</div>
-          </div>
-        </motion.div>
-
         {/* Tutorials Section */}
         {categories.map((category, categoryIndex) => {
           const categoryTutorials = tutorials.filter(t => t.category === category);
@@ -222,7 +197,7 @@ export default function ExamplesListPage() {
             {dappItems.map((dapp, index) => (
               <motion.a
                 key={dapp.slug}
-                href={`/examples/${dapp.slug}`}
+                href={`/tutorials/${dapp.slug}`}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: index * 0.05 }}

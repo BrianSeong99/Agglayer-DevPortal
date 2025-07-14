@@ -57,7 +57,7 @@ export const tutorials: Tutorial[] = [
     description: 'Explore cross-chain interop in 3D with the official visualizer',
     duration: '20 min',
     difficulty: 'Beginner',
-    category: 'Interactive',
+    category: 'Agglayer Deep Dive',
     icon: 'Play',
     color: 'from-[#0071F7] to-[#0071F7]/80',
     topics: ['Cross-chain transactions', 'Merkle trees', 'Exit roots', 'Data propagation'],

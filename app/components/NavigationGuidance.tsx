@@ -35,7 +35,7 @@ const NavigationGuidance = () => {
     {
       title: "Learn & Tutorial",
       description: "Comprehensive tutorials, examples, and hands-on learning resources",
-      href: "/examples",
+      href: "/tutorials",
       icon: <GraduationCap className="w-8 h-8" />,
       color: "from-[#FF8E08] to-[#FF8E08]/80",
       bgColor: "bg-[#FF8E08]/10",
@@ -85,7 +85,7 @@ const NavigationGuidance = () => {
       title: "Learn Fundamentals",
       description: "Understand Agglayer architecture",
       action: "View Tutorials",
-      href: "/examples",
+      href: "/tutorials",
       icon: <BookOpen className="w-5 h-5" />
     }
   ];

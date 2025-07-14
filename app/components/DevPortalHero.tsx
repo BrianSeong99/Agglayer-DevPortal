@@ -84,7 +84,7 @@ const DevPortalHero = () => {
           </Link>
           
           <Link 
-            href="/examples"
+            href="/tutorials"
             className="group bg-[#000000]/80 hover:bg-[#000000]/90 text-white px-8 py-4 rounded-xl font-medium flex items-center gap-2 transition-all duration-300 border border-[#D9D9D9]/30 hover:border-[#D9D9D9]/50"
           >
             Learn & Tutorial
