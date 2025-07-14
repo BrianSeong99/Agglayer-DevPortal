@@ -17,6 +17,7 @@ const AggniverseContent = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectPlanetByName, setSelectPlanetByName] = useState<((name: string) => void) | null>(null);
   const [selectSun, setSelectSun] = useState<(() => void) | null>(null);
+  const [closeSearchDropdowns, setCloseSearchDropdowns] = useState<(() => void) | null>(null);
   
   // Handle when planet selection functions become available
   const handlePlanetSelectionReady = useCallback((selectPlanet: (name: string) => void, selectSunFn: () => void) => {
@@ -32,6 +33,11 @@ const AggniverseContent = () => {
       selectPlanetByName?.(suggestion.name);
     }
   }, [selectPlanetByName, selectSun]);
+
+  // Handle close dropdowns callback
+  const handleCloseDropdowns = useCallback((closeFunction: () => void) => {
+    setCloseSearchDropdowns(() => closeFunction);
+  }, []);
 
   // No transform - let camera system handle all positioning
 
@@ -68,7 +74,7 @@ const AggniverseContent = () => {
           </mesh>
 
           <Physics gravity={[0, 0, 0]}>
-            <Scene onPlanetSelectionReady={handlePlanetSelectionReady} />
+            <Scene onPlanetSelectionReady={handlePlanetSelectionReady} closeSearchDropdowns={closeSearchDropdowns} />
           </Physics>
           
           <EffectComposer>
@@ -92,6 +98,7 @@ const AggniverseContent = () => {
         <CelestialSearchBar 
           isVisible={isSearchVisible} 
           onSuggestionSelect={handleSuggestionSelect}
+          onCloseDropdowns={handleCloseDropdowns}
         />
       </div>
 

@@ -10,7 +10,7 @@ import Planets from './Planets'
 import CelestialHighlight from './PlanetHighlight'
 
 // Component to handle empty space clicks (inside CameraProvider)
-const EmptySpaceHandler = () => {
+const EmptySpaceHandler = ({ closeSearchDropdowns }: { closeSearchDropdowns?: (() => void) | null }) => {
   const { closeSidebar } = useSidebar();
   const { clearFocus } = useCamera();
 
@@ -21,6 +21,7 @@ const EmptySpaceHandler = () => {
         e.stopPropagation();
         closeSidebar();
         clearFocus();
+        closeSearchDropdowns?.();
       }}
       visible={false} // Invisible but still clickable
     >
@@ -221,10 +222,11 @@ export const chains = [
 // Scene component
 interface SceneProps {
     onPlanetSelectionReady?: (selectPlanet: (name: string) => void, selectSun: () => void) => void;
+    closeSearchDropdowns?: (() => void) | null;
 }
 
 // Inner scene content that has access to providers
-const SceneContent = ({ onPlanetSelectionReady }: { onPlanetSelectionReady?: (selectPlanet: (name: string) => void, selectSun: () => void) => void }) => {
+const SceneContent = ({ onPlanetSelectionReady, closeSearchDropdowns }: { onPlanetSelectionReady?: (selectPlanet: (name: string) => void, selectSun: () => void) => void, closeSearchDropdowns?: (() => void) | null }) => {
     const [planetsRef, setPlanetsRef] = useState<React.RefObject<any> | null>(null);
     const sunRef = useRef<any>();
     const { handleFocus } = useCamera();
@@ -280,7 +282,7 @@ const SceneContent = ({ onPlanetSelectionReady }: { onPlanetSelectionReady?: (se
 
     return (
         <>
-            <EmptySpaceHandler />
+            <EmptySpaceHandler closeSearchDropdowns={closeSearchDropdowns} />
             <Sun ref={sunRef} />
 
             <TrailProvider>
@@ -295,13 +297,13 @@ const SceneContent = ({ onPlanetSelectionReady }: { onPlanetSelectionReady?: (se
     );
 };
 
-const Scene = ({ onPlanetSelectionReady }: SceneProps = {}) => {
+const Scene = ({ onPlanetSelectionReady, closeSearchDropdowns }: SceneProps = {}) => {
     // Custom hook for gravity logic
     useGravity()
 
     return (
         <CameraProvider>
-            <SceneContent onPlanetSelectionReady={onPlanetSelectionReady} />
+            <SceneContent onPlanetSelectionReady={onPlanetSelectionReady} closeSearchDropdowns={closeSearchDropdowns} />
         </CameraProvider>
     )
 }
