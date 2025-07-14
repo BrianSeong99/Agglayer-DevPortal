@@ -1,11 +1,24 @@
 import useGravity from '../hooks/useGravity'
-import { CameraProvider } from '../context/Camera'
+import { CameraProvider, useCamera } from '../context/Camera'
 import { TrailProvider } from '../context/Trails'
-import { SidebarProvider } from '../context/Sidebar'
+import { SidebarProvider, useSidebar } from '../context/Sidebar'
+import { useEffect } from 'react'
 
 import Sun from './Sun'
 import Stars from './Stars'
 import Planets from './Planets'
+
+// Component to sync sidebar state with camera system
+const SidebarCameraSync = () => {
+    const { isOpen } = useSidebar();
+    const { setSidebarOffset } = useCamera();
+
+    useEffect(() => {
+        setSidebarOffset(isOpen);
+    }, [isOpen, setSidebarOffset]);
+
+    return null;
+};
 
 const chains = [
   {
@@ -101,6 +114,7 @@ const Scene = () => {
 
     return (
         <CameraProvider>
+            <SidebarCameraSync />
             <Sun />
 
             <TrailProvider>
