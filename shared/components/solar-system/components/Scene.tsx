@@ -31,7 +31,67 @@ const EmptySpaceHandler = ({ closeSearchDropdowns }: { closeSearchDropdowns?: ((
   );
 };
 
-export const chains = [
+// Enhanced chain interface for developer information
+export interface EnhancedChainData {
+  // Basic Info
+  name: string;
+  chainId: number;
+  rollupId: number;
+  environment: string;
+  rollupVerifierType: string;
+  lastVerified?: string;
+  networkLiveness?: string;
+  
+  // Visual Branding
+  logo?: string;
+  brandColor?: string;
+  
+  // Network Configuration
+  rpcUrls?: {
+    http: string[];
+    websocket?: string[];
+  };
+  nativeCurrency?: {
+    name: string;
+    symbol: string;
+    decimals: number;
+  };
+  blockExplorerUrls?: string[];
+  
+  // Technical Specs
+  blockTime?: string;
+  finalityTime?: string;
+  consensusMechanism?: string;
+  tps?: string;
+  
+  // Developer Resources
+  documentation?: {
+    quickStart?: string;
+    api?: string;
+    sdk?: string;
+    contracts?: string;
+  };
+  
+  // Infrastructure
+  faucet?: string;
+  bridge?: string;
+  gasStation?: string;
+  statusPage?: string;
+  
+  // Community
+  social?: {
+    discord?: string;
+    github?: string;
+    twitter?: string;
+    website?: string;
+  };
+  
+  // Status
+  status?: 'active' | 'warning' | 'down';
+  uptime?: string;
+}
+
+export const chains: EnhancedChainData[] = [
   // Mainnet chains
   {
     name: "X Layer",
@@ -40,7 +100,33 @@ export const chains = [
     chainId: 196,
     rollupVerifierType: "Validium",
     lastVerified: "2 minutes ago",
-    networkLiveness: "Active"
+    networkLiveness: "Active",
+    status: "active",
+    brandColor: "#00d4aa",
+    rpcUrls: {
+      http: ["https://rpc.xlayer.tech", "https://xlayerrpc.okx.com"],
+      websocket: ["wss://ws.xlayer.tech"]
+    },
+    nativeCurrency: {
+      name: "Ethereum",
+      symbol: "ETH", 
+      decimals: 18
+    },
+    blockExplorerUrls: ["https://www.oklink.com/xlayer"],
+    blockTime: "2 seconds",
+    finalityTime: "10 minutes",
+    consensusMechanism: "Proof of Validity",
+    tps: "2000+",
+    documentation: {
+      quickStart: "https://www.okx.com/xlayer/docs",
+      api: "https://www.okx.com/xlayer/docs/developer/json-rpc-api"
+    },
+    bridge: "https://www.okx.com/xlayer/bridge",
+    social: {
+      website: "https://www.okx.com/xlayer",
+      twitter: "https://twitter.com/XLayerOfficial"
+    },
+    uptime: "99.9%"
   },
   {
     name: "katana",
@@ -49,7 +135,21 @@ export const chains = [
     chainId: 747474,
     rollupVerifierType: "ALGateway",
     lastVerified: "an hour ago",
-    networkLiveness: "Active"
+    networkLiveness: "Active",
+    status: "active",
+    brandColor: "#00d4aa",
+    rpcUrls: {
+      http: ["https://rpc.katana.so"]
+    },
+    nativeCurrency: {
+      name: "Ethereum",
+      symbol: "ETH",
+      decimals: 18
+    },
+    blockExplorerUrls: ["https://explorer.katana.so"],
+    blockTime: "2 seconds",
+    tps: "1500+",
+    uptime: "99.8%"
   },
   {
     name: "Pentagon Games",
@@ -58,7 +158,20 @@ export const chains = [
     chainId: 3344,
     rollupVerifierType: "Validium",
     lastVerified: "2 hours ago",
-    networkLiveness: "Active"
+    networkLiveness: "Active",
+    status: "active",
+    brandColor: "#00d4aa",
+    rpcUrls: {
+      http: ["https://rpc.pentagon.games"]
+    },
+    nativeCurrency: {
+      name: "Ethereum",
+      symbol: "ETH",
+      decimals: 18
+    },
+    blockExplorerUrls: ["https://explorer.pentagon.games"],
+    blockTime: "2 seconds",
+    uptime: "99.7%"
   },
   {
     name: "pay-chain",
@@ -76,7 +189,35 @@ export const chains = [
     chainId: 1101,
     rollupVerifierType: "zkEVM",
     lastVerified: "23 minutes ago",
-    networkLiveness: "Active"
+    networkLiveness: "Active",
+    status: "active",
+    brandColor: "#8b5cf6",
+    rpcUrls: {
+      http: ["https://zkevm-rpc.com", "https://rpc.polygon-zkevm.gateway.fm"],
+      websocket: ["wss://zkevm-rpc.com"]
+    },
+    nativeCurrency: {
+      name: "Ethereum",
+      symbol: "ETH",
+      decimals: 18
+    },
+    blockExplorerUrls: ["https://zkevm.polygonscan.com"],
+    blockTime: "2 seconds",
+    finalityTime: "10 minutes",
+    consensusMechanism: "Proof of Validity",
+    tps: "2000+",
+    documentation: {
+      quickStart: "https://wiki.polygon.technology/docs/zkevm/",
+      api: "https://wiki.polygon.technology/docs/zkevm/api/",
+      sdk: "https://wiki.polygon.technology/docs/zkevm/develop/"
+    },
+    bridge: "https://bridge.polygon.technology/",
+    social: {
+      website: "https://polygon.technology/polygon-zkevm",
+      twitter: "https://twitter.com/0xPolygon",
+      github: "https://github.com/0xPolygonHermez"
+    },
+    uptime: "99.95%"
   },
   {
     name: "prism",
