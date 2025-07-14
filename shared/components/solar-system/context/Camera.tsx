@@ -11,7 +11,7 @@ interface FocusedObject {
 interface CameraContextType {
     focusedObject: FocusedObject | null
     handleFocus: (event: any) => void
-    setSidebarOffset: (isOpen: boolean) => void
+    clearFocus: () => void
 }
 
 const CameraContext = createContext<CameraContextType | undefined>(undefined)
@@ -31,9 +31,7 @@ interface CameraProviderProps {
 export const CameraProvider = ({ children }: CameraProviderProps) => {
     const { camera, controls } = useThree()
     const cameraTarget = useRef(new Vector3())
-    const cameraOffset = useRef(new Vector3())
     const [focusedObject, setFocusedObject] = useState<FocusedObject | null>(null)
-    const [sidebarOpen, setSidebarOpen] = useState(false)
     const orbitControls = controls as unknown as OrbitControlsImpl | undefined
 
     useFrame(() => {
@@ -58,42 +56,10 @@ export const CameraProvider = ({ children }: CameraProviderProps) => {
 
             const smoothness = 0.05
             cameraTarget.current.lerp(target, smoothness)
-            
-            // Calculate offset target for sidebar positioning
-            let lookAtTarget = cameraTarget.current.clone()
-            
-            if (sidebarOpen) {
-                const sidebarWidth = 400
-                const windowWidth = window.innerWidth
-                
-                // Calculate where we want the planet to appear (center of remaining space)
-                const targetPixelX = (windowWidth - sidebarWidth) / 2 + sidebarWidth
-                const currentCenterX = windowWidth / 2
-                const offsetPixelX = targetPixelX - currentCenterX
-                
-                // Convert screen offset to world offset
-                const distance = camera.position.distanceTo(cameraTarget.current)
-                const fov = camera.fov * (Math.PI / 180)
-                const aspect = windowWidth / window.innerHeight
-                const viewWidth = 2 * Math.tan(fov / 2) * distance * aspect
-                const worldOffsetX = (offsetPixelX / windowWidth) * viewWidth
-                
-                // Create offset target - move target right to make planet appear right  
-                lookAtTarget.x += worldOffsetX
-                
-                // Zoom in by moving camera closer to planet
-                const zoomFactor = 0.001
-                const direction = camera.position.clone().sub(cameraTarget.current).normalize()
-                const zoomedDistance = distance * zoomFactor
-                const idealCameraPos = cameraTarget.current.clone().add(direction.multiplyScalar(zoomedDistance))
-                
-                camera.position.lerp(idealCameraPos, smoothness)
-            }
-            
-            camera.lookAt(lookAtTarget)
+            camera.lookAt(cameraTarget.current)
 
             if (orbitControls) {
-                orbitControls.target.copy(lookAtTarget)
+                orbitControls.target.copy(cameraTarget.current)
                 orbitControls.update()
             }
         }
@@ -111,10 +77,10 @@ export const CameraProvider = ({ children }: CameraProviderProps) => {
         }
     }
 
-    // Handle sidebar offset
-    const setSidebarOffset = (isOpen: boolean) => {
-        setSidebarOpen(isOpen)
+    // Clear focus manually
+    const clearFocus = () => {
+        setFocusedObject(null)
     }
 
-    return <CameraContext.Provider value={{ focusedObject, handleFocus, setSidebarOffset }}>{children}</CameraContext.Provider>
+    return <CameraContext.Provider value={{ focusedObject, handleFocus, clearFocus }}>{children}</CameraContext.Provider>
 } 

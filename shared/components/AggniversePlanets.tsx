@@ -10,6 +10,7 @@ import { SidebarProvider, useSidebar } from './solar-system/context/Sidebar'
 import CelestialSidebar from './solar-system/components/CelestialSidebar'
 import { CelestialSearchBar } from './solar-system/components/CelestialSearchBar'
 
+
 // Inner component that uses the sidebar
 const AggniverseContent = () => {
   const { isOpen, selectedBody, isSearchVisible, closeSidebar } = useSidebar();

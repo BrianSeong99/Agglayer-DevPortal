@@ -1,23 +1,32 @@
 import useGravity from '../hooks/useGravity'
 import { CameraProvider, useCamera } from '../context/Camera'
 import { TrailProvider } from '../context/Trails'
-import { SidebarProvider, useSidebar } from '../context/Sidebar'
-import { useEffect } from 'react'
+import { useSidebar } from '../context/Sidebar'
 
 import Sun from './Sun'
 import Stars from './Stars'
 import Planets from './Planets'
+import CelestialHighlight from './PlanetHighlight'
 
-// Component to sync sidebar state with camera system
-const SidebarCameraSync = () => {
-    const { isOpen } = useSidebar();
-    const { setSidebarOffset } = useCamera();
+// Component to handle empty space clicks (inside CameraProvider)
+const EmptySpaceHandler = () => {
+  const { closeSidebar } = useSidebar();
+  const { clearFocus } = useCamera();
 
-    useEffect(() => {
-        setSidebarOffset(isOpen);
-    }, [isOpen, setSidebarOffset]);
-
-    return null;
+  return (
+    <mesh
+      position={[0, 0, -1000]} // Far behind everything
+      onClick={(e) => {
+        e.stopPropagation();
+        closeSidebar();
+        clearFocus();
+      }}
+      visible={false} // Invisible but still clickable
+    >
+      <planeGeometry args={[10000, 10000]} />
+      <meshBasicMaterial transparent opacity={0} />
+    </mesh>
+  );
 };
 
 const chains = [
@@ -114,7 +123,7 @@ const Scene = () => {
 
     return (
         <CameraProvider>
-            <SidebarCameraSync />
+            <EmptySpaceHandler />
             <Sun />
 
             <TrailProvider>
@@ -122,6 +131,9 @@ const Scene = () => {
             </TrailProvider>
 
             <Stars />
+            
+            {/* Global highlight for any selected celestial body */}
+            <CelestialHighlight chains={chains} />
         </CameraProvider>
     )
 }
