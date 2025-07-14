@@ -4,13 +4,13 @@ import React from "react";
 import { FloatingDock } from "@/shared/components/ui/floating-dock";
 import { usePathname } from 'next/navigation';
 import {
-  IconLayoutDashboard,
   IconApps,
   IconCode,
   IconBrandX,
   IconBrandGithub,
   IconUniverse,
-  IconScript
+  IconScript,
+  IconHome
 } from "@tabler/icons-react";
 
 export default function FloatingNavigation() {
@@ -18,9 +18,9 @@ export default function FloatingNavigation() {
 
   const links = [
     {
-      title: "Dashboard",
+      title: "Home",
       icon: (isActive: boolean) => (
-        <IconLayoutDashboard className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
+        <IconHome className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
       href: "/",
     },

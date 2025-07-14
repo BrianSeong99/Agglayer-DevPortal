@@ -21,9 +21,9 @@ const NavigationGuidance = () => {
       description: "Visual discovery of 20+ connected chains in the Agglayer ecosystem",
       href: "/aggniverse",
       icon: <Telescope className="w-8 h-8" />,
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-blue-500/10",
-      borderColor: "border-blue-500/30",
+      color: "from-[#0071F7] to-[#0071F7]/80",
+      bgColor: "bg-[#0071F7]/10",
+      borderColor: "border-[#0071F7]/30",
       features: [
         "3D solar system interface",
         "Real-time network status",
@@ -37,9 +37,9 @@ const NavigationGuidance = () => {
       description: "Comprehensive tutorials, examples, and hands-on learning resources",
       href: "/examples",
       icon: <GraduationCap className="w-8 h-8" />,
-      color: "from-green-500 to-emerald-500",
-      bgColor: "bg-green-500/10",
-      borderColor: "border-green-500/30",
+      color: "from-[#FF8E08] to-[#FF8E08]/80",
+      bgColor: "bg-[#FF8E08]/10",
+      borderColor: "border-[#FF8E08]/30",
       features: [
         "Step-by-step tutorials",
         "Real working examples",
@@ -53,9 +53,9 @@ const NavigationGuidance = () => {
       description: "Interactive development portal with live tools and resources",
       href: "/developers",
       icon: <Wrench className="w-8 h-8" />,
-      color: "from-purple-500 to-pink-500",
-      bgColor: "bg-purple-500/10",
-      borderColor: "border-purple-500/30",
+      color: "from-[#0071F7] to-[#FF8E08]",
+      bgColor: "bg-[#0071F7]/10",
+      borderColor: "border-[#0071F7]/30",
       features: [
         "Interactive development tools",
         "Live testing interfaces",
@@ -91,7 +91,7 @@ const NavigationGuidance = () => {
   ];
 
   return (
-    <div className="py-20 bg-gradient-to-b from-transparent to-gray-900/50">
+    <div className="py-20 bg-gradient-to-b from-transparent to-[#000000]/50">
       <div className="max-w-7xl mx-auto px-6">
         {/* Section Header */}
         <motion.div
@@ -103,7 +103,7 @@ const NavigationGuidance = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
             Where Do You Want to Go?
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-[#D9D9D9] max-w-3xl mx-auto">
             Choose your path based on what you want to accomplish. Each section is designed 
             for different needs and experience levels.
           </p>
@@ -129,16 +129,16 @@ const NavigationGuidance = () => {
                   {card.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
-                <p className="text-gray-300 text-lg leading-relaxed">{card.description}</p>
+                <p className="text-[#D9D9D9] text-lg leading-relaxed">{card.description}</p>
               </div>
 
               {/* Features List */}
               <div className="mb-6">
-                <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">Features</h4>
+                <h4 className="text-sm font-semibold text-[#D9D9D9]/80 uppercase tracking-wide mb-3">Features</h4>
                 <ul className="space-y-2">
                   {card.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center gap-2 text-gray-300">
-                      <div className="w-1.5 h-1.5 rounded-full bg-gray-500" />
+                    <li key={featureIndex} className="flex items-center gap-2 text-[#D9D9D9]">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#D9D9D9]/50" />
                       <span className="text-sm">{feature}</span>
                     </li>
                   ))}
@@ -147,7 +147,7 @@ const NavigationGuidance = () => {
 
               {/* Audience */}
               <div className="mb-8">
-                <p className="text-gray-400 text-sm italic">{card.audience}</p>
+                <p className="text-[#D9D9D9]/80 text-sm italic">{card.audience}</p>
               </div>
 
               {/* CTA Button */}
@@ -169,11 +169,11 @@ const NavigationGuidance = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700"
+          className="bg-[#000000]/30 rounded-2xl p-8 border border-[#D9D9D9]/20"
         >
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold text-white mb-2">Quick Actions</h3>
-            <p className="text-gray-300">Jump straight to what you need</p>
+            <p className="text-[#D9D9D9]">Jump straight to what you need</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
@@ -181,20 +181,20 @@ const NavigationGuidance = () => {
               <Link
                 key={index}
                 href={action.href}
-                className="group flex items-center gap-4 p-4 rounded-xl bg-gray-800/50 border border-gray-600 hover:border-gray-500 hover:bg-gray-800/70 transition-all duration-300"
+                className="group flex items-center gap-4 p-4 rounded-xl bg-[#000000]/50 border border-[#D9D9D9]/30 hover:border-[#D9D9D9]/50 hover:bg-[#000000]/70 transition-all duration-300"
               >
-                <div className="flex-shrink-0 p-2 rounded-lg bg-gray-700 group-hover:bg-gray-600 transition-colors">
+                <div className="flex-shrink-0 p-2 rounded-lg bg-[#000000]/70 group-hover:bg-[#000000]/60 transition-colors">
                   {action.icon}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-white group-hover:text-blue-400 transition-colors">
+                  <div className="font-semibold text-white group-hover:text-[#0071F7] transition-colors">
                     {action.title}
                   </div>
-                  <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+                  <div className="text-sm text-[#D9D9D9]/80 group-hover:text-[#D9D9D9] transition-colors">
                     {action.description}
                   </div>
                 </div>
-                <ArrowRight className="w-4 h-4 text-gray-400 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
+                <ArrowRight className="w-4 h-4 text-[#D9D9D9]/80 group-hover:text-[#0071F7] group-hover:translate-x-1 transition-all" />
               </Link>
             ))}
           </div>
@@ -207,11 +207,11 @@ const NavigationGuidance = () => {
           transition={{ duration: 0.8, delay: 0.6 }}
           className="text-center mt-16"
         >
-          <div className="inline-flex items-center gap-2 text-gray-400 text-sm">
+          <div className="inline-flex items-center gap-2 text-[#D9D9D9]/80 text-sm">
             <Code className="w-4 h-4" />
             <span>Ready to dive deeper?</span>
           </div>
-          <p className="text-gray-300 mt-2">
+          <p className="text-[#D9D9D9] mt-2">
             All paths lead to building amazing cross-chain applications on Agglayer.
           </p>
         </motion.div>

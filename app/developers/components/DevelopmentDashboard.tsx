@@ -83,7 +83,7 @@ const DevelopmentDashboard: React.FC = () => {
       title: 'Start AggSandbox',
       description: 'Launch local development environment',
       icon: <Play className="w-5 h-5" />,
-      color: 'from-green-500 to-emerald-500',
+      color: 'from-[#0071F7] to-[#0071F7]/80',
       action: () => {
         setSandboxStatus('starting');
         setTimeout(() => setSandboxStatus('running'), 3000);
@@ -94,7 +94,7 @@ const DevelopmentDashboard: React.FC = () => {
       title: 'Stop AggSandbox',
       description: 'Stop local environment',
       icon: <Square className="w-5 h-5" />,
-      color: 'from-red-500 to-pink-500',
+      color: 'from-[#FF8E08] to-[#FF8E08]/80',
       action: () => setSandboxStatus('stopped')
     },
     {
@@ -102,7 +102,7 @@ const DevelopmentDashboard: React.FC = () => {
       title: 'Open Visualizer',
       description: 'Explore cross-chain interop in 3D',
       icon: <Globe className="w-5 h-5" />,
-      color: 'from-blue-500 to-cyan-500',
+      color: 'from-[#0071F7] to-[#FF8E08]',
       action: () => window.open('https://visualizer.agglayer.dev/', '_blank'),
       isExternal: true,
       url: 'https://visualizer.agglayer.dev/'
@@ -112,7 +112,7 @@ const DevelopmentDashboard: React.FC = () => {
       title: 'View Documentation',
       description: 'Complete API references',
       icon: <Book className="w-5 h-5" />,
-      color: 'from-purple-500 to-indigo-500',
+      color: 'from-[#FF8E08] to-[#0071F7]',
       action: () => window.open('https://docs.agglayer.dev/', '_blank'),
       isExternal: true,
       url: 'https://docs.agglayer.dev/'
@@ -125,14 +125,14 @@ const DevelopmentDashboard: React.FC = () => {
       environment: 'local',
       chainId: '1',
       rpcUrl: 'http://127.0.0.1:8545',
-      color: 'text-gray-400'
+      color: 'text-[#D9D9D9]/80'
     },
     {
       name: 'Local L2',
       environment: 'local', 
       chainId: '1101',
       rpcUrl: 'http://127.0.0.1:8546',
-      color: 'text-gray-400'
+      color: 'text-[#D9D9D9]/80'
     },
     {
       name: 'Cardona Testnet',
@@ -140,7 +140,7 @@ const DevelopmentDashboard: React.FC = () => {
       chainId: '2442',
       rpcUrl: 'https://rpc.cardona.polygon.technology',
       explorerUrl: 'https://cardona-zkevm.polygonscan.com',
-      color: 'text-orange-400'
+      color: 'text-[#FF8E08]'
     },
     {
       name: 'Polygon zkEVM',
@@ -148,7 +148,7 @@ const DevelopmentDashboard: React.FC = () => {
       chainId: '1101',
       rpcUrl: 'https://zkevm-rpc.com',
       explorerUrl: 'https://zkevm.polygonscan.com',
-      color: 'text-green-400'
+      color: 'text-[#0071F7]'
     }
   ];
 
@@ -164,10 +164,10 @@ const DevelopmentDashboard: React.FC = () => {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'online': return <CheckCircle className="w-4 h-4 text-green-400" />;
-      case 'starting': return <Clock className="w-4 h-4 text-yellow-400 animate-spin" />;
-      case 'offline': return <AlertCircle className="w-4 h-4 text-red-400" />;
-      default: return <AlertCircle className="w-4 h-4 text-gray-400" />;
+      case 'online': return <CheckCircle className="w-4 h-4 text-[#0071F7]" />;
+      case 'starting': return <Clock className="w-4 h-4 text-[#FF8E08] animate-spin" />;
+      case 'offline': return <AlertCircle className="w-4 h-4 text-[#FF8E08]" />;
+      default: return <AlertCircle className="w-4 h-4 text-[#D9D9D9]/80" />;
     }
   };
 
@@ -181,7 +181,7 @@ const DevelopmentDashboard: React.FC = () => {
         className="mb-8"
       >
         <h1 className="text-3xl font-bold text-white mb-2">Development Dashboard</h1>
-        <p className="text-gray-300">Interactive tools and resources for building on Agglayer</p>
+        <p className="text-[#D9D9D9]">Interactive tools and resources for building on Agglayer</p>
       </motion.div>
 
       {/* Environment Status */}
@@ -199,19 +199,19 @@ const DevelopmentDashboard: React.FC = () => {
           {environments.map((env, index) => (
             <div
               key={index}
-              className="p-4 bg-gray-800/50 border border-gray-700 rounded-xl"
+              className="p-4 bg-[#000000]/50 border border-[#D9D9D9]/20 rounded-xl"
             >
               <div className="flex items-center justify-between mb-2">
                 <span className="font-medium text-white">{env.name}</span>
                 {getStatusIcon(env.status)}
               </div>
-              <p className="text-sm text-gray-400">{env.description}</p>
+              <p className="text-sm text-[#D9D9D9]/80">{env.description}</p>
               {env.url && env.status === 'online' && (
                 <a
                   href={env.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs text-blue-400 hover:text-blue-300 transition-colors mt-2 inline-flex items-center gap-1"
+                  className="text-xs text-[#0071F7] hover:text-[#0071F7]/80 transition-colors mt-2 inline-flex items-center gap-1"
                 >
                   {env.url}
                   <ExternalLink className="w-3 h-3" />
@@ -268,44 +268,44 @@ const DevelopmentDashboard: React.FC = () => {
           {networkConfigs.map((network, index) => (
             <div
               key={index}
-              className="p-4 bg-gray-800/30 border border-gray-700 rounded-xl"
+              className="p-4 bg-[#000000]/30 border border-[#D9D9D9]/20 rounded-xl"
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-3">
                   <span className="font-medium text-white">{network.name}</span>
-                  <span className={`px-2 py-1 text-xs rounded-md bg-gray-700 ${network.color}`}>
+                  <span className={`px-2 py-1 text-xs rounded-md bg-[#000000]/70 ${network.color}`}>
                     {network.environment}
                   </span>
                 </div>
-                <span className="text-sm text-gray-400">Chain ID: {network.chainId}</span>
+                <span className="text-sm text-[#D9D9D9]/80">Chain ID: {network.chainId}</span>
               </div>
               
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-400 w-16">RPC:</span>
-                  <code className="flex-1 text-sm text-gray-300 bg-gray-900 px-2 py-1 rounded font-mono">
+                  <span className="text-sm text-[#D9D9D9]/80 w-16">RPC:</span>
+                  <code className="flex-1 text-sm text-[#D9D9D9] bg-[#000000] px-2 py-1 rounded font-mono">
                     {network.rpcUrl}
                   </code>
                   <button
                     onClick={() => copyToClipboard(network.rpcUrl, `${network.name} RPC`)}
-                    className="p-1 hover:bg-gray-700 rounded transition-colors"
+                    className="p-1 hover:bg-[#000000]/70 rounded transition-colors"
                   >
                     {copiedText === `${network.name} RPC` ? (
-                      <CheckCircle className="w-4 h-4 text-green-400" />
+                      <CheckCircle className="w-4 h-4 text-[#0071F7]" />
                     ) : (
-                      <Copy className="w-4 h-4 text-gray-400" />
+                      <Copy className="w-4 h-4 text-[#D9D9D9]/80" />
                     )}
                   </button>
                 </div>
                 
                 {network.explorerUrl && (
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-400 w-16">Explorer:</span>
+                    <span className="text-sm text-[#D9D9D9]/80 w-16">Explorer:</span>
                     <a
                       href={network.explorerUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-blue-400 hover:text-blue-300 transition-colors"
+                      className="text-sm text-[#0071F7] hover:text-[#0071F7]/80 transition-colors"
                     >
                       {network.explorerUrl}
                     </a>
@@ -329,30 +329,30 @@ const DevelopmentDashboard: React.FC = () => {
           Development Resources
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="p-6 bg-gray-800/30 border border-gray-700 rounded-xl">
+          <div className="p-6 bg-[#000000]/30 border border-[#D9D9D9]/20 rounded-xl">
             <div className="flex items-center gap-3 mb-4">
-              <Terminal className="w-6 h-6 text-green-400" />
+              <Terminal className="w-6 h-6 text-[#0071F7]" />
               <h3 className="text-lg font-semibold text-white">AggSandbox CLI</h3>
             </div>
             <div className="space-y-2 text-sm">
-              <code className="block bg-gray-900 p-2 rounded text-green-400">aggsandbox start --detach</code>
-              <code className="block bg-gray-900 p-2 rounded text-green-400">aggsandbox logs --follow</code>
-              <code className="block bg-gray-900 p-2 rounded text-green-400">aggsandbox stop</code>
+              <code className="block bg-[#000000] p-2 rounded text-[#0071F7]">aggsandbox start --detach</code>
+              <code className="block bg-[#000000] p-2 rounded text-[#0071F7]">aggsandbox logs --follow</code>
+              <code className="block bg-[#000000] p-2 rounded text-[#0071F7]">aggsandbox stop</code>
             </div>
           </div>
           
-          <div className="p-6 bg-gray-800/30 border border-gray-700 rounded-xl">
+          <div className="p-6 bg-[#000000]/30 border border-[#D9D9D9]/20 rounded-xl">
             <div className="flex items-center gap-3 mb-4">
-              <Download className="w-6 h-6 text-blue-400" />
+              <Download className="w-6 h-6 text-[#0071F7]" />
               <h3 className="text-lg font-semibold text-white">SDK Installation</h3>
             </div>
             <div className="space-y-2 text-sm">
-              <code className="block bg-gray-900 p-2 rounded text-blue-400">npm install @maticnetwork/lxlyjs</code>
-              <code className="block bg-gray-900 p-2 rounded text-blue-400">yarn add @maticnetwork/lxlyjs</code>
+              <code className="block bg-[#000000] p-2 rounded text-[#0071F7]">npm install @maticnetwork/lxlyjs</code>
+              <code className="block bg-[#000000] p-2 rounded text-[#0071F7]">yarn add @maticnetwork/lxlyjs</code>
             </div>
           </div>
           
-          <div className="p-6 bg-gray-800/30 border border-gray-700 rounded-xl">
+          <div className="p-6 bg-[#000000]/30 border border-[#D9D9D9]/20 rounded-xl">
             <div className="flex items-center gap-3 mb-4">
               <Users className="w-6 h-6 text-purple-400" />
               <h3 className="text-lg font-semibold text-white">Community</h3>
@@ -360,14 +360,14 @@ const DevelopmentDashboard: React.FC = () => {
             <div className="space-y-3">
               <a
                 href="#"
-                className="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
+                className="flex items-center gap-2 text-[#FF8E08] hover:text-[#FF8E08]/80 transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
                 <span>Discord Community</span>
               </a>
               <a
                 href="#"
-                className="flex items-center gap-2 text-purple-400 hover:text-purple-300 transition-colors"
+                className="flex items-center gap-2 text-[#FF8E08] hover:text-[#FF8E08]/80 transition-colors"
               >
                 <Book className="w-4 h-4" />
                 <span>Developer Forums</span>
@@ -383,7 +383,7 @@ const DevelopmentDashboard: React.FC = () => {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 50 }}
-          className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50"
+          className="fixed bottom-4 right-4 bg-[#0071F7] text-white px-4 py-2 rounded-lg shadow-lg z-50"
         >
           {copiedText} copied!
         </motion.div>

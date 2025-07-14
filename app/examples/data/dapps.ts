@@ -52,62 +52,6 @@ export const dapps: Record<string, DappData> = {
     ],
     repoUrl: 'https://github.com/Uniswap/v3-core',
     walkthrough: "/dapps/docs/uniswap.md",
-  },
-  uniswap1: {
-    logo: 'https://placehold.co/80x80?text=UNI',
-    name: 'Uniswap',
-    tagline: 'Decentralized token exchange with millions in daily volume',
-    screenshots: [],
-    description: 'Uniswap is a permissionless AMM that allows users to swap tokens and provide liquidity.',
-    bullets: [
-      'AMM-based token swaps',
-      'Deep liquidity pools',
-      'Permissionless listings',
-    ],
-    repoUrl: 'https://github.com/Uniswap/v3-core',
-    walkthrough: "/dapps/docs/uniswap.md",
-  },
-  uniswap2: {
-    logo: 'https://placehold.co/80x80?text=UNI',
-    name: 'Uniswap',
-    tagline: 'Decentralized token exchange with millions in daily volume',
-    screenshots: [],
-    description: 'Uniswap is a permissionless AMM that allows users to swap tokens and provide liquidity.',
-    bullets: [
-      'AMM-based token swaps',
-      'Deep liquidity pools',
-      'Permissionless listings',
-    ],
-    repoUrl: 'https://github.com/Uniswap/v3-core',
-    walkthrough: "/dapps/docs/uniswap.md",
-  },
-  uniswap3: {
-    logo: 'https://placehold.co/80x80?text=UNI',
-    name: 'Uniswap',
-    tagline: 'Decentralized token exchange with millions in daily volume',
-    screenshots: [],
-    description: 'Uniswap is a permissionless AMM that allows users to swap tokens and provide liquidity.',
-    bullets: [
-      'AMM-based token swaps',
-      'Deep liquidity pools',
-      'Permissionless listings',
-    ],
-    repoUrl: 'https://github.com/Uniswap/v3-core',
-    walkthrough: "/dapps/docs/uniswap.md",
-  },
-  uniswap4: {
-    logo: 'https://placehold.co/80x80?text=UNI',
-    name: 'Uniswap',
-    tagline: 'Decentralized token exchange with millions in daily volume',
-    screenshots: [],
-    description: 'Uniswap is a permissionless AMM that allows users to swap tokens and provide liquidity.',
-    bullets: [
-      'AMM-based token swaps',
-      'Deep liquidity pools',
-      'Permissionless listings',
-    ],
-    repoUrl: 'https://github.com/Uniswap/v3-core',
-    walkthrough: "/dapps/docs/uniswap.md",
-  },
+  }
   // Add more dApps here
 }
