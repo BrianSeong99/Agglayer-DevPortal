@@ -12,7 +12,7 @@ import { CelestialSearchBar, CelestialSuggestion } from './solar-system/componen
 
 
 // Inner component that uses the sidebar
-const AggniverseContent = () => {
+const AggniverseContent = ({ isInteractive }: { isInteractive: boolean }) => {
   const { isOpen, selectedBody, isSearchVisible, closeSidebar } = useSidebar();
   const containerRef = useRef<HTMLDivElement>(null);
   const [selectPlanetByName, setSelectPlanetByName] = useState<((name: string) => void) | null>(null);
@@ -84,51 +84,59 @@ const AggniverseContent = () => {
         {/* </Suspense> */}
       </div>
       
-      {/* Search bar positioned at top-left, above sidebar */}
-      <div
-        style={{
-          position: 'fixed',
-          top: '16px',
-          left: isOpen ? `${400 + 16}px` : '16px', // sidebar width + padding
-          zIndex: 9999,
-          pointerEvents: 'auto',
-          transition: 'left 0.4s ease-in-out'
-        }}
-      >
-        <CelestialSearchBar 
-          isVisible={isSearchVisible} 
-          onSuggestionSelect={handleSuggestionSelect}
-          onCloseDropdowns={handleCloseDropdowns}
-        />
-      </div>
+      {/* Search bar positioned at top-left, above sidebar - only show when interactive */}
+      {isInteractive && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '16px',
+            left: isOpen ? `${400 + 16}px` : '16px', // sidebar width + padding
+            zIndex: 9999,
+            pointerEvents: 'auto',
+            transition: 'left 0.4s ease-in-out'
+          }}
+        >
+          <CelestialSearchBar 
+            isVisible={isSearchVisible} 
+            onSuggestionSelect={handleSuggestionSelect}
+            onCloseDropdowns={handleCloseDropdowns}
+          />
+        </div>
+      )}
 
-      {/* Sidebar positioned as full height panel */}
-      <div
-        style={{
-          position: 'fixed',
-          top: '0',
-          left: '0',
-          width: '400px',
-          height: '100vh',
-          zIndex: 9998,
-          pointerEvents: isOpen ? 'auto' : 'none'
-        }}
-      >
-        <CelestialSidebar 
-          isOpen={isOpen}
-          onClose={closeSidebar}
-          celestialBody={selectedBody}
-        />
-      </div>
+      {/* Sidebar positioned as full height panel - only show when interactive */}
+      {isInteractive && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '0',
+            left: '0',
+            width: '400px',
+            height: '100vh',
+            zIndex: 9998,
+            pointerEvents: isOpen ? 'auto' : 'none'
+          }}
+        >
+          <CelestialSidebar 
+            isOpen={isOpen}
+            onClose={closeSidebar}
+            celestialBody={selectedBody}
+          />
+        </div>
+      )}
     </>
   );
 }
 
 // AggniversePlanets component
-const AggniversePlanets = () => {
+interface AggniversePlanetsProps {
+  isInteractive?: boolean;
+}
+
+const AggniversePlanets = ({ isInteractive = true }: AggniversePlanetsProps) => {
   return (
     <SidebarProvider>
-      <AggniverseContent />
+      <AggniverseContent isInteractive={isInteractive} />
     </SidebarProvider>
   );
 }

@@ -7,7 +7,8 @@ export default function AggniverseBackground() {
   
   return (
     <div className="fixed inset-0 z-0 pointer-events-none">
-      {pathname === "/aggniverse" && <AggniversePlanets />}
+      {/* Always render the 3D scene to keep it running in the background */}
+      <AggniversePlanets isInteractive={pathname === "/aggniverse"} />
     </div>
   );
 } 
