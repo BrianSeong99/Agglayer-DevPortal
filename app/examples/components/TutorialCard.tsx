@@ -3,6 +3,9 @@
 import { motion } from 'framer-motion';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 
 interface TutorialCardProps {
   title: string;
@@ -29,32 +32,35 @@ export default function TutorialCard({
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-[#17171797] border border-white/10 rounded-lg p-6 hover:border-[#0071F7]/50 transition-all"
     >
-      <div className="flex items-start justify-between mb-4">
-        <h3 className="text-lg font-bold text-white">{title}</h3>
-        <span
-          className={`px-2 py-1 text-xs rounded border ${difficultyColors[difficulty]}`}
-        >
-          {difficulty}
-        </span>
-      </div>
+      <Card className="bg-[#17171797] border-white/10 hover:border-[#0071F7]/50 transition-all h-full">
+        <CardHeader className="flex flex-row items-start justify-between space-y-0">
+          <CardTitle className="text-lg text-white">{title}</CardTitle>
+          <Badge
+            variant="outline"
+            className={difficultyColors[difficulty]}
+          >
+            {difficulty}
+          </Badge>
+        </CardHeader>
+        
+        <CardContent>
+          <CardDescription className="text-[#D9D9D9]">{description}</CardDescription>
+        </CardContent>
+        
+        <CardFooter className="flex items-center justify-between">
+          <div className="flex items-center gap-1 text-sm text-[#D9D9D9]">
+            <ClockIcon className="w-4 h-4" />
+            <span>{duration}</span>
+          </div>
 
-      <p className="text-[#D9D9D9] text-sm mb-4">{description}</p>
-
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-1 text-sm text-[#D9D9D9]">
-          <ClockIcon className="w-4 h-4" />
-          <span>{duration}</span>
-        </div>
-
-        <Link
-          href={url}
-          className="px-4 py-2 bg-[#0071F7] hover:bg-[#0071F7]/80 text-white rounded-lg text-sm font-medium transition-colors"
-        >
-          Start Tutorial
-        </Link>
-      </div>
+          <Button asChild size="sm">
+            <Link href={url}>
+              Start Tutorial
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
     </motion.div>
   );
 }

@@ -12,6 +12,7 @@ import {
   CommandLineIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui/button';
 
 const iconMap: { [key: string]: any } = {
   package: CubeIcon,
@@ -66,18 +67,25 @@ export default function ToolsPage() {
                 {/* Quick Actions */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {tool.quickActions.map((action) => (
-                    <a
+                    <Button
                       key={action.label}
-                      href={action.url}
-                      target={action.external ? '_blank' : undefined}
-                      rel={action.external ? 'noopener noreferrer' : undefined}
-                      className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 rounded-lg text-sm text-white transition-all flex items-center gap-1"
+                      asChild
+                      variant="outline"
+                      size="sm"
+                      className="h-auto py-1.5"
                     >
-                      {action.label}
-                      {action.external && (
-                        <ArrowTopRightOnSquareIcon className="w-3 h-3" />
-                      )}
-                    </a>
+                      <a
+                        href={action.url}
+                        target={action.external ? '_blank' : undefined}
+                        rel={action.external ? 'noopener noreferrer' : undefined}
+                        className="flex items-center gap-1"
+                      >
+                        {action.label}
+                        {action.external && (
+                          <ArrowTopRightOnSquareIcon className="w-3 h-3" />
+                        )}
+                      </a>
+                    </Button>
                   ))}
                 </div>
 
@@ -86,16 +94,18 @@ export default function ToolsPage() {
                   <div className="bg-black/50 border border-white/10 rounded-lg p-3 mb-4">
                     <div className="flex items-center justify-between">
                       <code className="text-sm text-[#D9D9D9]">{tool.quickInstall}</code>
-                      <button
+                      <Button
                         onClick={() => copyToClipboard(tool.quickInstall!, tool.id)}
-                        className="p-1.5 hover:bg-white/10 rounded transition-colors"
+                        variant="ghost"
+                        size="icon"
+                        className="h-7 w-7"
                       >
                         <DocumentDuplicateIcon
                           className={`w-4 h-4 ${
                             copiedId === tool.id ? 'text-green-400' : 'text-gray-400'
                           }`}
                         />
-                      </button>
+                      </Button>
                     </div>
                   </div>
                 )}
@@ -207,12 +217,14 @@ export default function ToolsPage() {
               <br />
               Features in development
             </p>
-            <button
+            <Button
               disabled
-              className="text-white/40 text-sm font-medium cursor-not-allowed"
+              variant="ghost"
+              size="sm"
+              className="cursor-not-allowed"
             >
               Coming Soon
-            </button>
+            </Button>
           </motion.div>
         </div>
       </section>

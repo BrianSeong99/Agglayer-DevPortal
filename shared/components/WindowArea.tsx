@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
-const DOCK_HEIGHT = 80; // px, keep in sync with layout
+const NAV_HEIGHT = 80; // px, height for navigation bar spacing
 
 export default function WindowArea({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
   // For pages without window styling, render children with minimal wrapper
   if (!windowStyledPages.includes(pathname)) {
     return (
-      <main className="min-h-screen w-full" style={{ paddingBottom: `${DOCK_HEIGHT}px` }}>
+      <main className="min-h-screen w-full" style={{ paddingTop: `${NAV_HEIGHT}px` }}>
         {children}
       </main>
     );
@@ -25,7 +25,7 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
       <motion.div
         key="window-area"
         className="relative z-10 flex justify-center items-center w-full p-4"
-        style={{ height: `calc(100vh - ${DOCK_HEIGHT}px)` }}
+        style={{ height: `calc(100vh - ${NAV_HEIGHT}px)`, marginTop: `${NAV_HEIGHT}px` }}
         initial={{ 
           opacity: 0, 
           y: 50,

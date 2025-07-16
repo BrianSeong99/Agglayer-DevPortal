@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface Tab {
   id: string;
@@ -21,27 +21,18 @@ export default function TabComponent({
   className = '',
 }: TabComponentProps) {
   return (
-    <div className={`flex items-center gap-2 p-1 bg-white/5 rounded-lg ${className}`}>
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          onClick={() => onTabChange(tab.id)}
-          className={`relative px-6 py-2 rounded-md text-sm font-medium transition-colors ${
-            activeTab === tab.id
-              ? 'text-white'
-              : 'text-[#D9D9D9] hover:text-white'
-          }`}
-        >
-          {activeTab === tab.id && (
-            <motion.div
-              layoutId="activeTab"
-              className="absolute inset-0 bg-[#0071F7] rounded-md"
-              transition={{ type: 'spring', duration: 0.5 }}
-            />
-          )}
-          <span className="relative z-10">{tab.label}</span>
-        </button>
-      ))}
-    </div>
+    <Tabs value={activeTab} onValueChange={onTabChange} className={className}>
+      <TabsList className="bg-white/5 border border-white/10">
+        {tabs.map((tab) => (
+          <TabsTrigger
+            key={tab.id}
+            value={tab.id}
+            className="data-[state=active]:bg-[#0071F7] data-[state=active]:text-white data-[state=active]:shadow-sm data-[state=inactive]:text-white/60 transition-all"
+          >
+            {tab.label}
+          </TabsTrigger>
+        ))}
+      </TabsList>
+    </Tabs>
   );
 }

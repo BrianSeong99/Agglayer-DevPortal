@@ -1,5 +1,5 @@
 import './globals.css'
-import FloatingNavigation from '../shared/components/FloatingNavigation'
+import ShadcnNavigationMenu from '../shared/components/NavigationMenu'
 import WindowArea from '../shared/components/WindowArea'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -9,9 +9,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         className="min-h-screen flex flex-col relative"
         suppressHydrationWarning
       >
+        {/* Navigation Menu at the top */}
+        <ShadcnNavigationMenu />
         <WindowArea>{children}</WindowArea>
-        {/* Dock at the bottom */}
-        <FloatingNavigation />
       </body>
     </html>
   )

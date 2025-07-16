@@ -13,6 +13,8 @@ import {
   Wrench,
   Sparkles 
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 const NavigationGuidance = () => {
   const navigationCards = [
@@ -121,45 +123,50 @@ const NavigationGuidance = () => {
               key={index}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.3 }}
-              className={`group relative p-8 rounded-2xl border ${card.borderColor} ${card.bgColor} backdrop-blur-sm hover:border-opacity-60 transition-all duration-300`}
             >
-              {/* Icon and Title */}
-              <div className="mb-6">
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${card.color} text-white mb-4`}>
-                  {card.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
-                <p className="text-[#D9D9D9] text-lg leading-relaxed">{card.description}</p>
-              </div>
+              <Card className={`group relative h-full ${card.bgColor} border ${card.borderColor} backdrop-blur-sm hover:border-opacity-60 transition-all duration-300`}>
+                <CardHeader>
+                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${card.color} text-white mb-4 w-fit`}>
+                    {card.icon}
+                  </div>
+                  <CardTitle className="text-2xl text-white">{card.title}</CardTitle>
+                  <CardDescription className="text-[#D9D9D9] text-lg leading-relaxed">
+                    {card.description}
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  {/* Features List */}
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#D9D9D9]/80 uppercase tracking-wide mb-3">Features</h4>
+                    <ul className="space-y-2">
+                      {card.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center gap-2 text-[#D9D9D9]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#D9D9D9]/50" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-              {/* Features List */}
-              <div className="mb-6">
-                <h4 className="text-sm font-semibold text-[#D9D9D9]/80 uppercase tracking-wide mb-3">Features</h4>
-                <ul className="space-y-2">
-                  {card.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center gap-2 text-[#D9D9D9]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D9D9D9]/50" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Audience */}
-              <div className="mb-8">
-                <p className="text-[#D9D9D9]/80 text-sm italic">{card.audience}</p>
-              </div>
-
-              {/* CTA Button */}
-              <Link 
-                href={card.href}
-                className={`group/btn inline-flex items-center gap-2 bg-gradient-to-r ${card.color} text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg`}
-              >
-                {card.title === "Explore Chains" && "Explore"}
-                {card.title === "Learn & Examples" && "Learn"}
-                {card.title === "Developer Tools" && "Explore Tools"}
-                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </Link>
+                  {/* Audience */}
+                  <p className="text-[#D9D9D9]/80 text-sm italic">{card.audience}</p>
+                </CardContent>
+                
+                <CardFooter>
+                  <Button asChild className="group/btn">
+                    <Link 
+                      href={card.href}
+                      className="inline-flex items-center gap-2"
+                    >
+                      {card.title === "Explore Chains" && "Explore"}
+                      {card.title === "Learn & Examples" && "Learn"}
+                      {card.title === "Developer Tools" && "Explore Tools"}
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             </motion.div>
           ))}
         </motion.div>

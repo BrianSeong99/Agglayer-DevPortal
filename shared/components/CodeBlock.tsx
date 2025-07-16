@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui/button';
 
 interface CodeBlockProps {
   code: string;
@@ -35,9 +36,11 @@ export default function CodeBlock({
             {language}
           </span>
         )}
-        <button
+        <Button
           onClick={copyToClipboard}
-          className="p-2 rounded-lg bg-black/50 hover:bg-black/70 transition-colors"
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 bg-black/50 hover:bg-black/70"
           aria-label="Copy code"
         >
           {copied ? (
@@ -45,7 +48,7 @@ export default function CodeBlock({
           ) : (
             <DocumentDuplicateIcon className="w-4 h-4 text-gray-400" />
           )}
-        </button>
+        </Button>
       </div>
 
       <div className="bg-[#0A0A0A] border border-white/10 rounded-lg overflow-hidden">

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui/button';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 interface FilterOption {
   id: string;
@@ -44,34 +46,61 @@ export default function FilterComponent({
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-medium text-white">{title}</h3>
         {selectedOptions.length > 0 && (
-          <button
+          <Button
             onClick={clearFilters}
-            className="text-xs text-[#D9D9D9] hover:text-white flex items-center gap-1"
+            variant="ghost"
+            size="sm"
+            className="h-auto py-1 px-2 text-xs"
           >
-            <XMarkIcon className="w-3 h-3" />
+            <XMarkIcon className="w-3 h-3 mr-1" />
             Clear
-          </button>
+          </Button>
         )}
       </div>
 
-      <div className="flex flex-wrap gap-2">
-        {options.map((option) => {
-          const isSelected = selectedOptions.includes(option.id);
-          return (
-            <button
-              key={option.id}
-              onClick={() => handleOptionClick(option.id)}
-              className={`px-3 py-1.5 rounded-lg border text-sm font-medium transition-all ${
-                isSelected
-                  ? 'bg-[#0071F7] border-[#0071F7] text-white'
-                  : 'bg-transparent border-white/20 text-[#D9D9D9] hover:border-white/40 hover:text-white'
-              }`}
-            >
-              {option.label}
-            </button>
-          );
-        })}
-      </div>
+      {multiSelect ? (
+        <ToggleGroup
+          type="multiple"
+          value={selectedOptions}
+          onValueChange={(value: string[]) => {
+            onFilterChange(value);
+          }}
+          className="flex flex-wrap gap-2 justify-start"
+        >
+        {options.map((option) => (
+          <ToggleGroupItem
+            key={option.id}
+            value={option.id}
+            variant="outline"
+            size="sm"
+            className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+          >
+            {option.label}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+      ) : (
+        <ToggleGroup
+          type="single"
+          value={selectedOptions[0] || ""}
+          onValueChange={(value: string) => {
+            onFilterChange(value ? [value] : []);
+          }}
+          className="flex flex-wrap gap-2 justify-start"
+        >
+        {options.map((option) => (
+          <ToggleGroupItem
+            key={option.id}
+            value={option.id}
+            variant="outline"
+            size="sm"
+            className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+          >
+            {option.label}
+          </ToggleGroupItem>
+        ))}
+      </ToggleGroup>
+      )}
 
       {selectedOptions.length > 0 && (
         <p className="text-xs text-[#D9D9D9]">

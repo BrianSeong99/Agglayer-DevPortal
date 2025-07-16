@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
 import { DocumentDuplicateIcon, CheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
+import { Button } from '@/components/ui/button';
 
 // Hero Section Component
 function HeroSection() {
@@ -24,8 +25,6 @@ function HeroSection() {
 
   return (
     <section className="relative overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0071F7]/10 via-transparent to-transparent" />
 
       <div className="relative max-w-7xl mx-auto px-6 py-24">
         <motion.div
@@ -42,18 +41,16 @@ function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/examples"
-              className="px-8 py-4 bg-[#0071F7] hover:bg-[#0071F7]/90 text-white rounded-lg font-medium text-lg transition-all"
-            >
-              Start Building
-            </Link>
-            <Link
-              href="/tools"
-              className="px-8 py-4 border border-white/20 hover:border-white/40 text-white rounded-lg font-medium text-lg transition-all"
-            >
-              Explore Tools
-            </Link>
+            <Button asChild size="lg" className="text-lg">
+              <Link href="/examples">
+                Start Building
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="text-lg">
+              <Link href="/tools">
+                Explore Tools
+              </Link>
+            </Button>
           </div>
         </motion.div>
 
@@ -141,16 +138,18 @@ const agglayer = new Agglayer({
                 <h3 className="text-lg font-semibold text-white">
                   Step {index + 1}: {step.title}
                 </h3>
-                <button
+                <Button
                   onClick={() => copyToClipboard(step.code, index)}
-                  className="p-2 hover:bg-white/10 rounded transition-colors"
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8"
                 >
                   {copiedStep === index ? (
                     <CheckIcon className="w-4 h-4 text-green-400" />
                   ) : (
                     <DocumentDuplicateIcon className="w-4 h-4 text-gray-400" />
                   )}
-                </button>
+                </Button>
               </div>
               <pre className="bg-black/50 border border-white/10 rounded p-4 overflow-x-auto">
                 <code className="text-sm text-[#D9D9D9]">{step.code}</code>
@@ -165,13 +164,15 @@ const agglayer = new Agglayer({
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-center"
         >
-          <Link
-            href="/examples"
-            className="inline-flex items-center gap-2 text-[#0071F7] hover:text-[#0071F7]/80 font-medium"
-          >
-            View Full Tutorial
-            <ArrowRightIcon className="w-4 h-4" />
-          </Link>
+          <Button asChild variant="link" className="p-0">
+            <Link
+              href="/examples"
+              className="inline-flex items-center gap-2"
+            >
+              View Full Tutorial
+              <ArrowRightIcon className="w-4 h-4" />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
@@ -310,13 +311,15 @@ function FeaturedTemplatesSection() {
                   </span>
                 ))}
               </div>
-              <Link
-                href={template.url}
-                className="inline-flex items-center gap-2 text-[#0071F7] hover:text-[#0071F7]/80 font-medium"
-              >
-                View Template
-                <ArrowRightIcon className="w-4 h-4" />
-              </Link>
+              <Button asChild variant="link" className="p-0">
+                <Link
+                  href={template.url}
+                  className="inline-flex items-center gap-2"
+                >
+                  View Template
+                  <ArrowRightIcon className="w-4 h-4" />
+                </Link>
+              </Button>
             </motion.div>
           ))}
         </div>
@@ -327,12 +330,14 @@ function FeaturedTemplatesSection() {
           transition={{ duration: 0.8, delay: 0.3 }}
           className="text-center"
         >
-          <Link
-            href="/examples"
-            className="inline-flex items-center gap-2 text-[#0071F7] hover:text-[#0071F7]/80 font-medium"
-          >
-            Browse All Templates →
-          </Link>
+          <Button asChild variant="link" className="p-0">
+            <Link
+              href="/examples"
+              className="inline-flex items-center gap-2"
+            >
+              Browse All Templates →
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
@@ -355,12 +360,11 @@ function CTASection() {
             <p className="text-[#D9D9D9] mb-6">
               Learn the fundamentals and build your first cross-chain dApp
             </p>
-            <Link
-              href="/examples?tab=tutorials"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0071F7] hover:bg-[#0071F7]/90 text-white rounded-lg font-medium transition-all"
-            >
-              Start Tutorial
-            </Link>
+            <Button asChild>
+              <Link href="/examples?tab=tutorials">
+                Start Tutorial
+              </Link>
+            </Button>
           </motion.div>
 
           <motion.div
@@ -373,14 +377,15 @@ function CTASection() {
             <p className="text-[#D9D9D9] mb-6">
               Migrate to Agglayer in hours with our migration guide
             </p>
-            <a
-              href="https://docs.agglayer.dev/migration"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#0071F7] hover:bg-[#0071F7]/90 text-white rounded-lg font-medium transition-all"
-            >
-              Migration Guide
-            </a>
+            <Button asChild>
+              <a
+                href="https://docs.agglayer.dev/migration"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Migration Guide
+              </a>
+            </Button>
           </motion.div>
         </div>
       </div>
