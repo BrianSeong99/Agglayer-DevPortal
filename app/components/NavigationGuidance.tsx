@@ -33,36 +33,36 @@ const NavigationGuidance = () => {
       audience: "Perfect for understanding the ecosystem and finding the right chains for your project."
     },
     {
-      title: "Learn & Tutorial",
-      description: "Comprehensive tutorials, examples, and hands-on learning resources",
-      href: "/tutorials",
+      title: "Learn & Examples",
+      description: "Production-ready templates, tutorials, and code examples",
+      href: "/examples",
       icon: <GraduationCap className="w-8 h-8" />,
       color: "from-[#0071F7] to-[#0071F7]/80",
       bgColor: "bg-[#0071F7]/10",
       borderColor: "border-[#0071F7]/30",
       features: [
+        "Production templates",
         "Step-by-step tutorials",
-        "Real working examples",
-        "Progressive learning paths",
-        "Technical deep-dives"
+        "Code snippets library",
+        "Real implementations"
       ],
-      audience: "Ideal for developers learning cross-chain development or exploring Agglayer architecture."
+      audience: "Ideal for developers learning cross-chain development or looking for ready-to-use templates."
     },
     {
-      title: "Start Developing",
-      description: "Interactive development portal with live tools and resources",
-      href: "/developers",
+      title: "Developer Tools",
+      description: "Essential tools for building, testing, and deploying cross-chain dApps",
+      href: "/tools",
       icon: <Wrench className="w-8 h-8" />,
       color: "from-[#0071F7] to-[#0071F7]/80",
       bgColor: "bg-[#0071F7]/10",
       borderColor: "border-[#0071F7]/30",
       features: [
-        "Interactive development tools",
-        "Live testing interfaces",
-        "Real-time monitoring",
-        "Stage-specific resources"
+        "lxly.js SDK",
+        "AggSandbox local dev",
+        "Bridge interface",
+        "Testnet faucet"
       ],
-      audience: "Built for active developers ready to build, test, and deploy on Agglayer."
+      audience: "Everything you need to build, test, and deploy cross-chain applications."
     }
   ];
 
@@ -84,8 +84,8 @@ const NavigationGuidance = () => {
     {
       title: "Learn Fundamentals",
       description: "Understand Agglayer architecture",
-      action: "View Tutorials",
-      href: "/tutorials",
+      action: "View Examples",
+      href: "/examples",
       icon: <BookOpen className="w-5 h-5" />
     }
   ];
@@ -156,8 +156,8 @@ const NavigationGuidance = () => {
                 className={`group/btn inline-flex items-center gap-2 bg-gradient-to-r ${card.color} text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg`}
               >
                 {card.title === "Explore Chains" && "Explore"}
-                {card.title === "Learn & Tutorial" && "Learn"} 
-                {card.title === "Start Developing" && "Develop"}
+                {card.title === "Learn & Examples" && "Learn"}
+                {card.title === "Developer Tools" && "Explore Tools"}
                 <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
               </Link>
             </motion.div>
