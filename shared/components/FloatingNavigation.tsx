@@ -10,7 +10,8 @@ import {
   IconBrandGithub,
   IconUniverse,
   IconScript,
-  IconHome
+  IconHome,
+  IconTool
 } from "@tabler/icons-react";
 
 export default function FloatingNavigation() {
@@ -32,18 +33,18 @@ export default function FloatingNavigation() {
       href: "/aggniverse",
     },
     {
-      title: "Tutorials",
+      title: "Examples",
       icon: (isActive: boolean) => (
         <IconApps className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/tutorials",
+      href: "/examples",
     },
     {
-      title: "Developers",
+      title: "Tools",
       icon: (isActive: boolean) => (
-        <IconCode className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
+        <IconTool className={isActive ? "h-full w-full text-black dark:text-black" : "h-full w-full text-neutral-500 dark:text-neutral-300"} />
       ),
-      href: "/developers",
+      href: "/tools",
     },
     { type: 'divider' as const },
     {

@@ -13,6 +13,8 @@ import {
   Wrench,
   Sparkles 
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 const NavigationGuidance = () => {
   const navigationCards = [
@@ -33,36 +35,36 @@ const NavigationGuidance = () => {
       audience: "Perfect for understanding the ecosystem and finding the right chains for your project."
     },
     {
-      title: "Learn & Tutorial",
-      description: "Comprehensive tutorials, examples, and hands-on learning resources",
-      href: "/tutorials",
+      title: "Learn & Examples",
+      description: "Production-ready templates, tutorials, and code examples",
+      href: "/examples",
       icon: <GraduationCap className="w-8 h-8" />,
       color: "from-[#0071F7] to-[#0071F7]/80",
       bgColor: "bg-[#0071F7]/10",
       borderColor: "border-[#0071F7]/30",
       features: [
+        "Production templates",
         "Step-by-step tutorials",
-        "Real working examples",
-        "Progressive learning paths",
-        "Technical deep-dives"
+        "Code snippets library",
+        "Real implementations"
       ],
-      audience: "Ideal for developers learning cross-chain development or exploring Agglayer architecture."
+      audience: "Ideal for developers learning cross-chain development or looking for ready-to-use templates."
     },
     {
-      title: "Start Developing",
-      description: "Interactive development portal with live tools and resources",
-      href: "/developers",
+      title: "Developer Tools",
+      description: "Essential tools for building, testing, and deploying cross-chain dApps",
+      href: "/tools",
       icon: <Wrench className="w-8 h-8" />,
       color: "from-[#0071F7] to-[#0071F7]/80",
       bgColor: "bg-[#0071F7]/10",
       borderColor: "border-[#0071F7]/30",
       features: [
-        "Interactive development tools",
-        "Live testing interfaces",
-        "Real-time monitoring",
-        "Stage-specific resources"
+        "lxly.js SDK",
+        "AggSandbox local dev",
+        "Bridge interface",
+        "Testnet faucet"
       ],
-      audience: "Built for active developers ready to build, test, and deploy on Agglayer."
+      audience: "Everything you need to build, test, and deploy cross-chain applications."
     }
   ];
 
@@ -84,8 +86,8 @@ const NavigationGuidance = () => {
     {
       title: "Learn Fundamentals",
       description: "Understand Agglayer architecture",
-      action: "View Tutorials",
-      href: "/tutorials",
+      action: "View Examples",
+      href: "/examples",
       icon: <BookOpen className="w-5 h-5" />
     }
   ];
@@ -121,45 +123,50 @@ const NavigationGuidance = () => {
               key={index}
               whileHover={{ y: -5 }}
               transition={{ duration: 0.3 }}
-              className={`group relative p-8 rounded-2xl border ${card.borderColor} ${card.bgColor} backdrop-blur-sm hover:border-opacity-60 transition-all duration-300`}
             >
-              {/* Icon and Title */}
-              <div className="mb-6">
-                <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${card.color} text-white mb-4`}>
-                  {card.icon}
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-3">{card.title}</h3>
-                <p className="text-[#D9D9D9] text-lg leading-relaxed">{card.description}</p>
-              </div>
+              <Card className={`group relative h-full ${card.bgColor} border ${card.borderColor} backdrop-blur-sm hover:border-opacity-60 transition-all duration-300`}>
+                <CardHeader>
+                  <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${card.color} text-white mb-4 w-fit`}>
+                    {card.icon}
+                  </div>
+                  <CardTitle className="text-2xl text-white">{card.title}</CardTitle>
+                  <CardDescription className="text-[#D9D9D9] text-lg leading-relaxed">
+                    {card.description}
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="space-y-6">
+                  {/* Features List */}
+                  <div>
+                    <h4 className="text-sm font-semibold text-[#D9D9D9]/80 uppercase tracking-wide mb-3">Features</h4>
+                    <ul className="space-y-2">
+                      {card.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center gap-2 text-[#D9D9D9]">
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#D9D9D9]/50" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-              {/* Features List */}
-              <div className="mb-6">
-                <h4 className="text-sm font-semibold text-[#D9D9D9]/80 uppercase tracking-wide mb-3">Features</h4>
-                <ul className="space-y-2">
-                  {card.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-center gap-2 text-[#D9D9D9]">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#D9D9D9]/50" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Audience */}
-              <div className="mb-8">
-                <p className="text-[#D9D9D9]/80 text-sm italic">{card.audience}</p>
-              </div>
-
-              {/* CTA Button */}
-              <Link 
-                href={card.href}
-                className={`group/btn inline-flex items-center gap-2 bg-gradient-to-r ${card.color} text-white px-6 py-3 rounded-xl font-medium transition-all duration-300 hover:scale-105 hover:shadow-lg`}
-              >
-                {card.title === "Explore Chains" && "Explore"}
-                {card.title === "Learn & Tutorial" && "Learn"} 
-                {card.title === "Start Developing" && "Develop"}
-                <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-              </Link>
+                  {/* Audience */}
+                  <p className="text-[#D9D9D9]/80 text-sm italic">{card.audience}</p>
+                </CardContent>
+                
+                <CardFooter>
+                  <Button asChild className="group/btn">
+                    <Link 
+                      href={card.href}
+                      className="inline-flex items-center gap-2"
+                    >
+                      {card.title === "Explore Chains" && "Explore"}
+                      {card.title === "Learn & Examples" && "Learn"}
+                      {card.title === "Developer Tools" && "Explore Tools"}
+                      <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
+                    </Link>
+                  </Button>
+                </CardFooter>
+              </Card>
             </motion.div>
           ))}
         </motion.div>

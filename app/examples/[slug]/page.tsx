@@ -14,7 +14,7 @@ import {
   Shield,
   Globe
 } from 'lucide-react'
-import { dapps } from '@/app/tutorials/data/dapps'
+import { dapps } from '@/app/examples/data/dapps'
 import DashboardLayout from '@/shared/components/dashboard/DashboardLayout'
 import { useState, useEffect } from 'react'
 
@@ -89,7 +89,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
       <div className="max-w-7xl mx-auto px-6 pb-20">
         {/* Back Link */}
         <Link 
-          href="/tutorials" 
+          href="/examples" 
           className="inline-flex items-center gap-2 mb-8 text-[#D9D9D9]/80 hover:text-white transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
