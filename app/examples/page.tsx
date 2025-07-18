@@ -12,6 +12,7 @@ import CodeBlock from '@/shared/components/CodeBlock';
 import { examples } from './data/examples';
 import { codeSnippets } from './data/codeSnippets';
 import { tutorials } from './data/tutorials';
+import { fadeInUp, staggerContainer, staggerItem } from '@/shared/config/animations';
 
 export default function ExamplesPage() {
   const [activeTab, setActiveTab] = useState('examples');
@@ -91,9 +92,7 @@ export default function ExamplesPage() {
       {/* Examples Tab */}
       {activeTab === 'examples' && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          {...fadeInUp}
         >
           {/* Filter Bar */}
           <div className="mb-8">
@@ -127,9 +126,7 @@ export default function ExamplesPage() {
       {/* Tutorials Tab */}
       {activeTab === 'tutorials' && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          {...fadeInUp}
         >
           {/* Category Filter */}
           <div className="mb-8">
@@ -278,9 +275,7 @@ export default function ExamplesPage() {
       {/* Code Snippets Tab */}
       {activeTab === 'snippets' && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          {...fadeInUp}
         >
           {/* Category Filter */}
           <div className="mb-8">

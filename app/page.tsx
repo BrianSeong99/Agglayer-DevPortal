@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { DocumentDuplicateIcon, CheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
 import Footer from '@/shared/components/Footer';
+import { fadeInUp, scaleIn, animationConfig, staggerContainer, staggerItem } from '@/shared/config/animations';
 
 // Hero Section Component
 function HeroSection() {
@@ -47,16 +48,12 @@ function HeroSection() {
 
       <div className="relative max-w-7xl mx-auto px-6 py-32 z-10 w-full">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          {...fadeInUp}
           className="text-center"
         >
           {/* Small badge */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
+            {...scaleIn}
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-[#D9D9D9] mb-8"
           >
             <span className="w-2 h-2 bg-[#00D4AA] rounded-full animate-pulse" />

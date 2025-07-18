@@ -13,6 +13,7 @@ import {
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
 import { Button } from '@/components/ui/button';
+import { staggerItem, fadeInUp } from '@/shared/config/animations';
 
 const iconMap: { [key: string]: any } = {
   package: CubeIcon,
@@ -49,9 +50,7 @@ export default function ToolsPage() {
             return (
               <motion.div
                 key={tool.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                {...staggerItem}
                 className="bg-[#17171797] border border-white/10 rounded-lg p-6 hover:border-[#0071F7]/50 transition-all"
               >
                 <div className="flex items-start gap-4 mb-4">
@@ -167,9 +166,7 @@ export default function ToolsPage() {
             return (
               <motion.div
                 key={tool.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                {...staggerItem}
                 className="bg-[#17171797] border border-white/10 rounded-lg p-6 hover:border-[#0071F7]/50 transition-all"
               >
                 <div className="flex items-start gap-3 mb-4">
@@ -201,9 +198,7 @@ export default function ToolsPage() {
 
           {/* Placeholder for future tool */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: additionalTools.length * 0.1 }}
+            {...fadeInUp}
             className="bg-[#17171797] border border-white/10 rounded-lg p-6 opacity-50"
           >
             <div className="flex items-start gap-3 mb-4">

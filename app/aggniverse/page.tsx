@@ -8,6 +8,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { fadeInUp, scaleIn, animationConfig, staggerContainer, staggerItem } from '@/shared/config/animations';
 import { chains } from './components/solar-system/components/Scene';
 
 // Ethereum types
