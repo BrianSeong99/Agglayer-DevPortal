@@ -13,7 +13,7 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
   // For pages without window styling, render children with minimal wrapper
   if (!windowStyledPages.includes(pathname)) {
     return (
-      <main className="min-h-screen w-full" style={{ paddingTop: `${NAV_HEIGHT}px` }}>
+      <main className="min-h-screen w-full">
         {children}
       </main>
     );

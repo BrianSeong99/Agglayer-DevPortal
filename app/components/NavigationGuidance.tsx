@@ -103,7 +103,7 @@ const NavigationGuidance = () => {
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-            Where Do You Want to Go?
+            Where would you want to GO
           </h2>
           <p className="text-xl text-[#D9D9D9] max-w-3xl mx-auto">
             Choose your path based on what you want to accomplish. Each section is designed 

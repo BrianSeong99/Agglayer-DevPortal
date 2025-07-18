@@ -12,6 +12,134 @@ interface CodeBlockProps {
   className?: string;
 }
 
+// Simple syntax highlighting for TypeScript/JavaScript
+const SyntaxHighlighter = ({ code, language }: { code: string; language: string }) => {
+  if (language !== 'typescript' && language !== 'javascript') {
+    return <>{code}</>;
+  }
+
+  // Split code into tokens for highlighting
+  const tokens = code.split(/(\b|\s+|[^\w\s]+)/g).filter(Boolean);
+  
+  const keywords = new Set([
+    'const', 'let', 'var', 'function', 'async', 'await', 'return', 'if', 'else',
+    'for', 'while', 'do', 'switch', 'case', 'break', 'continue', 'try', 'catch',
+    'finally', 'throw', 'new', 'this', 'super', 'class', 'extends', 'export',
+    'import', 'from', 'default', 'interface', 'type', 'enum', 'namespace', 'module',
+    'declare', 'as', 'implements', 'static', 'private', 'public', 'protected',
+    'readonly', 'abstract'
+  ]);
+
+  const types = new Set([
+    'string', 'number', 'boolean', 'void', 'null', 'undefined', 'any', 'never',
+    'unknown', 'object', 'symbol', 'bigint', 'true', 'false', 'console', 'window',
+    'document', 'Math', 'Date', 'Array', 'Object', 'Promise', 'Error', 'agglayer',
+    'ethers', 'utils'
+  ]);
+
+  const isInString = (index: number, tokens: string[]): boolean => {
+    let inString = false;
+    let stringChar = '';
+    
+    for (let i = 0; i < index; i++) {
+      const token = tokens[i];
+      if (!inString && (token === '"' || token === "'" || token === '`')) {
+        inString = true;
+        stringChar = token;
+      } else if (inString && token === stringChar) {
+        inString = false;
+      }
+    }
+    
+    return inString;
+  };
+
+  const isInComment = (index: number, tokens: string[]): boolean => {
+    for (let i = 0; i < index; i++) {
+      if (tokens[i] === '/' && tokens[i + 1] === '/') {
+        // Check if we're on the same line
+        let newlineFound = false;
+        for (let j = i + 2; j < index; j++) {
+          if (tokens[j].includes('\n')) {
+            newlineFound = true;
+            break;
+          }
+        }
+        if (!newlineFound) return true;
+      }
+    }
+    return false;
+  };
+
+  return (
+    <>
+      {tokens.map((token, index) => {
+        const prevToken = tokens[index - 1];
+        const nextToken = tokens[index + 1];
+        const inString = isInString(index, tokens);
+        const inComment = isInComment(index, tokens);
+
+        // Comments
+        if (token === '/' && nextToken === '/') {
+          return <span key={index} className="text-gray-500">{token}</span>;
+        }
+        if (prevToken === '/' && token === '/') {
+          return <span key={index} className="text-gray-500">{token}</span>;
+        }
+        if (inComment) {
+          return <span key={index} className="text-gray-500">{token}</span>;
+        }
+
+        // Strings
+        if (token === '"' || token === "'" || token === '`') {
+          return <span key={index} className="text-green-400">{token}</span>;
+        }
+        if (inString) {
+          return <span key={index} className="text-green-400">{token}</span>;
+        }
+
+        // Keywords
+        if (keywords.has(token)) {
+          return <span key={index} className="text-purple-400">{token}</span>;
+        }
+
+        // Types and built-ins
+        if (types.has(token)) {
+          return <span key={index} className="text-cyan-400">{token}</span>;
+        }
+
+        // Numbers
+        if (/^\d+\.?\d*$/.test(token)) {
+          return <span key={index} className="text-orange-400">{token}</span>;
+        }
+
+        // Function calls (token followed by '(')
+        if (nextToken === '(' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
+          return <span key={index} className="text-yellow-300">{token}</span>;
+        }
+
+        // Object properties (after '.')
+        if (prevToken === '.' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
+          return <span key={index} className="text-blue-300">{token}</span>;
+        }
+
+        // Object keys (before ':')
+        if (nextToken === ':' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
+          return <span key={index} className="text-blue-300">{token}</span>;
+        }
+
+        // Operators
+        if (/^(===|!==|==|!=|<=|>=|&&|\|\||=>|\+\+|--|\.\.\.|\+|-|\*|\/|%|=|!|\?|:|<|>)$/.test(token)) {
+          return <span key={index} className="text-pink-400">{token}</span>;
+        }
+
+        // Default
+        return <span key={index} className="text-gray-200">{token}</span>;
+      })}
+    </>
+  );
+};
+
 export default function CodeBlock({
   code,
   language = 'typescript',
@@ -53,18 +181,20 @@ export default function CodeBlock({
 
       <div className="bg-[#0A0A0A] border border-white/10 rounded-lg overflow-hidden">
         <pre className="p-4 overflow-x-auto">
-          <code className="text-sm">
+          <code className="text-sm font-mono">
             {showLineNumbers ? (
               lines.map((line, index) => (
                 <div key={index} className="flex">
                   <span className="text-gray-500 mr-4 select-none w-8 text-right">
                     {index + 1}
                   </span>
-                  <span className="text-gray-200">{line}</span>
+                  <span className="flex-1">
+                    <SyntaxHighlighter code={line} language={language} />
+                  </span>
                 </div>
               ))
             ) : (
-              <span className="text-gray-200">{code}</span>
+              <SyntaxHighlighter code={code} language={language} />
             )}
           </code>
         </pre>

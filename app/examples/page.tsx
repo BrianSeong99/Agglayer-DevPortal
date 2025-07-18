@@ -6,21 +6,21 @@ import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
 import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
 import TabComponent from './components/TabComponent';
 import FilterComponent from './components/FilterComponent';
-import TemplateCard from './components/TemplateCard';
+import ExampleCard from './components/ExampleCard';
 import TutorialCard from './components/TutorialCard';
 import CodeBlock from '@/shared/components/CodeBlock';
-import { templates } from './data/templates';
+import { examples } from './data/examples';
 import { codeSnippets } from './data/codeSnippets';
 import { tutorials } from './data/tutorials';
 
 export default function ExamplesPage() {
-  const [activeTab, setActiveTab] = useState('templates');
+  const [activeTab, setActiveTab] = useState('examples');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string[]>([]);
+  const [selectedTutorialCategory, setSelectedTutorialCategory] = useState<string>('all');
   const [selectedSnippetCategory, setSelectedSnippetCategory] = useState<string[]>([]);
 
   const tabs = [
-    { id: 'templates', label: 'Templates' },
+    { id: 'examples', label: 'Examples' },
     { id: 'tutorials', label: 'Tutorials' },
     { id: 'snippets', label: 'Code Snippets' },
   ];
@@ -34,11 +34,11 @@ export default function ExamplesPage() {
     { id: 'infrastructure', label: 'Infrastructure' },
   ];
 
-  const difficultyLevels = [
-    { id: 'all', label: 'All Levels' },
-    { id: 'beginner', label: 'Beginner' },
-    { id: 'intermediate', label: 'Intermediate' },
-    { id: 'advanced', label: 'Advanced' },
+  const tutorialCategories = [
+    { id: 'all', label: 'All Categories' },
+    { id: 'concepts', label: 'Concepts' },
+    { id: 'tools', label: 'Tools' },
+    { id: 'app-tutorials', label: 'App Tutorials' },
   ];
 
   const snippetCategories = [
@@ -57,22 +57,14 @@ export default function ExamplesPage() {
     }
   };
 
-  const handleDifficultyChange = (difficulties: string[]) => {
-    if (difficulties.includes('all') || difficulties.length === 0) {
-      setSelectedDifficulty([]);
-    } else {
-      setSelectedDifficulty(difficulties);
-    }
-  };
-
-  const filteredTemplates = templates.filter((template) => {
+  const filteredExamples = examples.filter((example) => {
     if (selectedCategories.length === 0) return true;
-    return selectedCategories.includes(template.category);
+    return selectedCategories.includes(example.category);
   });
 
   const filteredTutorials = tutorials.filter((tutorial) => {
-    if (selectedDifficulty.length === 0) return true;
-    return selectedDifficulty.includes(tutorial.difficulty.toLowerCase());
+    if (selectedTutorialCategory === 'all') return true;
+    return tutorial.category === selectedTutorialCategory;
   });
 
   const filteredSnippets = codeSnippets.filter((snippet) => {
@@ -96,8 +88,8 @@ export default function ExamplesPage() {
         />
       </div>
 
-      {/* Templates Tab */}
-      {activeTab === 'templates' && (
+      {/* Examples Tab */}
+      {activeTab === 'examples' && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -114,19 +106,18 @@ export default function ExamplesPage() {
             />
           </div>
 
-          {/* Template Grid */}
+          {/* Examples Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTemplates.map((template) => (
-              <TemplateCard
-                key={template.id}
-                title={template.title}
-                description={template.description}
-                techStack={template.techStack}
-                stats={template.stats}
-                features={template.features}
-                demoUrl={template.urls.demo}
-                codeUrl={template.urls.code}
-                tutorialUrl={template.urls.tutorial}
+            {filteredExamples.map((example) => (
+              <ExampleCard
+                key={example.id}
+                title={example.title}
+                description={example.description}
+                techStack={example.techStack}
+                stats={example.stats}
+                demoUrl={example.urls.demo}
+                codeUrl={example.urls.code}
+                tutorialUrl={example.urls.tutorial}
               />
             ))}
           </div>
@@ -140,75 +131,146 @@ export default function ExamplesPage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          {/* Difficulty Filter */}
+          {/* Category Filter */}
           <div className="mb-8">
             <FilterComponent
-              title="Filter by Difficulty"
-              options={difficultyLevels}
-              selectedOptions={selectedDifficulty.length === 0 ? ['all'] : selectedDifficulty}
-              onFilterChange={handleDifficultyChange}
+              title="Filter by Category"
+              options={tutorialCategories}
+              selectedOptions={[selectedTutorialCategory]}
+              onFilterChange={(categories) => setSelectedTutorialCategory(categories[0] || 'all')}
               multiSelect={false}
             />
           </div>
 
-          {/* Tutorial List by Category */}
+          {/* Tutorials organized by category */}
           <div className="space-y-12">
-            {/* Getting Started */}
-            <div>
-              <h3 className="text-xl font-bold text-white mb-4">Getting Started (Beginner)</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredTutorials
-                  .filter((t) => t.difficulty === 'Beginner')
-                  .map((tutorial) => (
-                    <TutorialCard
-                      key={tutorial.id}
-                      title={tutorial.title}
-                      description={tutorial.description}
-                      duration={tutorial.duration}
-                      difficulty={tutorial.difficulty}
-                      url={`/examples/tutorial/${tutorial.id}`}
-                    />
-                  ))}
+            {/* Concepts */}
+            {(selectedTutorialCategory === 'all' || selectedTutorialCategory === 'concepts') && (
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Concepts</h3>
+                <p className="text-[#D9D9D9] mb-4">
+                  Understand the core architecture and components of Agglayer
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredTutorials
+                    .filter((t) => t.category === 'concepts')
+                    .map((tutorial) => (
+                      <TutorialCard
+                        key={tutorial.id}
+                        title={tutorial.title}
+                        description={tutorial.description}
+                        duration={tutorial.duration}
+                        difficulty={tutorial.difficulty}
+                        url={`/examples/tutorial/${tutorial.id}`}
+                      />
+                    ))}
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Building dApps */}
-            <div>
-              <h3 className="text-xl font-bold text-white mb-4">Building dApps (Intermediate)</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredTutorials
-                  .filter((t) => t.difficulty === 'Intermediate')
-                  .map((tutorial) => (
-                    <TutorialCard
-                      key={tutorial.id}
-                      title={tutorial.title}
-                      description={tutorial.description}
-                      duration={tutorial.duration}
-                      difficulty={tutorial.difficulty}
-                      url={`/examples/tutorial/${tutorial.id}`}
-                    />
-                  ))}
+            {/* Tools */}
+            {(selectedTutorialCategory === 'all' || selectedTutorialCategory === 'tools') && (
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">Tools</h3>
+                <p className="text-[#D9D9D9] mb-4">
+                  Master the essential tools for building on Agglayer
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filteredTutorials
+                    .filter((t) => t.category === 'tools')
+                    .map((tutorial) => (
+                      <TutorialCard
+                        key={tutorial.id}
+                        title={tutorial.title}
+                        description={tutorial.description}
+                        duration={tutorial.duration}
+                        difficulty={tutorial.difficulty}
+                        url={`/examples/tutorial/${tutorial.id}`}
+                      />
+                    ))}
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* Production Ready */}
-            <div>
-              <h3 className="text-xl font-bold text-white mb-4">Production Ready (Advanced)</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredTutorials
-                  .filter((t) => t.difficulty === 'Advanced')
-                  .map((tutorial) => (
-                    <TutorialCard
-                      key={tutorial.id}
-                      title={tutorial.title}
-                      description={tutorial.description}
-                      duration={tutorial.duration}
-                      difficulty={tutorial.difficulty}
-                      url={`/examples/tutorial/${tutorial.id}`}
-                    />
-                  ))}
+            {/* App Tutorials */}
+            {(selectedTutorialCategory === 'all' || selectedTutorialCategory === 'app-tutorials') && (
+              <div>
+                <h3 className="text-xl font-bold text-white mb-2">App Tutorials</h3>
+                <p className="text-[#D9D9D9] mb-4">
+                  Build real applications with increasing complexity
+                </p>
+                <div className="space-y-8">
+                  {/* Beginner Apps */}
+                  {filteredTutorials
+                    .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Beginner')
+                    .length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-[#D9D9D9] mb-3">Beginner</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredTutorials
+                          .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Beginner')
+                          .map((tutorial) => (
+                            <TutorialCard
+                              key={tutorial.id}
+                              title={tutorial.title}
+                              description={tutorial.description}
+                              duration={tutorial.duration}
+                              difficulty={tutorial.difficulty}
+                              url={`/examples/tutorial/${tutorial.id}`}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Intermediate Apps */}
+                  {filteredTutorials
+                    .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Intermediate')
+                    .length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-[#D9D9D9] mb-3">Intermediate</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredTutorials
+                          .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Intermediate')
+                          .map((tutorial) => (
+                            <TutorialCard
+                              key={tutorial.id}
+                              title={tutorial.title}
+                              description={tutorial.description}
+                              duration={tutorial.duration}
+                              difficulty={tutorial.difficulty}
+                              url={`/examples/tutorial/${tutorial.id}`}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Advanced Apps */}
+                  {filteredTutorials
+                    .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Advanced')
+                    .length > 0 && (
+                    <div>
+                      <h4 className="text-lg font-semibold text-[#D9D9D9] mb-3">Advanced</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {filteredTutorials
+                          .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Advanced')
+                          .map((tutorial) => (
+                            <TutorialCard
+                              key={tutorial.id}
+                              title={tutorial.title}
+                              description={tutorial.description}
+                              duration={tutorial.duration}
+                              difficulty={tutorial.difficulty}
+                              url={`/examples/tutorial/${tutorial.id}`}
+                            />
+                          ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </motion.div>
       )}
@@ -239,7 +301,8 @@ export default function ExamplesPage() {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-[#17171797] border border-white/10 rounded-lg p-6"
               >
-                <h3 className="text-lg font-bold text-white mb-4">{snippet.title}</h3>
+                <h3 className="text-lg font-bold text-white mb-2">{snippet.title}</h3>
+                <p className="text-sm text-[#D9D9D9] mb-4">{snippet.description}</p>
                 <CodeBlock
                   code={snippet.code}
                   language={snippet.language}

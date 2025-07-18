@@ -11,7 +11,7 @@ interface TutorialCardProps {
   title: string;
   description: string;
   duration: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
   url: string;
 }
 
@@ -36,12 +36,14 @@ export default function TutorialCard({
       <Card className="bg-[#17171797] border-white/10 hover:border-[#0071F7]/50 transition-all h-full">
         <CardHeader className="flex flex-row items-start justify-between space-y-0">
           <CardTitle className="text-lg text-white">{title}</CardTitle>
-          <Badge
-            variant="outline"
-            className={difficultyColors[difficulty]}
-          >
-            {difficulty}
-          </Badge>
+          {difficulty && (
+            <Badge
+              variant="outline"
+              className={difficultyColors[difficulty]}
+            >
+              {difficulty}
+            </Badge>
+          )}
         </CardHeader>
         
         <CardContent>

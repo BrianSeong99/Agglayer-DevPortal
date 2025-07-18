@@ -177,3 +177,51 @@ body {
 @keyframes scroll2 {
   100% { background-position: 3000px 0px; }
 }
+
+/* Animation utilities */
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-30px); }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { transform: translateX(0%) translateY(0%); }
+  25% { transform: translateX(100%) translateY(100%); }
+  50% { transform: translateX(100%) translateY(0%); }
+  75% { transform: translateX(0%) translateY(100%); }
+}
+
+@keyframes slide-right {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 15s ease-in-out infinite;
+}
+
+.animate-slide-right {
+  animation: slide-right 10s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 20s linear infinite;
+}

@@ -7,7 +7,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 
-interface TemplateCardProps {
+interface ExampleCardProps {
   title: string;
   description: string;
   image?: string;
@@ -17,23 +17,21 @@ interface TemplateCardProps {
     forks: number;
     lastUpdated: string;
   };
-  features: string[];
   demoUrl?: string;
   codeUrl?: string;
   tutorialUrl?: string;
 }
 
-export default function TemplateCard({
+export default function ExampleCard({
   title,
   description,
   image,
   techStack,
   stats,
-  features,
   demoUrl,
   codeUrl,
   tutorialUrl,
-}: TemplateCardProps) {
+}: ExampleCardProps) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -81,15 +79,6 @@ export default function TemplateCard({
             <span className="text-xs">Updated {stats.lastUpdated}</span>
           </div>
 
-          {/* Features */}
-          <div className="space-y-1">
-            {features.slice(0, 4).map((feature) => (
-              <div key={feature} className="flex items-start gap-2">
-                <span className="text-[#0071F7] mt-1">•</span>
-                <span className="text-sm text-[#D9D9D9]">{feature}</span>
-              </div>
-            ))}
-          </div>
         </CardContent>
 
         <CardFooter className="flex gap-2">

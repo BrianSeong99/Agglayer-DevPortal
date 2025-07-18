@@ -73,7 +73,7 @@ export default function FilterComponent({
             value={option.id}
             variant="outline"
             size="sm"
-            className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+            className="data-[state=on]:bg-[#0071F7] data-[state=on]:text-white data-[state=on]:border-[#0071F7] hover:bg-[#0071F7]/10 hover:text-[#0071F7] hover:border-[#0071F7]/50"
           >
             {option.label}
           </ToggleGroupItem>
@@ -94,7 +94,7 @@ export default function FilterComponent({
             value={option.id}
             variant="outline"
             size="sm"
-            className="data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+            className="data-[state=on]:bg-[#0071F7] data-[state=on]:text-white data-[state=on]:border-[#0071F7] hover:bg-[#0071F7]/10 hover:text-[#0071F7] hover:border-[#0071F7]/50"
           >
             {option.label}
           </ToggleGroupItem>

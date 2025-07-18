@@ -8,7 +8,7 @@ export default function DashboardHeader({ title, subtitle }: { title: string; su
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8 }}
-      className="mt-10 mb-10"
+      className="mt-20 mb-10"
     >
       <h1 className="text-5xl font-bold text-white mb-3">{title}</h1>
       {subtitle && (

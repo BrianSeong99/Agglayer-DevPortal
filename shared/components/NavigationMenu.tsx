@@ -66,7 +66,7 @@ export default function ShadcnNavigationMenu() {
 
   return (
     <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
-      <nav className="flex items-center gap-1 bg-black/30 backdrop-blur-md border border-white/10 rounded-full px-2 py-2 shadow-lg">
+      <nav className="flex items-center gap-1 bg-black/60 backdrop-blur-xl border border-white/10 rounded-full px-2 py-2 shadow-2xl">
         {mainLinks.map((link) => {
           const Icon = link.icon;
           const isActive = pathname === link.href;

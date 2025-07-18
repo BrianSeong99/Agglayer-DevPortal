@@ -2,87 +2,133 @@ export interface Tutorial {
   id: string;
   title: string;
   description: string;
-  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  category: 'concepts' | 'tools' | 'app-tutorials';
+  difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
   duration: string;
-  type: string;
 }
 
 export const tutorials: Tutorial[] = [
-  // Beginner tutorials
+  // Concepts - Core understanding of Agglayer
   {
-    id: 'agglayer-fundamentals',
-    title: 'Agglayer Fundamentals',
-    description: 'Learn core concepts',
-    difficulty: 'Beginner',
-    duration: '15 min',
-    type: 'beginner',
-  },
-  {
-    id: 'first-transaction',
-    title: 'Your First Cross-Chain Transaction',
-    description: 'Hands-on introduction',
-    difficulty: 'Beginner',
+    id: 'agglayer-overview',
+    title: 'Agglayer Overview',
+    description: 'Complete walkthrough of Agglayer architecture and ecosystem',
+    category: 'concepts',
     duration: '20 min',
-    type: 'beginner',
   },
   {
-    id: 'setup-environment',
-    title: 'Setting Up Your Development Environment',
-    description: 'Tools and setup',
-    difficulty: 'Beginner',
-    duration: '10 min',
-    type: 'beginner',
-  },
-
-  // Intermediate tutorials
-  {
-    id: 'build-dex',
-    title: 'Build a Cross-Chain DEX',
-    description: 'Step-by-step guide',
-    difficulty: 'Intermediate',
-    duration: '45 min',
-    type: 'dapp',
-  },
-  {
-    id: 'nft-bridge',
-    title: 'Create an NFT Bridge',
-    description: 'NFT cross-chain transfers',
-    difficulty: 'Intermediate',
-    duration: '30 min',
-    type: 'dapp',
-  },
-  {
-    id: 'cross-chain-messaging',
-    title: 'Implement Cross-Chain Messaging',
-    description: 'Advanced patterns',
-    difficulty: 'Intermediate',
-    duration: '35 min',
-    type: 'dapp',
-  },
-
-  // Advanced tutorials
-  {
-    id: 'security-best-practices',
-    title: 'Security Best Practices',
-    description: 'Audit checklist',
-    difficulty: 'Advanced',
+    id: 'unified-bridge-deep-dive',
+    title: 'Unified Bridge Deep Dive',
+    description: 'Understanding cross-chain communication and bridge architecture',
+    category: 'concepts',
     duration: '25 min',
-    type: 'advanced',
   },
   {
-    id: 'gas-optimization',
-    title: 'Gas Optimization Strategies',
-    description: 'Cost reduction tips',
-    difficulty: 'Advanced',
+    id: 'pessimistic-proofs',
+    title: 'Pessimistic Proofs Explained',
+    description: 'Security mechanisms and trust-minimized verification',
+    category: 'concepts',
+    duration: '15 min',
+  },
+  {
+    id: 'state-transitions',
+    title: 'State Transitions & Verification',
+    description: 'How Agglayer ensures cross-chain integrity',
+    category: 'concepts',
     duration: '20 min',
-    type: 'advanced',
   },
   {
-    id: 'deployment-monitoring',
-    title: 'Deployment & Monitoring',
-    description: 'Production checklist',
-    difficulty: 'Advanced',
+    id: 'zk-technology',
+    title: 'ZK Technology in Agglayer',
+    description: 'Zero-knowledge proofs and their role in the ecosystem',
+    category: 'concepts',
     duration: '30 min',
-    type: 'advanced',
+  },
+
+  // Tools - One tutorial per tool
+  {
+    id: 'lxlyjs-tutorial',
+    title: 'Getting Started with lxly.js',
+    description: 'Complete guide to using the JavaScript SDK',
+    category: 'tools',
+    duration: '25 min',
+  },
+  {
+    id: 'aggsandbox-tutorial',
+    title: 'AggSandbox Complete Guide',
+    description: 'Local development, fork mode, and multi-L2 setup',
+    category: 'tools',
+    duration: '30 min',
+  },
+  {
+    id: 'bridge-interface-tutorial',
+    title: 'Using the Bridge Interface',
+    description: 'Visual bridge testing and transaction monitoring',
+    category: 'tools',
+    duration: '20 min',
+  },
+  {
+    id: 'aggvisualizer-tutorial',
+    title: 'Exploring with Aggvisualizer',
+    description: 'Network topology and real-time transaction visualization',
+    category: 'tools',
+    duration: '15 min',
+  },
+  {
+    id: 'testnet-faucet-tutorial',
+    title: 'Testnet Setup & Faucets',
+    description: 'Getting test tokens and configuring testnets',
+    category: 'tools',
+    duration: '10 min',
+  },
+
+  // App Tutorials - Building applications with escalating difficulty
+  {
+    id: 'simple-transfer-app',
+    title: 'Build a Simple Transfer App',
+    description: 'Your first cross-chain application',
+    category: 'app-tutorials',
+    difficulty: 'Beginner',
+    duration: '30 min',
+  },
+  {
+    id: 'token-bridge-app',
+    title: 'Create a Token Bridge UI',
+    description: 'User-friendly interface for token transfers',
+    category: 'app-tutorials',
+    difficulty: 'Beginner',
+    duration: '40 min',
+  },
+  {
+    id: 'cross-chain-dex',
+    title: 'Build a Cross-Chain DEX',
+    description: 'Decentralized exchange with unified liquidity',
+    category: 'app-tutorials',
+    difficulty: 'Intermediate',
+    duration: '60 min',
+  },
+  {
+    id: 'nft-marketplace',
+    title: 'Multi-Chain NFT Marketplace',
+    description: 'Trade NFTs across all connected chains',
+    category: 'app-tutorials',
+    difficulty: 'Intermediate',
+    duration: '50 min',
+  },
+  {
+    id: 'lending-protocol',
+    title: 'Cross-Chain Lending Protocol',
+    description: 'Advanced DeFi with multi-chain collateral',
+    category: 'app-tutorials',
+    difficulty: 'Advanced',
+    duration: '90 min',
+  },
+  {
+    id: 'dao-governance',
+    title: 'Multi-Chain DAO Implementation',
+    description: 'Governance across multiple chains',
+    category: 'app-tutorials',
+    difficulty: 'Advanced',
+    duration: '75 min',
   },
 ];

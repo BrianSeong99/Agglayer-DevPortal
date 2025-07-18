@@ -43,7 +43,7 @@ export default function ToolsPage() {
 
       {/* Essential Tools Grid */}
       <section className="mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {essentialTools.map((tool, index) => {
             const Icon = iconMap[tool.icon] || CubeIcon;
             return (

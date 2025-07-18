@@ -1,4 +1,4 @@
-export interface Template {
+export interface Example {
   id: string;
   title: string;
   description: string;
@@ -9,7 +9,6 @@ export interface Template {
     forks: number;
     lastUpdated: string;
   };
-  features: string[];
   urls: {
     demo?: string;
     code?: string;
@@ -17,7 +16,7 @@ export interface Template {
   };
 }
 
-export const templates: Template[] = [
+export const examples: Example[] = [
   {
     id: 'cross-chain-dex',
     title: 'Cross-Chain DEX',
@@ -29,12 +28,6 @@ export const templates: Template[] = [
       forks: 89,
       lastUpdated: '3 days ago',
     },
-    features: [
-      'Automated market maker (AMM)',
-      'Liquidity provision',
-      'Multi-chain swaps',
-      'Analytics dashboard',
-    ],
     urls: {
       demo: '/demos/dex',
       code: 'https://github.com/agglayer/dex-template',
@@ -52,12 +45,6 @@ export const templates: Template[] = [
       forks: 67,
       lastUpdated: '1 week ago',
     },
-    features: [
-      'Cross-chain NFT indexing',
-      'Royalty management',
-      'Auction system',
-      'Creator tools',
-    ],
     urls: {
       demo: '/demos/nft',
       code: 'https://github.com/agglayer/nft-marketplace-template',
@@ -75,12 +62,6 @@ export const templates: Template[] = [
       forks: 54,
       lastUpdated: '5 days ago',
     },
-    features: [
-      'Multi-chain collateral',
-      'Dynamic interest rates',
-      'Liquidation protection',
-      'Oracle integration',
-    ],
     urls: {
       demo: '/demos/lending',
       code: 'https://github.com/agglayer/lending-template',
@@ -98,12 +79,6 @@ export const templates: Template[] = [
       forks: 43,
       lastUpdated: '2 weeks ago',
     },
-    features: [
-      'Real-time streaming',
-      'Cross-chain flows',
-      'Programmable streams',
-      'Stream management UI',
-    ],
     urls: {
       code: 'https://github.com/agglayer/payment-streaming-template',
     },
@@ -119,12 +94,6 @@ export const templates: Template[] = [
       forks: 71,
       lastUpdated: '1 week ago',
     },
-    features: [
-      'Cross-chain voting',
-      'Treasury management',
-      'Proposal system',
-      'Delegation',
-    ],
     urls: {
       code: 'https://github.com/agglayer/dao-template',
     },
@@ -140,12 +109,6 @@ export const templates: Template[] = [
       forks: 34,
       lastUpdated: '4 days ago',
     },
-    features: [
-      'Batch asset transfers',
-      'Game currency bridge',
-      'Unity SDK',
-      'Anti-cheat measures',
-    ],
     urls: {
       code: 'https://github.com/agglayer/gaming-bridge-template',
     },
@@ -161,12 +124,6 @@ export const templates: Template[] = [
       forks: 52,
       lastUpdated: '6 days ago',
     },
-    features: [
-      'Token creation',
-      'Cross-chain distribution',
-      'Social features',
-      'Creator monetization',
-    ],
     urls: {
       code: 'https://github.com/agglayer/social-token-template',
     },
@@ -182,12 +139,6 @@ export const templates: Template[] = [
       forks: 61,
       lastUpdated: '1 week ago',
     },
-    features: [
-      'Market creation',
-      'Cross-chain liquidity',
-      'Oracle integration',
-      'Resolution system',
-    ],
     urls: {
       code: 'https://github.com/agglayer/prediction-market-template',
     },
@@ -203,12 +154,6 @@ export const templates: Template[] = [
       forks: 39,
       lastUpdated: '2 weeks ago',
     },
-    features: [
-      'Risk pooling',
-      'Claim processing',
-      'Multi-chain coverage',
-      'Automated payouts',
-    ],
     urls: {
       code: 'https://github.com/agglayer/insurance-template',
     },
