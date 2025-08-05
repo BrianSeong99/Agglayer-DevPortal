@@ -1,133 +1,86 @@
 'use client';
 
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { IconBrandX, IconBrandDiscord } from '@tabler/icons-react';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   const footerLinks = {
-    developers: [
-      { label: 'Documentation', href: 'https://docs.agglayer.dev', external: true },
-      { label: 'GitHub', href: 'https://github.com/0xPolygon', external: true },
-      { label: 'Visualizer', href: 'https://visualizer.agglayer.dev/', external: true },
-      { label: 'Tools', href: '/tools' },
-      { label: 'Examples', href: '/examples' },
-      { label: 'AggNiverse', href: '/aggniverse' },
-      { label: 'Tutorials', href: '/examples?tab=tutorials' },
-    ],
-    community: [
-      { label: 'Discord', href: 'https://discord.gg/agglayer', external: true },
-      { label: 'Twitter', href: 'https://twitter.com/agglayer', external: true },
+    explore: [
+      { label: 'Docs', href: 'https://docs.agglayer.dev/', external: true },
       { label: 'Blog', href: 'https://www.agglayer.dev/blog', external: true },
-      { label: 'Forum', href: 'https://forum.agglayer.dev', external: true },
-    ],
-    resources: [
-      { label: 'Whitepaper', href: 'https://docs.agglayer.dev/whitepaper', external: true },
-      { label: 'Roadmap', href: 'https://www.agglayer.dev/roadmap', external: true },
-      { label: 'FAQ', href: 'https://docs.agglayer.dev/faq', external: true },
-      { label: 'Support', href: 'https://support.agglayer.dev', external: true },
+      { label: 'Ecosystem', href: 'https://www.agglayer.dev/ecosystem-index', external: true },
+      { label: 'Join Us', href: 'https://info.polygon.technology/agglayer-intake-form', external: true },
     ],
   };
 
   return (
-    <footer className="bg-black/50 border-t border-white/10 mt-20">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Logo and Description */}
-          <div>
-            <h3 className="text-xl font-bold text-white mb-4">Agglayer</h3>
-            <p className="text-sm text-[#D9D9D9]/80">
-              Unified cross-chain infrastructure for the future of Web3
-            </p>
+    <footer className="bg-gray-150 mt-24">
+      <div className="max-w-narrow mx-auto px-6 py-12">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link href="/" className="block">
+              <svg width="100" height="22" viewBox="0 0 100 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M10.5 0L21 6.0625V17.9375L10.5 24L0 17.9375V6.0625L10.5 0Z" fill="#0071F7"/>
+                <path d="M10.5 8L16 11.0312V16.4688L10.5 19.5L5 16.4688V11.0312L10.5 8Z" fill="white"/>
+              </svg>
+            </Link>
           </div>
 
-          {/* Developers */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Developers</h4>
-            <ul className="space-y-2">
-              {footerLinks.developers.map((link) => (
-                <li key={link.label}>
-                  {link.external ? (
+          {/* Links and Newsletter */}
+          <div className="flex flex-col md:flex-row gap-6 md:gap-12">
+            {/* Explore Links */}
+            <div>
+              <h4 className="font-bold text-xs text-black mb-2.5">Explore</h4>
+              <ul className="space-y-0">
+                {footerLinks.explore.map((link) => (
+                  <li key={link.label}>
                     <a
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
+                      className="font-medium text-xs text-tertiary leading-loose hover:text-primary transition-colors"
                     >
                       {link.label}
                     </a>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Community */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Community</h4>
-            <ul className="space-y-2">
-              {footerLinks.community.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Stay Updated */}
+            <div>
+              <h4 className="font-bold text-xs text-black mb-2.5">Stay updated</h4>
+              <div className="bg-white border border-border-light rounded-[40.289px] h-[28.476px] w-[195px] px-[18.75px] flex items-center">
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  className="w-full bg-transparent outline-none font-medium text-xs text-quaternary placeholder:text-quaternary"
+                />
+              </div>
+            </div>
 
-          {/* Resources */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Resources</h4>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-[#D9D9D9]/60">
-              © {currentYear} Agglayer. All rights reserved.
-            </p>
-            <div className="flex gap-6">
-              <a
-                href="https://docs.agglayer.dev/privacy"
-                className="text-sm text-[#D9D9D9]/60 hover:text-[#0071F7] transition-colors"
-              >
-                Privacy Policy
-              </a>
-              <a
-                href="https://docs.agglayer.dev/terms"
-                className="text-sm text-[#D9D9D9]/60 hover:text-[#0071F7] transition-colors"
-              >
-                Terms of Service
-              </a>
+            {/* Follow */}
+            <div>
+              <h4 className="font-bold text-xs text-black mb-2.5">Follow our journey</h4>
+              <div className="flex gap-2">
+                <a
+                  href="https://twitter.com/agglayer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-tertiary hover:text-primary transition-colors"
+                >
+                  <IconBrandX className="w-5 h-5" />
+                </a>
+                <a
+                  href="https://discord.gg/agglayer"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-tertiary hover:text-primary transition-colors"
+                >
+                  <IconBrandDiscord className="w-5 h-5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>

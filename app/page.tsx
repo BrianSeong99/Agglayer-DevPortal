@@ -3,122 +3,69 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
-import { DocumentDuplicateIcon, CheckIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/button';
+import { CheckIcon } from '@heroicons/react/24/outline';
+import { 
+  IconSchool, 
+  IconBulb, 
+  IconTools,
+  IconArrowRight,
+  IconExternalLink,
+  IconCopy
+} from '@tabler/icons-react';
 import Footer from '@/shared/components/Footer';
-import { fadeInUp, scaleIn, animationConfig, staggerContainer, staggerItem } from '@/shared/config/animations';
 
 // Hero Section Component
 function HeroSection() {
   return (
-    <section className="relative overflow-hidden min-h-screen flex items-center">
-      {/* Animated Background */}
+    <section className="relative overflow-hidden min-h-[500px] flex items-center bg-white">
+      {/* Background pattern from Figma */}
       <div className="absolute inset-0 z-0">
-        {/* Base gradient with more color */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#0F1B2E] to-[#0A0A0A]" />
-        
-        {/* Multiple animated gradient orbs for more vibrancy */}
-        <div className="absolute top-1/4 -left-1/4 w-[800px] h-[800px] bg-[#0071F7]/50 rounded-full filter blur-[150px] animate-pulse" />
-        <div className="absolute bottom-1/4 -right-1/4 w-[600px] h-[600px] bg-[#00D4AA]/40 rounded-full filter blur-[150px] animate-pulse animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-gradient-to-r from-[#8B5CF6]/30 to-[#FF8C42]/30 rounded-full filter blur-[200px] animate-pulse animation-delay-4000" />
-        
-        {/* Animated mesh gradient */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-tr from-[#0071F7]/20 via-transparent to-[#00D4AA]/20 animate-gradient-shift" />
-        </div>
-        
-        {/* Grid overlay with glow */}
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
+        {/* Subtle dot pattern */}
         <div 
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-[0.03]"
           style={{
-            backgroundImage: `linear-gradient(rgba(0,113,247,0.3) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(0,212,170,0.3) 1px, transparent 1px)`,
-            backgroundSize: '50px 50px'
+            backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
+            backgroundSize: '20px 20px'
           }}
         />
-        
-        {/* Particle effect overlay */}
-        <div className="absolute inset-0 opacity-40">
-          <div className="absolute top-20 left-20 w-2 h-2 bg-[#0071F7] rounded-full animate-float" />
-          <div className="absolute top-40 right-40 w-3 h-3 bg-[#00D4AA] rounded-full animate-float animation-delay-2000" />
-          <div className="absolute bottom-32 left-1/3 w-2 h-2 bg-[#8B5CF6] rounded-full animate-float animation-delay-4000" />
-          <div className="absolute bottom-20 right-1/4 w-4 h-4 bg-[#FF8C42] rounded-full animate-float" />
-        </div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-32 z-10 w-full">
+      <div className="relative max-w-narrow mx-auto px-6 py-24 z-10 w-full text-center">
         <motion.div
-          {...fadeInUp}
-          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
         >
-          {/* Small badge */}
-          <motion.div
-            {...scaleIn}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded-full text-sm text-[#D9D9D9] mb-8"
-          >
-            <span className="w-2 h-2 bg-[#00D4AA] rounded-full animate-pulse" />
-            20+ chains connected
-          </motion.div>
-
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
-            Build Cross-Chain Apps<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0071F7] to-[#00D4AA]">
-              on Agglayer
-            </span>
+          <h1 className="font-heading text-5xl font-bold text-black mb-6 leading-snug">
+            Start Building<br />
+            <span className="font-medium text-primary">Cross-Chain Apps</span>
           </h1>
           
-          <p className="text-xl md:text-2xl text-[#D9D9D9]/80 max-w-3xl mx-auto mb-12">
-            Ship faster with unified liquidity across 20+ chains.
-            One SDK. Zero complexity.
+          <p className="text-base text-secondary max-w-xs mx-auto mb-12">
+            Ship faster with unified liquidity across 20+ chains. One SDK. Zero complexity.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-20">
-            <Button 
-              asChild 
-              size="lg" 
-              className="text-lg px-8 py-6 bg-[#0071F7] hover:bg-[#0071F7]/90 text-white"
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Link 
+              href="#quick-start"
+              className="inline-flex items-center gap-1.5 bg-primary text-white px-[15px] py-2 rounded-pill text-xs font-medium transition-all duration-300 hover:shadow-primary"
             >
-              <Link href="#quick-start">
-                Get Started
-                <ArrowRightIcon className="w-5 h-5 ml-2" />
-              </Link>
-            </Button>
-            <Button 
-              asChild 
-              variant="outline" 
-              size="lg" 
-              className="text-lg px-8 py-6 text-white border-white/20 hover:bg-white/10"
+              <IconSchool className="w-[18px] h-[18px]" />
+              Get started
+            </Link>
+            <a 
+              href="https://docs.agglayer.dev" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 bg-gray-150 text-gray-500 px-[15px] py-2 rounded-pill text-xs font-normal transition-all duration-300 hover:bg-gray-100"
             >
-              <a href="https://docs.agglayer.dev" target="_blank" rel="noopener noreferrer">
-                View Documentation
-              </a>
-            </Button>
+              <IconExternalLink className="w-[18px] h-[18px]" />
+              Docs
+            </a>
           </div>
-
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto"
-          >
-            {[
-              { label: 'Connected Chains', value: '20+' },
-              { label: 'Total Value Locked', value: '$1B+' },
-              { label: 'Daily Transactions', value: '500K+' },
-              { label: 'Avg. Finality', value: '<2s' },
-            ].map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-3xl md:text-4xl font-bold text-white mb-2">{stat.value}</div>
-                <div className="text-sm text-[#D9D9D9]/60">{stat.label}</div>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent z-10" />
     </section>
   );
 }
@@ -127,88 +74,53 @@ function HeroSection() {
 function QuickNavigationSection() {
   const navigationItems = [
     {
-      icon: '🌐',
-      title: 'Explore Chains',
-      description: 'Discover 20+ connected chains in the Agglayer ecosystem',
-      subtext: 'Visual explorer with real-time network status',
-      href: '/aggniverse',
-      color: 'from-[#0071F7] to-[#00D4AA]',
-    },
-    {
-      icon: '📚',
-      title: 'Learn Fundamentals',
-      description: 'Understand core concepts and architecture',
-      subtext: 'Step-by-step tutorials and guides',
+      icon: <IconSchool className="w-24 h-24 text-primary/10" />,
+      title: 'Learn',
+      description: 'Step-by-step tutorials and guides',
       href: '/examples?tab=tutorials',
-      color: 'from-[#8B5CF6] to-[#0071F7]',
     },
     {
-      icon: '💡',
-      title: 'Explore Examples',
+      icon: <IconBulb className="w-24 h-24 text-primary/10" />,
+      title: 'Examples',
       description: 'Production-ready templates and code samples',
-      subtext: 'Build faster with proven patterns',
       href: '/examples',
-      color: 'from-[#FF8C42] to-[#8B5CF6]',
     },
     {
-      icon: '🛠️',
-      title: 'Developer Tools',
+      icon: <IconTools className="w-24 h-24 text-primary/10" />,
+      title: 'Tools',
       description: 'Essential developer tools and SDKs',
-      subtext: 'Everything you need to build on Agglayer',
-      href: '/tools',
-      color: 'from-[#00D4AA] to-[#0071F7]',
+      href: '/developers',
     },
   ];
 
   return (
-    <section className="relative py-32 overflow-hidden">
-      {/* Vibrant background with animated gradients */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#1A0F2E] to-[#0A0A0A]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0071F7]/10 via-transparent to-[#8B5CF6]/10" />
-        
-        {/* Floating gradient spheres */}
-        <div className="absolute top-0 left-1/4 w-[400px] h-[400px] bg-gradient-to-br from-[#0071F7]/30 to-[#00D4AA]/20 rounded-full filter blur-[100px] animate-float" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-gradient-to-tr from-[#8B5CF6]/25 to-[#FF8C42]/20 rounded-full filter blur-[120px] animate-float animation-delay-2000" />
-      </div>
-      
-      <div className="relative max-w-7xl mx-auto px-6 z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
-        >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Start Your Journey
-          </h2>
-          <p className="text-xl text-[#D9D9D9]/80">
-            Choose your path to building on Agglayer
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-6">
+    <section className="py-16 bg-white">
+      <div className="max-w-narrow mx-auto px-6">
+        <div className="grid md:grid-cols-3 gap-3">
           {navigationItems.map((item, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
               <Link
                 href={item.href}
-                className="block relative overflow-hidden bg-[#17171797] border border-white/10 rounded-2xl p-8 hover:border-white/20 transition-all group"
+                className="group block bg-gray-100 rounded-md h-[305px] overflow-hidden transition-all duration-300 hover:shadow-card"
               >
-                {/* Gradient overlay on hover */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-0 group-hover:opacity-10 transition-opacity`} />
-                
-                <div className="relative z-10">
-                  <div className="text-5xl mb-4">{item.icon}</div>
-                  <h3 className="text-2xl font-semibold text-white mb-2 group-hover:text-[#0071F7] transition-colors">
-                    {item.title}
-                  </h3>
-                  <p className="text-[#D9D9D9] mb-2">{item.description}</p>
-                  <p className="text-sm text-[#D9D9D9]/60">{item.subtext}</p>
+                <div className="h-[193px] flex items-center justify-center">
+                  {item.icon}
+                </div>
+                <div className="p-6 flex items-end h-[112px]">
+                  <div className="flex-1">
+                    <h3 className="font-heading text-base font-bold text-blue-primary leading-tight mb-3">
+                      {item.title}
+                    </h3>
+                    <p className="font-mono text-xs text-blue-light leading-normal">
+                      {item.description}
+                    </p>
+                  </div>
+                  <span className="font-mono text-lg text-primary ml-3">→</span>
                 </div>
               </Link>
             </motion.div>
@@ -233,7 +145,8 @@ function QuickStartSection() {
     {
       title: 'Install',
       code: `# Clone and install AggSandbox
-git clone https://github.com/NethermindEth/agg-sandbox.git
+git clone 
+https://github.com/NethermindEth/agg-sandbox.git
 cd agg-sandbox && make install`,
     },
     {
@@ -245,7 +158,7 @@ aggsandbox start --detach
 aggsandbox start --fork --detach`,
     },
     {
-      title: 'Bridge Tokens',
+      title: 'Bridge tokens',
       code: `# Check available bridges
 aggsandbox show bridges --network 1
 
@@ -255,86 +168,51 @@ aggsandbox events --chain anvil-l1`,
   ];
 
   return (
-    <section id="quick-start" className="relative py-32 overflow-hidden">
-      {/* Vibrant background with code-like pattern */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0A] via-[#0A1F1A] to-[#0A0A0A]" />
-        
-        {/* Animated gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-l from-[#00D4AA]/15 via-transparent to-[#0071F7]/15" />
-        
-        {/* Glowing orbs */}
-        <div className="absolute -top-20 right-0 w-[600px] h-[600px] bg-[#00D4AA]/25 rounded-full filter blur-[150px] animate-pulse" />
-        <div className="absolute -bottom-20 left-0 w-[700px] h-[700px] bg-[#0071F7]/20 rounded-full filter blur-[150px] animate-pulse animation-delay-2000" />
-        
-        {/* Enhanced code pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <pre className="text-[#00D4AA] text-xs leading-none font-mono">
-{`const agglayer = new Agglayer();
-await agglayer.connect();
-const chains = await agglayer.getChains();
-const bridge = await agglayer.bridge({
-  from: 'polygon',
-  to: 'arbitrum',
-  token: 'USDC',
-  amount: '1000'
-});`.repeat(50)}
-          </pre>
-        </div>
-        
-        {/* Animated lines */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00D4AA] to-transparent animate-slide-right" />
-          <div className="absolute top-2/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#0071F7] to-transparent animate-slide-right animation-delay-2000" />
-          <div className="absolute top-3/4 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#8B5CF6] to-transparent animate-slide-right animation-delay-4000" />
-        </div>
-      </div>
-      
-      <div className="relative max-w-7xl mx-auto px-6 z-10">
+    <section id="quick-start" className="py-49 bg-white">
+      <div className="max-w-narrow mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Start Building in Under 5 Minutes
+          <h2 className="font-heading text-4xl font-bold mb-6">
+            Start your <span className="font-medium text-primary">Journey</span>
           </h2>
-          <p className="text-xl text-[#D9D9D9]/80">
-            Get your local development environment up and running
+          <p className="text-base text-secondary max-w-xs mx-auto">
+            Get your local development environment up and running in under 5 minutes
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-1.5 mb-6">
           {steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="bg-[#0A0F1A] border border-[#00D4AA]/20 rounded-xl p-6 hover:border-[#00D4AA]/40 transition-all"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="bg-gray-100 rounded-2xl p-6"
             >
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-white">
-                  <span className="text-[#00D4AA] mr-2">{index + 1}.</span>
-                  {step.title}
+              <div className="flex items-center justify-between mb-1.5">
+                <h3 className="font-medium text-xs text-primary tracking-button">
+                  {index + 1}. {step.title}
                 </h3>
-                <Button
+                <button
                   onClick={() => copyToClipboard(step.code, index)}
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 hover:bg-white/10"
+                  className="p-0 hover:bg-transparent"
                 >
                   {copiedStep === index ? (
-                    <CheckIcon className="w-4 h-4 text-[#00D4AA]" />
+                    <CheckIcon className="w-4 h-4 text-primary" />
                   ) : (
-                    <DocumentDuplicateIcon className="w-4 h-4 text-[#D9D9D9]/60" />
+                    <IconCopy className="w-4 h-4 text-gray-400" />
                   )}
-                </Button>
+                </button>
               </div>
-              <pre className="bg-black/50 border border-white/5 rounded-lg p-4 overflow-x-auto">
-                <code className="text-sm text-[#D9D9D9]/90 font-mono">{step.code}</code>
-              </pre>
+              <div className="bg-white rounded-lg p-6 mt-3">
+                <pre className="font-mono text-xs text-black leading-normal whitespace-pre-wrap break-all">
+{step.code}
+                </pre>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -342,15 +220,16 @@ const bridge = await agglayer.bridge({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center"
         >
-          <Button asChild variant="link" className="text-[#00D4AA] hover:text-[#00D4AA]/80">
-            <Link href="/examples" className="inline-flex items-center gap-2">
-              View Full Tutorial
-              <ArrowRightIcon className="w-4 h-4" />
-            </Link>
-          </Button>
+          <Link 
+            href="/examples" 
+            className="inline-flex items-center gap-1.5 px-[15px] py-2 rounded-pill text-xs text-gray-500"
+          >
+            <IconSchool className="w-4 h-4" />
+            View full tutorial
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -363,102 +242,67 @@ function FeaturedExamplesSection() {
     {
       id: 'cross-chain-dex',
       title: 'Cross-Chain DEX',
-      icon: '↔️',
       description: 'Unified liquidity pools across all chains',
-      tags: ['DeFi', 'Smart Contracts', 'React'],
-      gradient: 'from-[#0071F7] to-[#00D4AA]',
-      url: '/examples/template/dex',
+      url: '/examples',
     },
     {
       id: 'nft-marketplace',
       title: 'NFT Marketplace',
-      icon: '🎨',
       description: 'Trade NFTs from any connected chain',
-      tags: ['NFT', 'Marketplace', 'Next.js'],
-      gradient: 'from-[#8B5CF6] to-[#0071F7]',
-      url: '/examples/template/nft-marketplace',
+      url: '/examples',
     },
     {
       id: 'multi-chain-lending',
       title: 'Multi-Chain Lending',
-      icon: '🏦',
       description: 'Borrow on one chain, collateral on another',
-      tags: ['DeFi', 'Lending', 'TypeScript'],
-      gradient: 'from-[#FF8C42] to-[#8B5CF6]',
-      url: '/examples/template/lending',
+      url: '/examples',
     },
   ];
 
   return (
-    <section className="relative py-32 overflow-hidden">
-      {/* Vibrant background with multiple gradients */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A] via-[#1A0A2E] to-[#0A0A0A]" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF8C42]/10 via-transparent to-[#8B5CF6]/10" />
-        
-        {/* Multiple animated orbs */}
-        <div className="absolute top-1/3 -left-20 w-[500px] h-[500px] bg-gradient-to-br from-[#FF8C42]/30 to-[#8B5CF6]/20 rounded-full filter blur-[130px] animate-float" />
-        <div className="absolute bottom-1/3 -right-20 w-[600px] h-[600px] bg-gradient-to-tr from-[#8B5CF6]/30 to-[#0071F7]/20 rounded-full filter blur-[130px] animate-float animation-delay-2000" />
-        <div className="absolute top-2/3 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-gradient-to-t from-[#00D4AA]/20 to-[#0071F7]/20 rounded-full filter blur-[150px] animate-pulse animation-delay-4000" />
-        
-        {/* Geometric patterns */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 right-10 w-32 h-32 border-2 border-[#8B5CF6] rotate-45 animate-spin-slow" />
-          <div className="absolute bottom-20 left-20 w-40 h-40 border-2 border-[#FF8C42] rounded-full animate-pulse" />
-          <div className="absolute top-1/2 right-1/3 w-24 h-24 border-2 border-[#00D4AA] animate-bounce" />
-        </div>
-      </div>
-      
-      <div className="relative max-w-7xl mx-auto px-6 z-10">
+    <section className="py-24 bg-white">
+      <div className="max-w-narrow mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Start with Production-Ready Examples
+          <h2 className="font-heading text-4xl font-bold mb-6">
+            Start with<br />
+            <span className="font-medium text-primary">Production-Ready Examples</span>
           </h2>
-          <p className="text-xl text-[#D9D9D9]/80">
+          <p className="text-base text-secondary max-w-xs mx-auto">
             Fork, customize, and deploy in minutes
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-3 gap-3 mb-12">
           {examples.map((example, index) => (
             <motion.div
               key={example.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              className="group relative overflow-hidden bg-[#17171797] border border-white/10 rounded-2xl hover:border-white/20 transition-all"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              {/* Gradient background on hover */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${example.gradient} opacity-0 group-hover:opacity-10 transition-opacity`} />
-              
-              <div className="relative z-10 p-8">
-                <div className="text-5xl mb-6">{example.icon}</div>
-                <h3 className="text-2xl font-semibold text-white mb-3">{example.title}</h3>
-                <p className="text-[#D9D9D9]/80 mb-6">{example.description}</p>
-                
-                <div className="flex flex-wrap gap-2 mb-8">
-                  {example.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-xs text-[#D9D9D9]/80"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                
-                <Button asChild variant="link" className="p-0 text-white hover:text-[#0071F7]">
-                  <Link href={example.url} className="inline-flex items-center gap-2">
+              <Link
+                href={example.url}
+                className="group block bg-gray-100 rounded-md overflow-hidden transition-all duration-300 hover:shadow-card"
+              >
+                <div className="h-[120px] bg-gradient-to-br from-gray-50 to-gray-100" />
+                <div className="p-6">
+                  <h3 className="font-heading text-base font-bold text-blue-primary leading-tight mb-3">
+                    {example.title}
+                  </h3>
+                  <p className="font-mono text-xs text-blue-muted leading-normal mb-6">
+                    {example.description}
+                  </p>
+                  <span className="font-mono text-xs text-link-muted font-medium inline-flex items-center gap-1">
                     View Example
-                    <ArrowRightIcon className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                  </Link>
-                </Button>
-              </div>
+                    <IconArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -466,28 +310,25 @@ function FeaturedExamplesSection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center"
         >
-          <Button 
-            asChild 
-            className="bg-white/5 border border-white/10 hover:bg-white/10 text-white"
+          <Link 
+            href="/examples" 
+            className="inline-flex items-center gap-1.5 px-[15px] py-2 rounded-pill text-xs text-tertiary"
           >
-            <Link href="/examples" className="inline-flex items-center gap-2">
-              Browse All Examples
-              <ArrowRightIcon className="w-4 h-4" />
-            </Link>
-          </Button>
+            <IconBulb className="w-4 h-4" />
+            Explore all examples
+          </Link>
         </motion.div>
       </div>
     </section>
   );
 }
 
-
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[#0A0A0A]">
+    <main className="min-h-screen bg-white">
       <HeroSection />
       <QuickNavigationSection />
       <QuickStartSection />
