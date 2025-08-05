@@ -42,7 +42,7 @@ function HeroSection() {
             <span className="font-medium text-primary">Cross-Chain Apps</span>
           </h1>
           
-          <p className="text-base text-secondary max-w-xs mx-auto mb-12">
+          <p className="text-base text-gray-600 max-w-xs mx-auto mb-12">
             Ship faster with unified liquidity across 20+ chains. One SDK. Zero complexity.
           </p>
 
@@ -328,12 +328,12 @@ function FeaturedExamplesSection() {
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-white">
+    <>
       <HeroSection />
       <QuickNavigationSection />
       <QuickStartSection />
       <FeaturedExamplesSection />
       <Footer />
-    </main>
+    </>
   );
 }
