@@ -2,8 +2,6 @@
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
-const NAV_HEIGHT = 80; // px, height for navigation bar spacing
-
 export default function WindowArea({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   
@@ -13,7 +11,7 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
   // For pages without window styling, render children with minimal wrapper
   if (!windowStyledPages.includes(pathname)) {
     return (
-      <main className="min-h-screen w-full">
+      <main className="min-h-screen w-full pt-24">
         {children}
       </main>
     );
@@ -24,8 +22,8 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
     <AnimatePresence mode="wait">
       <motion.div
         key="window-area"
-        className="relative z-10 flex justify-center items-center w-full p-4"
-        style={{ height: `calc(100vh - ${NAV_HEIGHT}px)`, marginTop: `${NAV_HEIGHT}px` }}
+        className="relative z-10 flex justify-center items-center w-full p-4 pt-24"
+        style={{ minHeight: '100vh' }}
         initial={{ 
           opacity: 0, 
           y: 50,
@@ -76,4 +74,4 @@ export default function WindowArea({ children }: { children: React.ReactNode }) 
       </motion.div>
     </AnimatePresence>
   );
-} 
+}
