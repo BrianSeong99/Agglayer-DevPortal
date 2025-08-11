@@ -23,7 +23,7 @@ export default function DashboardLayout({
         style={{ 
           backgroundColor,
           color: textColor,
-          minHeight: '100vh',
+          minHeight: 'calc(100vh - 323px)',
           overflow: 'clip',
           position: 'relative',
           borderRadius: radius.lg,
@@ -41,8 +41,8 @@ export default function DashboardLayout({
         className={`size-full ${className}`}
       >
         {children}
+        
       </div>
-      
       <Footer />
     </>
   )
