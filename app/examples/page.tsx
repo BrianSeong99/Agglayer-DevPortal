@@ -239,7 +239,7 @@ export default function ExamplesPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredTutorials
                       .filter((t) => t.category === 'concepts')
-                      .map((tutorial) => (
+                      .map((tutorial, index) => (
                         <TutorialCard
                           key={tutorial.id}
                           title={tutorial.title}
@@ -247,6 +247,7 @@ export default function ExamplesPage() {
                           duration={tutorial.duration}
                           difficulty={tutorial.difficulty}
                           url={`/examples/tutorial/${tutorial.id}`}
+                          index={index}
                         />
                       ))}
                   </div>
@@ -263,7 +264,7 @@ export default function ExamplesPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredTutorials
                       .filter((t) => t.category === 'tools')
-                      .map((tutorial) => (
+                      .map((tutorial, index) => (
                         <TutorialCard
                           key={tutorial.id}
                           title={tutorial.title}
@@ -271,6 +272,7 @@ export default function ExamplesPage() {
                           duration={tutorial.duration}
                           difficulty={tutorial.difficulty}
                           url={`/examples/tutorial/${tutorial.id}`}
+                          index={index}
                         />
                       ))}
                   </div>
@@ -294,7 +296,7 @@ export default function ExamplesPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {filteredTutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Beginner')
-                            .map((tutorial) => (
+                            .map((tutorial, index) => (
                               <TutorialCard
                                 key={tutorial.id}
                                 title={tutorial.title}
@@ -302,6 +304,7 @@ export default function ExamplesPage() {
                                 duration={tutorial.duration}
                                 difficulty={tutorial.difficulty}
                                 url={`/examples/tutorial/${tutorial.id}`}
+                                index={index}
                               />
                             ))}
                         </div>
@@ -317,7 +320,7 @@ export default function ExamplesPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {filteredTutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Intermediate')
-                            .map((tutorial) => (
+                            .map((tutorial, index) => (
                               <TutorialCard
                                 key={tutorial.id}
                                 title={tutorial.title}
@@ -325,6 +328,7 @@ export default function ExamplesPage() {
                                 duration={tutorial.duration}
                                 difficulty={tutorial.difficulty}
                                 url={`/examples/tutorial/${tutorial.id}`}
+                                index={index}
                               />
                             ))}
                         </div>
@@ -340,7 +344,7 @@ export default function ExamplesPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {filteredTutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Advanced')
-                            .map((tutorial) => (
+                            .map((tutorial, index) => (
                               <TutorialCard
                                 key={tutorial.id}
                                 title={tutorial.title}
@@ -348,6 +352,7 @@ export default function ExamplesPage() {
                                 duration={tutorial.duration}
                                 difficulty={tutorial.difficulty}
                                 url={`/examples/tutorial/${tutorial.id}`}
+                                index={index}
                               />
                             ))}
                         </div>

@@ -13,7 +13,8 @@ import {
   Activity,
   Clock
 } from 'lucide-react';
-import { tutorials } from '@/app/tutorials/data/tutorials';
+import { tutorials, Tutorial } from '../data/tutorials';
+import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
 
 // Icon mapping for tutorials
 const iconMap: { [key: string]: React.ReactNode } = {
@@ -29,130 +30,266 @@ const iconMap: { [key: string]: React.ReactNode } = {
   Zap: <Zap className="w-5 h-5" />,
 };
 
-const getDifficultyColor = (difficulty: string) => {
+const getDifficultyStyle = (difficulty: string) => {
   switch (difficulty) {
-    case 'Beginner': return 'text-[#0071F7] bg-[#0071F7]/10';
-    case 'Intermediate': return 'text-white bg-white/10';
-    case 'Advanced': return 'text-white bg-white/10';
-    default: return 'text-[#D9D9D9]/80 bg-[#D9D9D9]/10';
+    case 'Beginner': 
+      return { 
+        bg: 'rgba(34, 197, 94, 0.1)', 
+        text: '#22C55E', 
+        border: 'rgba(34, 197, 94, 0.3)' 
+      };
+    case 'Intermediate': 
+      return { 
+        bg: 'rgba(251, 191, 36, 0.1)', 
+        text: '#FBBF24', 
+        border: 'rgba(251, 191, 36, 0.3)' 
+      };
+    case 'Advanced': 
+      return { 
+        bg: 'rgba(239, 68, 68, 0.1)', 
+        text: '#EF4444', 
+        border: 'rgba(239, 68, 68, 0.3)' 
+      };
+    default: 
+      return { 
+        bg: 'rgba(0,113,247,0.05)', 
+        text: colors.primary.DEFAULT, 
+        border: 'rgba(0,113,247,0.14)' 
+      };
   }
 };
 
 export default function TutorialsList() {
-  const categories = Array.from(new Set(tutorials.map(t => t.category)));
+  const categories = Array.from(new Set(tutorials.map((t: Tutorial) => t.category)));
   
   return (
     <>
-      {categories.map((category, categoryIndex) => {
-        const categoryTutorials = tutorials.filter(t => t.category === category);
+      {categories.map((category: string, categoryIndex: number) => {
+        const categoryTutorials = tutorials.filter((t: Tutorial) => t.category === category);
         
         return (
           <motion.section
             key={category}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: categoryIndex * 0.1 }}
-            className="mb-16"
+            initial={motionTokens.section.initial}
+            whileInView={motionTokens.section.whileInView}
+            transition={{
+              ...motionTokens.section.transition,
+              delay: categoryIndex * 0.1
+            }}
+            viewport={{ once: true }}
+            style={{ marginBottom: spacing[16] }}
           >
             {/* Category Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: spacing[8]
+            }}>
               <div>
-                <h2 className="text-2xl font-bold text-white mb-2">{category}</h2>
-                <p className="text-[#D9D9D9]/80">{categoryTutorials.length} tutorials available</p>
+                <h2 style={{
+                  fontFamily: 'Inter Tight, sans-serif',
+                  fontSize: '24px',
+                  fontWeight: typography.fontWeight.bold,
+                  color: 'rgba(0,46,101,0.9)',
+                  marginBottom: spacing[2],
+                  margin: 0
+                }}>
+                  {category}
+                </h2>
+                <p style={{
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '14px',
+                  fontWeight: typography.fontWeight.regular,
+                  color: 'rgba(0,46,101,0.6)',
+                  margin: 0
+                }}>
+                  {categoryTutorials.length} tutorials available
+                </p>
               </div>
-              <div className="h-px flex-1 bg-gradient-to-r from-[#D9D9D9]/20 to-transparent ml-8" />
+              <div style={{
+                height: '1px',
+                flex: 1,
+                background: 'linear-gradient(to right, rgba(0,46,101,0.2), transparent)',
+                marginLeft: spacing[8]
+              }} />
             </div>
 
             {/* Tutorials Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {categoryTutorials.map((tutorial, index) => (
-                <motion.div
-                  key={tutorial.id}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.4, delay: index * 0.05 }}
-                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                  className="group relative bg-gray-900/50 backdrop-blur-sm rounded-2xl overflow-hidden border border-gray-800 hover:border-[#0071F7]/50 transition-all duration-300"
-                >
-                  {/* Gradient Accent */}
-                  <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${tutorial.color}`} />
-                  
-                  <div className="p-6">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-4">
-                      <div className={`p-2.5 rounded-xl bg-gradient-to-br ${tutorial.color} text-white shadow-lg`}>
-                        {iconMap[tutorial.icon]}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+              gap: spacing[6]
+            }}>
+              {categoryTutorials.map((tutorial: Tutorial, index: number) => {
+                const difficultyStyle = getDifficultyStyle(tutorial.difficulty || '');
+                
+                return (
+                  <motion.div
+                    key={tutorial.id}
+                    initial={motionTokens.card.initial}
+                    whileInView={motionTokens.card.whileInView}
+                    transition={{
+                      ...motionTokens.card.transition,
+                      delay: index * 0.05
+                    }}
+                    viewport={{ once: true }}
+                    style={{
+                      backgroundColor: '#F7FAFE',
+                      borderRadius: '10px',
+                      overflow: 'hidden',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      cursor: 'pointer',
+                      transition: 'transform 0.2s ease'
+                    }}
+                    whileHover={{ y: -4 }}
+                  >
+                    {/* Preview Image Placeholder */}
+                    <div style={{
+                      backgroundColor: '#EAF3FD',
+                      height: '138px',
+                      borderRadius: '5px',
+                      margin: spacing[6],
+                      marginBottom: spacing[2.5],
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'relative'
+                    }}>
+                      {/* Icon overlay */}
+                      <div style={{
+                        position: 'absolute',
+                        top: spacing[3],
+                        left: spacing[3],
+                        background: `linear-gradient(135deg, ${colors.primary.DEFAULT}, #4F46E5)`,
+                        borderRadius: '8px',
+                        padding: spacing[2],
+                        color: 'white',
+                        boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                      }}>
+                        {iconMap['Code'] || <Code className="w-5 h-5" />}
                       </div>
-                      {tutorial.isInteractive && (
-                        <span className="px-3 py-1 bg-[#0071F7]/10 text-[#0071F7] text-xs font-medium rounded-full">
-                          Interactive
-                        </span>
-                      )}
                     </div>
 
                     {/* Content */}
-                    <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#0071F7] transition-colors">
-                      {tutorial.title}
-                    </h3>
-                    <p className="text-sm text-[#D9D9D9]/70 mb-4 line-clamp-2">
-                      {tutorial.description}
-                    </p>
-
-                    {/* Meta Info */}
-                    <div className="flex items-center gap-4 mb-6">
-                      <div className="flex items-center gap-1.5 text-sm text-[#D9D9D9]/60">
-                        <Clock className="w-3.5 h-3.5" />
-                        <span>{tutorial.duration}</span>
+                    <div style={{
+                      padding: `0 ${spacing[6]} ${spacing[2.5]} ${spacing[6]}`,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: spacing[3],
+                      flex: 1
+                    }}>
+                      {/* Title and Difficulty */}
+                      <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'flex-start',
+                        gap: spacing[3]
+                      }}>
+                        <h3 style={{
+                          fontFamily: 'Inter Tight, sans-serif',
+                          fontSize: '15px',
+                          fontWeight: typography.fontWeight.bold,
+                          lineHeight: 1.08,
+                          color: 'rgba(0,46,101,0.9)',
+                          margin: 0,
+                          flex: 1
+                        }}>
+                          {tutorial.title}
+                        </h3>
+                        <div style={{
+                          backgroundColor: difficultyStyle.bg,
+                          color: difficultyStyle.text,
+                          border: `1px solid ${difficultyStyle.border}`,
+                          borderRadius: '3px',
+                          padding: `${spacing[1]} ${spacing[2]}`,
+                          fontSize: '10px',
+                          fontFamily: 'Inter, sans-serif',
+                          fontWeight: typography.fontWeight.medium,
+                          lineHeight: '12px',
+                          whiteSpace: 'nowrap'
+                        }}>
+                          {tutorial.difficulty || 'Tutorial'}
+                        </div>
                       </div>
-                      <div className={`px-2.5 py-1 rounded-md text-xs font-medium ${getDifficultyColor(tutorial.difficulty)}`}>
-                        {tutorial.difficulty}
-                      </div>
-                    </div>
 
-                    {/* Topics */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {tutorial.topics.slice(0, 2).map((topic, idx) => (
-                        <span key={idx} className="text-xs text-[#D9D9D9]/50">
-                          {topic}
-                        </span>
-                      ))}
-                      {tutorial.topics.length > 2 && (
-                        <span className="text-xs text-[#D9D9D9]/40">
-                          +{tutorial.topics.length - 2} more
-                        </span>
-                      )}
+                      {/* Description */}
+                      <p style={{
+                        fontFamily: 'SF Mono, monospace',
+                        fontSize: '12px',
+                        fontWeight: typography.fontWeight.regular,
+                        lineHeight: 1.5,
+                        color: 'rgba(0,46,101,0.8)',
+                        margin: 0,
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden'
+                      }}>
+                        {tutorial.description}
+                      </p>
+
+                      {/* Duration */}
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: spacing[3],
+                        marginTop: 'auto'
+                      }}>
+                        <div style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '3px'
+                        }}>
+                          <Clock style={{ width: '12px', height: '12px', color: '#002e65' }} />
+                          <span style={{
+                            fontSize: '10px',
+                            fontFamily: 'Inter, sans-serif',
+                            fontWeight: typography.fontWeight.medium,
+                            color: '#002e65',
+                            lineHeight: '12px'
+                          }}>
+                            {tutorial.duration}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
                     {/* Actions */}
-                    <div className="flex items-center gap-3">
-                      {tutorial.githubUrl && (
-                        <a
-                          href={tutorial.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-xl transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Code className="w-4 h-4" />
-                          <span>Code</span>
-                        </a>
-                      )}
-                      {tutorial.visualizerUrl && (
-                        <a
-                          href={tutorial.visualizerUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0071F7] hover:bg-[#0071F7]/90 text-white text-sm font-medium rounded-xl transition-colors"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <Play className="w-4 h-4" />
-                          <span>Try</span>
-                        </a>
-                      )}
+                    <div style={{
+                      padding: spacing[6],
+                      display: 'flex',
+                      gap: spacing[3]
+                    }}>
+                      <a
+                        href={`/examples/tutorial/${tutorial.id}`}
+                        style={{
+                          flex: 1,
+                          backgroundColor: colors.primary.DEFAULT,
+                          color: '#ffffff',
+                          border: 'none',
+                          borderRadius: '3px',
+                          padding: `${spacing[2]} ${spacing[4]}`,
+                          fontSize: '10px',
+                          fontFamily: 'Inter, sans-serif',
+                          fontWeight: typography.fontWeight.bold,
+                          cursor: 'pointer',
+                          textDecoration: 'none',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: spacing[1],
+                          lineHeight: '12px'
+                        }}
+                      >
+                        <Play style={{ width: '12px', height: '12px' }} />
+                        <span>Start Tutorial</span>
+                      </a>
                     </div>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.section>
         );
