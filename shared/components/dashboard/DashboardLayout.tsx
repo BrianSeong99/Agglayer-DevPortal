@@ -23,7 +23,7 @@ export default function DashboardLayout({
         style={{ 
           backgroundColor,
           color: textColor,
-          minHeight: 'calc(100vh - 323px)',
+          minHeight: 'calc(100vh - 264px)',
           overflow: 'clip',
           position: 'relative',
           borderRadius: radius.lg,

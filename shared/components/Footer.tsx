@@ -17,25 +17,29 @@ export default function Footer() {
   };
 
   return (
-    <motion.footer 
-      {...motionTokens.section}
-      style={{ 
-        backgroundColor: '#FBFAFA',
-        marginTop: spacing[24]
-      }}
-    >
-      <div 
-        className="mx-auto flex items-start justify-between"
-        style={{
-          maxWidth: sizing.container.lg,
-          padding: spacing[12],
-          borderRadius: radius.xl,
+    <div style={{ paddingBottom: '48px' }}>
+      <motion.footer 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={motionTokens.section.transition}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{ 
+          backgroundColor: '#FBFAFA',
+          borderRadius: '20px',
+          padding: '48px',
+          width: '940px',
+          overflow: 'hidden',
+          margin: '0 auto'
         }}
+      >
+      <div 
+        className="flex items-start justify-between"
+        style={{ width: '100%' }}
       >
         {/* Logo */}
         <div className="flex-shrink-0">
           <Logo 
-            width={100} 
+            width={99.448} 
             height={22} 
             showBackground={false}
             color="black"
@@ -45,18 +49,18 @@ export default function Footer() {
         {/* Right side sections */}
         <div 
           className="flex items-start"
-          style={{ gap: spacing[6] }}
+          style={{ gap: spacing[6], width: '647px', justifyContent: 'flex-end' }}
         >
           {/* Explore Links */}
-          <div style={{ width: '110px' }}>
+          <div style={{ width: '110px', height: '120px' }}>
             <h4 
               style={{
-                fontFamily: typography.textStyles.bodySmall.fontFamily,
-                fontSize: typography.textStyles.bodySmall.fontSize,
-                fontWeight: typography.fontWeight.bold,
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 800, // Extra Bold
                 lineHeight: 2,
-                color: colors.text.primary,
-                marginBottom: spacing[2.5],
+                color: '#000000',
+                marginBottom: 0,
               }}
             >
               Explore
@@ -69,14 +73,17 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      fontFamily: typography.textStyles.bodySmall.fontFamily,
-                      fontSize: typography.textStyles.bodySmall.fontSize,
-                      fontWeight: typography.fontWeight.medium,
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '12px',
+                      fontWeight: 500, // Medium
                       lineHeight: 2,
                       color: 'rgba(0,0,0,0.6)',
                       textDecoration: 'underline',
                       textUnderlinePosition: 'from-font',
+                      textDecorationSkipInk: 'none',
+                      textDecorationStyle: 'solid',
                       display: 'block',
+                      cursor: 'pointer',
                     }}
                     className="hover:text-primary transition-colors"
                   >
@@ -91,26 +98,29 @@ export default function Footer() {
           <div style={{ width: '220px' }}>
             <h4 
               style={{
-                fontFamily: typography.textStyles.bodySmall.fontFamily,
-                fontSize: typography.textStyles.bodySmall.fontSize,
-                fontWeight: typography.fontWeight.bold,
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 700, // Bold
                 lineHeight: 2,
-                color: colors.text.primary,
-                marginBottom: spacing[2.5],
+                color: '#000000',
+                marginBottom: '10px',
+                height: '23.98px',
               }}
             >
               Stay updated
             </h4>
             <div 
-              className="flex items-center"
               style={{
-                backgroundColor: colors.background.primary,
+                backgroundColor: '#ffffff',
                 border: '0.75px solid rgba(0,0,0,0.2)',
                 borderRadius: '40.289px',
                 height: '28.476px',
                 width: '195px',
                 paddingLeft: '18.75px',
                 paddingRight: '18.75px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '11.25px',
               }}
             >
               <input
@@ -121,10 +131,11 @@ export default function Footer() {
                   backgroundColor: 'transparent',
                   border: 'none',
                   outline: 'none',
-                  fontFamily: typography.textStyles.bodySmall.fontFamily,
-                  fontSize: typography.textStyles.bodySmall.fontSize,
-                  fontWeight: typography.fontWeight.medium,
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '12px',
+                  fontWeight: 500, // Medium
                   color: 'rgba(0,0,0,0.3)',
+                  lineHeight: 1.5,
                 }}
                 className="placeholder:text-[rgba(0,0,0,0.3)]"
               />
@@ -135,17 +146,18 @@ export default function Footer() {
           <div style={{ width: '133px' }}>
             <h4 
               style={{
-                fontFamily: typography.textStyles.bodySmall.fontFamily,
-                fontSize: typography.textStyles.bodySmall.fontSize,
-                fontWeight: typography.fontWeight.bold,
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 700, // Bold
                 lineHeight: 2,
-                color: colors.text.primary,
-                marginBottom: spacing[2.5],
+                color: '#000000',
+                marginBottom: '10px',
+                height: '23.98px',
               }}
             >
               Follow our journey
             </h4>
-            <div className="flex" style={{ gap: spacing[2] }}>
+            <div style={{ height: '28.476px', width: '30.986px' }}>
               <a
                 href="https://twitter.com/agglayer"
                 target="_blank"
@@ -155,19 +167,11 @@ export default function Footer() {
               >
                 <IconBrandX style={{ width: '20px', height: '20px' }} />
               </a>
-              <a
-                href="https://discord.gg/agglayer"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hover:text-primary transition-colors"
-                style={{ color: 'rgba(0,0,0,0.6)' }}
-              >
-                <IconBrandDiscord style={{ width: '20px', height: '20px' }} />
-              </a>
             </div>
           </div>
         </div>
       </div>
     </motion.footer>
+    </div>
   );
 }
