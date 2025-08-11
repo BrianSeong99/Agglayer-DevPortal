@@ -33,8 +33,8 @@ export default function DashboardLayout({
           justifyContent: 'flex-start',
           paddingLeft: spacing[6],
           paddingRight: spacing[6],
-          paddingTop: spacing[36], // Changed from spacing[12] to spacing[24] to match Figma gap-24
-          gap: spacing[24],
+          paddingTop: spacing[36],
+          gap: spacing[16],
           maxWidth: '1392px',
           margin: '0 auto'
         }}

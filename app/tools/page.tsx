@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowTopRightOnSquareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
 import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
+import ToolCard from './components/ToolCard';
 import { tools } from './data/tools';
 
 export default function ToolsPage() {
@@ -40,323 +41,48 @@ export default function ToolsPage() {
         {/* Essential Tools Grid */}
         <div style={{ width: '940px', gap: spacing[3] }} className="flex flex-col">
           {/* First Row - 3 Cards */}
-          <div className="flex" style={{ gap: spacing[3] }}>
+          <div 
+            className="flex"
+            style={{ 
+              gap: spacing[3],
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
             {essentialTools.slice(0, 3).map((tool, index) => (
-              <motion.div
-                key={tool.id}
-                initial={motionTokens.card.initial}
-                whileInView={motionTokens.card.whileInView}
-                transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
-                className="flex-1"
-                style={{
-                  backgroundColor: '#F7FAFE',
-                  borderRadius: radius.lg,
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end'
-                }}
+              <div 
+                key={tool.id} 
+                className="basis-0 grow min-h-px min-w-px"
+                style={{ flexShrink: 0 }}
               >
-                {/* Header */}
-                <div 
-                  className="flex"
-                  style={{
-                    gap: spacing[2.5],
-                    paddingTop: spacing[6],
-                    paddingLeft: spacing[6],
-                    paddingRight: spacing[6],
-                    paddingBottom: 0
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: 'rgba(0,113,247,0.2)',
-                      borderRadius: radius.sm,
-                      width: spacing[8],
-                      height: spacing[8],
-                      flexShrink: 0
-                    }}
-                  />
-                  <div style={{ width: '189px', gap: spacing[3] }} className="flex flex-col">
-                    <div style={{ gap: spacing[3] }} className="flex flex-col">
-                      <h3
-                        style={{
-                          fontFamily: typography.textStyles.h6.fontFamily,
-                          fontSize: '15px',
-                          fontWeight: typography.fontWeight.bold,
-                          lineHeight: 1.08,
-                          color: 'rgba(0,46,101,0.9)'
-                        }}
-                      >
-                        {tool.name}
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: 'SF Mono, monospace',
-                          fontSize: '12px',
-                          fontWeight: typography.fontWeight.regular,
-                          lineHeight: 1.5,
-                          color: 'rgba(0,46,101,0.8)'
-                        }}
-                      >
-                        {tool.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div 
-                  style={{
-                    padding: spacing[6],
-                    gap: spacing[6]
-                  }}
-                  className="flex flex-col"
-                >
-                  <div style={{ gap: spacing[3] }} className="flex flex-col">
-                    {/* Quick Actions */}
-                    <div className="flex items-center justify-between">
-                      {tool.quickActions.slice(0, 3).map((action) => (
-                        <a
-                          key={action.label}
-                          href={action.url}
-                          target={action.external ? '_blank' : undefined}
-                          rel={action.external ? 'noopener noreferrer' : undefined}
-                          style={{
-                            backgroundColor: 'rgba(0,113,247,0.05)',
-                            border: '1px solid rgba(0,113,247,0.14)',
-                            borderRadius: radius.sm,
-                            padding: `${spacing[1]} ${spacing[2]}`,
-                            gap: spacing[1.5],
-                            textDecoration: 'none'
-                          }}
-                          className="flex items-center"
-                        >
-                          <span
-                            style={{
-                              fontFamily: typography.textStyles.bodySmall.fontFamily,
-                              fontSize: '10px',
-                              fontWeight: typography.fontWeight.medium,
-                              lineHeight: '12px',
-                              color: colors.primary.DEFAULT
-                            }}
-                          >
-                            {action.label}
-                          </span>
-                          {action.external && (
-                            <ArrowTopRightOnSquareIcon style={{ width: '12px', height: '12px' }} />
-                          )}
-                        </a>
-                      ))}
-                    </div>
-
-                    {/* Install Command */}
-                    {tool.quickInstall && (
-                      <div
-                        style={{
-                          backgroundColor: colors.background.primary,
-                          border: '1px solid rgba(0,113,247,0.14)',
-                          borderRadius: radius.sm,
-                          padding: spacing[4],
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        <code
-                          style={{
-                            fontFamily: 'SF Mono, monospace',
-                            fontSize: '10px',
-                            fontWeight: typography.fontWeight.medium,
-                            lineHeight: '12px',
-                            color: colors.primary.DEFAULT
-                          }}
-                        >
-                          {tool.quickInstall}
-                        </code>
-                        <button
-                          onClick={() => copyToClipboard(tool.quickInstall!, tool.id)}
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: 0
-                          }}
-                        >
-                          <DocumentDuplicateIcon
-                            style={{
-                              width: '12px',
-                              height: '12px',
-                              color: copiedId === tool.id ? '#22c55e' : colors.neutral.gray[400]
-                            }}
-                          />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+                <ToolCard tool={tool} index={index} />
+              </div>
             ))}
           </div>
 
           {/* Second Row - 2 Cards */}
-          <div className="flex" style={{ gap: spacing[3] }}>
+          <div 
+            className="flex"
+            style={{ 
+              gap: spacing[3],
+              alignItems: 'center',
+              justifyContent: 'flex-start'
+            }}
+          >
             {essentialTools.slice(3, 5).map((tool, index) => (
-              <motion.div
-                key={tool.id}
-                initial={motionTokens.card.initial}
-                whileInView={motionTokens.card.whileInView}
-                transition={{ ...motionTokens.card.transition, delay: (index + 3) * 0.1 }}
-                style={{
-                  backgroundColor: '#F7FAFE',
-                  borderRadius: radius.lg,
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'flex-end',
-                  width: '305.333px'
-                }}
+              <div 
+                key={tool.id} 
+                className="basis-0 grow min-h-px min-w-px"
+                style={{ flexShrink: 0 }}
               >
-                {/* Header */}
-                <div 
-                  className="flex"
-                  style={{
-                    gap: spacing[2.5],
-                    paddingTop: spacing[6],
-                    paddingLeft: spacing[6],
-                    paddingRight: spacing[6],
-                    paddingBottom: 0
-                  }}
-                >
-                  <div
-                    style={{
-                      backgroundColor: 'rgba(0,113,247,0.2)',
-                      borderRadius: radius.sm,
-                      width: spacing[8],
-                      height: spacing[8],
-                      flexShrink: 0
-                    }}
-                  />
-                  <div style={{ width: '189px', gap: spacing[3] }} className="flex flex-col">
-                    <div style={{ gap: spacing[3] }} className="flex flex-col">
-                      <h3
-                        style={{
-                          fontFamily: typography.textStyles.h6.fontFamily,
-                          fontSize: '15px',
-                          fontWeight: typography.fontWeight.bold,
-                          lineHeight: 1.08,
-                          color: 'rgba(0,46,101,0.9)'
-                        }}
-                      >
-                        {tool.name}
-                      </h3>
-                      <p
-                        style={{
-                          fontFamily: 'SF Mono, monospace',
-                          fontSize: '12px',
-                          fontWeight: typography.fontWeight.regular,
-                          lineHeight: 1.5,
-                          color: 'rgba(0,46,101,0.8)'
-                        }}
-                      >
-                        {tool.description}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div 
-                  style={{
-                    padding: spacing[6],
-                    gap: spacing[6]
-                  }}
-                  className="flex flex-col"
-                >
-                  <div style={{ gap: spacing[3] }} className="flex flex-col">
-                    {/* Quick Actions */}
-                    <div className="flex items-center justify-between">
-                      {tool.quickActions.slice(0, 3).map((action) => (
-                        <a
-                          key={action.label}
-                          href={action.url}
-                          target={action.external ? '_blank' : undefined}
-                          rel={action.external ? 'noopener noreferrer' : undefined}
-                          style={{
-                            backgroundColor: 'rgba(0,113,247,0.05)',
-                            border: '1px solid rgba(0,113,247,0.14)',
-                            borderRadius: radius.sm,
-                            padding: `${spacing[1]} ${spacing[2]}`,
-                            gap: spacing[1.5],
-                            textDecoration: 'none'
-                          }}
-                          className="flex items-center"
-                        >
-                          <span
-                            style={{
-                              fontFamily: typography.textStyles.bodySmall.fontFamily,
-                              fontSize: '10px',
-                              fontWeight: typography.fontWeight.medium,
-                              lineHeight: '12px',
-                              color: colors.primary.DEFAULT
-                            }}
-                          >
-                            {action.label}
-                          </span>
-                          {action.external && (
-                            <ArrowTopRightOnSquareIcon style={{ width: '12px', height: '12px' }} />
-                          )}
-                        </a>
-                      ))}
-                    </div>
-
-                    {/* Install Command */}
-                    {tool.quickInstall && (
-                      <div
-                        style={{
-                          backgroundColor: colors.background.primary,
-                          border: '1px solid rgba(0,113,247,0.14)',
-                          borderRadius: radius.sm,
-                          padding: spacing[4],
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'space-between'
-                        }}
-                      >
-                        <code
-                          style={{
-                            fontFamily: 'SF Mono, monospace',
-                            fontSize: '10px',
-                            fontWeight: typography.fontWeight.medium,
-                            lineHeight: '12px',
-                            color: colors.primary.DEFAULT
-                          }}
-                        >
-                          {tool.quickInstall}
-                        </code>
-                        <button
-                          onClick={() => copyToClipboard(tool.quickInstall!, tool.id)}
-                          style={{
-                            background: 'none',
-                            border: 'none',
-                            cursor: 'pointer',
-                            padding: 0
-                          }}
-                        >
-                          <DocumentDuplicateIcon
-                            style={{
-                              width: '12px',
-                              height: '12px',
-                              color: copiedId === tool.id ? '#22c55e' : colors.neutral.gray[400]
-                            }}
-                          />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
+                <ToolCard tool={tool} index={index + 3} />
+              </div>
             ))}
+            {/* Empty placeholder to maintain 3-column layout */}
+            <div 
+              className="basis-0 grow min-h-px min-w-px"
+              style={{ flexShrink: 0, visibility: 'hidden' }}
+            />
           </div>
         </div>
 
@@ -374,14 +100,19 @@ export default function ToolsPage() {
             Ecosystem Tools & Resources
           </h2>
 
-          <div className="flex" style={{ gap: spacing[2.5] }}>
+          <div 
+            style={{ 
+              gap: spacing[2.5],
+              display: 'flex',
+              flexWrap: 'wrap'
+            }}
+          >
             {additionalTools.map((tool, index) => (
               <motion.div
                 key={tool.id}
                 initial={motionTokens.card.initial}
                 whileInView={motionTokens.card.whileInView}
                 transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
-                className="flex-1"
                 style={{
                   backgroundColor: 'rgba(255,255,255,0)',
                   borderRadius: radius.lg,
@@ -390,7 +121,9 @@ export default function ToolsPage() {
                   padding: spacing[6],
                   gap: spacing[6],
                   display: 'flex',
-                  flexDirection: 'column'
+                  flexDirection: 'column',
+                  flexBasis: 'calc(50% - 5px)', // 2 items per row with gap
+                  maxWidth: 'calc(50% - 5px)'
                 }}
               >
                 {/* Icon */}
