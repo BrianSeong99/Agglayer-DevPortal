@@ -12,7 +12,7 @@ import {
   CommandLineIcon,
   DocumentDuplicateIcon,
 } from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 import { staggerItem, fadeInUp } from '@/shared/config/animations';
 
 const iconMap: { [key: string]: any } = {

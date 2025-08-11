@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ShadcnNavigationMenu />
         
         {/* Main content with padding for fixed navbar */}
-        <main className="pt-24">
+        <main>
           {children}
         </main>
       </body>

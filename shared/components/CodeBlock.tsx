@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 
 interface CodeBlockProps {
   code: string;
