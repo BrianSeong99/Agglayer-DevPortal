@@ -1,7 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 import { IconBrandX, IconBrandDiscord } from '@tabler/icons-react';
+import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
+import Logo from './Logo';
 
 export default function Footer() {
   const footerLinks = {
@@ -14,77 +17,157 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-gray-150 mt-24">
-      <div className="max-w-narrow mx-auto px-6 py-12">
-        <div className="flex flex-col md:flex-row justify-between items-start gap-6">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="block">
-              <svg width="100" height="22" viewBox="0 0 100 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.5 0L21 6.0625V17.9375L10.5 24L0 17.9375V6.0625L10.5 0Z" fill="#0071F7"/>
-                <path d="M10.5 8L16 11.0312V16.4688L10.5 19.5L5 16.4688V11.0312L10.5 8Z" fill="white"/>
-              </svg>
-            </Link>
+    <motion.footer 
+      {...motionTokens.section}
+      style={{ 
+        backgroundColor: '#FBFAFA',
+        marginTop: spacing[24]
+      }}
+    >
+      <div 
+        className="mx-auto flex items-start justify-between"
+        style={{
+          maxWidth: sizing.container.lg,
+          padding: spacing[12],
+          borderRadius: radius.xl,
+        }}
+      >
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <Logo 
+            width={100} 
+            height={22} 
+            showBackground={false}
+            color="black"
+          />
+        </div>
+
+        {/* Right side sections */}
+        <div 
+          className="flex items-start"
+          style={{ gap: spacing[6] }}
+        >
+          {/* Explore Links */}
+          <div style={{ width: '110px' }}>
+            <h4 
+              style={{
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.textStyles.bodySmall.fontSize,
+                fontWeight: typography.fontWeight.bold,
+                lineHeight: 2,
+                color: colors.text.primary,
+                marginBottom: spacing[2.5],
+              }}
+            >
+              Explore
+            </h4>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+              {footerLinks.explore.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontFamily: typography.textStyles.bodySmall.fontFamily,
+                      fontSize: typography.textStyles.bodySmall.fontSize,
+                      fontWeight: typography.fontWeight.medium,
+                      lineHeight: 2,
+                      color: 'rgba(0,0,0,0.6)',
+                      textDecoration: 'underline',
+                      textUnderlinePosition: 'from-font',
+                      display: 'block',
+                    }}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Links and Newsletter */}
-          <div className="flex flex-col md:flex-row gap-6 md:gap-12">
-            {/* Explore Links */}
-            <div>
-              <h4 className="font-bold text-xs text-black mb-2.5">Explore</h4>
-              <ul className="space-y-0">
-                {footerLinks.explore.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-medium text-xs text-tertiary leading-loose hover:text-primary transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+          {/* Stay Updated */}
+          <div style={{ width: '220px' }}>
+            <h4 
+              style={{
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.textStyles.bodySmall.fontSize,
+                fontWeight: typography.fontWeight.bold,
+                lineHeight: 2,
+                color: colors.text.primary,
+                marginBottom: spacing[2.5],
+              }}
+            >
+              Stay updated
+            </h4>
+            <div 
+              className="flex items-center"
+              style={{
+                backgroundColor: colors.background.primary,
+                border: '0.75px solid rgba(0,0,0,0.2)',
+                borderRadius: '40.289px',
+                height: '28.476px',
+                width: '195px',
+                paddingLeft: '18.75px',
+                paddingRight: '18.75px',
+              }}
+            >
+              <input
+                type="email"
+                placeholder="Your email"
+                style={{
+                  width: '100%',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  fontFamily: typography.textStyles.bodySmall.fontFamily,
+                  fontSize: typography.textStyles.bodySmall.fontSize,
+                  fontWeight: typography.fontWeight.medium,
+                  color: 'rgba(0,0,0,0.3)',
+                }}
+                className="placeholder:text-[rgba(0,0,0,0.3)]"
+              />
             </div>
+          </div>
 
-            {/* Stay Updated */}
-            <div>
-              <h4 className="font-bold text-xs text-black mb-2.5">Stay updated</h4>
-              <div className="bg-white border border-border-light rounded-[40.289px] h-[28.476px] w-[195px] px-[18.75px] flex items-center">
-                <input
-                  type="email"
-                  placeholder="Your email"
-                  className="w-full bg-transparent outline-none font-medium text-xs text-quaternary placeholder:text-quaternary"
-                />
-              </div>
-            </div>
-
-            {/* Follow */}
-            <div>
-              <h4 className="font-bold text-xs text-black mb-2.5">Follow our journey</h4>
-              <div className="flex gap-2">
-                <a
-                  href="https://twitter.com/agglayer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-tertiary hover:text-primary transition-colors"
-                >
-                  <IconBrandX className="w-5 h-5" />
-                </a>
-                <a
-                  href="https://discord.gg/agglayer"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-tertiary hover:text-primary transition-colors"
-                >
-                  <IconBrandDiscord className="w-5 h-5" />
-                </a>
-              </div>
+          {/* Follow */}
+          <div style={{ width: '133px' }}>
+            <h4 
+              style={{
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.textStyles.bodySmall.fontSize,
+                fontWeight: typography.fontWeight.bold,
+                lineHeight: 2,
+                color: colors.text.primary,
+                marginBottom: spacing[2.5],
+              }}
+            >
+              Follow our journey
+            </h4>
+            <div className="flex" style={{ gap: spacing[2] }}>
+              <a
+                href="https://twitter.com/agglayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+                style={{ color: 'rgba(0,0,0,0.6)' }}
+              >
+                <IconBrandX style={{ width: '20px', height: '20px' }} />
+              </a>
+              <a
+                href="https://discord.gg/agglayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+                style={{ color: 'rgba(0,0,0,0.6)' }}
+              >
+                <IconBrandDiscord style={{ width: '20px', height: '20px' }} />
+              </a>
             </div>
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }
