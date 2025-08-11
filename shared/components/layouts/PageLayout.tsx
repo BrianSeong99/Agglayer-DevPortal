@@ -2,17 +2,17 @@ import { ReactNode } from 'react'
 import { spacing, radius, colors } from '@/shared/design-system'
 import Footer from '../Footer'
 
-interface DashboardLayoutProps {
+interface PageLayoutProps {
   children: ReactNode;
   className?: string;
   theme?: 'light' | 'dark';
 }
 
-export default function DashboardLayout({ 
+export default function PageLayout({ 
   children, 
   className = '', 
   theme = 'light' 
-}: DashboardLayoutProps) {
+}: PageLayoutProps) {
   const backgroundColor = theme === 'light' ? '#ffffff' : 'var(--bg-main, #000)';
   const textColor = theme === 'light' ? colors.text.primary : 'var(--text-main, #fff)';
 

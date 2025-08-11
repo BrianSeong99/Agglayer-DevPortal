@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
-import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
-import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
+import PageLayout from '@/shared/components/layouts/PageLayout';
+import PageHeader from '@/shared/components/layouts/PageHeader';
 import ToolCard from './components/ToolCard';
 import EcosystemToolCard from './components/EcosystemToolCard';
 import { tools } from './data/tools';
@@ -24,8 +24,8 @@ export default function ToolsPage() {
   const additionalTools = tools.filter((tool) => tool.category === 'additional');
 
   return (
-    <DashboardLayout theme="light">
-      <DashboardHeader
+    <PageLayout theme="light">
+      <PageHeader
         title="Developer Tools"
         subtitle="Everything you need to build, test, and deploy cross-chain applications"
         theme="light"
@@ -126,6 +126,6 @@ export default function ToolsPage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </PageLayout>
   );
 }

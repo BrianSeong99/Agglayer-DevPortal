@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
-import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
+import PageLayout from '@/shared/components/layouts/PageLayout';
+import PageHeader from '@/shared/components/layouts/PageHeader';
 import TabComponent from './components/TabComponent';
 import FilterComponent from './components/FilterComponent';
 import ExampleCard from './components/ExampleCard';
@@ -74,8 +74,8 @@ export default function ExamplesPage() {
   });
 
   return (
-    <DashboardLayout>
-      <DashboardHeader
+    <PageLayout>
+      <PageHeader
         title="Templates, Tutorials & Examples"
         subtitle="Learn by building with production-ready templates and step-by-step guides"
       />
@@ -307,6 +307,6 @@ export default function ExamplesPage() {
           </div>
         </motion.div>
       )}
-    </DashboardLayout>
+    </PageLayout>
   );
 }
