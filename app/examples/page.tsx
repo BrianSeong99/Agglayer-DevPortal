@@ -7,7 +7,7 @@ import PageHeader from '@/shared/components/layouts/PageHeader';
 import TabComponent from './components/TabComponent';
 import ExampleCard from './components/ExampleCard';
 import TutorialCard from './components/TutorialCard';
-import CodeBlock from '@/shared/components/CodeBlock';
+import CodeBlock from './components/CodeBlock';
 import { examples } from './data/examples';
 import { codeSnippets } from './data/codeSnippets';
 import { tutorials } from './data/tutorials';
@@ -16,8 +16,6 @@ import { typography, colors, spacing, motionTokens } from '@/shared/design-syste
 export default function ExamplesPage() {
   const [activeTab, setActiveTab] = useState('examples');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedTutorialCategory, setSelectedTutorialCategory] = useState<string>('all');
-  const [selectedSnippetCategory, setSelectedSnippetCategory] = useState<string[]>([]);
 
   const tabs = [
     { id: 'examples', label: 'Examples' },
@@ -32,13 +30,6 @@ export default function ExamplesPage() {
     { id: 'gaming', label: 'Gaming' },
     { id: 'social', label: 'Social' },
     { id: 'infrastructure', label: 'Infrastructure' },
-  ];
-
-  const tutorialCategories = [
-    { id: 'all', label: 'All Categories' },
-    { id: 'concepts', label: 'Concepts' },
-    { id: 'tools', label: 'Tools' },
-    { id: 'app-tutorials', label: 'App Tutorials' },
   ];
 
   const snippetCategories = [
@@ -62,15 +53,7 @@ export default function ExamplesPage() {
     return selectedCategories.includes(example.category);
   });
 
-  const filteredTutorials = tutorials.filter((tutorial) => {
-    if (selectedTutorialCategory === 'all') return true;
-    return tutorial.category === selectedTutorialCategory;
-  });
-
-  const filteredSnippets = codeSnippets.filter((snippet) => {
-    if (selectedSnippetCategory.length === 0) return true;
-    return selectedSnippetCategory.includes(snippet.category);
-  });
+  const filteredSnippets = codeSnippets;
 
   return (
     <PageLayout theme="light">
@@ -121,30 +104,6 @@ export default function ExamplesPage() {
               {tab.label}
             </button>
           ))}
-        </div>
-
-        {/* Category Filter */}
-        <div style={{
-          border: `1px solid ${colors.primary.DEFAULT}`,
-          borderRadius: '37.5px',
-          padding: `${spacing[1]} ${spacing[2.5]}`,
-          display: 'flex',
-          alignItems: 'center',
-          gap: spacing[1.5],
-          cursor: 'pointer'
-        }}>
-          <span style={{
-            fontSize: '12px',
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: typography.fontWeight.medium,
-            color: colors.primary.DEFAULT,
-            lineHeight: 1.08
-          }}>
-            Category
-          </span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M4 6L8 10L12 6" stroke={colors.primary.DEFAULT} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
         </div>
       </motion.div>
 
@@ -218,14 +177,14 @@ export default function ExamplesPage() {
             {/* Tutorials organized by category */}
             <div className="space-y-12">
               {/* Concepts */}
-              {(selectedTutorialCategory === 'all' || selectedTutorialCategory === 'concepts') && (
+              {(tutorials.some(t => t.category === 'concepts')) && (
                 <div>
                   <h3 className="text-xl font-bold text-black mb-2">Concepts</h3>
                   <p className="text-[rgba(0,0,0,0.6)] mb-4">
                     Understand the core architecture and components of Agglayer
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredTutorials
+                    {tutorials
                       .filter((t) => t.category === 'concepts')
                       .map((tutorial, index) => (
                         <TutorialCard
@@ -243,14 +202,14 @@ export default function ExamplesPage() {
               )}
 
               {/* Tools */}
-              {(selectedTutorialCategory === 'all' || selectedTutorialCategory === 'tools') && (
+              {(tutorials.some(t => t.category === 'tools')) && (
                 <div>
                   <h3 className="text-xl font-bold text-black mb-2">Tools</h3>
                   <p className="text-[rgba(0,0,0,0.6)] mb-4">
                     Master the essential tools for building on Agglayer
                   </p>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {filteredTutorials
+                    {tutorials
                       .filter((t) => t.category === 'tools')
                       .map((tutorial, index) => (
                         <TutorialCard
@@ -268,7 +227,7 @@ export default function ExamplesPage() {
               )}
 
               {/* App Tutorials */}
-              {(selectedTutorialCategory === 'all' || selectedTutorialCategory === 'app-tutorials') && (
+              {(tutorials.some(t => t.category === 'app-tutorials')) && (
                 <div>
                   <h3 className="text-xl font-bold text-black mb-2">App Tutorials</h3>
                   <p className="text-[rgba(0,0,0,0.6)] mb-4">
@@ -276,13 +235,13 @@ export default function ExamplesPage() {
                   </p>
                   <div className="space-y-8">
                     {/* Beginner Apps */}
-                    {filteredTutorials
+                    {tutorials
                       .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Beginner')
                       .length > 0 && (
                       <div>
                         <h4 className="text-lg font-semibold text-[rgba(0,0,0,0.6)] mb-3">Beginner</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {filteredTutorials
+                          {tutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Beginner')
                             .map((tutorial, index) => (
                               <TutorialCard
@@ -300,13 +259,13 @@ export default function ExamplesPage() {
                     )}
 
                     {/* Intermediate Apps */}
-                    {filteredTutorials
+                    {tutorials
                       .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Intermediate')
                       .length > 0 && (
                       <div>
                         <h4 className="text-lg font-semibold text-[rgba(0,0,0,0.6)] mb-3">Intermediate</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {filteredTutorials
+                          {tutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Intermediate')
                             .map((tutorial, index) => (
                               <TutorialCard
@@ -324,13 +283,13 @@ export default function ExamplesPage() {
                     )}
 
                     {/* Advanced Apps */}
-                    {filteredTutorials
+                    {tutorials
                       .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Advanced')
                       .length > 0 && (
                       <div>
                         <h4 className="text-lg font-semibold text-[rgba(0,0,0,0.6)] mb-3">Advanced</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {filteredTutorials
+                          {tutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Advanced')
                             .map((tutorial, index) => (
                               <TutorialCard
@@ -368,7 +327,7 @@ export default function ExamplesPage() {
                   key={snippet.id}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="bg-[#F7FAFE] border border-[rgba(0,113,247,0.1)] rounded-lg p-6"
+                  className="bg-[#F7FAFE] rounded-lg p-6"
                 >
                   <h3 className="text-lg font-bold text-black mb-2">{snippet.title}</h3>
                   <p className="text-sm text-[rgba(0,0,0,0.6)] mb-4">{snippet.description}</p>
