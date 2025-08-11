@@ -3,17 +3,17 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { 
-  IconSchool, 
+  IconApps,
   IconBulb, 
   IconTools,
-  IconExternalLink
+  IconBook2
 } from '@tabler/icons-react';
-import DecorativeSVGCircles from './DecorativeSVGCircles';
+import DecorativeSVGCircles from './svg/DecorativeSVGCircles';
 
 export default function HeroAndNavigationSection() {
   const navigationItems = [
     {
-      icon: <IconSchool className="w-24 h-24 text-primary/10" />,
+      icon: <IconApps />,
       title: 'Learn',
       description: 'Step-by-step tutorials and guides',
       href: '/examples?tab=tutorials',
@@ -33,25 +33,18 @@ export default function HeroAndNavigationSection() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-white">
+    <section className="relative overflow-visible bg-white">
       {/* Background pattern from Figma */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0 overflow-visible">
         <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
         {/* Decorative SVG circles */}
         <div className="absolute inset-0 flex items-center justify-center">
           <DecorativeSVGCircles />
         </div>
-        {/* Subtle dot pattern */}
-        <div 
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, #000 1px, transparent 1px)',
-            backgroundSize: '20px 20px'
-          }}
-        />
       </div>
 
-      <div className="relative max-w-narrow mx-auto px-6 py-24 z-10 w-full text-center">
+      {/* Hero content */}
+      <div className="relative max-w-narrow mx-auto px-6 pt-44 pb-6 z-10 w-full text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -70,19 +63,31 @@ export default function HeroAndNavigationSection() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Link 
               href="#quick-start"
-              className="inline-flex items-center gap-1.5 bg-primary text-white px-[15px] py-2 rounded-pill text-xs font-medium transition-all duration-300 hover:shadow-primary"
+              className="inline-flex items-center gap-1.5 bg-[#0071F7] text-white px-[15px] py-2 rounded-[45px] text-xs font-medium leading-none transition-all duration-300 hover:bg-[#0071F7]/90 hover:shadow-lg"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 500,
+                lineHeight: 1.08,
+              }}
             >
-              <IconSchool className="w-[18px] h-[18px]" />
-              Get started
+              <IconApps className="w-[18px] h-[18px] shrink-0" />
+              <span className="whitespace-nowrap">Get started</span>
             </Link>
             <a 
               href="https://docs.agglayer.dev" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 bg-gray-150 text-gray-500 px-[15px] py-2 rounded-pill text-xs font-normal transition-all duration-300 hover:bg-gray-100"
+              className="inline-flex items-center gap-1.5 bg-gray-150 text-gray-500 px-[15px] py-2 rounded-[45px] text-xs font-normal leading-none transition-all duration-300 hover:bg-gray-100"
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 400,
+                lineHeight: 1.08,
+              }}
             >
-              <IconExternalLink className="w-[18px] h-[18px]" />
-              Docs
+              <IconBook2 className="w-[18px] h-[18px] shrink-0" />
+              <span className="whitespace-nowrap">Docs</span>
             </a>
           </div>
         </motion.div>
