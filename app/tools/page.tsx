@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
-import NavigationMenu from '@/shared/components/NavigationMenu';
-import Footer from '@/shared/components/Footer';
+import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
+import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
 import { tools } from './data/tools';
 
 export default function ToolsPage() {
@@ -22,55 +22,21 @@ export default function ToolsPage() {
   const additionalTools = tools.filter((tool) => tool.category === 'additional');
 
   return (
-    <>
-      <NavigationMenu />
-      
+    <DashboardLayout theme="light">
+      <DashboardHeader
+        title="Developer Tools"
+        subtitle="Everything you need to build, test, and deploy cross-chain applications"
+        theme="light"
+      />
+
       {/* Main Content */}
       <div
         className="mx-auto flex flex-col items-center"
         style={{
           maxWidth: sizing.container.lg,
-          paddingTop: spacing[24],
           gap: spacing[16]
         }}
       >
-        {/* Header Section */}
-        <motion.div
-          initial={motionTokens.section.initial}
-          whileInView={motionTokens.section.whileInView}
-          transition={motionTokens.section.transition}
-          className="text-center"
-          style={{ 
-            width: '940px',
-            gap: spacing[6]
-          }}
-        >
-          <h1
-            style={{
-              fontFamily: typography.textStyles.h1.fontFamily,
-              fontSize: '36px',
-              fontWeight: typography.fontWeight.bold,
-              lineHeight: 1.2,
-              color: colors.text.primary,
-              marginBottom: spacing[6]
-            }}
-          >
-            Developer{' '}
-            <span style={{ color: colors.primary.DEFAULT }}>Tools</span>
-          </h1>
-          <p
-            style={{
-              fontFamily: typography.textStyles.body.fontFamily,
-              fontSize: '15px',
-              fontWeight: typography.fontWeight.regular,
-              lineHeight: 1.2,
-              color: colors.text.primary,
-            }}
-          >
-            Everything you need to build, test, and deploy cross-chain applications
-          </p>
-        </motion.div>
-
         {/* Essential Tools Grid */}
         <div style={{ width: '940px', gap: spacing[3] }} className="flex flex-col">
           {/* First Row - 3 Cards */}
@@ -490,8 +456,6 @@ export default function ToolsPage() {
           </div>
         </div>
       </div>
-
-      <Footer />
-    </>
+    </DashboardLayout>
   );
 }

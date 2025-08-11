@@ -12,7 +12,7 @@ interface DashboardHeaderProps {
 export default function DashboardHeader({ 
   title, 
   subtitle, 
-  theme = 'dark' 
+  theme = 'light' 
 }: DashboardHeaderProps) {
   const titleColor = theme === 'light' ? colors.text.primary : colors.background.primary;
   const subtitleColor = theme === 'light' ? colors.text.primary : '#D9D9D9';
@@ -23,30 +23,49 @@ export default function DashboardHeader({
       whileInView={motionTokens.section.whileInView}
       transition={motionTokens.section.transition}
       style={{
-        marginTop: spacing[20],
-        marginBottom: spacing[10]
+        display: 'flex',
+        flexDirection: 'column',
+        gap: spacing[6],
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        padding: 0,
+        position: 'relative',
+        width: '940px'
       }}
     >
       <h1 
         style={{
-          fontFamily: typography.textStyles.h1.fontFamily,
-          fontSize: typography.textStyles.h1.fontSize,
+          fontFamily: 'Inter Tight, sans-serif',
+          fontSize: '36px',
           fontWeight: typography.fontWeight.bold,
-          lineHeight: typography.textStyles.h1.lineHeight,
+          lineHeight: 1.2,
           color: titleColor,
-          marginBottom: spacing[3]
+          margin: 0,
+          minWidth: '100%',
+          textAlign: 'left'
         }}
       >
-        {title}
+        <span>Developer</span>
+        <span> </span>
+        <span style={{ 
+          fontFamily: 'Inter Tight, sans-serif',
+          fontWeight: typography.fontWeight.medium,
+          color: colors.primary.DEFAULT 
+        }}>
+          Tools
+        </span>
       </h1>
       {subtitle && (
         <p 
           style={{
-            fontFamily: typography.textStyles.body.fontFamily,
-            fontSize: typography.textStyles.body.fontSize,
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '15px',
             fontWeight: typography.fontWeight.regular,
-            lineHeight: typography.textStyles.body.lineHeight,
-            color: subtitleColor
+            lineHeight: 1.2,
+            color: subtitleColor,
+            margin: 0,
+            textAlign: 'center',
+            whiteSpace: 'nowrap'
           }}
         >
           {subtitle}

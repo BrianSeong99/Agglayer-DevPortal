@@ -11,27 +11,38 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ 
   children, 
   className = '', 
-  theme = 'dark' 
+  theme = 'light' 
 }: DashboardLayoutProps) {
-  const backgroundColor = theme === 'light' ? colors.background.primary : 'var(--bg-main, #000)';
+  const backgroundColor = theme === 'light' ? '#ffffff' : 'var(--bg-main, #000)';
   const textColor = theme === 'light' ? colors.text.primary : 'var(--text-main, #fff)';
-  const shadowColor = theme === 'light' ? 'rgba(0,0,0,0.1)' : 'var(--shadow-card)';
 
   return (
     <>
+      {/* Main Content Container */}
       <div
-        className={`h-full w-full flex flex-col overflow-auto max-w-7xl mx-auto ${className}`}
         style={{ 
           backgroundColor,
           color: textColor,
-          borderRadius: radius.xl,
-          padding: spacing[8],
-          paddingBottom: spacing[20],
-          boxShadow: `0 25px 50px -12px ${shadowColor}`,
+          minHeight: '100vh',
+          overflow: 'clip',
+          position: 'relative',
+          borderRadius: radius.lg,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+          paddingLeft: spacing[6],
+          paddingRight: spacing[6],
+          paddingTop: spacing[36], // Changed from spacing[12] to spacing[24] to match Figma gap-24
+          gap: spacing[24],
+          maxWidth: '1392px',
+          margin: '0 auto'
         }}
+        className={`size-full ${className}`}
       >
         {children}
       </div>
+      
       <Footer />
     </>
   )
