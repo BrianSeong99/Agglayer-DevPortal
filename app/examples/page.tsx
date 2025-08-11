@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
 import TabComponent from './components/TabComponent';
-import FilterComponent from './components/FilterComponent';
 import ExampleCard from './components/ExampleCard';
 import TutorialCard from './components/TutorialCard';
 import CodeBlock from '@/shared/components/CodeBlock';
@@ -216,17 +215,6 @@ export default function ExamplesPage() {
             transition={motionTokens.section.transition}
             viewport={{ once: true }}
           >
-            {/* Category Filter */}
-            <div className="mb-8">
-              <FilterComponent
-                title="Filter by Category"
-                options={tutorialCategories}
-                selectedOptions={[selectedTutorialCategory]}
-                onFilterChange={(categories) => setSelectedTutorialCategory(categories[0] || 'all')}
-                multiSelect={false}
-              />
-            </div>
-
             {/* Tutorials organized by category */}
             <div className="space-y-12">
               {/* Concepts */}
@@ -239,7 +227,7 @@ export default function ExamplesPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredTutorials
                       .filter((t) => t.category === 'concepts')
-                      .map((tutorial) => (
+                      .map((tutorial, index) => (
                         <TutorialCard
                           key={tutorial.id}
                           title={tutorial.title}
@@ -247,6 +235,7 @@ export default function ExamplesPage() {
                           duration={tutorial.duration}
                           difficulty={tutorial.difficulty}
                           url={`/examples/tutorial/${tutorial.id}`}
+                          index={index}
                         />
                       ))}
                   </div>
@@ -263,7 +252,7 @@ export default function ExamplesPage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {filteredTutorials
                       .filter((t) => t.category === 'tools')
-                      .map((tutorial) => (
+                      .map((tutorial, index) => (
                         <TutorialCard
                           key={tutorial.id}
                           title={tutorial.title}
@@ -271,6 +260,7 @@ export default function ExamplesPage() {
                           duration={tutorial.duration}
                           difficulty={tutorial.difficulty}
                           url={`/examples/tutorial/${tutorial.id}`}
+                          index={index}
                         />
                       ))}
                   </div>
@@ -294,7 +284,7 @@ export default function ExamplesPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {filteredTutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Beginner')
-                            .map((tutorial) => (
+                            .map((tutorial, index) => (
                               <TutorialCard
                                 key={tutorial.id}
                                 title={tutorial.title}
@@ -302,6 +292,7 @@ export default function ExamplesPage() {
                                 duration={tutorial.duration}
                                 difficulty={tutorial.difficulty}
                                 url={`/examples/tutorial/${tutorial.id}`}
+                                index={index}
                               />
                             ))}
                         </div>
@@ -317,7 +308,7 @@ export default function ExamplesPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {filteredTutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Intermediate')
-                            .map((tutorial) => (
+                            .map((tutorial, index) => (
                               <TutorialCard
                                 key={tutorial.id}
                                 title={tutorial.title}
@@ -325,6 +316,7 @@ export default function ExamplesPage() {
                                 duration={tutorial.duration}
                                 difficulty={tutorial.difficulty}
                                 url={`/examples/tutorial/${tutorial.id}`}
+                                index={index}
                               />
                             ))}
                         </div>
@@ -340,7 +332,7 @@ export default function ExamplesPage() {
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                           {filteredTutorials
                             .filter((t) => t.category === 'app-tutorials' && t.difficulty === 'Advanced')
-                            .map((tutorial) => (
+                            .map((tutorial, index) => (
                               <TutorialCard
                                 key={tutorial.id}
                                 title={tutorial.title}
@@ -348,6 +340,7 @@ export default function ExamplesPage() {
                                 duration={tutorial.duration}
                                 difficulty={tutorial.difficulty}
                                 url={`/examples/tutorial/${tutorial.id}`}
+                                index={index}
                               />
                             ))}
                         </div>
@@ -368,16 +361,6 @@ export default function ExamplesPage() {
             transition={motionTokens.section.transition}
             viewport={{ once: true }}
           >
-            {/* Category Filter */}
-            <div className="mb-8">
-              <FilterComponent
-                title="Filter by Category"
-                options={snippetCategories}
-                selectedOptions={selectedSnippetCategory}
-                onFilterChange={setSelectedSnippetCategory}
-              />
-            </div>
-
             {/* Snippet Cards */}
             <div className="space-y-6">
               {filteredSnippets.map((snippet) => (
