@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { IconSchool, IconCopy } from '@tabler/icons-react';
+import { typography, colors, spacing, sizing, radius } from '@/shared/design-system';
 
 export default function QuickStartSection() {
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
@@ -18,74 +19,132 @@ export default function QuickStartSection() {
   const steps = [
     {
       title: 'Install',
-      code: `# Clone and install AggSandbox
-git clone 
-https://github.com/NethermindEth/agg-sandbox.git
-cd agg-sandbox && make install`,
+      code: `# Clone and install AggSandbox\ngit clone https://github.com/NethermindEth/agg-sandbox.git\ncd agg-sandbox && make install`,
     },
     {
       title: 'Start Sandbox',
-      code: `# Start local development environment
-aggsandbox start --detach
-
-# Or fork from mainnet
-aggsandbox start --fork --detach`,
+      code: `# Start local development environment\naggsandbox start --detach\n\n# Or fork from mainnet\naggsandbox start --fork --detach`,
     },
     {
-      title: 'Bridge tokens',
-      code: `# Check available bridges
-aggsandbox show bridges --network 1
-
-# Monitor events
-aggsandbox events --chain anvil-l1`,
+      title: 'Interact with the sandbox',
+      code: `# Check available bridges\naggsandbox show bridges --network 0\n\n# Monitor events\naggsandbox events --chain anvil-l1`,
     },
   ];
 
   return (
-    <section id="quick-start" className="py-49 bg-white">
-      <div className="max-w-narrow mx-auto px-6">
+    <section id="quick-start" className="bg-white" style={{ paddingTop: spacing[36], paddingBottom: spacing[12] }}>
+      <div className="mx-auto" style={{ maxWidth: sizing.container.lg, paddingLeft: spacing[6], paddingRight: spacing[6] }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center"
+          style={{ marginBottom: spacing[16] }}
         >
-          <h2 className="font-heading text-4xl font-bold mb-6">
-            Start your <span className="font-medium text-primary">Journey</span>
+          <h2 
+            className="font-heading font-bold"
+            style={{
+              fontFamily: typography.textStyles.h2.fontFamily,
+              fontSize: typography.textStyles.h2.fontSize,
+              fontWeight: typography.textStyles.h2.fontWeight,
+              lineHeight: typography.textStyles.h2.lineHeight,
+              marginBottom: spacing[6],
+            }}
+          >
+            Start your <span style={{ color: colors.primary.DEFAULT }}>Journey</span>
           </h2>
-          <p className="text-base text-secondary max-w-xs mx-auto">
+          <p 
+            className="mx-auto"
+            style={{
+              fontFamily: typography.textStyles.body.fontFamily,
+              fontSize: typography.textStyles.body.fontSize,
+              fontWeight: typography.textStyles.body.fontWeight,
+              lineHeight: typography.textStyles.body.lineHeight,
+              color: colors.text.primary,
+              maxWidth: sizing.container.xs,
+            }}
+          >
             Get your local development environment up and running in under 5 minutes
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-1.5 mb-6">
+        <div 
+          className="flex flex-col md:flex-row mb-6"
+          style={{ gap: spacing.component.microGap }}
+        >
           {steps.map((step, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="bg-gray-100 rounded-2xl p-6"
+              className="flex-1 rounded-3xl"
+              style={{
+                backgroundColor: colors.background.secondary,
+                borderRadius: radius['2xl'],
+                padding: spacing.component.cardPadding,
+              }}
             >
-              <div className="flex items-center justify-between mb-1.5">
-                <h3 className="font-medium text-xs text-primary tracking-button">
-                  {index + 1}. {step.title}
-                </h3>
-                <button
-                  onClick={() => copyToClipboard(step.code, index)}
-                  className="p-0 hover:bg-transparent"
+              <div 
+                className="flex flex-col w-full"
+                style={{ gap: spacing.component.microGap }}
+              >
+                <div 
+                  className="flex items-center justify-between w-full"
+                  style={{ paddingTop: spacing[0.5], paddingBottom: spacing[3] }}
                 >
-                  {copiedStep === index ? (
-                    <CheckIcon className="w-4 h-4 text-primary" />
-                  ) : (
-                    <IconCopy className="w-4 h-4 text-gray-400" />
-                  )}
-                </button>
-              </div>
-              <div className="bg-white rounded-lg p-6 mt-3">
-                <pre className="font-mono text-xs text-black leading-normal whitespace-pre-wrap break-all">
-{step.code}
+                  <ol 
+                    className="list-decimal"
+                    start={index + 1}
+                    style={{
+                      fontFamily: typography.textStyles.button.fontFamily,
+                      fontSize: typography.textStyles.button.fontSize,
+                      fontWeight: typography.textStyles.button.fontWeight,
+                      lineHeight: typography.textStyles.button.lineHeight,
+                      letterSpacing: typography.letterSpacing.button,
+                      color: colors.primary.DEFAULT,
+                      marginLeft: '18px',
+                    }}
+                  >
+                    <li>{step.title}</li>
+                  </ol>
+                  <button
+                    onClick={() => copyToClipboard(step.code, index)}
+                    className="p-0 hover:bg-transparent"
+                    style={{ width: sizing.icon.sm, height: sizing.icon.sm }}
+                  >
+                    {copiedStep === index ? (
+                      <CheckIcon className="w-4 h-4 text-primary" />
+                    ) : (
+                      <IconCopy className="w-4 h-4 text-gray-400" />
+                    )}
+                  </button>
+                </div>
+                <div 
+                  className="rounded-lg w-full"
+                  style={{
+                    backgroundColor: colors.background.primary,
+                    borderRadius: radius.lg,
+                    padding: spacing.component.cardPadding,
+                    maxHeight: sizing.component.codeBlockMaxHeight,
+                    overflow: 'clip',
+                    gap: spacing[4],
+                  }}
+                >
+                <pre 
+                  className="whitespace-pre-wrap break-all text-left w-full"
+                  style={{
+                    fontFamily: `'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Source Code Pro', monospace`,
+                    fontSize: typography.textStyles.code.fontSize,
+                    fontWeight: typography.textStyles.code.fontWeight,
+                    lineHeight: typography.textStyles.code.lineHeight,
+                    letterSpacing: typography.textStyles.code.letterSpacing,
+                    color: colors.text.primary,
+                  }}
+                >
+                  {step.code}
                 </pre>
+              </div>
               </div>
             </motion.div>
           ))}
@@ -99,10 +158,29 @@ aggsandbox events --chain anvil-l1`,
         >
           <Link 
             href="/examples" 
-            className="inline-flex items-center gap-1.5 px-[15px] py-2 rounded-pill text-xs text-gray-500"
+            className="inline-flex items-center"
+            style={{
+              gap: spacing.component.microGap,
+              paddingLeft: spacing.component.buttonPaddingX,
+              paddingRight: spacing.component.buttonPaddingX,
+              paddingTop: spacing.component.buttonPaddingY,
+              paddingBottom: spacing.component.buttonPaddingY,
+              borderRadius: radius.pill,
+              color: colors.neutral.gray[500],
+            }}
           >
-            <IconSchool className="w-4 h-4" />
-            View full tutorial
+            <IconSchool style={{ width: sizing.icon.sm, height: sizing.icon.sm }} />
+            <span 
+              style={{
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.textStyles.bodySmall.fontSize,
+                fontWeight: typography.textStyles.bodySmall.fontWeight,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
+                color: colors.neutral.gray[500],
+              }}
+            >
+              View full tutorial
+            </span>
           </Link>
         </motion.div>
       </div>

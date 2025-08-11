@@ -46,7 +46,7 @@ export default function HeroAndNavigationSection() {
       </div>
 
       {/* Hero content */}
-      <div className="relative max-w-narrow mx-auto px-6 pt-44 pb-6 z-10 w-full text-center">
+      <div className="relative max-w-narrow mx-auto px-6 pt-44 pb-12 z-10 w-full text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -128,15 +128,15 @@ export default function HeroAndNavigationSection() {
                     >
                       {item.title}
                     </h3>
-                                         <p 
-                       className="text-[rgba(0,46,101,0.6)] h-9 line-clamp-2"
-                       style={{
-                         fontFamily: typography.textStyles.bodySmall.fontFamily,
-                         fontSize: typography.textStyles.bodySmall.fontSize,
-                         fontWeight: typography.textStyles.bodySmall.fontWeight,
-                         lineHeight: typography.textStyles.bodySmall.lineHeight,
-                       }}
-                     >
+                    <p 
+                      className="text-[rgba(0,46,101,0.6)] h-9 line-clamp-2"
+                      style={{
+                        fontFamily: typography.textStyles.bodySmall.fontFamily,
+                        fontSize: typography.textStyles.bodySmall.fontSize,
+                        fontWeight: typography.textStyles.bodySmall.fontWeight,
+                        lineHeight: typography.textStyles.bodySmall.lineHeight,
+                      }}
+                    >
                       {item.description}
                     </p>
                   </div>
