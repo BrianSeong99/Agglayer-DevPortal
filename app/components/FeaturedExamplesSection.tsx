@@ -29,7 +29,7 @@ export default function FeaturedExamplesSection() {
   ];
 
   return (
-    <section className="bg-white" style={{ paddingTop: spacing[24] }}>
+    <section className="bg-white" style={{ paddingTop: spacing[24], paddingBottom: spacing[24] }}>
       <div className="mx-auto" style={{ maxWidth: sizing.container.lg, paddingLeft: spacing[6], paddingRight: spacing[6] }}>
         <motion.div
           {...motionTokens.section}
