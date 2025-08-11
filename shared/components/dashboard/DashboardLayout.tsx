@@ -1,12 +1,34 @@
 import { ReactNode } from 'react'
+import { spacing, radius, colors } from '@/shared/design-system'
 import Footer from '../Footer'
 
-export default function DashboardLayout({ children, className = '' }: { children: ReactNode, className?: string }) {
+interface DashboardLayoutProps {
+  children: ReactNode;
+  className?: string;
+  theme?: 'light' | 'dark';
+}
+
+export default function DashboardLayout({ 
+  children, 
+  className = '', 
+  theme = 'dark' 
+}: DashboardLayoutProps) {
+  const backgroundColor = theme === 'light' ? colors.background.primary : 'var(--bg-main, #000)';
+  const textColor = theme === 'light' ? colors.text.primary : 'var(--text-main, #fff)';
+  const shadowColor = theme === 'light' ? 'rgba(0,0,0,0.1)' : 'var(--shadow-card)';
+
   return (
     <>
       <div
-        className={`rounded-2xl p-8 h-full w-full flex flex-col shadow-2xl overflow-auto max-w-7xl mx-auto px-6 pb-20 ${className}`}
-        style={{ color: 'var(--text-main)', boxShadow: 'var(--shadow-card)' }}
+        className={`h-full w-full flex flex-col overflow-auto max-w-7xl mx-auto ${className}`}
+        style={{ 
+          backgroundColor,
+          color: textColor,
+          borderRadius: radius.xl,
+          padding: spacing[8],
+          paddingBottom: spacing[20],
+          boxShadow: `0 25px 50px -12px ${shadowColor}`,
+        }}
       >
         {children}
       </div>
