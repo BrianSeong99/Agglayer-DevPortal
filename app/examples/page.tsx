@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
 import TabComponent from './components/TabComponent';
-import FilterComponent from './components/FilterComponent';
 import ExampleCard from './components/ExampleCard';
 import TutorialCard from './components/TutorialCard';
 import CodeBlock from '@/shared/components/CodeBlock';
@@ -216,17 +215,6 @@ export default function ExamplesPage() {
             transition={motionTokens.section.transition}
             viewport={{ once: true }}
           >
-            {/* Category Filter */}
-            <div className="mb-8">
-              <FilterComponent
-                title="Filter by Category"
-                options={tutorialCategories}
-                selectedOptions={[selectedTutorialCategory]}
-                onFilterChange={(categories) => setSelectedTutorialCategory(categories[0] || 'all')}
-                multiSelect={false}
-              />
-            </div>
-
             {/* Tutorials organized by category */}
             <div className="space-y-12">
               {/* Concepts */}
@@ -373,16 +361,6 @@ export default function ExamplesPage() {
             transition={motionTokens.section.transition}
             viewport={{ once: true }}
           >
-            {/* Category Filter */}
-            <div className="mb-8">
-              <FilterComponent
-                title="Filter by Category"
-                options={snippetCategories}
-                selectedOptions={selectedSnippetCategory}
-                onFilterChange={setSelectedSnippetCategory}
-              />
-            </div>
-
             {/* Snippet Cards */}
             <div className="space-y-6">
               {filteredSnippets.map((snippet) => (
