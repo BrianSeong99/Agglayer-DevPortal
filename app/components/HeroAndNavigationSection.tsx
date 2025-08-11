@@ -10,7 +10,7 @@ import {
 } from '@tabler/icons-react';
 import DecorativeSVGCircles from './svg/DecorativeSVGCircles';
 import StackingCubes from './svg/StackingSquares';
-import { typography } from '@/shared/design-system';
+import { typography, motionTokens } from '@/shared/design-system';
 
 export default function HeroAndNavigationSection() {
   const navigationItems = [
@@ -48,9 +48,7 @@ export default function HeroAndNavigationSection() {
       {/* Hero content */}
       <div className="relative max-w-narrow mx-auto px-6 pt-44 pb-12 z-10 w-full text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...motionTokens.hero}
           className="flex flex-col items-center gap-6 self-stretch"
         >
           <h1 className="font-heading text-5xl font-bold text-black leading-[120%]">
@@ -102,9 +100,8 @@ export default function HeroAndNavigationSection() {
           {navigationItems.map((item, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              {...motionTokens.card}
+              transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
             >
               <Link
                 href={item.href}

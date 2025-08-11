@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { IconArrowRight, IconTelescope } from '@tabler/icons-react';
-import { typography, colors, spacing, sizing, radius } from '@/shared/design-system';
+import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 import StackingSquares from './svg/StackingSquares';
 
 export default function FeaturedExamplesSection() {
@@ -32,9 +32,7 @@ export default function FeaturedExamplesSection() {
     <section className="bg-white" style={{ paddingTop: spacing[24] }}>
       <div className="mx-auto" style={{ maxWidth: sizing.container.lg, paddingLeft: spacing[6], paddingRight: spacing[6] }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...motionTokens.section}
           className="text-center"
           style={{ marginBottom: spacing[16] }}
         >
@@ -73,9 +71,8 @@ export default function FeaturedExamplesSection() {
           {examples.map((example, index) => (
             <motion.div
               key={example.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              {...motionTokens.card}
+              transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
               className="flex-1"
             >
               <Link
@@ -164,9 +161,8 @@ export default function FeaturedExamplesSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          {...motionTokens.section}
+          transition={{ ...motionTokens.section.transition, delay: 0.3 }}
           className="text-center"
         >
           <Link 

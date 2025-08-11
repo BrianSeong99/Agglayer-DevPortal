@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { CheckIcon } from '@heroicons/react/24/outline';
 import { IconSchool, IconCopy } from '@tabler/icons-react';
-import { typography, colors, spacing, sizing, radius } from '@/shared/design-system';
+import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 
 export default function QuickStartSection() {
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
@@ -35,9 +35,7 @@ export default function QuickStartSection() {
     <section id="quick-start" className="bg-white" style={{ paddingTop: spacing[36], paddingBottom: spacing[12] }}>
       <div className="mx-auto" style={{ maxWidth: sizing.container.lg, paddingLeft: spacing[6], paddingRight: spacing[6] }}>
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          {...motionTokens.section}
           className="text-center"
           style={{ marginBottom: spacing[16] }}
         >
@@ -75,9 +73,8 @@ export default function QuickStartSection() {
           {steps.map((step, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
+              {...motionTokens.card}
+              transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
               className="flex-1 rounded-3xl"
               style={{
                 backgroundColor: colors.background.secondary,
@@ -151,9 +148,8 @@ export default function QuickStartSection() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          {...motionTokens.section}
+          transition={{ ...motionTokens.section.transition, delay: 0.3 }}
           className="text-center"
         >
           <Link 

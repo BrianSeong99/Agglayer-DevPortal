@@ -7,12 +7,14 @@ export * from './tokens/colors';
 export * from './tokens/typography';
 export * from './tokens/spacing';
 export * from './tokens/shadows';
+export * from './tokens/motion';
 
 // Re-export all tokens as a unified object
 import { colors } from './tokens/colors';
 import { typography } from './tokens/typography';
 import { spacing, sizing, radius } from './tokens/spacing';
 import { shadows, animations } from './tokens/shadows';
+import { motionTokens } from './tokens/motion';
 
 export const designTokens = {
   colors,
@@ -22,6 +24,7 @@ export const designTokens = {
   radius,
   shadows,
   animations,
+  motion: motionTokens,
 } as const;
 
 // Helper functions for using tokens
