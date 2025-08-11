@@ -9,23 +9,25 @@ import {
   IconBook2
 } from '@tabler/icons-react';
 import DecorativeSVGCircles from './svg/DecorativeSVGCircles';
+import StackingCubes from './svg/StackingSquares';
+import { typography } from '@/shared/design-system';
 
 export default function HeroAndNavigationSection() {
   const navigationItems = [
     {
-      icon: <IconApps />,
+      icon: <StackingCubes />,
       title: 'Learn',
       description: 'Step-by-step tutorials and guides',
       href: '/examples?tab=tutorials',
     },
     {
-      icon: <IconBulb className="w-24 h-24 text-primary/10" />,
+      icon: <StackingCubes />,
       title: 'Examples',
       description: 'Production-ready templates and code samples',
       href: '/examples',
     },
     {
-      icon: <IconTools className="w-24 h-24 text-primary/10" />,
+      icon: <StackingCubes />,
       title: 'Tools',
       description: 'Essential developer tools and SDKs',
       href: '/developers',
@@ -106,21 +108,49 @@ export default function HeroAndNavigationSection() {
             >
               <Link
                 href={item.href}
-                className="group block bg-white/95 backdrop-blur-sm border border-gray-200 rounded-md h-[305px] overflow-hidden transition-all duration-300 hover:shadow-card hover:bg-white"
+                className="group block bg-[#F7FAFE] rounded-[10px] h-[305px] overflow-hidden transition-all duration-300 hover:shadow-card hover:border-[#0071F7]/30"
               >
                 <div className="h-[193px] flex items-center justify-center">
-                  {item.icon}
+                  <div className="w-24 h-24 flex items-center justify-center">
+                    {item.icon}
+                  </div>
                 </div>
-                <div className="p-6 flex items-end h-[112px]">
-                  <div className="flex-1">
-                    <h3 className="font-heading text-base font-bold text-blue-primary leading-tight mb-3">
+                <div className="p-6 flex h-[112px]">
+                  <div className="flex-1 flex flex-col gap-3">
+                    <h3 
+                      className="text-[rgba(0,46,101,0.9)] h-4"
+                      style={{
+                        fontFamily: typography.textStyles.h6.fontFamily,
+                        fontSize: typography.textStyles.h6.fontSize,
+                        fontWeight: typography.textStyles.h6.fontWeight,
+                        lineHeight: typography.textStyles.h6.lineHeight,
+                      }}
+                    >
                       {item.title}
                     </h3>
-                    <p className="font-mono text-xs text-blue-light leading-normal">
+                                         <p 
+                       className="text-[rgba(0,46,101,0.6)] h-9 line-clamp-2"
+                       style={{
+                         fontFamily: typography.textStyles.bodySmall.fontFamily,
+                         fontSize: typography.textStyles.bodySmall.fontSize,
+                         fontWeight: typography.textStyles.bodySmall.fontWeight,
+                         lineHeight: typography.textStyles.bodySmall.lineHeight,
+                       }}
+                     >
                       {item.description}
                     </p>
                   </div>
-                  <span className="font-mono text-lg text-primary ml-3">→</span>
+                  <span 
+                    className="text-[#0071F7] ml-3 self-end"
+                    style={{
+                      fontFamily: typography.fontFamily.mono.join(', '),
+                      fontSize: typography.fontSize.lg,
+                      fontWeight: typography.fontWeight.regular,
+                      lineHeight: typography.lineHeight.normal,
+                    }}
+                  >
+                    →
+                  </span>
                 </div>
               </Link>
             </motion.div>
