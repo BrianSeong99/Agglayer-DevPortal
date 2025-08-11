@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import { Button } from '@/shared/components/ui/button';
+import { typography, colors, spacing } from '@/shared/design-system';
 
 interface CodeBlockProps {
   code: string;
@@ -81,60 +81,60 @@ const SyntaxHighlighter = ({ code, language }: { code: string; language: string 
 
         // Comments
         if (token === '/' && nextToken === '/') {
-          return <span key={index} className="text-gray-500">{token}</span>;
+          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
         }
         if (prevToken === '/' && token === '/') {
-          return <span key={index} className="text-gray-500">{token}</span>;
+          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
         }
         if (inComment) {
-          return <span key={index} className="text-gray-500">{token}</span>;
+          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
         }
 
         // Strings
         if (token === '"' || token === "'" || token === '`') {
-          return <span key={index} className="text-green-400">{token}</span>;
+          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
         }
         if (inString) {
-          return <span key={index} className="text-green-400">{token}</span>;
+          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
         }
 
         // Keywords
         if (keywords.has(token)) {
-          return <span key={index} className="text-purple-400">{token}</span>;
+          return <span key={index} style={{ color: '#7C3AED' }}>{token}</span>;
         }
 
         // Types and built-ins
         if (types.has(token)) {
-          return <span key={index} className="text-cyan-400">{token}</span>;
+          return <span key={index} style={{ color: colors.primary.DEFAULT }}>{token}</span>;
         }
 
         // Numbers
         if (/^\d+\.?\d*$/.test(token)) {
-          return <span key={index} className="text-orange-400">{token}</span>;
+          return <span key={index} style={{ color: '#EA580C' }}>{token}</span>;
         }
 
         // Function calls (token followed by '(')
         if (nextToken === '(' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
-          return <span key={index} className="text-yellow-300">{token}</span>;
+          return <span key={index} style={{ color: '#DC2626' }}>{token}</span>;
         }
 
         // Object properties (after '.')
         if (prevToken === '.' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
-          return <span key={index} className="text-blue-300">{token}</span>;
+          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
         }
 
         // Object keys (before ':')
         if (nextToken === ':' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
-          return <span key={index} className="text-blue-300">{token}</span>;
+          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
         }
 
         // Operators
         if (/^(===|!==|==|!=|<=|>=|&&|\|\||=>|\+\+|--|\.\.\.|\+|-|\*|\/|%|=|!|\?|:|<|>)$/.test(token)) {
-          return <span key={index} className="text-pink-400">{token}</span>;
+          return <span key={index} style={{ color: '#BE185D' }}>{token}</span>;
         }
 
         // Default
-        return <span key={index} className="text-gray-200">{token}</span>;
+        return <span key={index} style={{ color: 'rgba(0,46,101,0.9)' }}>{token}</span>;
       })}
     </>
   );
@@ -157,38 +157,97 @@ export default function CodeBlock({
   const lines = code.split('\n');
 
   return (
-    <div className={`relative group ${className}`}>
-      <div className="absolute top-2 right-2 flex items-center gap-2">
+    <div style={{ 
+      position: 'relative',
+      backgroundColor: '#F7FAFE',
+      borderRadius: '10px',
+      overflow: 'hidden',
+      border: '1px solid rgba(0,113,247,0.1)',
+      ...className && { className }
+    }}>
+      {/* Header with language and copy button */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: spacing[4],
+        backgroundColor: '#EAF3FD',
+        borderBottom: '1px solid rgba(0,113,247,0.1)'
+      }}>
         {language && (
-          <span className="text-xs text-gray-400 px-2 py-1 bg-black/50 rounded">
-            {language}
+          <span style={{
+            fontSize: '10px',
+            fontFamily: 'Inter, sans-serif',
+            fontWeight: typography.fontWeight.medium,
+            color: colors.primary.DEFAULT,
+            backgroundColor: 'rgba(0,113,247,0.05)',
+            border: '1px solid rgba(0,113,247,0.14)',
+            borderRadius: '3px',
+            padding: `${spacing[1]} ${spacing[2]}`,
+            lineHeight: '12px'
+          }}>
+            {language.toUpperCase()}
           </span>
         )}
-        <Button
+        
+        <button
           onClick={copyToClipboard}
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 bg-black/50 hover:bg-black/70"
-          aria-label="Copy code"
+          style={{
+            backgroundColor: copied ? 'rgba(34, 197, 94, 0.1)' : '#ffffff',
+            color: copied ? '#22C55E' : colors.primary.DEFAULT,
+            border: `1px solid ${copied ? 'rgba(34, 197, 94, 0.3)' : 'rgba(0,113,247,0.14)'}`,
+            borderRadius: '3px',
+            padding: `${spacing[2]} ${spacing[3]}`,
+            fontSize: '10px',
+            fontFamily: 'Inter, sans-serif',
+            fontWeight: typography.fontWeight.medium,
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: spacing[1],
+            lineHeight: '12px',
+            transition: 'all 0.2s ease'
+          }}
         >
           {copied ? (
-            <CheckIcon className="w-4 h-4 text-green-400" />
+            <>
+              <CheckIcon style={{ width: '12px', height: '12px' }} />
+              <span>Copied!</span>
+            </>
           ) : (
-            <DocumentDuplicateIcon className="w-4 h-4 text-gray-400" />
+            <>
+              <DocumentDuplicateIcon style={{ width: '12px', height: '12px' }} />
+              <span>Copy</span>
+            </>
           )}
-        </Button>
+        </button>
       </div>
 
-      <div className="bg-[#0A0A0A] border border-white/10 rounded-lg overflow-hidden">
-        <pre className="p-4 overflow-x-auto">
-          <code className="text-sm font-mono">
+      {/* Code content */}
+      <div style={{
+        padding: spacing[6],
+        backgroundColor: '#FFFFFF',
+        fontFamily: 'SF Mono, Monaco, Consolas, Liberation Mono, Courier New, monospace',
+        fontSize: '12px',
+        lineHeight: 1.5,
+        overflow: 'auto'
+      }}>
+        <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
+          <code>
             {showLineNumbers ? (
               lines.map((line, index) => (
-                <div key={index} className="flex">
-                  <span className="text-gray-500 mr-4 select-none w-8 text-right">
+                <div key={index} style={{ display: 'flex' }}>
+                  <span style={{
+                    color: 'rgba(0,46,101,0.4)',
+                    marginRight: spacing[4],
+                    userSelect: 'none',
+                    width: '32px',
+                    textAlign: 'right',
+                    flexShrink: 0
+                  }}>
                     {index + 1}
                   </span>
-                  <span className="flex-1">
+                  <span style={{ flex: 1 }}>
                     <SyntaxHighlighter code={line} language={language} />
                   </span>
                 </div>
