@@ -1,11 +1,9 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { StarIcon, CodeBracketIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { StarIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/shared/components/ui/card';
-import { Button } from '@/shared/components/ui/button';
-import { Badge } from '@/shared/components/ui/badge';
+import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
 
 interface ExampleCardProps {
   title: string;
@@ -20,97 +18,252 @@ interface ExampleCardProps {
   demoUrl?: string;
   codeUrl?: string;
   tutorialUrl?: string;
+  index?: number; // Add index prop for stagger animation
 }
 
 export default function ExampleCard({
   title,
   description,
-  image,
   techStack,
   stats,
   demoUrl,
   codeUrl,
   tutorialUrl,
+  index = 0,
 }: ExampleCardProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={motionTokens.card.initial}
+      whileInView={motionTokens.card.whileInView}
+      transition={{
+        ...motionTokens.card.transition,
+        delay: index * 0.1
+      }}
+      viewport={{ once: true }}
+      style={{
+        backgroundColor: '#F7FAFE',
+        borderRadius: '10px',
+        overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%'
+      }}
     >
-      <Card className="bg-[#17171797] border-white/10 hover:border-[#0071F7]/50 transition-all h-full">
-        {/* Preview Image */}
-        {image && (
-          <div className="aspect-video bg-gradient-to-br from-[#0071F7]/20 to-transparent p-8 flex items-center justify-center">
-            <CodeBracketIcon className="w-16 h-16 text-[#0071F7]/50" />
-          </div>
-        )}
+      {/* Preview Image Placeholder */}
+      <div style={{
+        backgroundColor: '#EAF3FD',
+        height: '207px',
+        borderRadius: '5px',
+        margin: spacing[6],
+        marginBottom: spacing[2.5],
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        {/* Placeholder for image */}
+      </div>
 
-        <CardHeader>
-          <CardTitle className="text-xl text-white">{title}</CardTitle>
-          <CardDescription className="text-[#D9D9D9]">{description}</CardDescription>
-        </CardHeader>
+      {/* Content */}
+      <div style={{
+        padding: `0 ${spacing[6]} ${spacing[2.5]} ${spacing[6]}`,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: spacing[3]
+      }}>
+        {/* Title */}
+        <h3 style={{
+          fontFamily: 'Inter Tight, sans-serif',
+          fontSize: '15px',
+          fontWeight: typography.fontWeight.bold,
+          lineHeight: 1.08,
+          color: 'rgba(0,46,101,0.9)',
+          margin: 0
+        }}>
+          {title}
+        </h3>
 
-        <CardContent className="space-y-4">
-          {/* Tech Stack */}
-          <div className="flex flex-wrap gap-2">
-            {techStack.map((tech) => (
-              <Badge
-                key={tech}
-                variant="outline"
-                className="bg-white/5 border-white/10 text-[#D9D9D9]"
-              >
-                {tech}
-              </Badge>
-            ))}
-          </div>
+        {/* Description */}
+        <p style={{
+          fontFamily: 'SF Mono, monospace',
+          fontSize: '12px',
+          fontWeight: typography.fontWeight.regular,
+          lineHeight: 1.5,
+          color: 'rgba(0,46,101,0.8)',
+          margin: 0
+        }}>
+          {description}
+        </p>
 
-          {/* Stats */}
-          <div className="flex items-center gap-4 text-sm text-[#D9D9D9]">
-            <div className="flex items-center gap-1">
-              <StarIcon className="w-4 h-4" />
-              <span>{stats.stars}</span>
+        {/* Tech Stack */}
+        <div style={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: spacing[1.5]
+        }}>
+          {techStack.map((tech) => (
+            <div
+              key={tech}
+              style={{
+                backgroundColor: 'rgba(0,113,247,0.05)',
+                border: '1px solid rgba(0,113,247,0.14)',
+                borderRadius: '3px',
+                padding: `${spacing[1]} ${spacing[2]}`,
+                fontSize: '10px',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: typography.fontWeight.medium,
+                color: colors.primary.DEFAULT,
+                lineHeight: '12px'
+              }}
+            >
+              {tech}
             </div>
-            <div className="flex items-center gap-1">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z" />
-              </svg>
-              <span>{stats.forks}</span>
-            </div>
-            <span className="text-xs">Updated {stats.lastUpdated}</span>
-          </div>
+          ))}
+        </div>
+      </div>
 
-        </CardContent>
-
-        <CardFooter className="flex gap-2">
+      {/* Actions and Stats */}
+      <div style={{
+        padding: spacing[6],
+        display: 'flex',
+        flexDirection: 'column',
+        gap: spacing[6]
+      }}>
+        {/* Action Buttons */}
+        <div style={{
+          display: 'flex',
+          gap: spacing[1.5]
+        }}>
+          {/* Demo Button */}
           {demoUrl && (
-            <Button asChild className="flex-1">
-              <Link href={demoUrl}>
-                Live Demo
-              </Link>
-            </Button>
+            <button style={{
+              flex: 1,
+              backgroundColor: colors.primary.DEFAULT,
+              color: '#ffffff',
+              border: 'none',
+              borderRadius: '3px',
+              padding: `${spacing[2]} ${spacing[4]}`,
+              fontSize: '10px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: typography.fontWeight.bold,
+              cursor: 'pointer',
+              lineHeight: '12px'
+            }}>
+              Demo
+            </button>
           )}
+
+          {/* Source Button */}
           {codeUrl && (
-            <Button asChild variant="outline" className="flex-1">
-              <a
-                href={codeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-1"
-              >
-                View Code
-                <ArrowTopRightOnSquareIcon className="w-3 h-3" />
-              </a>
-            </Button>
+            <a
+              href={codeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                flex: 1,
+                backgroundColor: '#ffffff',
+                color: colors.primary.DEFAULT,
+                border: '1px solid rgba(0,113,247,0.14)',
+                borderRadius: '3px',
+                padding: `${spacing[2]} ${spacing[4]}`,
+                fontSize: '10px',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: typography.fontWeight.medium,
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: spacing[1.5],
+                lineHeight: '12px'
+              }}
+            >
+              Source
+              <ArrowTopRightOnSquareIcon style={{ width: '12px', height: '12px' }} />
+            </a>
           )}
+
+          {/* Tutorial Button */}
           {tutorialUrl && (
-            <Button asChild variant="outline" className="flex-1">
-              <Link href={tutorialUrl}>
-                Tutorial
-              </Link>
-            </Button>
+            <Link
+              href={tutorialUrl}
+              style={{
+                flex: 1,
+                backgroundColor: '#ffffff',
+                color: colors.primary.DEFAULT,
+                border: '1px solid rgba(0,113,247,0.14)',
+                borderRadius: '3px',
+                padding: `${spacing[2]} ${spacing[4]}`,
+                fontSize: '10px',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: typography.fontWeight.medium,
+                cursor: 'pointer',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                lineHeight: '12px'
+              }}
+            >
+              Tutorial
+            </Link>
           )}
-        </CardFooter>
-      </Card>
+        </div>
+
+        {/* Stats */}
+        <div style={{
+          display: 'flex',
+          gap: spacing[3]
+        }}>
+          {/* Stars */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '3px'
+          }}>
+            <StarIcon style={{ width: '12px', height: '12px', color: '#002e65' }} />
+            <span style={{
+              fontSize: '10px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: typography.fontWeight.medium,
+              color: '#002e65',
+              lineHeight: '12px'
+            }}>
+              {stats.stars}
+            </span>
+          </div>
+
+          {/* Forks */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '3px'
+          }}>
+            <svg width="12" height="12" fill="#002e65" viewBox="0 0 16 16">
+              <path d="M5 5.372v.878c0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75v-.878a2.25 2.25 0 1 1 1.5 0v.878a2.25 2.25 0 0 1-2.25 2.25h-1.5v2.128a2.251 2.251 0 1 1-1.5 0V8.5h-1.5A2.25 2.25 0 0 1 3.5 6.25v-.878a2.25 2.25 0 1 1 1.5 0ZM5 3.25a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Zm6.75.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-3 8.75a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z" />
+            </svg>
+            <span style={{
+              fontSize: '10px',
+              fontFamily: 'Inter, sans-serif',
+              fontWeight: typography.fontWeight.medium,
+              color: '#002e65',
+              lineHeight: '12px'
+            }}>
+              {stats.forks}
+            </span>
+          </div>
+
+          {/* Last Updated */}
+          <span style={{
+            fontSize: '10px',
+            fontFamily: 'Inter, sans-serif',
+            fontWeight: typography.fontWeight.medium,
+            color: '#002e65',
+            lineHeight: '12px'
+          }}>
+            Updated {stats.lastUpdated}
+          </span>
+        </div>
+      </div>
     </motion.div>
   );
 }

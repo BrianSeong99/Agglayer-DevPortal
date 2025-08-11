@@ -3,17 +3,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
 
-interface DashboardHeaderProps {
+interface PageHeaderProps {
   title: string;
   subtitle?: string;
   theme?: 'light' | 'dark';
 }
 
-export default function DashboardHeader({ 
+export default function PageHeader({ 
   title, 
   subtitle, 
   theme = 'light' 
-}: DashboardHeaderProps) {
+}: PageHeaderProps) {
   const titleColor = theme === 'light' ? colors.text.primary : colors.background.primary;
   const subtitleColor = theme === 'light' ? colors.text.primary : '#D9D9D9';
 
