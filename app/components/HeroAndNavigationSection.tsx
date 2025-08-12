@@ -51,7 +51,7 @@ export default function HeroAndNavigationSection() {
         >
           <h1 className="font-heading text-5xl font-bold text-black leading-[120%]">
             Start Building<br />
-            <span className="font-medium text-primary">Cross-Chain Apps</span>
+            <span className="font-medium text-primary">Crosschain Apps</span>
           </h1>
           
           <p className="text-base text-black max-w-xs mx-auto">
