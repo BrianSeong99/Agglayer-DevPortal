@@ -92,13 +92,19 @@ export default function ChainsPage() {
   return (
     <PageLayout theme="light">
       {/* Header Section with Title and Controls */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'flex-start',
-        justifyContent: 'space-between',
-        width: sizing.container.lg,
-        gap: spacing[16]
-      }}>
+      <motion.div 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={motionTokens.section.transition}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'space-between',
+          width: sizing.container.lg,
+          gap: spacing[16]
+        }}
+      >
         {/* Page Header */}
         <PageHeader 
           title={
@@ -119,28 +125,92 @@ export default function ChainsPage() {
         }}>
           <ViewToggle view={view} onViewChange={setView} />
         </div>
-      </div>
+      </motion.div>
+
+      {/* Metrics Dashboard Section */}
+      <motion.div 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={{
+          ...motionTokens.section.transition,
+          delay: 0.1 // Slight delay after header
+        }}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: sizing.container.lg,
+          gap: spacing[6]
+        }}
+      >
+
+        {/* Single Ecosystem Overview Iframe */}
+        <motion.div
+          initial={motionTokens.section.initial}
+          whileInView={motionTokens.section.whileInView}
+          transition={{
+            ...motionTokens.section.transition,
+            delay: 0.15 // Reduced delay
+          }}
+          viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+          style={{
+            borderRadius: radius.lg,
+            overflow: 'hidden',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            backgroundColor: '#ffffff',
+            width: '100%'
+          }}
+        >
+          <iframe 
+            src="https://www.agglayerzone.com/embed/ecosystem?view=overview" 
+            width="100%" 
+            height="600" 
+            frameBorder="0"
+            style={{ border: 'none', borderRadius: radius.lg }}
+          />
+        </motion.div>
+      </motion.div>
 
       {/* Search and Filters */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: sizing.container.lg
-      }}>
+      {/* <motion.div 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={{
+          ...motionTokens.section.transition,
+          delay: 0.1 // Reduced delay
+        }}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: sizing.container.lg
+        }}
+      >
         <SearchAndFilters 
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           selectedFilters={selectedFilters}
           onFiltersChange={setSelectedFilters}
         />
-      </div>
+      </motion.div> */}
 
       {/* Content Section */}
-      <div style={{ 
-        width: sizing.container.lg,
-        marginBottom: '96px'
-      }}>
+      <motion.div 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={{
+          ...motionTokens.section.transition,
+          delay: 0.1 // Reduced delay
+        }}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{ 
+          width: sizing.container.lg,
+          marginBottom: '96px'
+        }}
+      >
         {view === 'list' ? (
           /* List View */
           <div style={{
@@ -149,11 +219,20 @@ export default function ChainsPage() {
             gap: spacing[12]
           }}>
             {/* Mainnet Network Section */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: spacing[3]
-            }}>
+            <motion.div 
+              initial={motionTokens.section.initial}
+              whileInView={motionTokens.section.whileInView}
+              transition={{
+                ...motionTokens.section.transition,
+                delay: 0.1 // Reduced delay
+              }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing[3]
+              }}
+            >
               <SubHeader
                 title="Mainnet Network"
                 badgeText={`${mainnetChains.length} chains`}
@@ -170,46 +249,90 @@ export default function ChainsPage() {
               />
 
               {/* Chain Rows */}
-              <div>
-                {mainnetChains.map((chain) => (
-                  <ChainRow 
-                    key={chain.id}
-                    chain={chain}
-                    isExpanded={expandedChain === chain.id}
-                    onToggleExpand={() => toggleExpand(chain.id)}
-                    onCopyRpc={copyToClipboard}
-                    copiedChainId={copiedChainId}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Testnet Section (if any) */}
-            {testnetChains.length > 0 && (
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                gap: spacing[3]
+                gap: spacing[3] // Add gap between rows
               }}>
-                <SubHeader
-                  title="Testnet Network"
-                  badgeText={`${testnetChains.length} chains`}
-                  theme="light"
-                />
-
-                <div>
-                  {testnetChains.map((chain) => (
+                {mainnetChains.map((chain, index) => (
+                  <motion.div
+                    key={chain.id}
+                    initial={motionTokens.section.initial}
+                    whileInView={motionTokens.section.whileInView}
+                    transition={{
+                      ...motionTokens.section.transition,
+                      delay: 0.15 + (index * 0.05) // Much smaller stagger
+                    }}
+                    viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                  >
                     <ChainRow 
-                      key={chain.id}
                       chain={chain}
                       isExpanded={expandedChain === chain.id}
                       onToggleExpand={() => toggleExpand(chain.id)}
                       onCopyRpc={copyToClipboard}
                       copiedChainId={copiedChainId}
                     />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Testnet Section (if any) */}
+            {testnetChains.length > 0 && (
+              <motion.div 
+                initial={motionTokens.section.initial}
+                whileInView={motionTokens.section.whileInView}
+                transition={{
+                  ...motionTokens.section.transition,
+                  delay: 0.1 // Reduced delay
+                }}
+                viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: spacing[3]
+                }}
+              >
+                <SubHeader
+                  title="Testnet Network"
+                  badgeText={`${testnetChains.length} chains`}
+                  theme="light"
+                />
+
+                {/* Table Header */}
+                <ChainTableHeader 
+                  sortField={sortField}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                />
+
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: spacing[3] // Add gap between rows
+                }}>
+                  {testnetChains.map((chain, index) => (
+                    <motion.div
+                      key={chain.id}
+                      initial={motionTokens.section.initial}
+                      whileInView={motionTokens.section.whileInView}
+                      transition={{
+                        ...motionTokens.section.transition,
+                        delay: 0.15 + (index * 0.05) // Much smaller stagger
+                      }}
+                      viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                    >
+                      <ChainRow 
+                        chain={chain}
+                        isExpanded={expandedChain === chain.id}
+                        onToggleExpand={() => toggleExpand(chain.id)}
+                        onCopyRpc={copyToClipboard}
+                        copiedChainId={copiedChainId}
+                      />
+                    </motion.div>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
         ) : (
@@ -220,11 +343,20 @@ export default function ChainsPage() {
             gap: spacing[12]
           }}>
             {/* Mainnet Network Section */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: spacing[3]
-            }}>
+            <motion.div 
+              initial={motionTokens.section.initial}
+              whileInView={motionTokens.section.whileInView}
+              transition={{
+                ...motionTokens.section.transition,
+                delay: 0.1 // Reduced delay
+              }}
+              viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing[3]
+              }}
+            >
               <SubHeader
                 title="Mainnet Network"
                 badgeText={`${mainnetChains.length} chains`}
@@ -242,12 +374,21 @@ export default function ChainsPage() {
                 width: '940px'
               }}>
                 {/* First Row - 3 Cards */}
-                <div style={{
-                  display: 'flex',
-                  gap: spacing[3],
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
+                <motion.div 
+                  initial={motionTokens.section.initial}
+                  whileInView={motionTokens.section.whileInView}
+                  transition={{
+                    ...motionTokens.section.transition,
+                    delay: 0.15 // Reduced delay
+                  }}
+                  viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                  style={{
+                    display: 'flex',
+                    gap: spacing[3],
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
                   {mainnetChains.slice(0, 3).map((chain, index) => (
                     <ChainGridCard
                       key={chain.id}
@@ -257,16 +398,25 @@ export default function ChainsPage() {
                       onCopyRpc={copyToClipboard}
                     />
                   ))}
-                </div>
+                </motion.div>
 
                 {/* Second Row - 3 Cards */}
                 {mainnetChains.length > 3 && (
-                  <div style={{
-                    display: 'flex',
-                    gap: spacing[3],
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
+                  <motion.div 
+                    initial={motionTokens.section.initial}
+                    whileInView={motionTokens.section.whileInView}
+                    transition={{
+                      ...motionTokens.section.transition,
+                      delay: 0.2 // Reduced delay
+                    }}
+                    viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                    style={{
+                      display: 'flex',
+                      gap: spacing[3],
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
                     {mainnetChains.slice(3, 6).map((chain, index) => (
                       <ChainGridCard
                         key={chain.id}
@@ -276,17 +426,26 @@ export default function ChainsPage() {
                         onCopyRpc={copyToClipboard}
                       />
                     ))}
-                  </div>
+                  </motion.div>
                 )}
 
                 {/* Third Row - 3 Cards */}
                 {mainnetChains.length > 6 && (
-                  <div style={{
-                    display: 'flex',
-                    gap: spacing[3],
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
+                  <motion.div 
+                    initial={motionTokens.section.initial}
+                    whileInView={motionTokens.section.whileInView}
+                    transition={{
+                      ...motionTokens.section.transition,
+                      delay: 0.25 // Reduced delay
+                    }}
+                    viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                    style={{
+                      display: 'flex',
+                      gap: spacing[3],
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
                     {mainnetChains.slice(6, 9).map((chain, index) => (
                       <ChainGridCard
                         key={chain.id}
@@ -296,18 +455,27 @@ export default function ChainsPage() {
                         onCopyRpc={copyToClipboard}
                       />
                     ))}
-                  </div>
+                  </motion.div>
                 )}
               </div>
-            </div>
+            </motion.div>
 
             {/* Testnet Section (if any) */}
             {testnetChains.length > 0 && (
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: spacing[3]
-              }}>
+              <motion.div 
+                initial={motionTokens.section.initial}
+                whileInView={motionTokens.section.whileInView}
+                transition={{
+                  ...motionTokens.section.transition,
+                  delay: 0.1 // Reduced delay
+                }}
+                viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: spacing[3]
+                }}
+              >
                 <SubHeader
                   title="Testnet Network"
                   badgeText={`${testnetChains.length} chains`}
@@ -323,12 +491,21 @@ export default function ChainsPage() {
                   width: '940px'
                 }}>
                   {/* Testnet Row */}
-                  <div style={{
-                    display: 'flex',
-                    gap: spacing[3],
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
+                  <motion.div 
+                    initial={motionTokens.section.initial}
+                    whileInView={motionTokens.section.whileInView}
+                    transition={{
+                      ...motionTokens.section.transition,
+                      delay: 0.15 // Reduced delay
+                    }}
+                    viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+                    style={{
+                      display: 'flex',
+                      gap: spacing[3],
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
                     {testnetChains.slice(0, 3).map((chain, index) => (
                       <ChainGridCard
                         key={chain.id}
@@ -351,13 +528,13 @@ export default function ChainsPage() {
                         }}
                       />
                     )}
-                  </div>
+                  </motion.div>
                 </div>
-              </div>
+              </motion.div>
             )}
           </div>
         )}
-      </div>
+      </motion.div>
     </PageLayout>
   );
 }
