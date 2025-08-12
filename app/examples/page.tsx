@@ -4,14 +4,13 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
-import TabComponent from './components/TabComponent';
 import ExampleCard from './components/ExampleCard';
 import TutorialCard from './components/TutorialCard';
 import CodeBlock from './components/CodeBlock';
 import { examples } from './data/examples';
 import { codeSnippets } from './data/codeSnippets';
 import { tutorials } from './data/tutorials';
-import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
+import { typography, colors, spacing, motionTokens, sizing } from '@/shared/design-system';
 
 export default function ExamplesPage() {
   const [activeTab, setActiveTab] = useState('examples');
@@ -57,11 +56,29 @@ export default function ExamplesPage() {
 
   return (
     <PageLayout theme="light">
-      <PageHeader
-        title="Templates, Tutorials & Examples"
-        subtitle="Learn by building with production-ready templates and step-by-step guides"
-        theme="light"
-      />
+      <div style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        width: sizing.container.lg
+      }}>
+        <PageHeader
+          title={
+            <>
+              Templates, Tutorials{' '}
+              <span style={{ 
+                fontFamily: 'Inter Tight, sans-serif',
+                fontWeight: 500,
+                color: colors.primary.DEFAULT 
+              }}>
+                & Examples
+              </span>
+            </>
+          }
+          subtitle="Learn by building with production-ready templates and step-by-step guides"
+          theme="light"
+        />
+      </div>
 
       {/* Tab Navigation and Filter Row */}
       <motion.div 
