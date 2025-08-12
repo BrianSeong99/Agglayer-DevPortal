@@ -170,7 +170,11 @@ export default function ChainsPage() {
               />
 
               {/* Chain Rows */}
-              <div>
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing[3] // Add gap between rows
+              }}>
                 {mainnetChains.map((chain) => (
                   <ChainRow 
                     key={chain.id}
@@ -197,7 +201,18 @@ export default function ChainsPage() {
                   theme="light"
                 />
 
-                <div>
+                {/* Table Header */}
+                <ChainTableHeader 
+                  sortField={sortField}
+                  sortDirection={sortDirection}
+                  onSort={handleSort}
+                />
+
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: spacing[3] // Add gap between rows
+                }}>
                   {testnetChains.map((chain) => (
                     <ChainRow 
                       key={chain.id}

@@ -1,6 +1,10 @@
-import { motion } from 'framer-motion';
-import { typography, colors, spacing } from '@/shared/design-system';
-import { type Chain } from '../data/chains';
+'use client';
+
+import React from 'react';
+import { ChevronDownIcon, ChevronUpIcon, DocumentDuplicateIcon, CheckIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { typography, colors, spacing, radius } from '@/shared/design-system';
+import { TABLE_CONFIG } from '../config/tableConfig';
+import type { Chain } from '../data/chains';
 
 interface ChainRowProps {
   chain: Chain;
@@ -10,33 +14,36 @@ interface ChainRowProps {
   copiedChainId: number | null;
 }
 
-export default function ChainRow({ 
-  chain, 
-  isExpanded, 
-  onToggleExpand, 
-  onCopyRpc, 
-  copiedChainId 
+export default function ChainRow({
+  chain,
+  isExpanded,
+  onToggleExpand,
+  onCopyRpc,
+  copiedChainId
 }: ChainRowProps) {
-  
+  // Get status styling
   const getStatusStyle = (status: string) => {
     switch (status) {
-      case 'Live': 
+      case 'Live':
         return { 
-          bg: '#E9FFE9', 
+          bg: '#e9ffe9', 
           text: '#008000', 
-          border: '#008000' 
+          border: '#008000',
+          label: 'Live' // Keep the original label
         };
-      case 'Testnet': 
+      case 'Testnet':
         return { 
-          bg: '#FFF4E0', 
-          text: '#D18B0C', 
-          border: '#D18B0C' 
+          bg: '#fff4e0', 
+          text: '#d18b0c', 
+          border: '#d18b0c',
+          label: 'Testnet'
         };
-      default: 
+      default:
         return { 
-          bg: 'rgba(0,113,247,0.05)', 
-          text: colors.primary.DEFAULT, 
-          border: 'rgba(0,113,247,0.14)' 
+          bg: '#e9ffe9', 
+          text: '#008000', 
+          border: '#008000',
+          label: status
         };
     }
   };
@@ -44,361 +51,498 @@ export default function ChainRow({
   const statusStyle = getStatusStyle(chain.status);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      style={{
-        backgroundColor: isExpanded ? '#E9F3FF' : '#F7FAFE',
-        borderRadius: '10px',
-        overflow: 'hidden',
-        marginBottom: spacing[3]
-      }}
-    >
+    <div style={{
+      width: '100%' // Use full width instead of fixed 940px
+    }}>
       {/* Main Row */}
       <div style={{
+        backgroundColor: isExpanded ? '#e9f3ff' : '#f7fafe',
         display: 'flex',
-        alignItems: 'center',
-        padding: isExpanded ? spacing[4] : `0 ${spacing[4]}`,
-        height: '47px',
-        cursor: 'pointer'
-      }}
-      onClick={onToggleExpand}
-      >
-        {/* Chain Info */}
-        <div style={{
-          width: '200px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: spacing[3]
-        }}>
-          <div style={{
-            width: '24px',
-            height: '24px',
-            backgroundColor: colors.primary.DEFAULT,
-            borderRadius: '0px'
-          }} />
-          
-          <div style={{
-            fontSize: '15px',
-            fontWeight: typography.fontWeight.bold,
-            color: 'rgba(0,46,101,0.9)',
-            fontFamily: 'Inter Tight, sans-serif',
-            lineHeight: '1.08'
-          }}>
-            {chain.name}
-          </div>
-        </div>
-
-        {/* Chain Data */}
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        padding: isExpanded ? '16px' : `0 ${spacing[4]}`,
+        borderRadius: '10px',
+        width: '100%'
+      }}>
         <div style={{
           display: 'flex',
+          gap: spacing[6],
+          height: '47px',
+          width: '100%', // Add this to match ChainTableHeader
           alignItems: 'center',
-          justifyContent: 'space-between',
-          flex: 1,
-          width: '555px'
+          justifyContent: 'flex-start' // Using flex-start like Figma
         }}>
+          {/* Chain Name with Icon */}
           <div style={{
-            width: '67px',
-            fontSize: '12px',
-            fontFamily: 'SF Mono, monospace',
-            color: 'rgba(0,46,101,0.8)',
-            textAlign: 'center',
-            lineHeight: '1.5'
-          }}>
-            {chain.gasToken}
-          </div>
-
-          <div style={{
-            width: '75px',
-            fontSize: '12px',
-            fontFamily: 'SF Mono, monospace',
-            color: 'rgba(0,46,101,0.8)',
-            textAlign: 'right',
-            lineHeight: '1.5'
-          }}>
-            {chain.blockTime}
-          </div>
-
-          <div style={{
-            width: '100px',
-            fontSize: '12px',
-            fontFamily: 'SF Mono, monospace',
-            color: 'rgba(0,46,101,0.8)',
-            textAlign: 'right',
-            lineHeight: '1.5'
-          }}>
-            {chain.tps}
-          </div>
-        </div>
-
-        {/* Status Badge */}
-        <div style={{
-          backgroundColor: statusStyle.bg,
-          color: statusStyle.text,
-          border: `1px solid ${statusStyle.border}`,
-          borderRadius: '6px',
-          padding: `${spacing[1]} ${spacing[2.5]}`,
-          fontSize: '12px',
-          fontFamily: 'Inter, sans-serif',
-          fontWeight: typography.fontWeight.medium,
-          lineHeight: '1.08'
-        }}>
-          {chain.status}
-        </div>
-
-        {/* Expand Arrow */}
-        <div style={{
-          marginLeft: spacing[4],
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '12px',
-          height: '12px'
-        }}>
-          <svg 
-            width="11" 
-            height="12" 
-            viewBox="0 0 11 12" 
-            fill="none"
-            style={{
-              transform: isExpanded ? 'rotate(270deg)' : 'rotate(90deg)',
-              transition: 'transform 0.2s ease'
-            }}
-          >
-            <path 
-              d="M3 4L5.5 6.5L8 4" 
-              stroke="rgba(0,46,101,0.8)" 
-              strokeWidth="1.5" 
-              strokeLinecap="round" 
-              strokeLinejoin="round"
-            />
-          </svg>
-        </div>
-      </div>
-
-      {/* Expanded Content */}
-      {isExpanded && (
-        <motion.div
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: 'auto' }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-          style={{
-            borderTop: '1px solid #D8EAFF',
-            padding: spacing[4],
+            width: TABLE_CONFIG.columns.name,
             display: 'flex',
-            gap: spacing[3]
-          }}
-        >
-          {/* Chain ID */}
-          <div style={{
-            flex: 1,
-            backgroundColor: '#F7FAFE',
-            borderRadius: '6px',
-            padding: spacing[4],
-            display: 'flex',
+            gap: spacing[3],
             alignItems: 'center',
-            justifyContent: 'space-between'
+            justifyContent: 'flex-start'
           }}>
+            {!isExpanded && (
+              <div style={{
+                backgroundColor: colors.primary.DEFAULT,
+                width: spacing[6],
+                height: spacing[6],
+                flexShrink: 0
+              }} />
+            )}
             <div style={{
-              fontSize: '12px',
-              fontFamily: 'Inter, sans-serif',
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: '1.5'
+              fontFamily: 'Inter Tight, sans-serif',
+              fontSize: '15px',
+              fontWeight: typography.fontWeight.bold,
+              color: 'rgba(0,46,101,0.9)',
+              lineHeight: 1.08,
+              textAlign: 'left',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center' // Center the text vertically
             }}>
-              Chain ID
+              {chain.name}
             </div>
-            
+          </div>
+
+          {/* Data columns container */}
+          <div style={{
+            flex: 1, // Take remaining space
+            display: 'flex',
+            alignItems: 'center', // Center all data columns vertically
+            justifyContent: 'space-between' // This spreads the columns evenly
+          }}>
+            {/* Gas Token */}
             <div style={{
+              width: TABLE_CONFIG.columns.gasToken,
+              fontFamily: 'SF Mono, monospace',
+              fontSize: '12px',
+              color: 'rgba(0,46,101,0.8)',
+              lineHeight: 1.5,
+              textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
-              gap: spacing[1]
+              justifyContent: 'center'
             }}>
-              <div style={{
-                fontSize: '12px',
-                fontFamily: 'SF Mono, monospace',
-                fontWeight: typography.fontWeight.semibold,
-                color: colors.primary.DEFAULT,
-                lineHeight: '1.5'
-              }}>
-                {chain.chainId}
-              </div>
-              
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path 
-                  d="M8 8V9C8 9.55 7.55 10 7 10H3C2.45 10 2 9.55 2 9V5C2 4.45 2.45 4 3 4H4M6 2H9C9.55 2 10 2.45 10 3V6C10 6.55 9.55 7 9 7H6C5.45 7 5 6.55 5 6V3C5 2.45 5.45 2 6 2Z" 
-                  stroke={colors.primary.DEFAULT} 
-                  strokeWidth="1" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {chain.gasToken}
             </div>
-          </div>
 
-          {/* RPC Endpoint */}
-          <div style={{
-            flex: 1,
-            backgroundColor: '#F7FAFE',
-            borderRadius: '6px',
-            padding: spacing[4],
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
+            {/* Block Time */}
             <div style={{
+              width: TABLE_CONFIG.columns.blockTime,
+              fontFamily: 'SF Mono, monospace',
               fontSize: '12px',
-              fontFamily: 'Inter, sans-serif',
               color: 'rgba(0,46,101,0.8)',
-              lineHeight: '1.5'
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              RPC Endpoint
+              {chain.blockTime}
             </div>
-            
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                onCopyRpc(chain.rpcUrl, chain.chainId);
-              }}
-              style={{
-                backgroundColor: 'transparent',
-                border: 'none',
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: spacing[1]
-              }}
-            >
-              <div style={{
-                fontSize: '12px',
-                fontFamily: 'SF Mono, monospace',
-                fontWeight: typography.fontWeight.semibold,
-                color: colors.primary.DEFAULT,
-                lineHeight: '1.5'
-              }}>
-                {copiedChainId === chain.chainId ? 'Copied!' : 'Copy'}
-              </div>
-              
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path 
-                  d="M8 8V9C8 9.55 7.55 10 7 10H3C2.45 10 2 9.55 2 9V5C2 4.45 2.45 4 3 4H4M6 2H9C9.55 2 10 2.45 10 3V6C10 6.55 9.55 7 9 7H6C5.45 7 5 6.55 5 6V3C5 2.45 5.45 2 6 2Z" 
-                  stroke={colors.primary.DEFAULT} 
-                  strokeWidth="1" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
 
-          {/* Explorer */}
-          <div style={{
-            flex: 1,
-            backgroundColor: '#F7FAFE',
-            borderRadius: '6px',
-            padding: spacing[4],
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
+            {/* TPS */}
             <div style={{
+              width: TABLE_CONFIG.columns.tps,
+              fontFamily: 'SF Mono, monospace',
               fontSize: '12px',
-              fontFamily: 'Inter, sans-serif',
               color: 'rgba(0,46,101,0.8)',
-              lineHeight: '1.5'
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              Explorer
+              {chain.tps}
             </div>
-            
-            <a
-              href={chain.blockExplorer}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: spacing[1]
-              }}
-            >
-              <div style={{
-                fontSize: '12px',
-                fontFamily: 'SF Mono, monospace',
-                fontWeight: typography.fontWeight.semibold,
-                color: colors.primary.DEFAULT,
-                lineHeight: '1.5'
-              }}>
-                View
-              </div>
-              
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path 
-                  d="M9 3L3 9M9 3H5M9 3V7" 
-                  stroke={colors.primary.DEFAULT} 
-                  strokeWidth="1" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
-          </div>
 
-          {/* Documentation */}
-          <div style={{
-            flex: 1,
-            backgroundColor: '#F7FAFE',
-            borderRadius: '6px',
-            padding: spacing[4],
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-          }}>
+            {/* Activity column - using TVL data */}
             <div style={{
+              width: TABLE_CONFIG.columns.activity,
+              fontFamily: 'SF Mono, monospace',
               fontSize: '12px',
-              fontFamily: 'Inter, sans-serif',
               color: 'rgba(0,46,101,0.8)',
-              lineHeight: '1.5'
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              Documentation
+              {chain.tvl}
             </div>
-            
-            <a
-              href="https://docs.agglayer.dev"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                gap: spacing[1]
-              }}
-            >
+
+            {/* Status Badge */}
+            <div style={{
+              backgroundColor: statusStyle.bg,
+              border: `1px solid ${statusStyle.border}`,
+              borderRadius: radius.sm,
+              padding: `${spacing[1]} ${spacing[2.5]}`,
+              display: 'flex',
+              alignItems: 'center',
+              gap: spacing[1.5],
+              flexShrink: 0
+            }}>
               <div style={{
+                fontFamily: 'Inter, sans-serif',
                 fontSize: '12px',
-                fontFamily: 'SF Mono, monospace',
-                fontWeight: typography.fontWeight.semibold,
-                color: colors.primary.DEFAULT,
-                lineHeight: '1.5'
+                fontWeight: typography.fontWeight.medium,
+                color: statusStyle.text,
+                lineHeight: 1.08,
+                textAlign: 'center',
+                whiteSpace: 'nowrap'
               }}>
-                Docs
+                {statusStyle.label}
               </div>
-              
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path 
-                  d="M9 3L3 9M9 3H5M9 3V7" 
-                  stroke={colors.primary.DEFAULT} 
-                  strokeWidth="1" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </a>
+            </div>
+
+            {/* Expand/Collapse Button */}
+            <div style={{
+              display: 'flex',
+              height: '100%', // Take full height of the row
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: TABLE_CONFIG.columns.expandButton,
+              flexShrink: 0
+            }}>
+              <button
+                onClick={onToggleExpand}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transform: isExpanded ? 'rotate(270deg)' : 'rotate(90deg)', // Match Figma rotation
+                  width: '11px',
+                  height: '12px'
+                }}
+              >
+                <ChevronDownIcon style={{ 
+                  width: '11px', 
+                  height: '12px',
+                  color: 'rgba(0,46,101,0.8)' 
+                }} />
+              </button>
+            </div>
           </div>
-        </motion.div>
-      )}
-    </motion.div>
+        </div>
+
+        {/* Expanded Content */}
+        {isExpanded && (
+          <div style={{
+            display: 'flex',
+            gap: spacing[3],
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            padding: `${spacing[4]} 0`,
+            width: '100%',
+            borderTop: '1px solid #d8eaff'
+          }}>
+            {/* Chain ID */}
+            <div style={{
+              flexBasis: 0,
+              flexGrow: 1,
+              minHeight: '1px',
+              minWidth: '1px',
+              backgroundColor: '#f7fafe',
+              display: 'flex',
+              gap: spacing[3],
+              alignItems: 'flex-start',
+              justifyContent: 'flex-start',
+              padding: spacing[4],
+              borderRadius: radius.sm
+            }}>
+              <div style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: typography.fontWeight.regular,
+                color: 'rgba(0,46,101,0.8)',
+                lineHeight: 1.5,
+                textAlign: 'left',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+              }}>
+                Chain ID
+              </div>
+              <div style={{
+                display: 'flex',
+                gap: '3px',
+                alignItems: 'center',
+                justifyContent: 'flex-end',
+                width: '129.666px'
+              }}>
+                <div style={{
+                  fontFamily: 'SF Mono, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  color: colors.primary.DEFAULT,
+                  lineHeight: 1.5,
+                  textAlign: 'right',
+                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end'
+                }}>
+                  {chain.chainId}
+                </div>
+                <button
+                  onClick={() => navigator.clipboard.writeText(chain.chainId.toString())}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  <DocumentDuplicateIcon style={{ 
+                    width: '12px', 
+                    height: '12px',
+                    color: 'rgba(0,46,101,0.8)',
+                    transform: 'rotate(180deg) scaleY(-1)'
+                  }} />
+                </button>
+              </div>
+            </div>
+
+            {/* RPC Endpoint */}
+            <div style={{
+              flexBasis: 0,
+              flexGrow: 1,
+              minHeight: '1px',
+              minWidth: '1px',
+              backgroundColor: '#f7fafe',
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+              padding: spacing[4],
+              borderRadius: radius.sm
+            }}>
+              <div style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: typography.fontWeight.regular,
+                color: 'rgba(0,46,101,0.8)',
+                lineHeight: 1.5,
+                textAlign: 'left',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+              }}>
+                RPC Endpoint
+              </div>
+              <div style={{
+                display: 'flex',
+                gap: '3px',
+                alignItems: 'center',
+                justifyContent: 'flex-end'
+              }}>
+                <div style={{
+                  fontFamily: 'SF Mono, sans-serif',
+                  fontWeight: 600,
+                  fontSize: '12px',
+                  color: colors.primary.DEFAULT,
+                  lineHeight: 1.5,
+                  textAlign: 'right',
+                  whiteSpace: 'nowrap',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end'
+                }}>
+                  Copy
+                </div>
+                <button
+                  onClick={() => onCopyRpc(chain.rpcUrl, chain.chainId)}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                >
+                  {copiedChainId === chain.chainId ? (
+                    <CheckIcon style={{ 
+                      width: '12px', 
+                      height: '12px',
+                      color: '#22C55E',
+                      transform: 'rotate(180deg) scaleY(-1)'
+                    }} />
+                  ) : (
+                    <DocumentDuplicateIcon style={{ 
+                      width: '12px', 
+                      height: '12px',
+                      color: 'rgba(0,46,101,0.8)',
+                      transform: 'rotate(180deg) scaleY(-1)'
+                    }} />
+                  )}
+                </button>
+              </div>
+            </div>
+
+            {/* Explorer */}
+            <div style={{
+              flexBasis: 0,
+              flexGrow: 1,
+              minHeight: '1px',
+              minWidth: '1px',
+              backgroundColor: '#f7fafe',
+              display: 'flex',
+              alignItems: 'flex-start',
+              justifyContent: 'space-between',
+              padding: spacing[4],
+              borderRadius: radius.sm
+            }}>
+              <div style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: typography.fontWeight.regular,
+                color: 'rgba(0,46,101,0.8)',
+                lineHeight: 1.5,
+                textAlign: 'left',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+              }}>
+                Explorer
+              </div>
+              <div style={{
+                display: 'flex',
+                gap: spacing[3],
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  gap: '3px',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end'
+                }}>
+                  <div style={{
+                    fontFamily: 'SF Mono, sans-serif',
+                    fontWeight: 600,
+                    fontSize: '12px',
+                    color: colors.primary.DEFAULT,
+                    lineHeight: 1.5,
+                    textAlign: 'right',
+                    whiteSpace: 'nowrap',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end'
+                  }}>
+                    View
+                  </div>
+                  <a
+                    href={chain.blockExplorer}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    <ArrowTopRightOnSquareIcon style={{ 
+                      width: '12px', 
+                      height: '12px',
+                      color: 'rgba(0,46,101,0.8)'
+                    }} />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Documentation */}
+            <div style={{
+              flexBasis: 0,
+              flexGrow: 1,
+              minHeight: '1px',
+              minWidth: '1px',
+              backgroundColor: '#f7fafe',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              padding: spacing[4],
+              borderRadius: radius.sm
+            }}>
+              <div style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: typography.fontWeight.regular,
+                color: 'rgba(0,46,101,0.8)',
+                lineHeight: 1.5,
+                textAlign: 'left',
+                whiteSpace: 'nowrap',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end'
+              }}>
+                Documentation
+              </div>
+              <div style={{
+                display: 'flex',
+                gap: spacing[3],
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}>
+                <div style={{
+                  display: 'flex',
+                  gap: '3px',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end'
+                }}>
+                  <div style={{
+                    fontFamily: 'SF Mono, sans-serif',
+                    fontWeight: 600,
+                    fontSize: '12px',
+                    color: colors.primary.DEFAULT,
+                    lineHeight: 1.5,
+                    textAlign: 'right',
+                    whiteSpace: 'nowrap',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'flex-end'
+                  }}>
+                    Docs
+                  </div>
+                  <a
+                    href={`https://docs.${chain.name.toLowerCase().replace(/\s+/g, '')}.com`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textDecoration: 'none'
+                    }}
+                  >
+                    <ArrowTopRightOnSquareIcon style={{ 
+                      width: '12px', 
+                      height: '12px',
+                      color: 'rgba(0,46,101,0.8)'
+                    }} />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
   );
 } 

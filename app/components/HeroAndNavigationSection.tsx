@@ -4,8 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { 
   IconApps,
-  IconBulb, 
-  IconTools,
   IconBook2
 } from '@tabler/icons-react';
 import DecorativeSVGCircles from './svg/DecorativeSVGCircles';

@@ -1,4 +1,9 @@
-import { typography, colors, spacing, sizing, radius } from '@/shared/design-system';
+'use client';
+
+import React from 'react';
+import { ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
+import { typography, colors, spacing, radius } from '@/shared/design-system';
+import { TABLE_CONFIG } from '../config/tableConfig';
 
 interface ChainTableHeaderProps {
   sortField: string;
@@ -6,92 +11,244 @@ interface ChainTableHeaderProps {
   onSort: (field: string) => void;
 }
 
-const columns = [
-  { id: 'name', label: 'Name', width: '200px' },
-  { id: 'gasToken', label: 'GAS TOKEN', width: '81px' },
-  { id: 'blockTime', label: 'BLOCK TIME', width: '85px' },
-  { id: 'tps', label: 'TPS', width: '44px' },
-  { id: 'activity', label: 'ACTIVITY', width: '81px' },
-  { id: 'status', label: 'STATUS', width: '81px' }
-];
+export default function ChainTableHeader({ 
+  sortField, 
+  sortDirection, 
+  onSort 
+}: ChainTableHeaderProps) {
+  const getSortIcon = (field: string) => {
+    if (sortField !== field) {
+      return <ChevronUpIcon style={{ width: '8px', height: '4px', color: 'rgba(0,46,101,0.8)' }} />;
+    }
+    return sortDirection === 'asc' ? 
+      <ChevronUpIcon style={{ width: '8px', height: '4px', color: 'rgba(0,46,101,0.8)' }} /> :
+      <ChevronDownIcon style={{ width: '8px', height: '4px', color: 'rgba(0,46,101,0.8)' }} />;
+  };
 
-export default function ChainTableHeader({ sortField, sortDirection, onSort }: ChainTableHeaderProps) {
   return (
     <div style={{
       display: 'flex',
       alignItems: 'center',
+      justifyContent: 'flex-start',
       padding: `0 ${spacing[4]}`,
       height: '47px',
-      borderRadius: radius.md,
-      overflow: 'hidden'
+      width: '100%',
+      gap: spacing[6] // Add gap like the row
     }}>
-      {/* Chain Name Column */}
+      {/* Name Column */}
       <div style={{
-        width: '200px',
+        width: TABLE_CONFIG.columns.name,
         display: 'flex',
-        alignItems: 'center',
-        gap: spacing[3]
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start'
       }}>
         <div style={{
-          fontSize: typography.fontSize.base,
+          fontFamily: 'Inter Tight, sans-serif',
+          fontSize: '15px',
           fontWeight: typography.fontWeight.bold,
-          color: colors.text.blue.DEFAULT,
-          fontFamily: typography.fontFamily.heading.join(', '),
-          lineHeight: typography.lineHeight.none
+          color: 'rgba(0,46,101,0.9)',
+          lineHeight: 1.08,
+          textAlign: 'left',
+          whiteSpace: 'nowrap',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'flex-end'
         }}>
           Name
         </div>
       </div>
 
-      {/* Other Columns */}
+      {/* Data columns container */}
       <div style={{
+        flex: 1, // Take remaining space
         display: 'flex',
-        gap: spacing[36], // Large gap to match design spacing
-        alignItems: 'center',
-        flex: 1
+        alignItems: 'center', // Center all header columns vertically
+        justifyContent: 'space-between'
       }}>
-        {columns.slice(1).map((column) => (
+        {/* Gas Token Column */}
+        <div style={{
+          width: TABLE_CONFIG.columns.gasToken,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
           <button
-            key={column.id}
-            onClick={() => onSort(column.id)}
+            onClick={() => onSort('gasToken')}
             style={{
-              backgroundColor: 'transparent',
+              background: 'none',
               border: 'none',
               cursor: 'pointer',
               display: 'flex',
               alignItems: 'center',
               gap: spacing[1.5],
-              width: column.width
+              padding: 0
             }}
           >
             <div style={{
-              fontSize: typography.fontSize.xs,
-              fontFamily: typography.fontFamily.mono.join(', '),
-              color: colors.text.blue.muted,
+              fontFamily: 'SF Mono, monospace',
+              fontSize: '12px',
+              color: 'rgba(0,46,101,0.8)',
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
               textTransform: 'uppercase',
-              lineHeight: typography.lineHeight.normal,
-              textAlign: 'center'
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
             }}>
-              {column.label}
+              Gas Token
             </div>
-            
-            {/* Sort Arrow */}
-            <svg width="8" height="4" viewBox="0 0 8 4" fill="none">
-              <path 
-                d="M1 1L4 3L7 1" 
-                stroke={colors.text.blue.muted}
-                strokeWidth="1" 
-                strokeLinecap="round" 
-                strokeLinejoin="round"
-                style={{
-                  transform: sortField === column.id && sortDirection === 'desc' ? 'rotate(180deg)' : 'none',
-                  transformOrigin: 'center'
-                }}
-              />
-            </svg>
+            {getSortIcon('gasToken')}
           </button>
-        ))}
+        </div>
+
+        {/* Block Time Column */}
+        <div style={{
+          width: TABLE_CONFIG.columns.blockTime,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <button
+            onClick={() => onSort('blockTime')}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: spacing[1.5],
+              padding: 0
+            }}
+          >
+            <div style={{
+              fontFamily: 'SF Mono, monospace',
+              fontSize: '12px',
+              color: 'rgba(0,46,101,0.8)',
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              textTransform: 'uppercase',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}>
+              Block time
+            </div>
+            {getSortIcon('blockTime')}
+          </button>
+        </div>
+
+        {/* TPS Column */}
+        <div style={{
+          width: TABLE_CONFIG.columns.tps,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <button
+            onClick={() => onSort('tps')}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: spacing[1.5],
+              padding: 0
+            }}
+          >
+            <div style={{
+              fontFamily: 'SF Mono, monospace',
+              fontSize: '12px',
+              color: 'rgba(0,46,101,0.8)',
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              textTransform: 'uppercase',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}>
+              TPS
+            </div>
+            {getSortIcon('tps')}
+          </button>
+        </div>
+
+        {/* Activity Column */}
+        <div style={{
+          width: TABLE_CONFIG.columns.activity,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          <button
+            onClick={() => onSort('activity')}
+            style={{
+              background: 'none',
+              border: 'none',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: spacing[1.5],
+              padding: 0
+            }}
+          >
+            <div style={{
+              fontFamily: 'SF Mono, monospace',
+              fontSize: '12px',
+              color: 'rgba(0,46,101,0.8)',
+              lineHeight: 1.5,
+              textAlign: 'center',
+              whiteSpace: 'nowrap',
+              textTransform: 'uppercase',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'flex-end'
+            }}>
+              Activity
+            </div>
+            {getSortIcon('activity')}
+          </button>
+        </div>
+
+        {/* Status Column - No sort */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0
+        }}>
+          <div style={{
+            fontFamily: 'SF Mono, monospace',
+            fontSize: '12px',
+            color: 'rgba(0,46,101,0.8)',
+            lineHeight: 1.5,
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+            textTransform: 'uppercase',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'flex-end'
+          }}>
+            Status
+          </div>
+        </div>
+
+        {/* Expand Column Header */}
+        <div style={{
+          width: TABLE_CONFIG.columns.expandButton,
+          height: '11px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0
+        }}>
+          {/* Empty - just for spacing alignment */}
+        </div>
       </div>
+
     </div>
   );
 } 
