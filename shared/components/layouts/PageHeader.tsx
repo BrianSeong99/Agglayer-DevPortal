@@ -1,10 +1,11 @@
 'use client';
-import React from 'react';
+
+import React, { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
 
 interface PageHeaderProps {
-  title: string;
+  title: string | ReactNode;
   subtitle?: string;
   theme?: 'light' | 'dark';
 }
@@ -30,7 +31,7 @@ export default function PageHeader({
         justifyContent: 'flex-start',
         padding: 0,
         position: 'relative',
-        width: '940px'
+        flex: 1
       }}
     >
       <h1 
@@ -38,22 +39,15 @@ export default function PageHeader({
           fontFamily: 'Inter Tight, sans-serif',
           fontSize: '36px',
           fontWeight: typography.fontWeight.bold,
-          lineHeight: 1.2,
+          lineHeight: '1.2',
           color: titleColor,
           margin: 0,
-          minWidth: '100%',
-          textAlign: 'left'
+          textAlign: 'left',
+          width: 'min-content',
+          minWidth: '100%'
         }}
       >
-        <span>Developer</span>
-        <span> </span>
-        <span style={{ 
-          fontFamily: 'Inter Tight, sans-serif',
-          fontWeight: typography.fontWeight.medium,
-          color: colors.primary.DEFAULT 
-        }}>
-          Tools
-        </span>
+        {typeof title === 'string' ? title : title}
       </h1>
       {subtitle && (
         <p 
@@ -61,11 +55,10 @@ export default function PageHeader({
             fontFamily: 'Inter, sans-serif',
             fontSize: '15px',
             fontWeight: typography.fontWeight.regular,
-            lineHeight: 1.2,
+            lineHeight: '1.2',
             color: subtitleColor,
             margin: 0,
-            textAlign: 'center',
-            whiteSpace: 'nowrap'
+            textAlign: 'left'
           }}
         >
           {subtitle}
@@ -73,4 +66,4 @@ export default function PageHeader({
       )}
     </motion.div>
   );
-}
+} 

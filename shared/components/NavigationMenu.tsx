@@ -13,8 +13,8 @@ export default function ShadcnNavigationMenu() {
       href: "/",
     },
     {
-      title: "Universe", 
-      href: "/aggniverse",
+      title: "Chains", 
+      href: "/chains",
     },
     {
       title: "Examples",

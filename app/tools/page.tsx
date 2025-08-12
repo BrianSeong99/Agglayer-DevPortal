@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
@@ -25,11 +25,24 @@ export default function ToolsPage() {
 
   return (
     <PageLayout theme="light">
-      <PageHeader
-        title="Developer Tools"
-        subtitle="Everything you need to build, test, and deploy cross-chain applications"
-        theme="light"
-      />
+      {/* Header Section with Title */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        width: sizing.container.lg
+      }}>
+        <PageHeader
+          title={
+            <>
+              Developer{' '}
+              <span style={{ color: colors.primary.DEFAULT }}>Tools</span>
+            </>
+          }
+          subtitle="Everything you need to build, test, and deploy cross-chain applications"
+          theme="light"
+        />
+      </div>
 
       {/* Main Content */}
       <div
