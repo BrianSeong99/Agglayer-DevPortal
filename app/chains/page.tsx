@@ -127,13 +127,59 @@ export default function ChainsPage() {
         </div>
       </motion.div>
 
-      {/* Search and Filters */}
+      {/* Metrics Dashboard Section */}
       <motion.div 
         initial={motionTokens.section.initial}
         whileInView={motionTokens.section.whileInView}
         transition={{
           ...motionTokens.section.transition,
-          delay: 0.1 // Slight delay for staggered effect
+          delay: 0.1 // Slight delay after header
+        }}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          width: sizing.container.lg,
+          gap: spacing[6]
+        }}
+      >
+
+        {/* Single Ecosystem Overview Iframe */}
+        <motion.div
+          initial={motionTokens.section.initial}
+          whileInView={motionTokens.section.whileInView}
+          transition={{
+            ...motionTokens.section.transition,
+            delay: 0.15 // Reduced delay
+          }}
+          viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+          style={{
+            borderRadius: radius.lg,
+            overflow: 'hidden',
+            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+            backgroundColor: '#ffffff',
+            width: '100%'
+          }}
+        >
+          <iframe 
+            src="https://www.agglayerzone.com/embed/ecosystem?view=overview" 
+            width="100%" 
+            height="600" 
+            frameBorder="0"
+            style={{ border: 'none', borderRadius: radius.lg }}
+          />
+        </motion.div>
+      </motion.div>
+
+      {/* Search and Filters */}
+      {/* <motion.div 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={{
+          ...motionTokens.section.transition,
+          delay: 0.1 // Reduced delay
         }}
         viewport={{ once: true, margin: "0px 0px -50px 0px" }}
         style={{
@@ -149,7 +195,7 @@ export default function ChainsPage() {
           selectedFilters={selectedFilters}
           onFiltersChange={setSelectedFilters}
         />
-      </motion.div>
+      </motion.div> */}
 
       {/* Content Section */}
       <motion.div 
@@ -157,7 +203,7 @@ export default function ChainsPage() {
         whileInView={motionTokens.section.whileInView}
         transition={{
           ...motionTokens.section.transition,
-          delay: 0.2 // Further delay for staggered effect
+          delay: 0.1 // Reduced delay
         }}
         viewport={{ once: true, margin: "0px 0px -50px 0px" }}
         style={{ 
@@ -178,7 +224,7 @@ export default function ChainsPage() {
               whileInView={motionTokens.section.whileInView}
               transition={{
                 ...motionTokens.section.transition,
-                delay: 0.3
+                delay: 0.1 // Reduced delay
               }}
               viewport={{ once: true, margin: "0px 0px -50px 0px" }}
               style={{
@@ -215,7 +261,7 @@ export default function ChainsPage() {
                     whileInView={motionTokens.section.whileInView}
                     transition={{
                       ...motionTokens.section.transition,
-                      delay: 0.4 + (index * 0.1) // Stagger each row
+                      delay: 0.15 + (index * 0.05) // Much smaller stagger
                     }}
                     viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                   >
@@ -238,7 +284,7 @@ export default function ChainsPage() {
                 whileInView={motionTokens.section.whileInView}
                 transition={{
                   ...motionTokens.section.transition,
-                  delay: 0.5 + (mainnetChains.length * 0.1) // Delay based on mainnet chains
+                  delay: 0.1 // Reduced delay
                 }}
                 viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                 style={{
@@ -272,7 +318,7 @@ export default function ChainsPage() {
                       whileInView={motionTokens.section.whileInView}
                       transition={{
                         ...motionTokens.section.transition,
-                        delay: 0.6 + (mainnetChains.length * 0.1) + (index * 0.1) // Further stagger
+                        delay: 0.15 + (index * 0.05) // Much smaller stagger
                       }}
                       viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                     >
@@ -302,7 +348,7 @@ export default function ChainsPage() {
               whileInView={motionTokens.section.whileInView}
               transition={{
                 ...motionTokens.section.transition,
-                delay: 0.3
+                delay: 0.1 // Reduced delay
               }}
               viewport={{ once: true, margin: "0px 0px -50px 0px" }}
               style={{
@@ -333,7 +379,7 @@ export default function ChainsPage() {
                   whileInView={motionTokens.section.whileInView}
                   transition={{
                     ...motionTokens.section.transition,
-                    delay: 0.4
+                    delay: 0.15 // Reduced delay
                   }}
                   viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                   style={{
@@ -361,7 +407,7 @@ export default function ChainsPage() {
                     whileInView={motionTokens.section.whileInView}
                     transition={{
                       ...motionTokens.section.transition,
-                      delay: 0.5
+                      delay: 0.2 // Reduced delay
                     }}
                     viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                     style={{
@@ -390,7 +436,7 @@ export default function ChainsPage() {
                     whileInView={motionTokens.section.whileInView}
                     transition={{
                       ...motionTokens.section.transition,
-                      delay: 0.6
+                      delay: 0.25 // Reduced delay
                     }}
                     viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                     style={{
@@ -421,7 +467,7 @@ export default function ChainsPage() {
                 whileInView={motionTokens.section.whileInView}
                 transition={{
                   ...motionTokens.section.transition,
-                  delay: 0.7
+                  delay: 0.1 // Reduced delay
                 }}
                 viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                 style={{
@@ -450,7 +496,7 @@ export default function ChainsPage() {
                     whileInView={motionTokens.section.whileInView}
                     transition={{
                       ...motionTokens.section.transition,
-                      delay: 0.8
+                      delay: 0.15 // Reduced delay
                     }}
                     viewport={{ once: true, margin: "0px 0px -50px 0px" }}
                     style={{
