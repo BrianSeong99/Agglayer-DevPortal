@@ -58,7 +58,7 @@ export default function ChainTableHeader({
         </div>
       </div>
 
-      {/* Data columns container */}
+      {/* All columns container - includes data, status, and expand button */}
       <div style={{
         flex: 1, // Take remaining space
         display: 'flex',
@@ -215,6 +215,7 @@ export default function ChainTableHeader({
 
         {/* Status Column - No sort */}
         <div style={{
+          width: TABLE_CONFIG.columns.status,
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -239,7 +240,6 @@ export default function ChainTableHeader({
         {/* Expand Column Header */}
         <div style={{
           width: TABLE_CONFIG.columns.expandButton,
-          height: '11px',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

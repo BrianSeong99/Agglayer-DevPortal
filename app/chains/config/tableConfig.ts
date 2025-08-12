@@ -6,6 +6,7 @@ export const TABLE_CONFIG = {
     blockTime: '50px',
     tps: '50px',
     activity: '50px',
+    status: '50px',
     expandButton: '11.984px'
   },
   spacing: {

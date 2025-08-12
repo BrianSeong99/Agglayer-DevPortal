@@ -54,27 +54,27 @@ export default function ChainRow({
     <div style={{
       width: '100%' // Use full width instead of fixed 940px
     }}>
-      {/* Main Row */}
+      {/* Main Row - Always consistent design */}
       <div style={{
-        backgroundColor: isExpanded ? '#e9f3ff' : '#f7fafe',
+        backgroundColor: '#f7fafe', // Always same background
         display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
         overflow: 'hidden',
-        padding: isExpanded ? '16px' : `0 ${spacing[4]}`,
-        borderRadius: '10px',
-        width: '100%'
+        padding: `0 ${spacing[4]}`, // Always same padding
+        borderRadius: isExpanded ? '10px 10px 0 0' : '10px', // Round top corners when expanded
+        width: '100%',
+        height: '47px' // Fixed height for consistency
       }}>
         <div style={{
           display: 'flex',
           gap: spacing[6],
-          height: '47px',
-          width: '100%', // Add this to match ChainTableHeader
+          height: '100%',
+          width: '100%',
           alignItems: 'center',
-          justifyContent: 'flex-start' // Using flex-start like Figma
+          justifyContent: 'flex-start'
         }}>
-          {/* Chain Name with Icon */}
+          {/* Chain Name with Icon - Always show icon */}
           <div style={{
             width: TABLE_CONFIG.columns.name,
             display: 'flex',
@@ -82,14 +82,12 @@ export default function ChainRow({
             alignItems: 'center',
             justifyContent: 'flex-start'
           }}>
-            {!isExpanded && (
-              <div style={{
-                backgroundColor: colors.primary.DEFAULT,
-                width: spacing[6],
-                height: spacing[6],
-                flexShrink: 0
-              }} />
-            )}
+            <div style={{
+              backgroundColor: colors.primary.DEFAULT,
+              width: spacing[6],
+              height: spacing[6],
+              flexShrink: 0
+            }} />
             <div style={{
               fontFamily: 'Inter Tight, sans-serif',
               fontSize: '15px',
@@ -105,12 +103,12 @@ export default function ChainRow({
             </div>
           </div>
 
-          {/* Data columns container */}
+          {/* All columns container - includes data, status, and expand button */}
           <div style={{
             flex: 1, // Take remaining space
             display: 'flex',
-            alignItems: 'center', // Center all data columns vertically
-            justifyContent: 'space-between' // This spreads the columns evenly
+            alignItems: 'center', // Center all columns vertically
+            justifyContent: 'space-between' // This spreads all columns evenly
           }}>
             {/* Gas Token */}
             <div style={{
@@ -177,14 +175,14 @@ export default function ChainRow({
 
             {/* Status Badge */}
             <div style={{
+              width: TABLE_CONFIG.columns.status,
               backgroundColor: statusStyle.bg,
               border: `1px solid ${statusStyle.border}`,
               borderRadius: radius.sm,
               padding: `${spacing[1]} ${spacing[2.5]}`,
               display: 'flex',
               alignItems: 'center',
-              gap: spacing[1.5],
-              flexShrink: 0
+              justifyContent: 'center'
             }}>
               <div style={{
                 fontFamily: 'Inter, sans-serif',
@@ -218,9 +216,10 @@ export default function ChainRow({
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  transform: isExpanded ? 'rotate(270deg)' : 'rotate(90deg)', // Match Figma rotation
+                  transform: isExpanded ? 'rotate(0deg)' : 'rotate(90deg)', // Down when expanded, right when collapsed
                   width: '11px',
-                  height: '12px'
+                  height: '12px',
+                  transition: 'transform 0.2s ease-in-out' // Smooth rotation animation
                 }}
               >
                 <ChevronDownIcon style={{ 
@@ -232,15 +231,25 @@ export default function ChainRow({
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Expanded Content */}
+      {/* Animated Expanded Content */}
+      <div style={{
+        maxHeight: isExpanded ? '500px' : '0px', // Animate height
+        overflow: 'hidden',
+        backgroundColor: '#e9f3ff',
+        borderRadius: isExpanded ? '0 0 10px 10px' : '0', // Round bottom corners when expanded
+        opacity: isExpanded ? 1 : 0,
+        transform: isExpanded ? 'translateY(0)' : 'translateY(-10px)',
+        transition: 'all 0.3s ease-in-out' // Smooth all transitions
+      }}>
         {isExpanded && (
           <div style={{
             display: 'flex',
             gap: spacing[3],
             alignItems: 'flex-start',
             justifyContent: 'flex-start',
-            padding: `${spacing[4]} 0`,
+            padding: spacing[4],
             width: '100%',
             borderTop: '1px solid #d8eaff'
           }}>
