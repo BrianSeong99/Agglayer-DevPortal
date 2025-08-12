@@ -21,14 +21,14 @@ export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
       <button
         onClick={() => onViewChange('grid')}
         style={{
-          backgroundColor: 'transparent',
+          backgroundColor: view === 'grid' ? colors.primary.DEFAULT : 'transparent',
           border: 'none',
           borderRadius: '36px',
           padding: `${spacing[1.5]} ${spacing[2]}`,
           fontSize: '12px',
           fontFamily: 'Inter, sans-serif',
-          fontWeight: typography.fontWeight.medium,
-          color: colors.primary.DEFAULT,
+          fontWeight: view === 'grid' ? typography.fontWeight.bold : typography.fontWeight.medium,
+          color: view === 'grid' ? '#FFFFFF' : colors.primary.DEFAULT,
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',

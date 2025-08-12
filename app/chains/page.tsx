@@ -4,10 +4,12 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
+import SubHeader from '@/shared/components/layouts/SubHeader';
 import ViewToggle from './components/ViewToggle';
 import SearchAndFilters from './components/SearchAndFilters';
 import ChainTableHeader from './components/ChainTableHeader';
 import ChainRow from './components/ChainRow';
+import ChainGridCard from './components/ChainGridCard';
 import { chains, type Chain } from './data/chains';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 import {
@@ -69,16 +71,6 @@ export default function ChainsPage() {
       return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
     }
   });
-
-  // Get status color for grid view
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'Live': return { bg: 'rgba(34, 197, 94, 0.1)', text: '#22C55E', border: 'rgba(34, 197, 94, 0.3)' };
-      case 'Testnet': return { bg: 'rgba(251, 191, 36, 0.1)', text: '#FBBF24', border: 'rgba(251, 191, 36, 0.3)' };
-      case 'Coming Soon': return { bg: 'rgba(156, 163, 175, 0.1)', text: '#9CA3AF', border: 'rgba(156, 163, 175, 0.3)' };
-      default: return { bg: 'rgba(0,113,247,0.05)', text: colors.primary.DEFAULT, border: 'rgba(0,113,247,0.14)' };
-    }
-  };
 
   const handleSort = (field: string) => {
     if (sortField === field) {
@@ -145,7 +137,10 @@ export default function ChainsPage() {
       </div>
 
       {/* Content Section */}
-      <div style={{ width: sizing.container.lg }}>
+      <div style={{ 
+        width: sizing.container.lg,
+        marginBottom: '96px'
+      }}>
         {view === 'list' ? (
           /* List View */
           <div style={{
@@ -159,54 +154,13 @@ export default function ChainsPage() {
               flexDirection: 'column',
               gap: spacing[3]
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: spacing[3]
-                }}>
-                  <h2 style={{
-                    fontSize: typography.fontSize.xl,
-                    fontWeight: typography.fontWeight.bold,
-                    fontFamily: typography.fontFamily.heading.join(', '),
-                    color: colors.text.primary,
-                    lineHeight: spacing[10],
-                    margin: 0
-                  }}>
-                    Mainnet Network
-                  </h2>
-                  <div style={{
-                    backgroundColor: 'transparent',
-                    border: `1px solid ${colors.primary.DEFAULT}`,
-                    borderRadius: radius.sm,
-                    padding: `${spacing[1]} ${spacing[2.5]}`,
-                    fontSize: typography.fontSize.xs,
-                    fontFamily: typography.fontFamily.body.join(', '),
-                    fontWeight: typography.fontWeight.medium,
-                    color: colors.primary.DEFAULT,
-                    lineHeight: typography.lineHeight.none
-                  }}>
-                    {mainnetChains.length} chains
-                  </div>
-                </div>
-                
-                <button style={{
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  fontSize: typography.fontSize.xs,
-                  fontFamily: typography.fontFamily.body.join(', '),
-                  fontWeight: typography.fontWeight.medium,
-                  color: colors.primary.DEFAULT,
-                  cursor: 'pointer',
-                  lineHeight: spacing[3]
-                }}>
-                  Explore all
-                </button>
-              </div>
+              <SubHeader
+                title="Mainnet Network"
+                badgeText={`${mainnetChains.length} chains`}
+                actionText="Explore all"
+                onActionClick={() => console.log('Explore all mainnet chains')}
+                theme="light"
+              />
 
               {/* Table Header */}
               <ChainTableHeader 
@@ -237,41 +191,11 @@ export default function ChainsPage() {
                 flexDirection: 'column',
                 gap: spacing[3]
               }}>
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between'
-                }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: spacing[3]
-                  }}>
-                    <h2 style={{
-                      fontSize: typography.fontSize.xl,
-                      fontWeight: typography.fontWeight.bold,
-                      fontFamily: typography.fontFamily.heading.join(', '),
-                      color: colors.text.primary,
-                      lineHeight: spacing[10],
-                      margin: 0
-                    }}>
-                      Testnet Network
-                    </h2>
-                    <div style={{
-                      backgroundColor: 'transparent',
-                      border: `1px solid ${colors.primary.DEFAULT}`,
-                      borderRadius: radius.sm,
-                      padding: `${spacing[1]} ${spacing[2.5]}`,
-                      fontSize: typography.fontSize.xs,
-                      fontFamily: typography.fontFamily.body.join(', '),
-                      fontWeight: typography.fontWeight.medium,
-                      color: colors.primary.DEFAULT,
-                      lineHeight: typography.lineHeight.none
-                    }}>
-                      {testnetChains.length} chains
-                    </div>
-                  </div>
-                </div>
+                <SubHeader
+                  title="Testnet Network"
+                  badgeText={`${testnetChains.length} chains`}
+                  theme="light"
+                />
 
                 <div>
                   {testnetChains.map((chain) => (
@@ -291,218 +215,146 @@ export default function ChainsPage() {
         ) : (
           /* Grid View */
           <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(450px, 1fr))',
-            gap: spacing[4]
+            display: 'flex',
+            flexDirection: 'column',
+            gap: spacing[12]
           }}>
-            {sortedChains.map((chain, index) => {
-              const statusStyle = getStatusColor(chain.status);
-              
-              return (
-                <motion.div
-                  key={chain.id}
-                  initial={motionTokens.card.initial}
-                  whileInView={motionTokens.card.whileInView}
-                  transition={{
-                    ...motionTokens.card.transition,
-                    delay: index * 0.1
-                  }}
-                  viewport={{ once: true }}
-                  style={{
-                    backgroundColor: colors.background.secondary,
-                    borderRadius: radius.md,
-                    border: `1px solid rgba(0,113,247,0.1)`,
-                    overflow: 'hidden'
-                  }}
-                >
-                  {/* Header */}
+            {/* Mainnet Network Section */}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: spacing[3]
+            }}>
+              <SubHeader
+                title="Mainnet Network"
+                badgeText={`${mainnetChains.length} chains`}
+                actionText="Explore all"
+                onActionClick={() => console.log('Explore all mainnet chains')}
+                theme="light"
+              />
+
+              {/* Grid Layout - 3 columns per row */}
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing[3],
+                borderRadius: '60px',
+                width: '940px'
+              }}>
+                {/* First Row - 3 Cards */}
+                <div style={{
+                  display: 'flex',
+                  gap: spacing[3],
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  {mainnetChains.slice(0, 3).map((chain, index) => (
+                    <ChainGridCard
+                      key={chain.id}
+                      chain={chain}
+                      index={index}
+                      copiedChainId={copiedChainId}
+                      onCopyRpc={copyToClipboard}
+                    />
+                  ))}
+                </div>
+
+                {/* Second Row - 3 Cards */}
+                {mainnetChains.length > 3 && (
                   <div style={{
-                    padding: spacing[6],
-                    borderBottom: `1px solid rgba(0,113,247,0.1)`,
-                    backgroundColor: '#EAF3FD'
+                    display: 'flex',
+                    gap: spacing[3],
+                    alignItems: 'center',
+                    justifyContent: 'center'
                   }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-                      <div>
-                        <h3 style={{
-                          fontSize: typography.fontSize.lg,
-                          fontWeight: typography.fontWeight.bold,
-                          color: colors.text.blue.DEFAULT,
-                          fontFamily: typography.fontFamily.heading.join(', '),
-                          margin: 0,
-                          marginBottom: spacing[1]
-                        }}>
-                          {chain.name}
-                        </h3>
-                        <div style={{
-                          fontSize: typography.fontSize.xs,
-                          color: colors.text.blue.light,
-                          fontFamily: typography.fontFamily.mono.join(', ')
-                        }}>
-                          Chain ID: {chain.chainId}
-                        </div>
-                      </div>
-                      
-                      <div style={{ display: 'flex', gap: spacing[2], alignItems: 'center' }}>
-                        <div style={{
-                          backgroundColor: statusStyle.bg,
-                          color: statusStyle.text,
-                          border: `1px solid ${statusStyle.border}`,
-                          borderRadius: radius.sm,
-                          padding: `${spacing[1]} ${spacing[2]}`,
-                          fontSize: typography.fontSize['2xs'],
-                          fontFamily: typography.fontFamily.body.join(', '),
-                          fontWeight: typography.fontWeight.medium,
-                          lineHeight: spacing[3]
-                        }}>
-                          {chain.status}
-                        </div>
-                        
-                        <div style={{
-                          backgroundColor: 'rgba(0,113,247,0.05)',
-                          color: colors.primary.DEFAULT,
-                          border: `1px solid rgba(0,113,247,0.14)`,
-                          borderRadius: radius.sm,
-                          padding: `${spacing[1]} ${spacing[2]}`,
-                          fontSize: typography.fontSize['2xs'],
-                          fontFamily: typography.fontFamily.body.join(', '),
-                          fontWeight: typography.fontWeight.medium,
-                          lineHeight: spacing[3]
-                        }}>
-                          {chain.type}
-                        </div>
-                      </div>
-                    </div>
+                    {mainnetChains.slice(3, 6).map((chain, index) => (
+                      <ChainGridCard
+                        key={chain.id}
+                        chain={chain}
+                        index={index + 3}
+                        copiedChainId={copiedChainId}
+                        onCopyRpc={copyToClipboard}
+                      />
+                    ))}
                   </div>
+                )}
 
-                  {/* Stats */}
-                  <div style={{ padding: spacing[6] }}>
-                    <div style={{
-                      display: 'grid',
-                      gridTemplateColumns: 'repeat(3, 1fr)',
-                      gap: spacing[4],
-                      marginBottom: spacing[6]
-                    }}>
-                      <div>
-                        <div style={{
-                          fontSize: typography.fontSize.sm,
-                          fontWeight: typography.fontWeight.bold,
-                          color: colors.text.blue.DEFAULT,
-                          fontFamily: typography.fontFamily.heading.join(', ')
-                        }}>
-                          {chain.tvl}
-                        </div>
-                        <div style={{
-                          fontSize: typography.fontSize['2xs'],
-                          color: colors.text.blue.light,
-                          fontFamily: typography.fontFamily.body.join(', ')
-                        }}>
-                          TVL
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div style={{
-                          fontSize: typography.fontSize.sm,
-                          fontWeight: typography.fontWeight.bold,
-                          color: colors.text.blue.DEFAULT,
-                          fontFamily: typography.fontFamily.heading.join(', ')
-                        }}>
-                          {chain.tps}
-                        </div>
-                        <div style={{
-                          fontSize: typography.fontSize['2xs'],
-                          color: colors.text.blue.light,
-                          fontFamily: typography.fontFamily.body.join(', ')
-                        }}>
-                          TPS
-                        </div>
-                      </div>
-                      
-                      <div>
-                        <div style={{
-                          fontSize: typography.fontSize.sm,
-                          fontWeight: typography.fontWeight.bold,
-                          color: colors.text.blue.DEFAULT,
-                          fontFamily: typography.fontFamily.heading.join(', ')
-                        }}>
-                          {chain.gasPrice}
-                        </div>
-                        <div style={{
-                          fontSize: typography.fontSize['2xs'],
-                          color: colors.text.blue.light,
-                          fontFamily: typography.fontFamily.body.join(', ')
-                        }}>
-                          Gas Price
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Actions */}
-                    <div style={{ display: 'flex', gap: spacing[2] }}>
-                      <button
-                        onClick={() => copyToClipboard(chain.rpcUrl, chain.chainId)}
-                        style={{
-                          flex: 1,
-                          backgroundColor: copiedChainId === chain.chainId ? 'rgba(34, 197, 94, 0.1)' : colors.background.primary,
-                          color: copiedChainId === chain.chainId ? '#22C55E' : colors.primary.DEFAULT,
-                          border: `1px solid ${copiedChainId === chain.chainId ? 'rgba(34, 197, 94, 0.3)' : 'rgba(0,113,247,0.14)'}`,
-                          borderRadius: radius.sm,
-                          padding: `${spacing[2]} ${spacing[3]}`,
-                          fontSize: typography.fontSize['2xs'],
-                          fontFamily: typography.fontFamily.body.join(', '),
-                          fontWeight: typography.fontWeight.medium,
-                          cursor: 'pointer',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: spacing[1],
-                          lineHeight: spacing[3]
-                        }}
-                      >
-                        {copiedChainId === chain.chainId ? (
-                          <>
-                            <CheckIcon style={{ width: sizing.icon.xs, height: sizing.icon.xs }} />
-                            <span>Copied!</span>
-                          </>
-                        ) : (
-                          <>
-                            <DocumentDuplicateIcon style={{ width: sizing.icon.xs, height: sizing.icon.xs }} />
-                            <span>Copy RPC</span>
-                          </>
-                        )}
-                      </button>
-                      
-                      <a
-                        href={chain.blockExplorer}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          flex: 1,
-                          backgroundColor: colors.primary.DEFAULT,
-                          color: colors.text.inverse,
-                          border: 'none',
-                          borderRadius: radius.sm,
-                          padding: `${spacing[2]} ${spacing[3]}`,
-                          fontSize: typography.fontSize['2xs'],
-                          fontFamily: typography.fontFamily.body.join(', '),
-                          fontWeight: typography.fontWeight.bold,
-                          cursor: 'pointer',
-                          textDecoration: 'none',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          gap: spacing[1],
-                          lineHeight: spacing[3]
-                        }}
-                      >
-                        <ArrowTopRightOnSquareIcon style={{ width: sizing.icon.xs, height: sizing.icon.xs }} />
-                        <span>Explorer</span>
-                      </a>
-                    </div>
+                {/* Third Row - 3 Cards */}
+                {mainnetChains.length > 6 && (
+                  <div style={{
+                    display: 'flex',
+                    gap: spacing[3],
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    {mainnetChains.slice(6, 9).map((chain, index) => (
+                      <ChainGridCard
+                        key={chain.id}
+                        chain={chain}
+                        index={index + 6}
+                        copiedChainId={copiedChainId}
+                        onCopyRpc={copyToClipboard}
+                      />
+                    ))}
                   </div>
-                </motion.div>
-              );
-            })}
+                )}
+              </div>
+            </div>
+
+            {/* Testnet Section (if any) */}
+            {testnetChains.length > 0 && (
+              <div style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: spacing[3]
+              }}>
+                <SubHeader
+                  title="Testnet Network"
+                  badgeText={`${testnetChains.length} chains`}
+                  theme="light"
+                />
+
+                {/* Testnet Grid */}
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: spacing[3],
+                  borderRadius: '60px',
+                  width: '940px'
+                }}>
+                  {/* Testnet Row */}
+                  <div style={{
+                    display: 'flex',
+                    gap: spacing[3],
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    {testnetChains.slice(0, 3).map((chain, index) => (
+                      <ChainGridCard
+                        key={chain.id}
+                        chain={chain}
+                        index={index}
+                        copiedChainId={copiedChainId}
+                        onCopyRpc={copyToClipboard}
+                      />
+                    ))}
+                    {/* Empty placeholder to maintain 3-column layout */}
+                    {testnetChains.length < 3 && (
+                      <div 
+                        style={{
+                          flexBasis: 0,
+                          flexGrow: 1,
+                          minHeight: '1px',
+                          minWidth: '1px',
+                          flexShrink: 0,
+                          visibility: 'hidden'
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </div>
