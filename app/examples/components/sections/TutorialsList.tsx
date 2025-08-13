@@ -13,7 +13,7 @@ import {
   Activity,
   Clock
 } from 'lucide-react';
-import { tutorials, Tutorial } from '../data/tutorials';
+import { tutorials, Tutorial } from '../../data/tutorials';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
 
 // Icon mapping for tutorials
