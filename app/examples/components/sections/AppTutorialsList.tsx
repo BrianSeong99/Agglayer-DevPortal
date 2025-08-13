@@ -37,7 +37,7 @@ export function AppTutorialsList({ tutorials }: AppTutorialsListProps) {
                     description={tutorial.description}
                     duration={tutorial.duration}
                     difficulty={tutorial.difficulty}
-                    url={`/examples/tutorial/${tutorial.id}`}
+                    url={tutorial.url}
                     index={index}
                   />
                 ))}
