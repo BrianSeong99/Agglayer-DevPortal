@@ -24,7 +24,7 @@ export function TutorialsTabContent({ tutorials, isActive }: TutorialsTabContent
       <div className="space-y-12">
         <ConceptsTutorials tutorials={tutorials} />
         <ToolsTutorials tutorials={tutorials} />
-        <AppTutorialsList tutorials={tutorials} />
+        {/* <AppTutorialsList tutorials={tutorials} /> */}
       </div>
     </motion.div>
   )
