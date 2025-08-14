@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
@@ -15,8 +16,17 @@ import { tutorials } from './data/tutorials';
 import { typography, colors, spacing, motionTokens, sizing } from '@/shared/design-system';
 
 export default function ExamplesPage() {
+  const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('examples');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+
+  // Handle URL parameters
+  useEffect(() => {
+    const tabParam = searchParams.get('tab');
+    if (tabParam && ['examples', 'tutorials', 'snippets'].includes(tabParam)) {
+      setActiveTab(tabParam);
+    }
+  }, [searchParams]);
 
   const tabs = [
     { id: 'examples', label: 'Examples' },

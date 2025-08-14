@@ -28,7 +28,7 @@ export default function HeroAndNavigationSection() {
       icon: <StackingCubes />,
       title: 'Tools',
       description: 'Essential developer tools and SDKs',
-      href: '/developers',
+      href: '/tools',
     },
   ];
 
