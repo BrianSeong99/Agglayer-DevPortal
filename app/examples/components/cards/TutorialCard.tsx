@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
+import { Button } from '@/shared/components';
 
 interface TutorialCardProps {
   title: string;
@@ -139,35 +140,21 @@ export default function TutorialCard({
         </div>
       </div>
 
-      {/* Actions */}
-      <div style={{
-        padding: spacing[6],
-        display: 'flex',
-        flexDirection: 'column',
-        gap: spacing[3]
-      }}>
+              {/* Actions */}
+        <div style={{
+          padding: `${spacing[3]} ${spacing[6]} ${spacing[3]} ${spacing[6]}`,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: spacing[3]
+        }}>
         {/* Start Tutorial Button */}
-        <Link
+        <Button
+          variant="primary"
           href={url}
-          style={{
-            backgroundColor: colors.primary.DEFAULT,
-            color: '#ffffff',
-            border: 'none',
-            borderRadius: '3px',
-            padding: `${spacing[2]} ${spacing[4]}`,
-            fontSize: '10px',
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: typography.fontWeight.bold,
-            cursor: 'pointer',
-            textDecoration: 'none',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            lineHeight: '12px'
-          }}
+          style={{ flex: 1 }}
         >
           Start Tutorial
-        </Link>
+        </Button>
       </div>
     </motion.div>
   );

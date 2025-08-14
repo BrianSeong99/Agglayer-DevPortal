@@ -5,28 +5,15 @@ import Link from 'next/link';
 import { IconArrowRight, IconTelescope } from '@tabler/icons-react';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 import StackingSquares from './svg/StackingSquares';
+import { examples } from '@/app/examples/data/examples';
 
 export default function FeaturedExamplesSection() {
-  const examples = [
-    {
-      id: 'cross-chain-dex',
-      title: 'Cross-Chain DEX',
-      description: 'Unified liquidity pools across all Agglayer connected chains',
-      url: '/examples',
-    },
-    {
-      id: 'nft-marketplace',
-      title: 'NFT Marketplace',
-      description: 'Trade NFTs from any Agglayer connected chain',
-      url: '/examples',
-    },
-    {
-      id: 'multi-chain-lending',
-      title: 'Multi-Chain Lending',
-      description: 'Borrow on one chain, collateral on another',
-      url: '/examples',
-    },
-  ];
+  const featuredExamples = examples.slice(0, 3).map(example => ({
+    id: example.id,
+    title: example.title,
+    description: example.description,
+    url: example.urls.code || '/examples',
+  }));
 
   return (
     <section className="bg-white" style={{ paddingTop: spacing[24], paddingBottom: spacing[24] }}>
@@ -68,7 +55,7 @@ export default function FeaturedExamplesSection() {
           className="flex flex-col md:flex-row mb-6"
           style={{ gap: spacing[6] }}
         >
-          {examples.map((example, index) => (
+          {featuredExamples.map((example, index) => (
             <motion.div
               key={example.id}
               {...motionTokens.card}

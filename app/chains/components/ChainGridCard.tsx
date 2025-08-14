@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import { DocumentDuplicateIcon, CheckIcon } from '@heroicons/react/24/outline';
 import { typography, colors, spacing, radius, motionTokens } from '@/shared/design-system';
 import type { Chain } from '../data/chains';
+import { Button } from '@/shared/components';
 
 interface ChainGridCardProps {
   chain: Chain;
@@ -364,69 +365,19 @@ export default function ChainGridCard({
           display: 'flex',
           gap: spacing[1.5]
         }}>
-          {/* Explorer Button */}
-          <div style={{
-            flexBasis: 0,
-            flexGrow: 1,
-            minHeight: '1px',
-            minWidth: '1px',
-            backgroundColor: colors.primary.DEFAULT,
-            borderRadius: '100px',
-            padding: `${spacing[2]} ${spacing[4]}`,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            overflow: 'hidden',
-            border: `1px solid rgba(0,113,247,0.14)`,
-            cursor: 'pointer'
-          }}>
-            <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.bold,
-              color: '#ffffff',
-              lineHeight: 1.2,
-              textAlign: 'left',
-              whiteSpace: 'nowrap',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center'
-            }}>
-              Explorer
-            </div>
-          </div>
+          <Button
+            variant="primary"
+            href={chain.blockExplorer}
+          >
+            Explorer
+          </Button>
 
-          {/* Docs Button */}
-          <div style={{
-            flexBasis: 0,
-            flexGrow: 1,
-            minHeight: '1px',
-            minWidth: '1px',
-            backgroundColor: '#ffffff',
-            borderRadius: '100px',
-            padding: `${spacing[2]} ${spacing[4]}`,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-            overflow: 'hidden',
-            border: `1px solid rgba(0,113,247,0.14)`,
-            cursor: 'pointer'
-          }}>
-            <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.medium,
-              color: colors.primary.DEFAULT,
-              lineHeight: 1.2,
-              textAlign: 'left',
-              whiteSpace: 'nowrap',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center'
-            }}>
-              Docs
-            </div>
-          </div>
+          <Button
+            variant="secondary"
+            href={`https://docs.agglayer.dev/chains/${chain.name.toLowerCase()}`}
+          >
+            Docs
+          </Button>
         </div>
       </div>
     </motion.div>

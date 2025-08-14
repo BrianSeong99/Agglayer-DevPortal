@@ -4,17 +4,78 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
 import { typography, colors, spacing } from '@/shared/design-system';
+import { Button, Tabs, Tab } from '@/shared/components';
 
 interface CodeBlockProps {
-  code: string;
-  language?: string;
+  code: Array<{
+    language: 'typescript' | 'bash';
+    label: string;
+    content: string;
+  }>;
   showLineNumbers?: boolean;
   className?: string;
 }
 
-// Simple syntax highlighting for TypeScript/JavaScript
-const SyntaxHighlighter = ({ code, language }: { code: string; language: string }) => {
-  if (language !== 'typescript' && language !== 'javascript') {
+// Simple bash highlighting
+const BashHighlighter = ({ code }: { code: string }) => {
+  const tokens = code.split(/(\s+|[^\w\s]+)/g).filter(Boolean);
+  
+  const bashKeywords = new Set([
+    'aggsandbox', 'bridge', 'transfer', 'balance', 'check', 'events', 'listen', 
+    'filter', 'message', 'send', 'defi', 'add-liquidity', 'batch', 'echo', 
+    'cd', 'ls', 'cat', 'grep', 'awk', 'sed', 'sort', 'uniq', 'head', 'tail'
+  ]);
+
+  const bashOperators = new Set(['--', '-', '&&', '||', '|', '>', '>>', '<', '\\']);
+
+  return (
+    <>
+      {tokens.map((token, index) => {
+        // Comments (lines starting with #)
+        if (token.startsWith('#')) {
+          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
+        }
+
+        // Commands and keywords
+        if (bashKeywords.has(token)) {
+          return <span key={index} style={{ color: '#7C3AED' }}>{token}</span>;
+        }
+
+        // Flags and operators
+        if (bashOperators.has(token) || token.startsWith('--') || token.startsWith('-')) {
+          return <span key={index} style={{ color: '#DC2626' }}>{token}</span>;
+        }
+
+        // Strings in quotes
+        if ((token.startsWith('"') && token.endsWith('"')) || 
+            (token.startsWith("'") && token.endsWith("'"))) {
+          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
+        }
+
+        // URLs and addresses (containing dots or 0x)
+        if (token.includes('.') || token.startsWith('0x') || token.includes('@')) {
+          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
+        }
+
+        // Numbers
+        if (/^\d+\.?\d*$/.test(token)) {
+          return <span key={index} style={{ color: '#EA580C' }}>{token}</span>;
+        }
+
+        // Default
+        return <span key={index} style={{ color: 'rgba(0,46,101,0.9)' }}>{token}</span>;
+      })}
+    </>
+  );
+};
+
+// Simple syntax highlighting for TypeScript/JavaScript/Bash
+const SyntaxHighlighter = ({ code, language }: { code: string; language: 'typescript' | 'bash' }) => {
+  if (language === 'bash') {
+    return <BashHighlighter code={code} />;
+  }
+  
+  if (language !== 'typescript') {
     return <>{code}</>;
   }
 
@@ -142,19 +203,27 @@ const SyntaxHighlighter = ({ code, language }: { code: string; language: string 
 
 export default function CodeBlock({
   code,
-  language = 'typescript',
   showLineNumbers = false,
   className = '',
 }: CodeBlockProps) {
+  const [activeTab, setActiveTab] = useState<'typescript' | 'bash'>(code[0]?.language || 'typescript');
   const [copied, setCopied] = useState(false);
 
+  const activeCode = code.find(c => c.language === activeTab) || code[0];
+
   const copyToClipboard = async () => {
-    await navigator.clipboard.writeText(code);
+    await navigator.clipboard.writeText(activeCode.content);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const lines = code.split('\n');
+  const lines = activeCode.content.split('\n');
+
+  // Create tabs from the code array
+  const tabs: Tab[] = code.map(c => ({
+    id: c.language,
+    label: c.label
+  }));
 
   return (
     <div style={{ 
@@ -165,7 +234,7 @@ export default function CodeBlock({
       border: '1px solid rgba(0,113,247,0.1)',
       ...className && { className }
     }}>
-      {/* Header with language and copy button */}
+      {/* Header with tabs and copy button */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
@@ -174,53 +243,71 @@ export default function CodeBlock({
         backgroundColor: '#EAF3FD',
         borderBottom: '1px solid rgba(0,113,247,0.1)'
       }}>
-        {language && (
-          <span style={{
-            fontSize: '10px',
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: typography.fontWeight.medium,
-            color: colors.primary.DEFAULT,
-            backgroundColor: 'rgba(0,113,247,0.05)',
-            border: '1px solid rgba(0,113,247,0.14)',
-            borderRadius: '3px',
-            padding: `${spacing[1]} ${spacing[2]}`,
-            lineHeight: '12px'
-          }}>
-            {language.toUpperCase()}
-          </span>
-        )}
+        {/* Language Tabs */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          borderRadius: '40.5px',
+          padding: spacing[1.5],
+          display: 'flex',
+          alignItems: 'center',
+          height: 'auto'
+        }}>
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id as 'typescript' | 'bash')}
+              style={{
+                backgroundColor: activeTab === tab.id ? colors.primary.DEFAULT : 'transparent',
+                color: activeTab === tab.id ? '#ffffff' : colors.primary.DEFAULT,
+                border: 'none',
+                borderRadius: '36px',
+                padding: `${spacing[2]} ${spacing[4]}`,
+                fontSize: '12px',
+                fontFamily: 'Inter, sans-serif',
+                fontWeight: activeTab === tab.id ? typography.fontWeight.bold : typography.fontWeight.medium,
+                cursor: 'pointer',
+                height: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                lineHeight: 1.2,
+                whiteSpace: 'nowrap'
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
         
-        <button
+        <Button
+          variant="secondary"
           onClick={copyToClipboard}
           style={{
-            backgroundColor: copied ? 'rgba(34, 197, 94, 0.1)' : '#ffffff',
-            color: copied ? '#22C55E' : colors.primary.DEFAULT,
-            border: `1px solid ${copied ? 'rgba(34, 197, 94, 0.3)' : 'rgba(0,113,247,0.14)'}`,
-            borderRadius: '3px',
-            padding: `${spacing[2]} ${spacing[3]}`,
+            width: '80px',
+            minWidth: '80px',
+            maxWidth: '80px',
+            backgroundColor: copied ? 'rgba(34, 197, 94, 0.1)' : undefined,
+            color: copied ? '#22C55E' : undefined,
+            border: copied ? '1px solid rgba(34, 197, 94, 0.3)' : undefined,
             fontSize: '10px',
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: typography.fontWeight.medium,
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
+            padding: `${spacing[2]} ${spacing[3]}`,
             gap: spacing[1],
-            lineHeight: '12px',
             transition: 'all 0.2s ease'
           }}
         >
-          {copied ? (
-            <>
-              <CheckIcon style={{ width: '12px', height: '12px' }} />
-              <span>Copied!</span>
-            </>
-          ) : (
-            <>
-              <DocumentDuplicateIcon style={{ width: '12px', height: '12px' }} />
-              <span>Copy</span>
-            </>
-          )}
-        </button>
+          <span style={{ display: 'flex', alignItems: 'center', gap: spacing[1] }}>
+            {copied ? (
+              <>
+                <CheckIcon style={{ width: '12px', height: '12px' }} />
+                <span>Copied!</span>
+              </>
+            ) : (
+              <>
+                <DocumentDuplicateIcon style={{ width: '12px', height: '12px' }} />
+                <span>Copy</span>
+              </>
+            )}
+          </span>
+        </Button>
       </div>
 
       {/* Code content */}
@@ -230,12 +317,32 @@ export default function CodeBlock({
         fontFamily: 'SF Mono, Monaco, Consolas, Liberation Mono, Courier New, monospace',
         fontSize: '12px',
         lineHeight: 1.5,
-        overflow: 'auto'
+        overflow: 'auto',
+        position: 'relative'
       }}>
+        {/* Language indicator in top-right corner */}
+        <div style={{
+          position: 'absolute',
+          top: spacing[2],
+          right: spacing[2],
+          fontSize: '8px',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: typography.fontWeight.medium,
+          color: 'rgba(0,46,101,0.6)',
+          backgroundColor: 'rgba(0,113,247,0.05)',
+          border: '1px solid rgba(0,113,247,0.1)',
+          borderRadius: '4px',
+          padding: `${spacing[0.5]} ${spacing[1]}`,
+          lineHeight: '10px',
+          textTransform: 'uppercase'
+        }}>
+          {activeCode.language}
+        </div>
+
         <pre style={{ margin: 0, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>
           <code>
             {showLineNumbers ? (
-              lines.map((line, index) => (
+              lines.map((line: string, index: number) => (
                 <div key={index} style={{ display: 'flex' }}>
                   <span style={{
                     color: 'rgba(0,46,101,0.4)',
@@ -248,12 +355,12 @@ export default function CodeBlock({
                     {index + 1}
                   </span>
                   <span style={{ flex: 1 }}>
-                    <SyntaxHighlighter code={line} language={language} />
+                    <SyntaxHighlighter code={line} language={activeCode.language} />
                   </span>
                 </div>
               ))
             ) : (
-              <SyntaxHighlighter code={code} language={language} />
+              <SyntaxHighlighter code={activeCode.content} language={activeCode.language} />
             )}
           </code>
         </pre>

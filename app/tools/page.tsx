@@ -49,7 +49,8 @@ export default function ToolsPage() {
         className="mx-auto flex flex-col items-center"
         style={{
           maxWidth: sizing.container.lg,
-          gap: spacing[16]
+          gap: spacing[16],
+          marginBottom: spacing[24]
         }}
       >
         {/* Essential Tools Grid */}
