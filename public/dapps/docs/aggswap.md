@@ -1,4 +1,4 @@
-# Cross-Chain Swaps with AggLayer - Quick Guide
+# Crosschain Swaps with AggLayer - Quick Guide
 
 A condensed developer reference for implementing cross-chain token bridging and swapping between Sepolia and Cardona networks using AggLayer's bridgeAndCall functionality.
 

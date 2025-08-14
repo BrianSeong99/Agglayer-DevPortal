@@ -164,10 +164,9 @@ export default function ChainsPage() {
           }}
         >
           <iframe 
-            src="https://www.agglayerzone.com/embed/ecosystem?view=overview" 
+            src="https://www.agglayerzone.com/embed/ecosystem?view=overview&theme=light" 
             width="100%" 
-            height="600" 
-            frameBorder="0"
+            height="550" 
             style={{ border: 'none', borderRadius: radius.lg }}
           />
         </motion.div>

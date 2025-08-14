@@ -1,10 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
+import { Tabs, Tab } from '@/shared/components';
 import { 
   ExamplesTabContent, 
   TutorialsTabContent, 
@@ -15,7 +16,7 @@ import { codeSnippets } from './data/codeSnippets';
 import { tutorials } from './data/tutorials';
 import { typography, colors, spacing, motionTokens, sizing } from '@/shared/design-system';
 
-export default function ExamplesPage() {
+function ExamplesContent() {
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState('examples');
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -28,7 +29,7 @@ export default function ExamplesPage() {
     }
   }, [searchParams]);
 
-  const tabs = [
+  const tabs: Tab[] = [
     { id: 'examples', label: 'Examples' },
     { id: 'tutorials', label: 'Tutorials' },
     { id: 'snippets', label: 'Code Snippets' },
@@ -92,52 +93,15 @@ export default function ExamplesPage() {
         />
       </div>
 
-      {/* Tab Navigation and Filter Row */}
-      <motion.div 
-        initial={motionTokens.section.initial}
-        whileInView={motionTokens.section.whileInView}
-        transition={motionTokens.section.transition}
-        viewport={{ once: true }}
-        style={{ width: '940px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
-      >
-        {/* Tab Navigation */}
-        <div style={{
-          backgroundColor: '#E4F5FF',
-          borderRadius: '40.5px',
-          padding: spacing[1.5],
-          display: 'flex',
-          alignItems: 'center',
-          height: '31px'
-        }}>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              style={{
-                backgroundColor: activeTab === tab.id ? colors.primary.DEFAULT : 'transparent',
-                color: activeTab === tab.id ? '#ffffff' : colors.primary.DEFAULT,
-                border: 'none',
-                borderRadius: '36px',
-                padding: `${spacing[1.5]} ${spacing[2]}`,
-                fontSize: '12px',
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: activeTab === tab.id ? typography.fontWeight.bold : typography.fontWeight.medium,
-                cursor: 'pointer',
-                height: '22px',
-                display: 'flex',
-                alignItems: 'center',
-                lineHeight: 1.2,
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
-      </motion.div>
+      {/* Tab Navigation */}
+      <Tabs 
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
 
       {/* Content Area */}
-      <div style={{ width: '940px', marginBottom: spacing[24] }}>
+      <div style={{ width: '940px', marginBottom: spacing[24], marginTop: `-${spacing[8]}` }}>
         {/* Examples Tab */}
         <ExamplesTabContent 
           examples={filteredExamples} 
@@ -157,5 +121,13 @@ export default function ExamplesPage() {
         />
       </div>
     </PageLayout>
+  );
+}
+
+export default function ExamplesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ExamplesContent />
+    </Suspense>
   );
 }

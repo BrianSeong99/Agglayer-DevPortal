@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
+import { Button } from '@/shared/components';
 
 interface ExampleCardProps {
   title: string;
@@ -100,7 +101,7 @@ export default function ExampleCard({
               style={{
                 backgroundColor: 'rgba(0,113,247,0.05)',
                 border: '1px solid rgba(0,113,247,0.14)',
-                borderRadius: '3px',
+                borderRadius: '100px',
                 padding: `${spacing[1]} ${spacing[2]}`,
                 fontSize: '10px',
                 fontFamily: 'Inter, sans-serif',
@@ -117,7 +118,7 @@ export default function ExampleCard({
 
       {/* Actions and Stats */}
       <div style={{
-        padding: spacing[6],
+        padding: `${spacing[3]} ${spacing[6]} ${spacing[3]} ${spacing[6]}`,
         display: 'flex',
         flexDirection: 'column',
         gap: spacing[6]
@@ -129,77 +130,41 @@ export default function ExampleCard({
         }}>
           {/* Demo Button */}
           {demoUrl && (
-            <button style={{
-              flex: 1,
-              backgroundColor: colors.primary.DEFAULT,
-              color: '#ffffff',
-              border: 'none',
-              borderRadius: '3px',
-              padding: `${spacing[2]} ${spacing[4]}`,
-              fontSize: '10px',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: typography.fontWeight.bold,
-              cursor: 'pointer',
-              lineHeight: '12px'
-            }}>
+            <Button
+              variant="primary"
+              href={demoUrl}
+              style={{ flex: 1 }}
+            >
               Demo
-            </button>
+            </Button>
           )}
 
           {/* Source Button */}
           {codeUrl && (
-            <a
+            <Button
+              variant="secondary"
               href={codeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
               style={{
                 flex: 1,
-                backgroundColor: '#ffffff',
-                color: colors.primary.DEFAULT,
-                border: '1px solid rgba(0,113,247,0.14)',
-                borderRadius: '3px',
-                padding: `${spacing[2]} ${spacing[4]}`,
-                fontSize: '10px',
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: typography.fontWeight.medium,
-                cursor: 'pointer',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: spacing[1.5],
-                lineHeight: '12px'
+                gap: spacing[1.5]
               }}
             >
-              Source
-              <ArrowTopRightOnSquareIcon style={{ width: '12px', height: '12px' }} />
-            </a>
+              <span style={{ display: 'flex', alignItems: 'center', gap: spacing[1.5] }}>
+                Source
+                <ArrowTopRightOnSquareIcon style={{ width: '12px', height: '12px' }} />
+              </span>
+            </Button>
           )}
 
           {/* Tutorial Button */}
           {tutorialUrl && (
-            <Link
+            <Button
+              variant="secondary"
               href={tutorialUrl}
-              style={{
-                flex: 1,
-                backgroundColor: '#ffffff',
-                color: colors.primary.DEFAULT,
-                border: '1px solid rgba(0,113,247,0.14)',
-                borderRadius: '3px',
-                padding: `${spacing[2]} ${spacing[4]}`,
-                fontSize: '10px',
-                fontFamily: 'Inter, sans-serif',
-                fontWeight: typography.fontWeight.medium,
-                cursor: 'pointer',
-                textDecoration: 'none',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                lineHeight: '12px'
-              }}
+              style={{ flex: 1 }}
             >
               Tutorial
-            </Link>
+            </Button>
           )}
         </div>
 

@@ -31,10 +31,7 @@ export function CodeSnippetsTabContent({ snippets, isActive }: CodeSnippetsTabCo
           >
             <h3 className="text-lg font-bold text-black mb-2">{snippet.title}</h3>
             <p className="text-sm text-[rgba(0,0,0,0.6)] mb-4">{snippet.description}</p>
-            <CodeBlock
-              code={snippet.code}
-              language={snippet.language}
-            />
+            <CodeBlock code={snippet.code} />
           </motion.div>
         ))}
       </div>

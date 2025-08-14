@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowTopRightOnSquareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline'
 import { typography, colors, spacing, radius, motionTokens } from '@/shared/design-system'
+import { Button } from '@/shared/components'
 
 interface QuickAction {
   label: string
@@ -187,127 +188,28 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
+              gap: spacing[1.5],
               padding: 0,
               position: 'relative',
               flexShrink: 0,
               width: '100%'
             }}
           >
-            {tool.quickActions.slice(0, 3).map((action) => (
-              <a
-                key={action.label}
-                href={action.url}
-                target={action.external ? '_blank' : undefined}
-                rel={action.external ? 'noopener noreferrer' : undefined}
-                style={{
-                  backgroundColor: `rgba(${colors.primary.rgb}, 0.05)`,
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  justifyContent: 'flex-start',
-                  overflow: 'hidden',
-                  paddingLeft: spacing[2],
-                  paddingRight: spacing[2],
-                  paddingTop: spacing[1],
-                  paddingBottom: spacing[1],
-                  position: 'relative',
-                  borderRadius: radius.sm,
-                  flexShrink: 0,
-                  gap: spacing[1.5],
-                  textDecoration: 'none',
-                  boxShadow: `0px 0px 0px 0px inset ${colors.background.primary}, 0px 0px 0px 1px inset rgba(${colors.primary.rgb}, 0.14)`
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: typography.fontFamily.body.join(', '),
-                    fontWeight: typography.fontWeight.medium,
-                    fontSize: typography.fontSize['2xs'],
-                    lineHeight: typography.fontSize.xs,
-                    color: colors.primary.DEFAULT,
-                    whiteSpace: 'pre',
-                    textAlign: 'left',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    position: 'relative',
-                    flexShrink: 0
-                  }}
-                >
-                  {action.label}
-                </span>
-                <div
-                  style={{
-                    position: 'relative',
-                    flexShrink: 0,
-                    width: typography.fontSize.xs,
-                    height: typography.fontSize.xs
-                  }}
-                >
-                  <ArrowTopRightOnSquareIcon style={{ width: '100%', height: '100%' }} />
-                </div>
-              </a>
-            ))}
-          </div>
-
-          {/* Install Command */}
-          {/* {tool.quickInstall && (
-            <div
-              style={{
-                backgroundColor: colors.background.primary,
-                display: 'flex',
-                alignItems: 'flex-start',
-                justifyContent: 'space-between',
-                overflow: 'hidden',
-                padding: spacing[4],
-                position: 'relative',
-                borderRadius: radius.sm,
-                flexShrink: 0,
-                width: '100%',
-                height: '44px', // Fixed height for consistency
-                boxShadow: `0px 0px 0px 0px inset ${colors.background.primary}, 0px 0px 0px 1px inset rgba(${colors.primary.rgb}, 0.14)`
-              }}
+            <Button
+              key={tool.quickActions[0].label}
+              variant="primary"
+              href={tool.quickActions[0].url}
             >
-              <code
-                style={{
-                  fontFamily: typography.fontFamily.mono.join(', '),
-                  fontWeight: typography.fontWeight.medium,
-                  fontSize: typography.fontSize['2xs'],
-                  lineHeight: typography.fontSize.xs,
-                  color: colors.primary.DEFAULT,
-                  whiteSpace: 'nowrap',
-                  textAlign: 'left',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  display: 'block',
-                  width: '240px', // Fixed width
-                  marginRight: spacing[2]
-                }}
-              >
-                {tool.quickInstall}
-              </code>
-              <button
-                onClick={() => copyToClipboard(tool.quickInstall!, tool.id)}
-                style={{
-                  background: 'none',
-                  border: 'none',
-                  cursor: 'pointer',
-                  padding: 0,
-                  position: 'relative',
-                  flexShrink: 0,
-                  width: typography.fontSize.xs,
-                  height: typography.fontSize.xs
-                }}
-              >
-                <DocumentDuplicateIcon
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    color: copiedId === tool.id ? colors.semantic.success : colors.neutral.gray[400]
-                  }}
-                />
-              </button>
-            </div>
-          )} */}
+              {tool.quickActions[0].label}
+            </Button>
+            <Button
+              key={tool.quickActions[1].label}
+              variant="secondary"
+              href={tool.quickActions[1].url}
+            >
+              {tool.quickActions[1].label}
+            </Button>
+          </div>
         </div>
       </div>
     </motion.div>
