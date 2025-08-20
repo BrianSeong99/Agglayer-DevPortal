@@ -7,6 +7,61 @@ import { CheckIcon } from '@heroicons/react/24/outline';
 import { IconSchool, IconCopy } from '@tabler/icons-react';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 
+// Simple bash highlighting
+const BashHighlighter = ({ code }: { code: string }) => {
+  const tokens = code.split(/(\s+|[^\w\s]+)/g).filter(Boolean);
+  
+  const bashKeywords = new Set([
+    'aggsandbox', 'bridge', 'transfer', 'balance', 'check', 'events', 'listen', 
+    'filter', 'message', 'send', 'defi', 'add-liquidity', 'batch', 'echo', 
+    'cd', 'ls', 'cat', 'grep', 'awk', 'sed', 'sort', 'uniq', 'head', 'tail',
+    'git', 'clone', 'make', 'install', 'start', 'show', 'bridges', 'monitor',
+    'npm', 'node', 'yarn', 'pnpm', 'docker', 'curl', 'wget', 'chmod', 'sudo'
+  ]);
+
+  const bashOperators = new Set(['--', '-', '&&', '||', '|', '>', '>>', '<', '\\']);
+
+  return (
+    <>
+      {tokens.map((token, index) => {
+        // Comments (lines starting with #)
+        if (token.startsWith('#')) {
+          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
+        }
+
+        // Commands and keywords
+        if (bashKeywords.has(token)) {
+          return <span key={index} style={{ color: '#7C3AED' }}>{token}</span>;
+        }
+
+        // Flags and operators
+        if (bashOperators.has(token) || token.startsWith('--') || token.startsWith('-')) {
+          return <span key={index} style={{ color: '#DC2626' }}>{token}</span>;
+        }
+
+        // Strings in quotes
+        if ((token.startsWith('"') && token.endsWith('"')) || 
+            (token.startsWith("'") && token.endsWith("'"))) {
+          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
+        }
+
+        // URLs and addresses (containing dots or 0x)
+        if (token.includes('.') || token.startsWith('0x') || token.includes('@')) {
+          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
+        }
+
+        // Numbers
+        if (/^\d+\.?\d*$/.test(token)) {
+          return <span key={index} style={{ color: '#EA580C' }}>{token}</span>;
+        }
+
+        // Default
+        return <span key={index} style={{ color: 'rgba(0,46,101,0.9)' }}>{token}</span>;
+      })}
+    </>
+  );
+};
+
 export default function QuickStartSection() {
   const [copiedStep, setCopiedStep] = useState<number | null>(null);
 
@@ -19,7 +74,7 @@ export default function QuickStartSection() {
   const steps = [
     {
       title: 'Install',
-      code: `# Clone and install AggSandbox\ngit clone https://github.com/NethermindEth/agg-sandbox.git\ncd agg-sandbox && make install`,
+      code: `# Clone & Install AggSandbox\ngit clone https://github.com/agglayer/aggsandbox.git && cd aggsandbox && make install`,
     },
     {
       title: 'Start Sandbox',
@@ -139,7 +194,7 @@ export default function QuickStartSection() {
                     color: colors.text.primary,
                   }}
                 >
-                  {step.code}
+                  <BashHighlighter code={step.code} />
                 </pre>
               </div>
               </div>
