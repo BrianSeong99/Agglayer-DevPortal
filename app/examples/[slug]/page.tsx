@@ -15,7 +15,7 @@ import {
   Globe
 } from 'lucide-react'
 import { dapps } from '@/app/examples/data/dapps'
-import DashboardLayout from '@/shared/components/dashboard/DashboardLayout'
+import PageLayout from '@/shared/components/layouts/PageLayout'
 import { useState, useEffect } from 'react'
 
 export default function DappDetailPage({ params }: { params: { slug: string } }) {
@@ -85,7 +85,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
   }
 
   return (
-    <DashboardLayout>
+    <PageLayout>
       <div className="max-w-7xl mx-auto px-6 pb-20">
         {/* Back Link */}
         <Link 
@@ -253,6 +253,6 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
         )}
 
       </div>
-    </DashboardLayout>
+    </PageLayout>
   )
 }

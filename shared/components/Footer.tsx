@@ -2,136 +2,176 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { IconBrandX, IconBrandDiscord } from '@tabler/icons-react';
+import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
+import Logo from './Logo';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
-
   const footerLinks = {
-    developers: [
-      { label: 'Documentation', href: 'https://docs.agglayer.dev', external: true },
-      { label: 'GitHub', href: 'https://github.com/0xPolygon', external: true },
-      { label: 'Visualizer', href: 'https://visualizer.agglayer.dev/', external: true },
-      { label: 'Tools', href: '/tools' },
-      { label: 'Examples', href: '/examples' },
-      { label: 'AggNiverse', href: '/aggniverse' },
-      { label: 'Tutorials', href: '/examples?tab=tutorials' },
-    ],
-    community: [
-      { label: 'Discord', href: 'https://discord.gg/agglayer', external: true },
-      { label: 'Twitter', href: 'https://twitter.com/agglayer', external: true },
+    explore: [
+      { label: 'Docs', href: 'https://docs.agglayer.dev/', external: true },
       { label: 'Blog', href: 'https://www.agglayer.dev/blog', external: true },
-      { label: 'Forum', href: 'https://forum.agglayer.dev', external: true },
-    ],
-    resources: [
-      { label: 'Whitepaper', href: 'https://docs.agglayer.dev/whitepaper', external: true },
-      { label: 'Roadmap', href: 'https://www.agglayer.dev/roadmap', external: true },
-      { label: 'FAQ', href: 'https://docs.agglayer.dev/faq', external: true },
-      { label: 'Support', href: 'https://support.agglayer.dev', external: true },
+      { label: 'Ecosystem', href: 'https://www.agglayer.dev/ecosystem-index', external: true },
+      { label: 'Join Us', href: 'https://info.polygon.technology/agglayer-intake-form', external: true },
     ],
   };
 
   return (
-    <footer className="bg-black/50 border-t border-white/10 mt-20">
-      <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-          {/* Logo and Description */}
-          <div>
-            <h3 className="text-xl font-bold text-white mb-4">Agglayer</h3>
-            <p className="text-sm text-[#D9D9D9]/80">
-              Unified cross-chain infrastructure for the future of Web3
-            </p>
-          </div>
-
-          {/* Developers */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Developers</h4>
-            <ul className="space-y-2">
-              {footerLinks.developers.map((link) => (
-                <li key={link.label}>
-                  {link.external ? (
-                    <a
-                      href={link.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                    >
-                      {link.label}
-                    </a>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Community */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Community</h4>
-            <ul className="space-y-2">
-              {footerLinks.community.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div>
-            <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Resources</h4>
-            <ul className="space-y-2">
-              {footerLinks.resources.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-[#D9D9D9]/80 hover:text-[#0071F7] transition-colors"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+    <div style={{ paddingBottom: '48px' }}>
+      <motion.footer 
+        initial={motionTokens.section.initial}
+        whileInView={motionTokens.section.whileInView}
+        transition={motionTokens.section.transition}
+        viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+        style={{ 
+          backgroundColor: '#FBFAFA',
+          borderRadius: '20px',
+          padding: '48px',
+          width: '940px',
+          overflow: 'hidden',
+          margin: '0 auto'
+        }}
+      >
+      <div 
+        className="flex items-start justify-between"
+        style={{ width: '100%' }}
+      >
+        {/* Logo */}
+        <div className="flex-shrink-0">
+          <Logo 
+            width={99.448} 
+            height={22} 
+            showBackground={false}
+            color="black"
+          />
         </div>
 
-        {/* Bottom Section */}
-        <div className="pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-[#D9D9D9]/60">
-              © {currentYear} Agglayer. All rights reserved.
-            </p>
-            <div className="flex gap-6">
+        {/* Right side sections */}
+        <div 
+          className="flex items-start"
+          style={{ gap: spacing[6], width: '647px', justifyContent: 'flex-end' }}
+        >
+          {/* Explore Links */}
+          <div style={{ width: '110px', height: '120px' }}>
+            <h4 
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 800, // Extra Bold
+                lineHeight: 2,
+                color: '#000000',
+                marginBottom: 0,
+              }}
+            >
+              Explore
+            </h4>
+            <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+              {footerLinks.explore.map((link) => (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontFamily: 'Inter, sans-serif',
+                      fontSize: '12px',
+                      fontWeight: 500, // Medium
+                      lineHeight: 2,
+                      color: 'rgba(0,0,0,0.6)',
+                      textDecoration: 'underline',
+                      textUnderlinePosition: 'from-font',
+                      textDecorationSkipInk: 'none',
+                      textDecorationStyle: 'solid',
+                      display: 'block',
+                      cursor: 'pointer',
+                    }}
+                    className="hover:text-primary transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Stay Updated */}
+          <div style={{ width: '220px' }}>
+            <h4 
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 700, // Bold
+                lineHeight: 2,
+                color: '#000000',
+                marginBottom: '10px',
+                height: '23.98px',
+              }}
+            >
+              Stay updated
+            </h4>
+            <div 
+              style={{
+                backgroundColor: '#ffffff',
+                border: '0.75px solid rgba(0,0,0,0.2)',
+                borderRadius: '40.289px',
+                height: '28.476px',
+                width: '195px',
+                paddingLeft: '18.75px',
+                paddingRight: '18.75px',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '11.25px',
+              }}
+            >
+              <input
+                type="email"
+                placeholder="Your email"
+                style={{
+                  width: '100%',
+                  backgroundColor: 'transparent',
+                  border: 'none',
+                  outline: 'none',
+                  fontFamily: 'Inter, sans-serif',
+                  fontSize: '12px',
+                  fontWeight: 500, // Medium
+                  color: 'rgba(0,0,0,0.3)',
+                  lineHeight: 1.5,
+                }}
+                className="placeholder:text-[rgba(0,0,0,0.3)]"
+              />
+            </div>
+          </div>
+
+          {/* Follow */}
+          <div style={{ width: '133px' }}>
+            <h4 
+              style={{
+                fontFamily: 'Inter, sans-serif',
+                fontSize: '12px',
+                fontWeight: 700, // Bold
+                lineHeight: 2,
+                color: '#000000',
+                marginBottom: '10px',
+                height: '23.98px',
+              }}
+            >
+              Follow our journey
+            </h4>
+            <div style={{ height: '28.476px', width: '30.986px' }}>
               <a
-                href="https://docs.agglayer.dev/privacy"
-                className="text-sm text-[#D9D9D9]/60 hover:text-[#0071F7] transition-colors"
+                href="https://twitter.com/agglayer"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-primary transition-colors"
+                style={{ color: 'rgba(0,0,0,0.6)' }}
               >
-                Privacy Policy
-              </a>
-              <a
-                href="https://docs.agglayer.dev/terms"
-                className="text-sm text-[#D9D9D9]/60 hover:text-[#0071F7] transition-colors"
-              >
-                Terms of Service
+                <IconBrandX style={{ width: '20px', height: '20px' }} />
               </a>
             </div>
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
+    </div>
   );
 }

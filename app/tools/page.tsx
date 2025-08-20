@@ -1,27 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import DashboardLayout from '@/shared/components/dashboard/DashboardLayout';
-import DashboardHeader from '@/shared/components/dashboard/DashboardHeader';
+import Link from 'next/link';
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
+import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
+import PageLayout from '@/shared/components/layouts/PageLayout';
+import PageHeader from '@/shared/components/layouts/PageHeader';
+import ToolCard from './components/ToolCard';
+import EcosystemToolCard from './components/EcosystemToolCard';
 import { tools } from './data/tools';
-import {
-  CubeIcon,
-  BeakerIcon,
-  ArrowTopRightOnSquareIcon,
-  CommandLineIcon,
-  DocumentDuplicateIcon,
-} from '@heroicons/react/24/outline';
-import { Button } from '@/components/ui/button';
-import { staggerItem, fadeInUp } from '@/shared/config/animations';
-
-const iconMap: { [key: string]: any } = {
-  package: CubeIcon,
-  box: BeakerIcon,
-  bridge: CommandLineIcon,
-  droplet: BeakerIcon,
-  tool: CubeIcon,
-};
 
 export default function ToolsPage() {
   const [copiedId, setCopiedId] = useState<string | null>(null);
@@ -36,193 +24,122 @@ export default function ToolsPage() {
   const additionalTools = tools.filter((tool) => tool.category === 'additional');
 
   return (
-    <DashboardLayout>
-      <DashboardHeader
-        title="Developer Tools"
-        subtitle="Everything you need to build, test, and deploy cross-chain applications"
-      />
+    <PageLayout theme="light">
+      {/* Header Section with Title */}
+      <div style={{
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        width: sizing.container.lg
+      }}>
+        <PageHeader
+          title={
+            <>
+              Developer{' '}
+              <span style={{ color: colors.primary.DEFAULT }}>Tools</span>
+            </>
+          }
+          subtitle="Everything you need to build, test, and deploy cross-chain applications"
+          theme="light"
+        />
+      </div>
 
-      {/* Essential Tools Grid */}
-      <section className="mb-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {essentialTools.map((tool, index) => {
-            const Icon = iconMap[tool.icon] || CubeIcon;
-            return (
-              <motion.div
-                key={tool.id}
-                {...staggerItem}
-                className="bg-[#17171797] border border-white/10 rounded-lg p-6 hover:border-[#0071F7]/50 transition-all"
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div className="p-3 bg-[#0071F7]/10 rounded-lg">
-                    <Icon className="w-6 h-6 text-[#0071F7]" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-xl font-bold text-white mb-2">{tool.name}</h3>
-                    <p className="text-[#D9D9D9] text-sm">{tool.description}</p>
-                  </div>
-                </div>
-
-                {/* Quick Actions */}
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {tool.quickActions.map((action) => (
-                    <Button
-                      key={action.label}
-                      asChild
-                      variant="outline"
-                      size="sm"
-                      className="h-auto py-1.5"
-                    >
-                      <a
-                        href={action.url}
-                        target={action.external ? '_blank' : undefined}
-                        rel={action.external ? 'noopener noreferrer' : undefined}
-                        className="flex items-center gap-1"
-                      >
-                        {action.label}
-                        {action.external && (
-                          <ArrowTopRightOnSquareIcon className="w-3 h-3" />
-                        )}
-                      </a>
-                    </Button>
-                  ))}
-                </div>
-
-                {/* Quick Install */}
-                {tool.quickInstall && (
-                  <div className="bg-black/50 border border-white/10 rounded-lg p-3 mb-4">
-                    <div className="flex items-center justify-between">
-                      <code className="text-sm text-[#D9D9D9]">{tool.quickInstall}</code>
-                      <Button
-                        onClick={() => copyToClipboard(tool.quickInstall!, tool.id)}
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7"
-                      >
-                        <DocumentDuplicateIcon
-                          className={`w-4 h-4 ${
-                            copiedId === tool.id ? 'text-green-400' : 'text-gray-400'
-                          }`}
-                        />
-                      </Button>
-                    </div>
-                  </div>
-                )}
-
-                {/* System Requirements */}
-                {tool.systemRequirements && (
-                  <div className="space-y-1">
-                    <p className="text-xs text-[#D9D9D9] font-medium mb-2">
-                      System Requirements:
-                    </p>
-                    {tool.systemRequirements.map((req) => (
-                      <p key={req} className="text-xs text-[#D9D9D9] flex items-start gap-1">
-                        <span className="text-[#0071F7] mt-0.5">•</span>
-                        <span>{req}</span>
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                {/* Features */}
-                {tool.features && (
-                  <div className="space-y-1">
-                    <p className="text-xs text-[#D9D9D9] font-medium mb-2">Features:</p>
-                    {tool.features.map((feature) => (
-                      <p key={feature} className="text-xs text-[#D9D9D9] flex items-start gap-1">
-                        <span className="text-[#0071F7] mt-0.5">•</span>
-                        <span>{feature}</span>
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                {/* Available Networks */}
-                {tool.availableNetworks && (
-                  <div className="space-y-1">
-                    <p className="text-xs text-[#D9D9D9] font-medium mb-2">
-                      Available Networks:
-                    </p>
-                    {tool.availableNetworks.map((network) => (
-                      <p key={network} className="text-xs text-[#D9D9D9] flex items-start gap-1">
-                        <span className="text-[#0071F7] mt-0.5">•</span>
-                        <span>{network}</span>
-                      </p>
-                    ))}
-                  </div>
-                )}
-              </motion.div>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* Additional Resources */}
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-6">More Tools & Resources</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {additionalTools.map((tool, index) => {
-            const Icon = iconMap[tool.icon] || CubeIcon;
-            return (
-              <motion.div
-                key={tool.id}
-                {...staggerItem}
-                className="bg-[#17171797] border border-white/10 rounded-lg p-6 hover:border-[#0071F7]/50 transition-all"
-              >
-                <div className="flex items-start gap-3 mb-4">
-                  <div className="p-2 bg-[#0071F7]/10 rounded-lg">
-                    <Icon className="w-5 h-5 text-[#0071F7]" />
-                  </div>
-                  <h3 className="text-lg font-bold text-white">{tool.name}</h3>
-                </div>
-
-                <p className="text-[#D9D9D9] text-sm mb-4">{tool.description}</p>
-
-                {tool.quickActions.map((action) => (
-                  <a
-                    key={action.label}
-                    href={action.url}
-                    target={action.external ? '_blank' : undefined}
-                    rel={action.external ? 'noopener noreferrer' : undefined}
-                    className="inline-flex items-center gap-1 text-[#0071F7] hover:text-[#0071F7]/80 text-sm font-medium transition-colors"
-                  >
-                    {action.label}
-                    {action.external && (
-                      <ArrowTopRightOnSquareIcon className="w-3 h-3" />
-                    )}
-                  </a>
-                ))}
-              </motion.div>
-            );
-          })}
-
-          {/* Placeholder for future tool */}
-          <motion.div
-            {...fadeInUp}
-            className="bg-[#17171797] border border-white/10 rounded-lg p-6 opacity-50"
+      {/* Main Content */}
+      <div
+        className="mx-auto flex flex-col items-center"
+        style={{
+          maxWidth: sizing.container.lg,
+          gap: spacing[16],
+          marginBottom: spacing[24]
+        }}
+      >
+        {/* Essential Tools Grid */}
+        <div style={{ width: '940px', gap: spacing[3] }} className="flex flex-col">
+          {/* First Row - 3 Cards */}
+          <div 
+            className="flex"
+            style={{ 
+              gap: spacing[3],
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
           >
-            <div className="flex items-start gap-3 mb-4">
-              <div className="p-2 bg-white/5 rounded-lg">
-                <CubeIcon className="w-5 h-5 text-white/40" />
+            {essentialTools.slice(0, 3).map((tool, index) => (
+              <div 
+                key={tool.id} 
+                className="basis-0 grow min-h-px min-w-px"
+                style={{ flexShrink: 0 }}
+              >
+                <ToolCard tool={tool} index={index} />
               </div>
-              <h3 className="text-lg font-bold text-white/60">[Tool Placeholder]</h3>
-            </div>
-            <p className="text-[#D9D9D9]/60 text-sm mb-4">
-              Description coming soon
-              <br />
-              Features in development
-            </p>
-            <Button
-              disabled
-              variant="ghost"
-              size="sm"
-              className="cursor-not-allowed"
-            >
-              Coming Soon
-            </Button>
-          </motion.div>
+            ))}
+          </div>
+
+          {/* Second Row - 2 Cards */}
+          <div 
+            className="flex"
+            style={{ 
+              gap: spacing[3],
+              alignItems: 'center',
+              justifyContent: 'flex-start'
+            }}
+          >
+            {essentialTools.slice(3, 5).map((tool, index) => (
+              <div 
+                key={tool.id} 
+                className="basis-0 grow min-h-px min-w-px"
+                style={{ flexShrink: 0 }}
+              >
+                <ToolCard tool={tool} index={index + 3} />
+              </div>
+            ))}
+            {/* Empty placeholder to maintain 3-column layout */}
+            <div 
+              className="basis-0 grow min-h-px min-w-px"
+              style={{ flexShrink: 0, visibility: 'hidden' }}
+            />
+          </div>
         </div>
-      </section>
-    </DashboardLayout>
+
+        {/* Ecosystem Tools & Resources */}
+        <div style={{ width: '940px', gap: spacing[6] }} className="flex flex-col">
+          <motion.h2
+            initial={motionTokens.section.initial}
+            whileInView={motionTokens.section.whileInView}
+            transition={motionTokens.section.transition}
+            viewport={{ once: true, margin: "0px 0px -50px 0px" }}
+            style={{
+              fontFamily: typography.textStyles.h2.fontFamily,
+              fontSize: '24px',
+              fontWeight: typography.fontWeight.bold,
+              lineHeight: '40px',
+              color: '#131316'
+            }}
+          >
+            Ecosystem Tools & Resources
+          </motion.h2>
+
+          <div 
+            style={{ 
+              gap: spacing[2.5],
+              display: 'flex',
+              flexWrap: 'wrap'
+            }}
+          >
+            {additionalTools.map((tool, index) => (
+              <div
+                key={tool.id}
+                style={{
+                  flexBasis: 'calc(50% - 5px)', // 2 items per row with gap
+                  maxWidth: 'calc(50% - 5px)'
+                }}
+              >
+                <EcosystemToolCard tool={tool} index={index} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </PageLayout>
   );
 }
