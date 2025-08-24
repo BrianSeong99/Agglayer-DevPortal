@@ -19,13 +19,12 @@ export const tools: Tool[] = [
   {
     id: 'lxly-sdk',
     name: 'lxly.js SDK',
-    icon: 'package',
+    icon: '/img/lxlyjs-icon.svg',
     description: 'JavaScript library for cross-chain interactions on Agglayer with Unified Bridge support',
     category: 'essential',
     quickActions: [
       { label: 'GitHub', url: 'https://github.com/0xPolygon/lxly.js', external: true },
-      { label: 'npm', url: 'https://www.npmjs.com/package/@0xpolygon/lxly.js', external: true },
-      { label: 'Documentation', url: 'https://github.com/0xPolygon/lxly.js#readme', external: true },
+      { label: 'Doc', url: 'https://github.com/0xPolygon/lxly.js#readme', external: true },
     ],
     quickInstall: 'npm install @0xpolygon/lxly.js',
     features: [
@@ -38,13 +37,12 @@ export const tools: Tool[] = [
   {
     id: 'aggsandbox',
     name: 'AggSandbox',
-    icon: 'box',
+    icon: '/img/aggsandbox-icon.svg',
     description: 'Local development environment with fork mode support, multi-L2 testing, and rich CLI tooling',
     category: 'essential',
     quickActions: [
-      { label: 'GitHub', url: 'https://github.com/NethermindEth/agg-sandbox', external: true },
-      { label: 'Setup Guide', url: 'https://github.com/NethermindEth/agg-sandbox#installation', external: true },
-      { label: 'Commands', url: 'https://github.com/NethermindEth/agg-sandbox/blob/main/COMMANDS.md', external: true },
+      { label: 'GitHub', url: 'https://github.com/0xPolygon/lxly.js', external: true },
+      { label: 'Doc', url: 'https://github.com/0xPolygon/lxly.js#readme', external: true },
     ],
     quickInstall: 'git clone https://github.com/NethermindEth/agg-sandbox.git && cd agg-sandbox && make install',
     features: [
@@ -55,48 +53,14 @@ export const tools: Tool[] = [
     ],
   },
   {
-    id: 'bridge-interface',
-    name: 'Bridge Interface',
-    icon: 'bridge',
-    description: 'Visual tool for testing cross-chain transfers during development',
-    category: 'essential',
-    quickActions: [
-      { label: 'Open Bridge', url: '/tools/bridge' },
-      { label: 'Integration Guide', url: 'https://docs.agglayer.dev/bridge', external: true },
-      { label: 'API Reference', url: 'https://docs.agglayer.dev/bridge-api', external: true },
-    ],
-    features: [
-      'Test all token types',
-      'Transaction history',
-      'Gas estimation',
-    ],
-  },
-  {
-    id: 'testnet-faucet',
-    name: 'Testnet Faucet',
-    icon: 'droplet',
-    description: 'Get test tokens instantly for Cardona and Bali testnets',
-    category: 'essential',
-    quickActions: [
-      { label: 'Get Tokens', url: '/tools/faucet' },
-      { label: 'Network Info', url: '/aggniverse?network=testnet' },
-      { label: 'Token List', url: '/tools/faucet#tokens' },
-    ],
-    availableNetworks: [
-      'Cardona Testnet',
-      'Bali Testnet',
-      '10 tokens per day limit',
-    ],
-  },
-  {
     id: 'aggvisualizer',
     name: 'Aggvisualizer',
     icon: 'tool',
     description: 'Interactive visualization of Agglayer network topology and cross-chain transactions',
     category: 'essential',
     quickActions: [
-      { label: 'Open Visualizer', url: 'https://visualizer.agglayer.dev/', external: true },
-      { label: 'Documentation', url: 'https://docs.agglayer.dev/visualizer', external: true },
+      { label: 'Open', url: 'https://visualizer.agglayer.dev/', external: true },
+      { label: 'Doc', url: 'https://docs.agglayer.dev/visualizer', external: true },
     ],
     features: [
       'Real-time transaction flow',
@@ -107,7 +71,7 @@ export const tools: Tool[] = [
   {
     id: 'special-k',
     name: 'Special K',
-    icon: 'tool',
+    icon: '/img/special-k-icon.svg',
     description: 'Katana\'s local development tool for fast chain deployment',
     category: 'additional',
     quickActions: [
@@ -117,7 +81,7 @@ export const tools: Tool[] = [
   {
     id: 'polygon-pos-kit',
     name: 'Polygon PoS Development Kit',
-    icon: 'tool',
+    icon: '/img/pos-dev-kit-icon.svg',
     description: 'Tools for Polygon PoS integration and contract deployment',
     category: 'additional',
     quickActions: [
