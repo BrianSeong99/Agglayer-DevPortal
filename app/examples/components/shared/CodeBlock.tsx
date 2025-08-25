@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline';
-import { typography, colors, spacing } from '@/shared/design-system';
+import { typography, colors, spacing, radius } from '@/shared/design-system';
 import { Button, Tabs, Tab } from '@/shared/components';
 
 interface CodeBlockProps {
@@ -33,37 +33,37 @@ const BashHighlighter = ({ code }: { code: string }) => {
       {tokens.map((token, index) => {
         // Comments (lines starting with #)
         if (token.startsWith('#')) {
-          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.text.tertiary }}>{token}</span>;
         }
 
         // Commands and keywords
         if (bashKeywords.has(token)) {
-          return <span key={index} style={{ color: '#7C3AED' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.environment.bali }}>{token}</span>;
         }
 
         // Flags and operators
         if (bashOperators.has(token) || token.startsWith('--') || token.startsWith('-')) {
-          return <span key={index} style={{ color: '#DC2626' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.error }}>{token}</span>;
         }
 
         // Strings in quotes
         if ((token.startsWith('"') && token.endsWith('"')) || 
             (token.startsWith("'") && token.endsWith("'"))) {
-          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.success }}>{token}</span>;
         }
 
         // URLs and addresses (containing dots or 0x)
         if (token.includes('.') || token.startsWith('0x') || token.includes('@')) {
-          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.environment.agglayer }}>{token}</span>;
         }
 
         // Numbers
         if (/^\d+\.?\d*$/.test(token)) {
-          return <span key={index} style={{ color: '#EA580C' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.warning }}>{token}</span>;
         }
 
         // Default
-        return <span key={index} style={{ color: 'rgba(0,46,101,0.9)' }}>{token}</span>;
+        return <span key={index} style={{ color: colors.text.blue.DEFAULT }}>{token}</span>;
       })}
     </>
   );
@@ -142,26 +142,26 @@ const SyntaxHighlighter = ({ code, language }: { code: string; language: 'typesc
 
         // Comments
         if (token === '/' && nextToken === '/') {
-          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.text.tertiary }}>{token}</span>;
         }
         if (prevToken === '/' && token === '/') {
-          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.text.tertiary }}>{token}</span>;
         }
         if (inComment) {
-          return <span key={index} style={{ color: 'rgba(0,46,101,0.5)' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.text.tertiary }}>{token}</span>;
         }
 
         // Strings
         if (token === '"' || token === "'" || token === '`') {
-          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.success }}>{token}</span>;
         }
         if (inString) {
-          return <span key={index} style={{ color: '#059669' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.success }}>{token}</span>;
         }
 
         // Keywords
         if (keywords.has(token)) {
-          return <span key={index} style={{ color: '#7C3AED' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.environment.bali }}>{token}</span>;
         }
 
         // Types and built-ins
@@ -171,31 +171,31 @@ const SyntaxHighlighter = ({ code, language }: { code: string; language: 'typesc
 
         // Numbers
         if (/^\d+\.?\d*$/.test(token)) {
-          return <span key={index} style={{ color: '#EA580C' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.warning }}>{token}</span>;
         }
 
         // Function calls (token followed by '(')
         if (nextToken === '(' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
-          return <span key={index} style={{ color: '#DC2626' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.semantic.error }}>{token}</span>;
         }
 
         // Object properties (after '.')
         if (prevToken === '.' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
-          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.environment.agglayer }}>{token}</span>;
         }
 
         // Object keys (before ':')
         if (nextToken === ':' && /^[a-zA-Z_$][a-zA-Z0-9_$]*$/.test(token)) {
-          return <span key={index} style={{ color: '#0891B2' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.environment.agglayer }}>{token}</span>;
         }
 
         // Operators
         if (/^(===|!==|==|!=|<=|>=|&&|\|\||=>|\+\+|--|\.\.\.|\+|-|\*|\/|%|=|!|\?|:|<|>)$/.test(token)) {
-          return <span key={index} style={{ color: '#BE185D' }}>{token}</span>;
+          return <span key={index} style={{ color: colors.environment.cardona }}>{token}</span>;
         }
 
         // Default
-        return <span key={index} style={{ color: 'rgba(0,46,101,0.9)' }}>{token}</span>;
+        return <span key={index} style={{ color: colors.text.blue.DEFAULT }}>{token}</span>;
       })}
     </>
   );
@@ -228,10 +228,10 @@ export default function CodeBlock({
   return (
     <div style={{ 
       position: 'relative',
-      backgroundColor: '#F7FAFE',
-      borderRadius: '10px',
+      backgroundColor: colors.background.secondary,
+      borderRadius: radius.lg,
       overflow: 'hidden',
-      border: '1px solid rgba(0,113,247,0.1)',
+      border: `1px solid ${colors.border.light}`,
       ...className && { className }
     }}>
       {/* Header with tabs and copy button */}
@@ -240,36 +240,38 @@ export default function CodeBlock({
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: spacing[4],
-        backgroundColor: '#EAF3FD',
-        borderBottom: '1px solid rgba(0,113,247,0.1)'
+        backgroundColor: colors.background.secondary,
+        borderBottom: `1px solid ${colors.border.light}`
       }}>
         {/* Language Tabs */}
         <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '40.5px',
-          padding: spacing[1.5],
+          backgroundColor: colors.background.primary,
+          borderRadius: radius.round,
+          padding: `${spacing[1.5]}`,
           display: 'flex',
           alignItems: 'center',
-          height: 'auto'
+          height: '40px',
+          gap: spacing[2.5]
         }}>
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as 'typescript' | 'bash')}
+              className="transition-all duration-300"
               style={{
                 backgroundColor: activeTab === tab.id ? colors.primary.DEFAULT : 'transparent',
-                color: activeTab === tab.id ? '#ffffff' : colors.primary.DEFAULT,
                 border: 'none',
-                borderRadius: '36px',
-                padding: `${spacing[2]} ${spacing[4]}`,
-                fontSize: '12px',
-                fontFamily: 'Inter, sans-serif',
+                borderRadius: radius.round,
+                padding: `${spacing[1.5]} ${spacing[3]}`,
+                fontSize: typography.fontSize.xs,
+                fontFamily: typography.textStyles.button.fontFamily,
                 fontWeight: activeTab === tab.id ? typography.fontWeight.bold : typography.fontWeight.medium,
+                color: activeTab === tab.id ? colors.background.primary : colors.primary.DEFAULT,
                 cursor: 'pointer',
-                height: 'auto',
                 display: 'flex',
                 alignItems: 'center',
-                lineHeight: 1.2,
+                lineHeight: typography.textStyles.button.lineHeight,
+                height: '30px',
                 whiteSpace: 'nowrap'
               }}
             >
@@ -285,10 +287,10 @@ export default function CodeBlock({
             width: '80px',
             minWidth: '80px',
             maxWidth: '80px',
-            backgroundColor: copied ? 'rgba(34, 197, 94, 0.1)' : undefined,
-            color: copied ? '#22C55E' : undefined,
-            border: copied ? '1px solid rgba(34, 197, 94, 0.3)' : undefined,
-            fontSize: '10px',
+            backgroundColor: copied ? colors.background.tertiary : undefined,
+            color: copied ? colors.semantic.success : undefined,
+            border: copied ? `1px solid ${colors.semantic.info}` : undefined,
+            fontSize: typography.fontSize.xs,
             padding: `${spacing[2]} ${spacing[3]}`,
             gap: spacing[1],
             transition: 'all 0.2s ease'
@@ -313,10 +315,10 @@ export default function CodeBlock({
       {/* Code content */}
       <div style={{
         padding: spacing[6],
-        backgroundColor: '#FFFFFF',
-        fontFamily: 'SF Mono, Monaco, Consolas, Liberation Mono, Courier New, monospace',
-        fontSize: '12px',
-        lineHeight: 1.5,
+        backgroundColor: colors.background.primary,
+        fontFamily: typography.textStyles.code.fontFamily,
+        fontSize: typography.fontSize.xs,
+        lineHeight: typography.textStyles.code.lineHeight,
         overflow: 'auto',
         position: 'relative'
       }}>
@@ -325,15 +327,15 @@ export default function CodeBlock({
           position: 'absolute',
           top: spacing[2],
           right: spacing[2],
-          fontSize: '8px',
-          fontFamily: 'Inter, sans-serif',
+          fontSize: typography.fontSize['3xs'],
+          fontFamily: typography.textStyles.bodySmall.fontFamily,
           fontWeight: typography.fontWeight.medium,
-          color: 'rgba(0,46,101,0.6)',
-          backgroundColor: 'rgba(0,113,247,0.05)',
-          border: '1px solid rgba(0,113,247,0.1)',
-          borderRadius: '4px',
+          color: colors.text.tertiary,
+          backgroundColor: colors.background.secondary,
+          border: `1px solid ${colors.border.light}`,
+          borderRadius: radius.sm,
           padding: `${spacing[0.5]} ${spacing[1]}`,
-          lineHeight: '10px',
+          lineHeight: typography.textStyles.bodySmall.lineHeight,
           textTransform: 'uppercase'
         }}>
           {activeCode.language}
@@ -345,7 +347,7 @@ export default function CodeBlock({
               lines.map((line: string, index: number) => (
                 <div key={index} style={{ display: 'flex' }}>
                   <span style={{
-                    color: 'rgba(0,46,101,0.4)',
+                    color: colors.text.quaternary,
                     marginRight: spacing[4],
                     userSelect: 'none',
                     width: '32px',

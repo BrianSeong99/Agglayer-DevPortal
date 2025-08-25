@@ -21,7 +21,7 @@ export const examples: Example[] = [
     category: 'defi',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-swap-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Swap',
     },
   },
   {
@@ -32,7 +32,7 @@ export const examples: Example[] = [
     category: 'infrastructure',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-name-service-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Name-Service',
     },
   },
   {
@@ -43,7 +43,7 @@ export const examples: Example[] = [
     category: 'defi',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-lending-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Lending',
     },
   },
   {
@@ -54,7 +54,7 @@ export const examples: Example[] = [
     category: 'defi',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-position-transfer-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Position-Transfer',
     },
   },
 ];

@@ -209,7 +209,8 @@ export default function QuickStartSection() {
           className="text-center"
         >
           <Link 
-            href="/examples" 
+            href="https://docs.agglayer.dev/agglayer/aggsandbox/" 
+            target="_blank"
             className="inline-flex items-center"
             style={{
               gap: spacing.component.microGap,
