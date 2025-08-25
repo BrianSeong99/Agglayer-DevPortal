@@ -16,6 +16,7 @@ interface Tool {
   name: string
   icon: string
   description: string
+  icon: string
   quickActions: QuickAction[]
 }
 
