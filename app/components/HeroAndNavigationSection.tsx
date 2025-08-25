@@ -7,8 +7,6 @@ import {
   IconApps,
   IconBook2
 } from '@tabler/icons-react';
-import DecorativeSVGCircles from './svg/DecorativeSVGCircles';
-import StackingCubes from './svg/StackingSquares';
 import { typography, motionTokens } from '@/shared/design-system';
 
 export default function HeroAndNavigationSection() {
@@ -35,19 +33,26 @@ export default function HeroAndNavigationSection() {
 
   return (
     <section className="relative overflow-visible bg-white">
-      {/* Background pattern from Figma */}
-      <div className="absolute inset-0 z-0 overflow-visible">
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-50/50 to-white" />
-        {/* Decorative SVG circles */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <DecorativeSVGCircles />
-        </div>
-      </div>
+
+      <motion.div
+        {...motionTokens.section}
+        transition={{ ...motionTokens.section.transition, delay: 0 }}
+        className="absolute left-0 right-0 z-0 overflow-visible"
+        style={{ top: '120px', width: '100%', height: '600px' }}
+      >
+        <Image
+          src="/img/banner.svg"
+          alt="Agglayer Banner"
+          fill
+          style={{ objectFit: 'contain' }}
+        />
+      </motion.div>
 
       {/* Hero content */}
       <div className="relative max-w-narrow mx-auto px-6 pt-44 pb-12 z-10 w-full text-center">
         <motion.div
           {...motionTokens.hero}
+          transition={{ ...motionTokens.hero.transition, delay: 0.3 }}
           className="flex flex-col items-center gap-6 self-stretch"
         >
           <h1 className="font-heading text-5xl font-bold text-black leading-[120%]">
@@ -93,14 +98,14 @@ export default function HeroAndNavigationSection() {
       </div>
 
       {/* Navigation Cards - positioned above the SVG */}
-      <div className="relative z-20 py-16">
+      <div className="relative z-20 pt-80">
         <div className="max-w-narrow mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-3">
           {navigationItems.map((item, index) => (
             <motion.div
               key={index}
               {...motionTokens.card}
-              transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
+              transition={{ ...motionTokens.card.transition, delay: 0.6 + index * 0.1 }}
             >
               <Link
                 href={item.href}
