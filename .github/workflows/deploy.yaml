@@ -6,9 +6,13 @@ on:
       - main
       - staging
 
+# Ensure only one deploy per ref at a time
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
+permissions:
+  contents: read
 
 jobs:
   get-env:
@@ -17,11 +21,15 @@ jobs:
       env: ${{ steps.set-env.outputs.env }}
     steps:
       - id: set-env
+        shell: bash
         run: |
           if [ "${{ github.ref_name }}" == "main" ]; then
             echo "env=production" >> "$GITHUB_OUTPUT"
           elif [ "${{ github.ref_name }}" == "staging" ]; then
             echo "env=staging" >> "$GITHUB_OUTPUT"
+          else
+            echo "Unsupported branch: ${GITHUB_REF_NAME}"
+            exit 1
           fi
 
   build-and-deploy:
@@ -29,18 +37,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
 
-      - run: npm ci
+      - name: Install deps (clean)
+        run: npm ci
 
-      - run: npm run deploy:${{ needs.get-env.outputs.env }}
+      - name: Build
+        run: npm run deploy:${{ needs.get-env.outputs.env }}
         env:
           CI: false
 
-      - run: npx wrangler deploy --env ${{ needs.get-env.outputs.env }}
+      - name: Deploy
+        run: npx wrangler deploy --env ${{ needs.get-env.outputs.env }}
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_WORKER_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_WORKER_API_TOKEN }}
