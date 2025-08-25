@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { CodeBlock } from '../shared'
 import { type CodeSnippet } from '../../data/codeSnippets'
-import { motionTokens } from '@/shared/design-system'
+import { motionTokens, typography, colors, spacing, radius } from '@/shared/design-system'
 
 interface CodeSnippetsTabContentProps {
   snippets: CodeSnippet[]
@@ -21,16 +21,40 @@ export function CodeSnippetsTabContent({ snippets, isActive }: CodeSnippetsTabCo
       viewport={{ once: true }}
     >
       {/* Snippet Cards */}
-      <div className="space-y-6">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: spacing[6] }}>
         {snippets.map((snippet) => (
           <motion.div
             key={snippet.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-[#F7FAFE] rounded-lg p-6"
+            style={{
+              backgroundColor: colors.background.secondary,
+              borderRadius: radius.lg,
+              padding: spacing[6]
+            }}
           >
-            <h3 className="text-lg font-bold text-black mb-2">{snippet.title}</h3>
-            <p className="text-sm text-[rgba(0,0,0,0.6)] mb-4">{snippet.description}</p>
+            <h3 style={{
+              fontFamily: typography.textStyles.h5.fontFamily,
+              fontSize: typography.textStyles.h5.fontSize,
+              fontWeight: typography.textStyles.h5.fontWeight,
+              lineHeight: typography.textStyles.h5.lineHeight,
+              color: colors.text.primary,
+              margin: 0,
+              marginBottom: spacing[2]
+            }}>
+              {snippet.title}
+            </h3>
+            <p style={{
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.textStyles.bodySmall.fontSize,
+              fontWeight: typography.textStyles.bodySmall.fontWeight,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
+              color: colors.text.tertiary,
+              margin: 0,
+              marginBottom: spacing[4]
+            }}>
+              {snippet.description}
+            </p>
             <CodeBlock code={snippet.code} />
           </motion.div>
         ))}

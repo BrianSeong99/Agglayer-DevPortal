@@ -26,7 +26,7 @@ export default function Footer() {
         style={{ 
           backgroundColor: '#FBFAFA',
           borderRadius: '20px',
-          padding: '48px',
+          padding: '30px 48px 48px 48px',
           width: '940px',
           overflow: 'hidden',
           margin: '0 auto'
@@ -39,8 +39,8 @@ export default function Footer() {
         {/* Logo */}
         <div className="flex-shrink-0">
           <Logo 
-            width={99.448} 
-            height={22} 
+            width={120} 
+            height={50} 
             showBackground={false}
             color="black"
           />
@@ -49,23 +49,23 @@ export default function Footer() {
         {/* Right side sections */}
         <div 
           className="flex items-start"
-          style={{ gap: spacing[6], width: '647px', justifyContent: 'flex-end' }}
+          style={{ gap: spacing[6], width: '647px', padding: '15px 0px 20px 0px', justifyContent: 'flex-center' }}
         >
           {/* Explore Links */}
           <div style={{ width: '110px', height: '120px' }}>
             <h4 
               style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: 800, // Extra Bold
-                lineHeight: 2,
-                color: '#000000',
+                fontFamily: typography.textStyles.h6.fontFamily,
+                fontSize: typography.textStyles.h6.fontSize,
+                fontWeight: typography.fontWeight.extrabold,
+                lineHeight: typography.textStyles.h6.lineHeight,
+                color: colors.text.primary,
                 marginBottom: 0,
               }}
             >
               Explore
             </h4>
-            <ul style={{ margin: 0, padding: 0, listStyle: 'none' }}>
+            <ul style={{ margin: 0, paddingTop: '6px', paddingBottom: '6px', listStyle: 'none' }}>
               {footerLinks.explore.map((link) => (
                 <li key={link.label}>
                   <a
@@ -73,17 +73,18 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '12px',
-                      fontWeight: 500, // Medium
-                      lineHeight: 2,
-                      color: 'rgba(0,0,0,0.6)',
+                      fontFamily: typography.textStyles.bodySmall.fontFamily,
+                      fontSize: typography.textStyles.bodySmall.fontSize,
+                      fontWeight: typography.textStyles.bodySmall.fontWeight,
+                      lineHeight: typography.textStyles.label.lineHeight,
+                      color: colors.text.tertiary,
                       textDecoration: 'underline',
                       textUnderlinePosition: 'from-font',
                       textDecorationSkipInk: 'none',
                       textDecorationStyle: 'solid',
                       display: 'block',
                       cursor: 'pointer',
+                      marginBottom: '6px',
                     }}
                     className="hover:text-primary transition-colors"
                   >
@@ -94,68 +95,20 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Stay Updated */}
-          <div style={{ width: '220px' }}>
-            <h4 
-              style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: 700, // Bold
-                lineHeight: 2,
-                color: '#000000',
-                marginBottom: '10px',
-                height: '23.98px',
-              }}
-            >
-              Stay updated
-            </h4>
-            <div 
-              style={{
-                backgroundColor: '#ffffff',
-                border: '0.75px solid rgba(0,0,0,0.2)',
-                borderRadius: '40.289px',
-                height: '28.476px',
-                width: '195px',
-                paddingLeft: '18.75px',
-                paddingRight: '18.75px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '11.25px',
-              }}
-            >
-              <input
-                type="email"
-                placeholder="Your email"
-                style={{
-                  width: '100%',
-                  backgroundColor: 'transparent',
-                  border: 'none',
-                  outline: 'none',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '12px',
-                  fontWeight: 500, // Medium
-                  color: 'rgba(0,0,0,0.3)',
-                  lineHeight: 1.5,
-                }}
-                className="placeholder:text-[rgba(0,0,0,0.3)]"
-              />
-            </div>
-          </div>
-
           {/* Follow */}
-          <div style={{ width: '133px' }}>
+          <div style={{ width: '200px' }}>
             <h4 
               style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: 700, // Bold
-                lineHeight: 2,
-                color: '#000000',
-                marginBottom: '10px',
+                fontFamily: typography.textStyles.h6.fontFamily,
+                fontSize: typography.textStyles.h6.fontSize,
+                fontWeight: typography.textStyles.h6.fontWeight,
+                lineHeight: typography.textStyles.h6.lineHeight,
+                color: colors.text.primary,
+                marginBottom: spacing[2.5],
                 height: '23.98px',
               }}
             >
-              Follow our journey
+              Get Aggregated
             </h4>
             <div style={{ height: '28.476px', width: '30.986px' }}>
               <a

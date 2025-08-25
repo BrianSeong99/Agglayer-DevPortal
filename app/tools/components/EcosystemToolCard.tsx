@@ -14,6 +14,7 @@ interface QuickAction {
 interface Tool {
   id: string
   name: string
+  icon: string
   description: string
   icon: string
   quickActions: QuickAction[]
@@ -119,11 +120,11 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
         >
           <h3
             style={{
-              fontFamily: typography.fontFamily.body.join(', '), // Inter
-              fontSize: '13.563px',
-              fontWeight: typography.fontWeight.medium, // 500
-              lineHeight: '20px',
-              color: colors.text.primary, // #131316
+              fontFamily: typography.textStyles.h6.fontFamily,
+              fontSize: typography.textStyles.h6.fontSize,
+              fontWeight: typography.textStyles.h6.fontWeight,
+              lineHeight: typography.textStyles.h6.lineHeight,
+              color: colors.text.primary,
               margin: 0,
               width: '100%',
               display: 'flex',
@@ -141,11 +142,11 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
         {/* Description */}
         <p
           style={{
-            fontFamily: typography.fontFamily.body.join(', '), // Inter
-            fontSize: '13.453px',
-            fontWeight: typography.fontWeight.regular, // 400
-            lineHeight: '20px',
-            color: 'rgba(0,0,0,0.6)',
+            fontFamily: typography.textStyles.bodySmall.fontFamily,
+            fontSize: typography.textStyles.bodySmall.fontSize,
+            fontWeight: typography.textStyles.bodySmall.fontWeight,
+            lineHeight: typography.textStyles.bodySmall.lineHeight,
+            color: colors.text.tertiary,
             margin: 0,
             width: '100%',
             display: 'flex',

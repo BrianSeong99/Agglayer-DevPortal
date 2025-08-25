@@ -89,11 +89,11 @@ export default function ChainRow({
               flexShrink: 0
             }} />
             <div style={{
-              fontFamily: 'Inter Tight, sans-serif',
-              fontSize: '15px',
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
               fontWeight: typography.fontWeight.bold,
-              color: 'rgba(0,46,101,0.9)',
-              lineHeight: 1.08,
+              fontSize: typography.textStyles.bodySmall.fontSize,
+              color: colors.text.blue.DEFAULT,
+              lineHeight: typography.textStyles.body.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap',
               display: 'flex',
@@ -113,10 +113,10 @@ export default function ChainRow({
             {/* Gas Token */}
             <div style={{
               width: TABLE_CONFIG.columns.gasToken,
-              fontFamily: 'SF Mono, monospace',
-              fontSize: '12px',
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'center',
               display: 'flex',
               alignItems: 'center',
@@ -128,10 +128,10 @@ export default function ChainRow({
             {/* Block Time */}
             <div style={{
               width: TABLE_CONFIG.columns.blockTime,
-              fontFamily: 'SF Mono, monospace',
-              fontSize: '12px',
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'center',
               whiteSpace: 'nowrap',
               display: 'flex',
@@ -144,10 +144,10 @@ export default function ChainRow({
             {/* TPS */}
             <div style={{
               width: TABLE_CONFIG.columns.tps,
-              fontFamily: 'SF Mono, monospace',
-              fontSize: '12px',
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'center',
               whiteSpace: 'nowrap',
               display: 'flex',
@@ -160,10 +160,10 @@ export default function ChainRow({
             {/* Activity column - using TVL data */}
             <div style={{
               width: TABLE_CONFIG.columns.activity,
-              fontFamily: 'SF Mono, monospace',
-              fontSize: '12px',
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'center',
               whiteSpace: 'nowrap',
               display: 'flex',
@@ -185,11 +185,11 @@ export default function ChainRow({
               justifyContent: 'center'
             }}>
               <div style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: typography.fontWeight.medium,
+                fontFamily: typography.textStyles.button.fontFamily,
+                fontSize: typography.fontSize.xs,
+                fontWeight: typography.textStyles.button.fontWeight,
                 color: statusStyle.text,
-                lineHeight: 1.08,
+                lineHeight: typography.textStyles.button.lineHeight,
                 textAlign: 'center',
                 whiteSpace: 'nowrap'
               }}>
@@ -268,11 +268,11 @@ export default function ChainRow({
               borderRadius: radius.sm
             }}>
               <div style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: typography.fontWeight.regular,
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                fontWeight: typography.textStyles.bodySmall.fontWeight,
+                color: colors.text.blue.muted,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
                 textAlign: 'left',
                 whiteSpace: 'nowrap',
                 display: 'flex',
@@ -289,11 +289,11 @@ export default function ChainRow({
                 width: '129.666px'
               }}>
                 <div style={{
-                  fontFamily: 'SF Mono, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '12px',
+                  fontFamily: typography.textStyles.code.fontFamily,
+                  fontWeight: typography.fontWeight.semibold,
+                  fontSize: typography.fontSize.xs,
                   color: colors.primary.DEFAULT,
-                  lineHeight: 1.5,
+                  lineHeight: typography.textStyles.code.lineHeight,
                   textAlign: 'right',
                   whiteSpace: 'nowrap',
                   display: 'flex',
@@ -338,11 +338,11 @@ export default function ChainRow({
               borderRadius: radius.sm
             }}>
               <div style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: typography.fontWeight.regular,
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                fontWeight: typography.textStyles.bodySmall.fontWeight,
+                color: colors.text.blue.muted,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
                 textAlign: 'left',
                 whiteSpace: 'nowrap',
                 display: 'flex',
@@ -358,11 +358,11 @@ export default function ChainRow({
                 justifyContent: 'flex-end'
               }}>
                 <div style={{
-                  fontFamily: 'SF Mono, sans-serif',
-                  fontWeight: 600,
-                  fontSize: '12px',
+                  fontFamily: typography.textStyles.code.fontFamily,
+                  fontWeight: typography.fontWeight.semibold,
+                  fontSize: typography.fontSize.xs,
                   color: colors.primary.DEFAULT,
-                  lineHeight: 1.5,
+                  lineHeight: typography.textStyles.code.lineHeight,
                   textAlign: 'right',
                   whiteSpace: 'nowrap',
                   display: 'flex',
@@ -416,11 +416,11 @@ export default function ChainRow({
               borderRadius: radius.sm
             }}>
               <div style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: typography.fontWeight.regular,
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                fontWeight: typography.textStyles.bodySmall.fontWeight,
+                color: colors.text.blue.muted,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
                 textAlign: 'left',
                 whiteSpace: 'nowrap',
                 display: 'flex',
@@ -490,11 +490,11 @@ export default function ChainRow({
               borderRadius: radius.sm
             }}>
               <div style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: typography.fontWeight.regular,
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                fontWeight: typography.textStyles.bodySmall.fontWeight,
+                color: colors.text.blue.muted,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
                 textAlign: 'left',
                 whiteSpace: 'nowrap',
                 display: 'flex',

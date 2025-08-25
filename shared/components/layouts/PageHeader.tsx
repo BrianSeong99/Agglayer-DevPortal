@@ -36,10 +36,10 @@ export default function PageHeader({
     >
       <h1 
         style={{
-          fontFamily: 'Inter Tight, sans-serif',
-          fontSize: '36px',
-          fontWeight: typography.fontWeight.bold,
-          lineHeight: '1.2',
+          fontFamily: typography.textStyles.h2.fontFamily,
+          fontSize: typography.textStyles.h2.fontSize,
+          fontWeight: typography.textStyles.h2.fontWeight,
+          lineHeight: typography.textStyles.h2.lineHeight,
           color: titleColor,
           margin: 0,
           textAlign: 'left',
@@ -52,10 +52,10 @@ export default function PageHeader({
       {subtitle && (
         <p 
           style={{
-            fontFamily: 'Inter, sans-serif',
-            fontSize: '15px',
-            fontWeight: typography.fontWeight.regular,
-            lineHeight: '1.2',
+            fontFamily: typography.textStyles.body.fontFamily,
+            fontSize: typography.textStyles.body.fontSize,
+            fontWeight: typography.textStyles.body.fontWeight,
+            lineHeight: typography.textStyles.body.lineHeight,
             color: subtitleColor,
             margin: 0,
             textAlign: 'left'

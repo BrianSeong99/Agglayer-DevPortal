@@ -21,7 +21,7 @@ export const examples: Example[] = [
     category: 'defi',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-swap-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Swap',
     },
   },
   {
@@ -32,29 +32,29 @@ export const examples: Example[] = [
     category: 'infrastructure',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-name-service-template',
-    },
-  },
-  {
-    id: 'cross-chain-position-transfer',
-    title: 'Crosschain Position Transfer',
-    description: 'Seamlessly migrate liquidity positions between different protocols and chains while preserving exact parameters and unlocking enhanced yield opportunities.',
-    icon: '/img/crosschain-position.svg',
-    category: 'defi',
-    techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
-    urls: {
-      code: 'https://github.com/agglayer/cross-chain-position-transfer-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Name-Service',
     },
   },
   {
     id: 'cross-chain-lending',
     title: 'Cross Chain Lending',
-    description: 'Collateralize assets from one chain to borrow tokens on another, maximizing capital efficiency across networks through Agglayer\'s Unified Bridge.',
+    description: 'Collateralize assets from one chain to borrow tokens on another, maximizing capital efficiency through Agglayer\'s Unified Bridge.',
     icon: '/img/crosschain-lending.svg',
     category: 'defi',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
-      code: 'https://github.com/agglayer/cross-chain-lending-template',
+      code: 'https://github.com/AkshatGada/Cross-Chain-Lending',
+    },
+  },
+  {
+    id: 'cross-chain-position-transfer',
+    title: 'Crosschain Position Transfer',
+    description: 'Liquidity positions between different protocols and chains while preserving exact parameters and unlocking enhanced yield opportunities.',
+    icon: '/img/crosschain-position.svg',
+    category: 'defi',
+    techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
+    urls: {
+      code: 'https://github.com/AkshatGada/Cross-Chain-Position-Transfer',
     },
   },
 ];

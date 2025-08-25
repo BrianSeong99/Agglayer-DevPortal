@@ -27,6 +27,7 @@ export function ToolsTutorials({ tutorials }: ToolsTutorialsProps) {
             duration={tutorial.duration}
             difficulty={tutorial.difficulty}
             url={tutorial.url}
+            icon={tutorial.icon}
             index={index}
           />
         ))}

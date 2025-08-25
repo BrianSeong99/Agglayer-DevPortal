@@ -5,7 +5,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { IconArrowRight, IconTelescope } from '@tabler/icons-react';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
-import StackingSquares from './svg/StackingSquares';
 import { examples } from '@/app/examples/data/examples';
 
 export default function FeaturedExamplesSection() {
@@ -23,6 +22,7 @@ export default function FeaturedExamplesSection() {
       <div className="mx-auto" style={{ maxWidth: sizing.container.lg, paddingLeft: spacing[6], paddingRight: spacing[6] }}>
         <motion.div
           {...motionTokens.section}
+          transition={{ ...motionTokens.section.transition, delay: 0 }}
           className="text-center"
           style={{ marginBottom: spacing[16] }}
         >
@@ -47,7 +47,7 @@ export default function FeaturedExamplesSection() {
               fontWeight: typography.textStyles.body.fontWeight,
               lineHeight: typography.textStyles.body.lineHeight,
               color: colors.text.primary,
-              maxWidth: sizing.container.xs,
+              maxWidth: sizing.container.sm,
             }}
           >
             Fork, customize, and deploy in minutes
@@ -62,7 +62,7 @@ export default function FeaturedExamplesSection() {
             <motion.div
               key={example.id}
               {...motionTokens.card}
-              transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
+              transition={{ ...motionTokens.card.transition, delay: 0.3 + index * 0.1 }}
               className="flex-1"
             >
               <Link
@@ -75,20 +75,15 @@ export default function FeaturedExamplesSection() {
                 }}
               >
                 <div 
-                  className="flex items-center justify-start"
+                  className="flex items-center justify-center"
                   style={{ paddingTop: spacing[6], paddingLeft: spacing[6], paddingRight: spacing[6] }}
                 >
                   <div
-    className="flex items-center justify-center relative"
-    style={{ width: sizing.icon['3xl'], height: sizing.icon['3xl'] }}
-  >
-    {example.icon ? (
-      <Image src={example.icon} alt={example.title} fill style={{ objectFit: 'contain'
-   }} />
-    ) : (
-      <StackingSquares />
-    )}
-  </div>
+                    className="flex items-center justify-center relative"
+                    style={{ width: sizing.icon['6xl'], height: sizing.icon['6xl'] }}
+                  >
+                    <Image src={example.icon} alt={example.title} fill style={{ objectFit: 'contain'}} />
+                  </div>
                 </div>
                 <div 
                   className="flex flex-col flex-1"
@@ -157,7 +152,7 @@ export default function FeaturedExamplesSection() {
 
         <motion.div
           {...motionTokens.section}
-          transition={{ ...motionTokens.section.transition, delay: 0.3 }}
+          transition={{ ...motionTokens.section.transition, delay: 0.6 }}
           className="text-center"
         >
           <Link 

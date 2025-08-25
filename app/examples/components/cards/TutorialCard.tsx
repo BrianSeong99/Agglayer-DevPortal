@@ -94,11 +94,11 @@ export default function TutorialCard({
           gap: spacing[3]
         }}>
           <h3 style={{
-            fontFamily: 'Inter Tight, sans-serif',
-            fontSize: '15px',
-            fontWeight: typography.fontWeight.bold,
-            lineHeight: 1.08,
-            color: 'rgba(0,46,101,0.9)',
+            fontFamily: typography.textStyles.h6.fontFamily,
+            fontSize: typography.textStyles.h6.fontSize,
+            fontWeight: typography.textStyles.h6.fontWeight,
+            lineHeight: typography.textStyles.h6.lineHeight,
+            color: colors.text.blue.DEFAULT,
             margin: 0,
             flex: 1
           }}>
@@ -111,9 +111,9 @@ export default function TutorialCard({
               border: `1px solid ${difficultyStyle.border}`,
               borderRadius: '3px',
               padding: `${spacing[1]} ${spacing[2]}`,
-              fontSize: '10px',
-              fontFamily: 'Inter, sans-serif',
-              fontWeight: typography.fontWeight.medium,
+              fontSize: typography.fontSize['2xs'],
+              fontFamily: typography.textStyles.button.fontFamily,
+              fontWeight: typography.textStyles.button.fontWeight,
               lineHeight: '12px',
               whiteSpace: 'nowrap'
             }}>
@@ -124,11 +124,11 @@ export default function TutorialCard({
 
         {/* Description */}
         <p style={{
-          fontFamily: 'SF Mono, monospace',
-          fontSize: '12px',
-          fontWeight: typography.fontWeight.regular,
-          lineHeight: 1.5,
-          color: 'rgba(0,46,101,0.8)',
+          fontFamily: typography.textStyles.bodySmall.fontFamily,
+          fontSize: typography.textStyles.bodySmall.fontSize,
+          fontWeight: typography.textStyles.bodySmall.fontWeight,
+          lineHeight: typography.textStyles.bodySmall.lineHeight,
+          color: colors.text.blue.muted,
           margin: 0
         }}>
           {description}

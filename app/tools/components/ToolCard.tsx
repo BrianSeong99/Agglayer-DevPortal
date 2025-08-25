@@ -126,10 +126,10 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
             {/* Title */}
             <h3
               style={{
-                fontFamily: typography.fontFamily.heading.join(', '),
-                fontWeight: typography.fontWeight.bold,
-                fontSize: typography.fontSize.base,
-                lineHeight: typography.lineHeight.tight,
+                fontFamily: typography.textStyles.h6.fontFamily,
+                fontWeight: typography.textStyles.h6.fontWeight,
+                fontSize: typography.textStyles.h6.fontSize,
+                lineHeight: typography.textStyles.h6.lineHeight,
                 color: colors.text.blue.DEFAULT,
                 margin: 0,
                 width: '100%',
