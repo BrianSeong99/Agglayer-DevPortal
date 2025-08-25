@@ -14,7 +14,7 @@ export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
       padding: `${spacing[1.5]}`,
       display: 'flex',
       alignItems: 'center',
-      height: '48px',
+      height: '40px',
       gap: '10px'
     }}>
       {/* Grid View Button */}
@@ -35,7 +35,7 @@ export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
           alignItems: 'center',
           gap: '3px',
           lineHeight: typography.textStyles.button.lineHeight,
-          height: '36px'
+          height: '30px'
         }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -65,7 +65,7 @@ export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
           alignItems: 'center',
           gap: '3px',
           lineHeight: typography.textStyles.button.lineHeight,
-          height: '36px'
+          height: '30px'
         }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
