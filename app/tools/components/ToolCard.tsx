@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { ArrowTopRightOnSquareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline'
 import { typography, colors, spacing, radius, motionTokens } from '@/shared/design-system'
 import { Button } from '@/shared/components'
 
@@ -28,17 +27,6 @@ interface ToolCardProps {
 }
 
 export default function ToolCard({ tool, index }: ToolCardProps) {
-  const [copiedId, setCopiedId] = useState<string | null>(null)
-
-  const copyToClipboard = async (text: string, id: string) => {
-    try {
-      await navigator.clipboard.writeText(text)
-      setCopiedId(id)
-      setTimeout(() => setCopiedId(null), 2000)
-    } catch (err) {
-      console.error('Failed to copy text: ', err)
-    }
-  }
 
   return (
     <motion.div
@@ -47,7 +35,7 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
       transition={{ ...motionTokens.card.transition, delay: index * 0.1 }}
       style={{
         width: '100%',
-        height: '180px',
+        height: '230px',
         backgroundColor: colors.background.secondary,
         borderRadius: radius.md,
         overflow: 'hidden',
@@ -73,27 +61,26 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
         }}
       >
         {/* Icon */}
-        <div
-          style={{
-            backgroundColor: `rgba(${colors.primary.rgb}, 0.2)`,
-            borderRadius: radius.sm,
-            width: spacing[8],
-            height: spacing[8],
-            flexShrink: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          {tool.icon !== 'tool' ? (
+        {tool.icon !== 'tool' ? (
+          <div
+            style={{
+              width: spacing[8],
+              height: spacing[8],
+              flexShrink: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
             <Image
               src={tool.icon}
               alt={`${tool.name} icon`}
-              width={24}
-              height={24}
+              width={32}
+              height={32}
+              style={{ objectFit: 'contain' }}
             />
-          ) : null}
-        </div>
+          </div>
+        ) : null}
         
         {/* Title and Description */}
         <div
@@ -106,8 +93,8 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
             padding: 0,
             position: 'relative',
             flexShrink: 0,
-            width: '189px',
-            minHeight: '80px' // Fixed height for consistency
+            width: '220px',
+            minHeight: spacing[20]
           }}
         >
           <div
@@ -154,7 +141,7 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
                 margin: 0,
                 width: '100%',
                 display: '-webkit-box',
-                WebkitLineClamp: 3, // Limit to 3 lines
+                WebkitLineClamp: 4, // Limit to 3 lines
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
                 textOverflow: 'ellipsis',
@@ -196,34 +183,40 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
             width: '100%'
           }}
         >
-          {/* Quick Actions Row */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: spacing[1.5],
-              padding: 0,
-              position: 'relative',
-              flexShrink: 0,
-              width: '100%'
-            }}
-          >
-            <Button
-              key={tool.quickActions[0].label}
-              variant="primary"
-              href={tool.quickActions[0].url}
+          {/* Quick Actions Row - Only show if there are quick actions */}
+          {tool.quickActions && tool.quickActions.length > 0 && (
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: spacing[1.5],
+                padding: 0,
+                position: 'relative',
+                flexShrink: 0,
+                width: '100%'
+              }}
             >
-              {tool.quickActions[0].label}
-            </Button>
-            <Button
-              key={tool.quickActions[1].label}
-              variant="secondary"
-              href={tool.quickActions[1].url}
-            >
-              {tool.quickActions[1].label}
-            </Button>
-          </div>
+              <Button
+                key={tool.quickActions[0].label}
+                variant="primary"
+                href={tool.quickActions[0].url}
+              >
+                {tool.quickActions[0].label}
+              </Button>
+              {tool.quickActions[1] ? (
+                <Button
+                  key={tool.quickActions[1].label}
+                  variant="secondary"
+                  href={tool.quickActions[1].url}
+                >
+                  {tool.quickActions[1].label}
+                </Button>
+              ) : (
+                <div style={{ flex: 1 }} />
+              )}
+            </div>
+          )}
         </div>
       </div>
     </motion.div>
