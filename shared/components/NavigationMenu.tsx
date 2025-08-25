@@ -33,16 +33,34 @@ export default function ShadcnNavigationMenu() {
 
   return (
     <div className="fixed left-1/2 transform -translate-x-1/2 z-50" style={{ top: spacing[12] }}>
-      <nav 
-        className="flex items-center justify-start"
+      {/* Gaussian Blur Background Effect */}
+      <div
         style={{
-          backgroundColor: colors.background.tertiary,
+          position: 'absolute',
+          top: '-20px',
+          left: '-20px',
+          right: '-20px',
+          bottom: '-20px',
+          background: 'rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(12px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(12px) saturate(180%)',
+          borderRadius: radius.round,
+          border: '1px solid rgba(255, 255, 255, 0.2)',
+          zIndex: -1,
+        }}
+      />
+      <nav 
+        className="flex items-center justify-start relative"
+        style={{
+          backgroundColor: 'rgba(255,255,255,0.7)',
           borderRadius: radius.round,
           paddingLeft: spacing[1],
           paddingRight: 0,
           paddingTop: 0,
           paddingBottom: 0,
-          height: '38px'
+          height: '40px',
+          boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+          border: '1px solid rgba(255,255,255,0.3)',
         }}
       >
         {/* Logo */}
@@ -98,7 +116,7 @@ export default function ShadcnNavigationMenu() {
                     fontWeight: typography.textStyles.button.fontWeight,
                     lineHeight: typography.textStyles.button.lineHeight,
                     backgroundColor: isActive ? colors.primary.DEFAULT : 'transparent',
-                    color: isActive ? '#ffffff' : colors.text.muted
+                    color: isActive ? '#ffffff' : colors.text.tertiary
                   }}
                 >
                   {link.title}
