@@ -27,7 +27,7 @@ export default function ShadcnNavigationMenu() {
     },
     {
       title: "Social",
-      href: "#",
+      href: "https://x.com/Agglayer",
     },
   ];
 
@@ -37,10 +37,10 @@ export default function ShadcnNavigationMenu() {
       <div
         style={{
           position: 'absolute',
-          top: '-20px',
-          left: '-20px',
-          right: '-20px',
-          bottom: '-20px',
+          top: '-10px',
+          left: '-10px',
+          right: '-10px',
+          bottom: '-10px',
           background: 'rgba(255, 255, 255, 0.1)',
           backdropFilter: 'blur(12px) saturate(180%)',
           WebkitBackdropFilter: 'blur(12px) saturate(180%)',
@@ -91,18 +91,18 @@ export default function ShadcnNavigationMenu() {
           <div 
             className="flex flex-row h-full items-center"
             style={{
-              gap: spacing[1.5],
+              gap: spacing[1],
               padding: spacing[1]
             }}
           >
             {mainLinks.map((link) => {
-              const isActive = pathname === link.href || 
-                (link.href === '/aggniverse' && pathname === '/aggniverse');
+              const isActive = pathname === link.href;
               
               return (
                 <Link
                   key={link.href}
                   href={link.href}
+                  target={link.href.startsWith('http') ? '_blank' : undefined}
                   className="inline-flex items-center justify-center transition-all duration-300"
                   style={{
                     height: '30px',
@@ -111,10 +111,10 @@ export default function ShadcnNavigationMenu() {
                     paddingTop: spacing[2],
                     paddingBottom: spacing[2],
                     borderRadius: radius.pill,
-                    fontFamily: typography.textStyles.button.fontFamily,
-                    fontSize: typography.textStyles.button.fontSize,
-                    fontWeight: typography.textStyles.button.fontWeight,
-                    lineHeight: typography.textStyles.button.lineHeight,
+                    fontFamily: typography.textStyles.bodySmall.fontFamily,
+                    fontSize: typography.textStyles.bodySmall.fontSize,
+                    fontWeight: typography.fontWeight.medium,
+                    lineHeight: typography.textStyles.bodySmall.lineHeight,
                     backgroundColor: isActive ? colors.primary.DEFAULT : 'transparent',
                     color: isActive ? '#ffffff' : colors.text.tertiary
                   }}

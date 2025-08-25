@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import PageLayout from '@/shared/components/layouts/PageLayout';
 import PageHeader from '@/shared/components/layouts/PageHeader';
 import SubHeader from '@/shared/components/layouts/SubHeader';
-import ViewToggle from './components/ViewToggle';
+import { Tabs } from '@/shared/components';
 import SearchAndFilters from './components/SearchAndFilters';
 import ChainTableHeader from './components/ChainTableHeader';
 import ChainRow from './components/ChainRow';
@@ -22,6 +22,11 @@ import {
 
 export default function ChainsPage() {
   const [view, setView] = useState<'grid' | 'list'>('list');
+  
+  const viewTabs = [
+    { id: 'list', label: 'List view' },
+    { id: 'grid', label: 'Grid view' }
+  ];
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [copiedChainId, setCopiedChainId] = useState<number | null>(null);
@@ -123,7 +128,12 @@ export default function ChainsPage() {
           alignItems: 'center',
           paddingTop: spacing[2] // Slight adjustment to align with title
         }}>
-          <ViewToggle view={view} onViewChange={setView} />
+          <Tabs 
+            tabs={viewTabs} 
+            activeTab={view} 
+            onTabChange={(tabId) => setView(tabId as 'grid' | 'list')}
+            containerStyle={{ width: 'auto' }}
+          />
         </div>
       </motion.div>
 
@@ -271,14 +281,14 @@ export default function ChainsPage() {
                       onCopyRpc={copyToClipboard}
                       copiedChainId={copiedChainId}
                     />
-                  </motion.div>
+              </motion.div>
                 ))}
               </div>
             </motion.div>
 
             {/* Testnet Section (if any) */}
             {testnetChains.length > 0 && (
-              <motion.div 
+              <motion.div
                 initial={motionTokens.section.initial}
                 whileInView={motionTokens.section.whileInView}
                 transition={{
@@ -330,10 +340,10 @@ export default function ChainsPage() {
                       />
                     </motion.div>
                   ))}
-                </div>
+                  </div>
               </motion.div>
-            )}
-          </div>
+                                )}
+                              </div>
         ) : (
           /* Grid View */
           <div style={{
@@ -456,12 +466,12 @@ export default function ChainsPage() {
                     ))}
                   </motion.div>
                 )}
-              </div>
-            </motion.div>
+                </div>
+              </motion.div>
 
             {/* Testnet Section (if any) */}
             {testnetChains.length > 0 && (
-              <motion.div 
+              <motion.div
                 initial={motionTokens.section.initial}
                 whileInView={motionTokens.section.whileInView}
                 transition={{

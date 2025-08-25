@@ -54,8 +54,9 @@ export const tutorials: Tutorial[] = [
     title: 'Getting Started with lxly.js',
     description: 'Complete guide to using the JavaScript SDK',
     category: 'tools',
-    duration: '25 min',
-    url: 'https://docs.agglayer.dev/agglayer/how-to/',
+    duration: '10 min',
+    url: 'https://github.com/0xPolygon/lxly.js',
+    icon: '/img/dev-tools/lxly.svg',
   },
   {
     id: 'aggsandbox-tutorial',
@@ -64,5 +65,6 @@ export const tutorials: Tutorial[] = [
     category: 'tools',
     duration: '30 min',
     url: 'https://docs.agglayer.dev/agglayer/aggsandbox',
+    icon: '/img/dev-tools/aggsandbox.svg',
   }
 ];

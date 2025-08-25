@@ -39,31 +39,33 @@ export default function Tabs({
       {/* Tab Navigation */}
       <div style={{
         backgroundColor: '#E4F5FF',
-        borderRadius: '40.5px',
-        padding: spacing[1.5],
+        borderRadius: '28px',
+        padding: `${spacing[1.5]}`,
         display: 'flex',
         alignItems: 'center',
-        height: 'auto',
+        height: '40px',
+        gap: '10px',
         ...style
       }}>
         {tabs.map((tab) => (
           <button
             key={tab.id}
             onClick={() => onTabChange(tab.id)}
+            className="transition-all duration-300"
             style={{
               backgroundColor: activeTab === tab.id ? colors.primary.DEFAULT : 'transparent',
-              color: activeTab === tab.id ? '#ffffff' : colors.primary.DEFAULT,
               border: 'none',
-              borderRadius: '36px',
-              padding: `${spacing[2]} ${spacing[4]}`,
-              fontSize: '12px',
-              fontFamily: 'Inter, sans-serif',
+              borderRadius: '28px',
+              padding: `${spacing[1.5]} ${spacing[3]}`,
+              fontSize: typography.fontSize.sm,
+              fontFamily: typography.textStyles.button.fontFamily,
               fontWeight: activeTab === tab.id ? typography.fontWeight.bold : typography.fontWeight.medium,
+              color: activeTab === tab.id ? '#FFFFFF' : colors.primary.DEFAULT,
               cursor: 'pointer',
-              height: 'auto',
               display: 'flex',
               alignItems: 'center',
-              lineHeight: 1.2,
+              lineHeight: typography.textStyles.button.lineHeight,
+              height: '30px',
               whiteSpace: 'nowrap'
             }}
           >
