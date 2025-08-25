@@ -36,12 +36,12 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
       }}
       viewport={{ once: true, margin: "0px 0px -100px 0px" }}
       style={{
-        backgroundColor: 'rgba(255,255,255,0)',
+        backgroundColor: colors.background.primary,
         borderRadius: radius.lg,
-        border: `1px solid ${colors.neutral.gray[100]}`, // #f7fafe
-        boxShadow: '0px 1px 5px -4px rgba(19,19,22,0.7)',
-        padding: spacing[6], // 24px
-        gap: spacing[6], // 24px
+        border: `1px solid ${colors.border.light}`,
+        boxShadow: '0px 1px 5px -4px rgba(0, 0, 0, 0.1)',
+        padding: spacing[6],
+        gap: spacing[1],
         display: 'flex',
         flexDirection: 'column',
         position: 'relative',
@@ -53,8 +53,8 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
       {/* Icon */}
       <div
         style={{
-          width: spacing[8], // 32px
-          height: spacing[8], // 32px
+          width: spacing[16] ,
+          height: spacing[16],
           position: 'relative',
           flexShrink: 0,
           overflow: 'hidden'
@@ -66,16 +66,16 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
             left: '50%',
             top: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '30.667px',
-            height: '30.667px'
+            width: spacing[16],
+            height: spacing[16]
           }}
         >
           {tool.icon.startsWith('/img/') ? (
             <img 
               src={tool.icon} 
               alt={tool.name} 
-              width={30} 
-              height={30}
+              width={48} 
+              height={48}
               style={{ objectFit: 'contain' }}
             />
           ) : (
@@ -159,62 +159,63 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
         >
           {tool.description}
         </p>
-      </div>
-
-      {/* Action Link */}
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          gap: spacing[1.5], // 6px
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start',
-          padding: 0,
-          position: 'relative',
-          flexShrink: 0
-        }}
-      >
-        <a
-          href={tool.quickActions[0].url}
-          target={tool.quickActions[0].external ? '_blank' : undefined}
-          rel={tool.quickActions[0].external ? 'noopener noreferrer' : undefined}
+      
+        {/* Quick Actions */}{/* Action Link */}
+        <div
           style={{
-            fontFamily: typography.fontFamily.body.join(', '), // Inter
-            fontSize: typography.fontSize.xs, // 12px
-            fontWeight: typography.fontWeight.medium, // 500
-            lineHeight: '12px',
-            color: colors.primary.DEFAULT, // #0071f7
-            textDecoration: 'none',
-            whiteSpace: 'pre',
-            textAlign: 'left',
             display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
+            flexDirection: 'row',
+            gap: spacing[1.5], // 6px
+            alignItems: 'flex-start',
+            justifyContent: 'flex-start',
+            padding: 0,
             position: 'relative',
             flexShrink: 0
           }}
         >
-          {tool.quickActions[0].label}
-        </a>
-        
-        {tool.quickActions[0].external && (
-          <div
+          <a
+            href={tool.quickActions[0].url}
+            target={tool.quickActions[0].external ? '_blank' : undefined}
+            rel={tool.quickActions[0].external ? 'noopener noreferrer' : undefined}
             style={{
+              fontFamily: typography.fontFamily.body.join(', '), // Inter
+              fontSize: typography.fontSize.xs, // 12px
+              fontWeight: typography.fontWeight.medium, // 500
+              lineHeight: '12px',
+              color: colors.primary.DEFAULT, // #0071f7
+              textDecoration: 'none',
+              whiteSpace: 'pre',
+              textAlign: 'left',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
               position: 'relative',
-              flexShrink: 0,
-              width: '12px',
-              height: '12px'
+              flexShrink: 0
             }}
           >
-            <ArrowTopRightOnSquareIcon 
-              style={{ 
-                width: '100%', 
-                height: '100%',
-                color: colors.primary.DEFAULT
-              }} 
-            />
-          </div>
-        )}
+            {tool.quickActions[0].label}
+          </a>
+          
+          {tool.quickActions[0].external && (
+            <div
+              style={{
+                position: 'relative',
+                flexShrink: 0,
+                width: '12px',
+                height: '12px'
+              }}
+            >
+              <ArrowTopRightOnSquareIcon 
+                style={{ 
+                  width: '100%', 
+                  height: '100%',
+                  color: colors.primary.DEFAULT
+                }} 
+              />
+            </div>
+          )}
+        </div>
+
       </div>
     </motion.div>
   )

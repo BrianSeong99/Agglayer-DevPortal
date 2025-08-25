@@ -26,7 +26,7 @@ export const tutorials: Tutorial[] = [
     description: 'Understanding cross-chain communication and bridge architecture',
     category: 'concepts',
     duration: '25 min',
-    url: 'https://github.com/BrianSeong99/Agglayer_UnifiedBridge',
+    url: 'https://docs.agglayer.dev/agglayer/core-concepts/unified-bridge/',
     icon: '/img/concepts/unified-bridge.svg',
   },
   {
@@ -35,7 +35,7 @@ export const tutorials: Tutorial[] = [
     description: 'Security mechanisms and trust-minimized verification',
     category: 'concepts',
     duration: '15 min',
-    url: 'https://github.com/BrianSeong99/Agglayer_PessimisticProof_Benchmark',
+    url: 'https://docs.agglayer.dev/agglayer/core-concepts/pessimistic-proof/',
     icon: '/img/concepts/pp.svg',
   },
   {
@@ -44,7 +44,7 @@ export const tutorials: Tutorial[] = [
     description: 'How Agglayer ensures cross-chain integrity',
     category: 'concepts',
     duration: '20 min',
-    url: 'https://github.com/BrianSeong99/Agglayer_StateTransitionProof',
+    url: 'https://docs.agglayer.dev/agglayer/core-concepts/state-transition-proof/',
     icon: '/img/concepts/state-transition.svg',
   },
 

@@ -19,7 +19,7 @@ export const tools: Tool[] = [
   {
     id: 'lxly-sdk',
     name: 'lxly.js SDK',
-    icon: '/img/lxlyjs-icon.svg',
+    icon: '/img/dev-tools/lxlyjs.svg',
     description: 'JavaScript library for cross-chain interactions on Agglayer with Unified Bridge support',
     category: 'essential',
     quickActions: [
@@ -37,12 +37,12 @@ export const tools: Tool[] = [
   {
     id: 'aggsandbox',
     name: 'AggSandbox',
-    icon: '/img/aggsandbox-icon.svg',
+    icon: '/img/dev-tools/aggsandbox.svg',
     description: 'Local development environment with fork mode support, multi-L2 testing, and rich CLI tooling',
     category: 'essential',
     quickActions: [
       { label: 'GitHub', url: 'https://github.com/agglayer/aggsandbox.git', external: true },
-      { label: 'Doc', url: 'https://docs.agglayer.dev/agglayer/aggsandbox', external: true },
+      { label: 'Doc', url: 'https://docs.agglayer.dev/agglayer/aggsandbox/', external: true },
     ],
     quickInstall: 'git clone https://github.com/agglayer/aggsandbox.git && cd aggsandbox && make install',
     features: [
@@ -54,13 +54,13 @@ export const tools: Tool[] = [
   },
   {
     id: 'aggvisualizer',
-    name: 'Aggvisualizer',
-    icon: 'tool',
+    name: 'AggVisualizer',
+    icon: '/img/dev-tools/aggvisualizer.svg',
     description: 'Interactive visualization of Agglayer network topology and cross-chain transactions',
     category: 'essential',
     quickActions: [
       { label: 'Open', url: 'https://visualizer.agglayer.dev/', external: true },
-      { label: 'Doc', url: 'https://docs.agglayer.dev/visualizer', external: true },
+      // { label: 'Doc', url: 'https://docs.agglayer.dev/visualizer', external: true },
     ],
     features: [
       'Real-time transaction flow',
@@ -75,17 +75,17 @@ export const tools: Tool[] = [
     description: 'Katana\'s local development tool for fast chain deployment',
     category: 'additional',
     quickActions: [
-      { label: 'View Project', url: 'https://github.com/katana-network/specialk', external: true },
+      { label: 'View Repo', url: 'https://github.com/katana-network/specialk', external: true },
     ],
   },
-  {
-    id: 'polygon-pos-kit',
-    name: 'Polygon PoS Development Kit',
-    icon: '/img/pos-dev-kit-icon.svg',
-    description: 'Tools for Polygon PoS integration and contract deployment',
-    category: 'additional',
-    quickActions: [
-      { label: 'Learn More', url: 'https://polygon.technology/developers', external: true },
-    ],
-  },
+  // {
+  //   id: 'polygon-pos-kit',
+  //   name: 'Polygon PoS Development Kit',
+  //   icon: '/img/pos-dev-kit-icon.svg',
+  //   description: 'Tools for Polygon PoS integration and contract deployment',
+  //   category: 'additional',
+  //   quickActions: [
+  //     { label: 'Learn More', url: 'https://polygon.technology/developers', external: true },
+  //   ],
+  // },
 ];

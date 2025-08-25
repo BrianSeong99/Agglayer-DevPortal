@@ -44,31 +44,45 @@ export default function ToolsPage() {
         />
       </div>
 
-      {/* Main Content */}
-      <div
-        className="mx-auto flex flex-col items-center"
-        style={{
-          maxWidth: sizing.container.lg,
-          gap: spacing[16],
-          marginBottom: spacing[24]
-        }}
-      >
+              {/* Main Content */}
+        <div
+          style={{
+            maxWidth: sizing.container.lg,
+            gap: spacing[16],
+            marginBottom: spacing[24],
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center'
+          }}
+        >
         {/* Essential Tools Grid */}
-        <div style={{ width: '940px', gap: spacing[3] }} className="flex flex-col">
+        <div style={{ 
+          width: sizing.container.lg, 
+          gap: spacing[3],
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           {/* First Row - 3 Cards */}
           <div 
-            className="flex"
             style={{ 
               gap: spacing[3],
               alignItems: 'center',
-              justifyContent: 'center'
+              justifyContent: 'center',
+              display: 'flex'
             }}
           >
             {essentialTools.slice(0, 3).map((tool, index) => (
               <div 
                 key={tool.id} 
-                className="basis-0 grow min-h-px min-w-px"
-                style={{ flexShrink: 0 }}
+                style={{ 
+                  flexBasis: 0,
+                  flexGrow: 1,
+                  minHeight: '1px',
+                  minWidth: '1px',
+                  flexShrink: 0 
+                }}
               >
                 <ToolCard tool={tool} index={index} />
               </div>
@@ -77,43 +91,59 @@ export default function ToolsPage() {
 
           {/* Second Row - 2 Cards */}
           <div 
-            className="flex"
             style={{ 
               gap: spacing[3],
               alignItems: 'center',
-              justifyContent: 'flex-start'
+              justifyContent: 'flex-start',
+              display: 'flex'
             }}
           >
             {essentialTools.slice(3, 5).map((tool, index) => (
               <div 
                 key={tool.id} 
-                className="basis-0 grow min-h-px min-w-px"
-                style={{ flexShrink: 0 }}
+                style={{ 
+                  flexBasis: 0,
+                  flexGrow: 1,
+                  minHeight: '1px',
+                  minWidth: '1px',
+                  flexShrink: 0 
+                }}
               >
                 <ToolCard tool={tool} index={index + 3} />
               </div>
             ))}
             {/* Empty placeholder to maintain 3-column layout */}
             <div 
-              className="basis-0 grow min-h-px min-w-px"
-              style={{ flexShrink: 0, visibility: 'hidden' }}
+              style={{ 
+                flexBasis: 0,
+                flexGrow: 1,
+                minHeight: '1px',
+                minWidth: '1px',
+                flexShrink: 0, 
+                visibility: 'hidden' 
+              }}
             />
           </div>
         </div>
 
         {/* Ecosystem Tools & Resources */}
-        <div style={{ width: '940px', gap: spacing[6] }} className="flex flex-col">
+        <div style={{ 
+          width: sizing.container.lg, 
+          gap: spacing[6],
+          display: 'flex',
+          flexDirection: 'column'
+        }}>
           <motion.h2
             initial={motionTokens.section.initial}
             whileInView={motionTokens.section.whileInView}
             transition={motionTokens.section.transition}
             viewport={{ once: true, margin: "0px 0px -50px 0px" }}
             style={{
-              fontFamily: typography.textStyles.h2.fontFamily,
-              fontSize: '24px',
-              fontWeight: typography.fontWeight.bold,
-              lineHeight: '40px',
-              color: '#131316'
+              fontFamily: typography.textStyles.h3.fontFamily,
+              fontSize: typography.textStyles.h3.fontSize,
+              fontWeight: typography.textStyles.h3.fontWeight,
+              lineHeight: typography.textStyles.h3.lineHeight,
+              color: colors.text.primary
             }}
           >
             Ecosystem Tools & Resources
@@ -130,8 +160,8 @@ export default function ToolsPage() {
               <div
                 key={tool.id}
                 style={{
-                  flexBasis: 'calc(50% - 5px)', // 2 items per row with gap
-                  maxWidth: 'calc(50% - 5px)'
+                  flexBasis: `calc(50% - ${spacing[1.25]})`, // 2 items per row with gap
+                  maxWidth: `calc(50% - ${spacing[1.25]})`
                 }}
               >
                 <EcosystemToolCard tool={tool} index={index} />
