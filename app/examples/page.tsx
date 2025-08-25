@@ -80,8 +80,8 @@ function ExamplesContent() {
             <>
               Templates, Tutorials{' '}
               <span style={{ 
-                fontFamily: 'Inter Tight, sans-serif',
-                fontWeight: 500,
+                fontFamily: typography.textStyles.h2.fontFamily,
+                fontWeight: typography.textStyles.h2.fontWeight,
                 color: colors.primary.DEFAULT 
               }}>
                 & Examples

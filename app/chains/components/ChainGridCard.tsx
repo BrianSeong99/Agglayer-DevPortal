@@ -105,11 +105,11 @@ export default function ChainGridCard({
             
             {/* Chain Name */}
             <div style={{
-              fontFamily: 'Inter Tight, sans-serif',
-              fontSize: '15px',
-              fontWeight: typography.fontWeight.bold,
-              color: 'rgba(0,46,101,0.9)',
-              lineHeight: 1.08,
+              fontFamily: typography.textStyles.h6.fontFamily,
+              fontSize: typography.textStyles.h6.fontSize,
+              fontWeight: typography.textStyles.h6.fontWeight,
+              color: colors.text.blue.DEFAULT,
+              lineHeight: typography.textStyles.h6.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap'
             }}>
@@ -128,11 +128,11 @@ export default function ChainGridCard({
             gap: spacing[1.5]
           }}>
             <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '12px',
-              fontWeight: typography.fontWeight.medium,
+              fontFamily: typography.textStyles.button.fontFamily,
+              fontSize: typography.fontSize.xs,
+              fontWeight: typography.textStyles.button.fontWeight,
               color: statusStyle.text,
-              lineHeight: 1.08,
+              lineHeight: typography.textStyles.button.lineHeight,
               textAlign: 'center',
               whiteSpace: 'nowrap'
             }}>
@@ -154,11 +154,11 @@ export default function ChainGridCard({
             alignItems: 'flex-start'
           }}>
             <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.regular,
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              fontWeight: typography.textStyles.bodySmall.fontWeight,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap'
             }}>
@@ -172,10 +172,11 @@ export default function ChainGridCard({
               justifyContent: 'flex-end'
             }}>
               <div style={{
-                fontFamily: 'SF Mono, monospace',
-                fontSize: '12px',
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                color: colors.text.blue.DEFAULT,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
+                fontWeight: typography.fontWeight.regular,
                 textAlign: 'right',
                 whiteSpace: 'nowrap'
               }}>
@@ -201,11 +202,11 @@ export default function ChainGridCard({
             alignItems: 'flex-start'
           }}>
             <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.regular,
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              fontWeight: typography.textStyles.bodySmall.fontWeight,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap'
             }}>
@@ -219,10 +220,11 @@ export default function ChainGridCard({
               justifyContent: 'flex-end'
             }}>
               <div style={{
-                fontFamily: 'SF Mono, monospace',
-                fontSize: '12px',
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                color: colors.text.blue.DEFAULT,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
+                fontWeight: typography.fontWeight.medium,
                 textAlign: 'right',
                 whiteSpace: 'nowrap'
               }}>
@@ -248,11 +250,11 @@ export default function ChainGridCard({
             alignItems: 'flex-start'
           }}>
             <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.regular,
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              fontWeight: typography.textStyles.bodySmall.fontWeight,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap'
             }}>
@@ -266,10 +268,11 @@ export default function ChainGridCard({
               justifyContent: 'flex-end'
             }}>
               <div style={{
-                fontFamily: 'SF Mono, monospace',
-                fontSize: '12px',
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                color: colors.text.blue.DEFAULT,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
+                fontWeight: typography.fontWeight.medium,
                 textAlign: 'right',
                 whiteSpace: 'nowrap'
               }}>
@@ -285,11 +288,11 @@ export default function ChainGridCard({
             alignItems: 'flex-start'
           }}>
             <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.regular,
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              fontWeight: typography.textStyles.bodySmall.fontWeight,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap'
             }}>
@@ -303,10 +306,11 @@ export default function ChainGridCard({
               justifyContent: 'flex-end'
             }}>
               <div style={{
-                fontFamily: 'SF Mono, monospace',
-                fontSize: '12px',
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                color: colors.text.blue.DEFAULT,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
+                fontWeight: typography.fontWeight.medium,
                 textAlign: 'right',
                 whiteSpace: 'nowrap'
               }}>
@@ -322,11 +326,11 @@ export default function ChainGridCard({
             alignItems: 'flex-start'
           }}>
             <div style={{
-              fontFamily: 'Inter, sans-serif',
-              fontSize: '10px',
-              fontWeight: typography.fontWeight.regular,
-              color: 'rgba(0,46,101,0.8)',
-              lineHeight: 1.5,
+              fontFamily: typography.textStyles.bodySmall.fontFamily,
+              fontSize: typography.fontSize.xs,
+              fontWeight: typography.textStyles.bodySmall.fontWeight,
+              color: colors.text.blue.muted,
+              lineHeight: typography.textStyles.bodySmall.lineHeight,
               textAlign: 'left',
               whiteSpace: 'nowrap'
             }}>
@@ -340,10 +344,11 @@ export default function ChainGridCard({
               justifyContent: 'flex-end'
             }}>
               <div style={{
-                fontFamily: 'SF Mono, monospace',
-                fontSize: '12px',
-                color: 'rgba(0,46,101,0.8)',
-                lineHeight: 1.5,
+                fontFamily: typography.textStyles.bodySmall.fontFamily,
+                fontSize: typography.fontSize.xs,
+                color: colors.text.blue.DEFAULT,
+                lineHeight: typography.textStyles.bodySmall.lineHeight,
+                fontWeight: typography.fontWeight.medium,
                 textAlign: 'right',
                 whiteSpace: 'nowrap'
               }}>

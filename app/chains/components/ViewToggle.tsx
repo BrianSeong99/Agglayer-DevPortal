@@ -10,31 +10,32 @@ export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
   return (
     <div style={{
       backgroundColor: '#E4F5FF',
-      borderRadius: '40.5px',
-      padding: `${spacing[0.5]} ${spacing[1.5]}`,
+      borderRadius: radius.round,
+      padding: `${spacing[1.5]}`,
       display: 'flex',
       alignItems: 'center',
-      height: '31px',
-      gap: '0px'
+      height: '48px',
+      gap: '10px'
     }}>
       {/* Grid View Button */}
       <button
         onClick={() => onViewChange('grid')}
+        className="transition-all duration-300"
         style={{
           backgroundColor: view === 'grid' ? colors.primary.DEFAULT : 'transparent',
           border: 'none',
-          borderRadius: '36px',
+          borderRadius: radius.round,
           padding: `${spacing[1.5]} ${spacing[2]}`,
-          fontSize: '12px',
-          fontFamily: 'Inter, sans-serif',
+          fontSize: typography.fontSize['sm'],
+          fontFamily: typography.textStyles.button.fontFamily,
           fontWeight: view === 'grid' ? typography.fontWeight.bold : typography.fontWeight.medium,
           color: view === 'grid' ? '#FFFFFF' : colors.primary.DEFAULT,
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           gap: '3px',
-          lineHeight: '1.2',
-          height: '22px'
+          lineHeight: typography.textStyles.button.lineHeight,
+          height: '36px'
         }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
@@ -49,21 +50,22 @@ export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
       {/* List View Button */}
       <button
         onClick={() => onViewChange('list')}
+        className="transition-all duration-300"
         style={{
           backgroundColor: view === 'list' ? colors.primary.DEFAULT : 'transparent',
           border: 'none',
-          borderRadius: '36px',
+          borderRadius: radius.round,
           padding: `${spacing[1.5]} ${spacing[2]}`,
-          fontSize: '12px',
-          fontFamily: 'Inter, sans-serif',
+          fontSize: typography.fontSize['sm'],
+          fontFamily: typography.textStyles.button.fontFamily,
           fontWeight: view === 'list' ? typography.fontWeight.bold : typography.fontWeight.medium,
           color: view === 'list' ? '#FFFFFF' : colors.primary.DEFAULT,
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           gap: '3px',
-          lineHeight: '1.2',
-          height: '22px'
+          lineHeight: typography.textStyles.button.lineHeight,
+          height: '36px'
         }}
       >
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none">

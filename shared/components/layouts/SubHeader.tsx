@@ -39,10 +39,10 @@ export default function SubHeader({
           transition={motionTokens.section.transition}
           viewport={{ once: true, margin: "0px 0px -50px 0px" }}
           style={{
-            fontFamily: 'Inter Tight, sans-serif',
-            fontSize: '24px',
-            fontWeight: typography.fontWeight.bold,
-            lineHeight: '40px',
+            fontFamily: typography.textStyles.h3.fontFamily,
+            fontSize: typography.textStyles.h3.fontSize,
+            fontWeight: typography.textStyles.h3.fontWeight,
+            lineHeight: typography.textStyles.h3.lineHeight,
             color: titleColor,
             margin: 0
           }}
@@ -56,11 +56,11 @@ export default function SubHeader({
             border: `1px solid ${colors.primary.DEFAULT}`,
             borderRadius: radius.sm,
             padding: `${spacing[1]} ${spacing[2.5]}`,
-            fontSize: '12px',
-            fontFamily: 'Inter, sans-serif',
-            fontWeight: typography.fontWeight.medium,
+            fontSize: typography.fontSize['xs'],
+            fontFamily: typography.textStyles.button.fontFamily,
+            fontWeight: typography.textStyles.button.fontWeight,
             color: colors.primary.DEFAULT,
-            lineHeight: 1.08
+            lineHeight: typography.textStyles.button.lineHeight
           }}>
             {badgeText}
           </div>
@@ -71,12 +71,12 @@ export default function SubHeader({
         <button style={{
           backgroundColor: 'transparent',
           border: 'none',
-          fontSize: '12px',
-          fontFamily: 'Inter, sans-serif',
-          fontWeight: typography.fontWeight.medium,
+          fontSize: typography.fontSize['xs'],
+          fontFamily: typography.textStyles.button.fontFamily,
+          fontWeight: typography.textStyles.button.fontWeight,
           color: actionColor,
           cursor: 'pointer',
-          lineHeight: '12px'
+          lineHeight: typography.textStyles.button.lineHeight
         }}
         onClick={onActionClick}
         >

@@ -49,7 +49,7 @@ export const examples: Example[] = [
   {
     id: 'cross-chain-position-transfer',
     title: 'Crosschain Position Transfer',
-    description: 'Seamlessly migrate liquidity positions between different protocols and chains while preserving exact parameters and unlocking enhanced yield opportunities.',
+    description: 'Liquidity positions between different protocols and chains while preserving exact parameters and unlocking enhanced yield opportunities.',
     icon: '/img/crosschain-position.svg',
     category: 'defi',
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],

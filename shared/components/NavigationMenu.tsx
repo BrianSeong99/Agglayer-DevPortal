@@ -58,7 +58,7 @@ export default function ShadcnNavigationMenu() {
           paddingRight: 0,
           paddingTop: 0,
           paddingBottom: 0,
-          height: '40px',
+          height: '48px',
           boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
           border: '1px solid rgba(255,255,255,0.3)',
         }}

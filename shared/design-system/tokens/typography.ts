@@ -13,6 +13,7 @@ export const typography = {
 
   // Font Sizes - Updated to match agglayer.dev
   fontSize: {
+    '3xs': '10px',
     '2xs': '12px',
     xs: '14px',
     sm: '16px',
