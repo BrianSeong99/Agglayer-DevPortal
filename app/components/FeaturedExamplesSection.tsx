@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { IconArrowRight, IconTelescope } from '@tabler/icons-react';
 import { typography, colors, spacing, sizing, radius, motionTokens } from '@/shared/design-system';
 import StackingSquares from './svg/StackingSquares';
@@ -13,6 +14,8 @@ export default function FeaturedExamplesSection() {
     title: example.title,
     description: example.description,
     url: example.urls.code || '/examples',
+    icon: example.icon,
+
   }));
 
   return (
@@ -75,12 +78,17 @@ export default function FeaturedExamplesSection() {
                   className="flex items-center justify-start"
                   style={{ paddingTop: spacing[6], paddingLeft: spacing[6], paddingRight: spacing[6] }}
                 >
-                  <div 
-                    className="flex items-center justify-center"
-                    style={{ width: sizing.icon['3xl'], height: sizing.icon['3xl'] }}
-                  >
-                    <StackingSquares />
-                  </div>
+                  <div
+    className="flex items-center justify-center relative"
+    style={{ width: sizing.icon['3xl'], height: sizing.icon['3xl'] }}
+  >
+    {example.icon ? (
+      <Image src={example.icon} alt={example.title} fill style={{ objectFit: 'contain'
+   }} />
+    ) : (
+      <StackingSquares />
+    )}
+  </div>
                 </div>
                 <div 
                   className="flex flex-col flex-1"

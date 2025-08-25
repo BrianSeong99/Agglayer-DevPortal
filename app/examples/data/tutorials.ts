@@ -6,6 +6,7 @@ export interface Tutorial {
   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
   duration: string;
   url: string;
+  icon?: string;
 }
 
 export const tutorials: Tutorial[] = [
@@ -17,6 +18,7 @@ export const tutorials: Tutorial[] = [
     category: 'concepts',
     duration: '20 min',
     url: 'https://docs.agglayer.dev/agglayer/core-concepts/architecture/',
+    icon: '/img/concepts/overview.svg',
   },
   {
     id: 'unified-bridge-deep-dive',
@@ -25,6 +27,7 @@ export const tutorials: Tutorial[] = [
     category: 'concepts',
     duration: '25 min',
     url: 'https://github.com/BrianSeong99/Agglayer_UnifiedBridge',
+    icon: '/img/concepts/unified-bridge.svg',
   },
   {
     id: 'pessimistic-proofs',
@@ -33,6 +36,7 @@ export const tutorials: Tutorial[] = [
     category: 'concepts',
     duration: '15 min',
     url: 'https://github.com/BrianSeong99/Agglayer_PessimisticProof_Benchmark',
+    icon: '/img/concepts/pp.svg',
   },
   {
     id: 'state-transitions',
@@ -41,6 +45,7 @@ export const tutorials: Tutorial[] = [
     category: 'concepts',
     duration: '20 min',
     url: 'https://github.com/BrianSeong99/Agglayer_StateTransitionProof',
+    icon: '/img/concepts/state-transition.svg',
   },
 
   // Tools - One tutorial per tool

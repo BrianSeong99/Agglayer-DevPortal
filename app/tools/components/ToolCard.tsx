@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { ArrowTopRightOnSquareIcon, DocumentDuplicateIcon } from '@heroicons/react/24/outline'
 import { typography, colors, spacing, radius, motionTokens } from '@/shared/design-system'
 import { Button } from '@/shared/components'
@@ -15,6 +16,7 @@ interface QuickAction {
 interface Tool {
   id: string
   name: string
+  icon: string
   description: string
   quickActions: QuickAction[]
   quickInstall?: string
@@ -77,9 +79,21 @@ export default function ToolCard({ tool, index }: ToolCardProps) {
             borderRadius: radius.sm,
             width: spacing[8],
             height: spacing[8],
-            flexShrink: 0
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
-        />
+        >
+          {tool.icon !== 'tool' ? (
+            <Image
+              src={tool.icon}
+              alt={`${tool.name} icon`}
+              width={24}
+              height={24}
+            />
+          ) : null}
+        </div>
         
         {/* Title and Description */}
         <div

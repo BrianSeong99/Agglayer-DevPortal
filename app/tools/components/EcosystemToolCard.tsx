@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import Image from 'next/image'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { typography, colors, spacing, radius, motionTokens } from '@/shared/design-system'
 
@@ -67,14 +68,24 @@ export default function EcosystemToolCard({ tool, index }: EcosystemToolCardProp
             height: '30.667px'
           }}
         >
-          <div
-            style={{
-              position: 'absolute',
-              inset: '-1.63%',
-              backgroundColor: `rgba(${colors.primary.rgb}, 0.2)`,
-              borderRadius: radius.sm
-            }}
-          />
+          {tool.icon.startsWith('/img/') ? (
+            <img 
+              src={tool.icon} 
+              alt={tool.name} 
+              width={30} 
+              height={30}
+              style={{ objectFit: 'contain' }}
+            />
+          ) : (
+            <div
+              style={{
+                position: 'absolute',
+                inset: '-1.63%',
+                backgroundColor: `rgba(${colors.primary.rgb}, 0.2)`,
+                borderRadius: radius.sm
+              }}
+            />
+          )}
         </div>
       </div>
 
