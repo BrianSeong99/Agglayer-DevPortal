@@ -38,9 +38,9 @@ export default function Button({
     border: '1px solid rgba(0,113,247,0.24)',
     cursor: disabled ? 'not-allowed' : 'pointer',
     textDecoration: 'none',
-    fontFamily: 'Inter, sans-serif',
-    fontSize: '10px',
-    lineHeight: 1.2,
+    fontFamily: typography.textStyles.button.fontFamily,
+    fontSize: typography.textStyles.button.fontSize,
+    lineHeight: typography.textStyles.button.lineHeight,
     textAlign: 'center' as const,
     whiteSpace: 'nowrap' as const,
     ...style
@@ -61,15 +61,15 @@ export default function Button({
 
   const sizeStyles: React.CSSProperties = {
     ...(size === 'sm' && {
-      fontSize: '10px',
+      fontSize: typography.fontSize.xs,
       padding: `${spacing[2]} ${spacing[4]}`,
     }),
     ...(size === 'md' && {
-      fontSize: '12px',
+      fontSize: typography.fontSize.sm,
       padding: `${spacing[2.5]} ${spacing[5]}`,
     }),
     ...(size === 'lg' && {
-      fontSize: '14px',
+      fontSize: typography.fontSize.base,
       padding: `${spacing[3]} ${spacing[6]}`,
     }),
   }

@@ -11,18 +11,19 @@ export const typography = {
     mono: ['SF Mono', 'monospace'],
   },
 
-  // Font Sizes
+  // Font Sizes - Updated to match agglayer.dev
   fontSize: {
-    '2xs': '10px',
-    xs: '12px',
-    sm: '14px',
-    base: '15px',
-    lg: '18px',
-    xl: '20px',
-    '2xl': '24px',
-    '3xl': '30px',
-    '4xl': '36px',
-    '5xl': '48px',
+    '2xs': '12px',
+    xs: '14px',
+    sm: '16px',
+    base: '18px',
+    lg: '20px',
+    xl: '24px',
+    '2xl': '32px',
+    '3xl': '40px',
+    '4xl': '48px',
+    '5xl': '64px',
+    '6xl': '72px',
   },
 
   // Font Weights
@@ -57,98 +58,98 @@ export const typography = {
     button: '0.24px',
   },
 
-  // Text Styles (Compound tokens)
+  // Text Styles (Compound tokens) - Updated to match agglayer.dev
   textStyles: {
-    // Headings
+    // Headings - Larger, more prominent sizes
     h1: {
+      fontFamily: 'Inter Tight',
+      fontSize: '64px',
+      fontWeight: 700,
+      lineHeight: 1.1,
+    },
+    h2: {
       fontFamily: 'Inter Tight',
       fontSize: '48px',
       fontWeight: 700,
       lineHeight: 1.2,
     },
-    h2: {
-      fontFamily: 'Inter Tight',
-      fontSize: '36px',
-      fontWeight: 700,
-      lineHeight: 1.2,
-    },
     h3: {
       fontFamily: 'Inter Tight',
-      fontSize: '24px',
+      fontSize: '32px',
       fontWeight: 700,
-      lineHeight: 1.3,
+      lineHeight: 1.25,
     },
     h4: {
+      fontFamily: 'Inter Tight',
+      fontSize: '24px',
+      fontWeight: 600,
+      lineHeight: 1.3,
+    },
+    h5: {
       fontFamily: 'Inter Tight',
       fontSize: '20px',
       fontWeight: 600,
       lineHeight: 1.4,
     },
-    h5: {
-      fontFamily: 'Inter Tight',
-      fontSize: '18px',
-      fontWeight: 600,
-      lineHeight: 1.4,
-    },
     h6: {
       fontFamily: 'Inter Tight',
-      fontSize: '15px',
+      fontSize: '18px',
       fontWeight: 700,
-      lineHeight: 1.08,
+      lineHeight: 1.4,
     },
 
-    // Body text
+    // Body text - Increased base sizes
     body: {
       fontFamily: 'Inter',
-      fontSize: '15px',
+      fontSize: '18px',
       fontWeight: 400,
       lineHeight: 1.5,
     },
     bodySmall: {
       fontFamily: 'Inter',
-      fontSize: '12px',
+      fontSize: '16px',
       fontWeight: 400,
       lineHeight: 1.5,
     },
     bodyLarge: {
       fontFamily: 'Inter',
-      fontSize: '18px',
+      fontSize: '20px',
       fontWeight: 400,
       lineHeight: 1.5,
     },
 
-    // UI text
+    // UI text - Updated for better readability
     button: {
       fontFamily: 'Inter',
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 500,
-      lineHeight: 1.08,
+      lineHeight: 1.2,
       letterSpacing: '0.24px',
     },
     caption: {
       fontFamily: 'SF Mono',
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 400,
       lineHeight: 1.5,
     },
     label: {
       fontFamily: 'Inter',
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 600,
-      lineHeight: 2,
+      lineHeight: 1.4,
     },
 
-    // Code
+    // Code - Slightly larger for better readability
     code: {
       fontFamily: 'SF Mono',
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 400,
       lineHeight: 1.5,
       letterSpacing: '-0.36px',
     },
     codeBlock: {
       fontFamily: 'SF Mono',
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 400,
       lineHeight: 1.5,
     },

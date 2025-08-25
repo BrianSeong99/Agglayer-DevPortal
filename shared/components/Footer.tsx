@@ -55,11 +55,11 @@ export default function Footer() {
           <div style={{ width: '110px', height: '120px' }}>
             <h4 
               style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: 800, // Extra Bold
-                lineHeight: 2,
-                color: '#000000',
+                fontFamily: typography.textStyles.label.fontFamily,
+                fontSize: typography.textStyles.label.fontSize,
+                fontWeight: typography.fontWeight.extrabold,
+                lineHeight: typography.textStyles.label.lineHeight,
+                color: colors.text.primary,
                 marginBottom: 0,
               }}
             >
@@ -73,11 +73,11 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      fontFamily: 'Inter, sans-serif',
-                      fontSize: '12px',
-                      fontWeight: 500, // Medium
-                      lineHeight: 2,
-                      color: 'rgba(0,0,0,0.6)',
+                      fontFamily: typography.textStyles.bodySmall.fontFamily,
+                      fontSize: typography.textStyles.bodySmall.fontSize,
+                      fontWeight: typography.textStyles.bodySmall.fontWeight,
+                      lineHeight: typography.textStyles.label.lineHeight,
+                      color: colors.text.tertiary,
                       textDecoration: 'underline',
                       textUnderlinePosition: 'from-font',
                       textDecorationSkipInk: 'none',
@@ -98,12 +98,12 @@ export default function Footer() {
           <div style={{ width: '220px' }}>
             <h4 
               style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: 700, // Bold
-                lineHeight: 2,
-                color: '#000000',
-                marginBottom: '10px',
+                fontFamily: typography.textStyles.label.fontFamily,
+                fontSize: typography.textStyles.label.fontSize,
+                fontWeight: typography.textStyles.label.fontWeight,
+                lineHeight: typography.textStyles.label.lineHeight,
+                color: colors.text.primary,
+                marginBottom: spacing[2.5],
                 height: '23.98px',
               }}
             >
@@ -131,11 +131,11 @@ export default function Footer() {
                   backgroundColor: 'transparent',
                   border: 'none',
                   outline: 'none',
-                  fontFamily: 'Inter, sans-serif',
-                  fontSize: '12px',
-                  fontWeight: 500, // Medium
-                  color: 'rgba(0,0,0,0.3)',
-                  lineHeight: 1.5,
+                  fontFamily: typography.textStyles.bodySmall.fontFamily,
+                  fontSize: typography.textStyles.bodySmall.fontSize,
+                  fontWeight: typography.textStyles.bodySmall.fontWeight,
+                  color: colors.text.quaternary,
+                  lineHeight: typography.textStyles.bodySmall.lineHeight,
                 }}
                 className="placeholder:text-[rgba(0,0,0,0.3)]"
               />
@@ -146,12 +146,12 @@ export default function Footer() {
           <div style={{ width: '133px' }}>
             <h4 
               style={{
-                fontFamily: 'Inter, sans-serif',
-                fontSize: '12px',
-                fontWeight: 700, // Bold
-                lineHeight: 2,
-                color: '#000000',
-                marginBottom: '10px',
+                fontFamily: typography.textStyles.label.fontFamily,
+                fontSize: typography.textStyles.label.fontSize,
+                fontWeight: typography.textStyles.label.fontWeight,
+                lineHeight: typography.textStyles.label.lineHeight,
+                color: colors.text.primary,
+                marginBottom: spacing[2.5],
                 height: '23.98px',
               }}
             >
