@@ -55,7 +55,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
       // Bold
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
       // Code blocks
-      .replace(/```(.*?)```/gs, '<pre><code>$1</code></pre>')
+      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
       // Inline code
       .replace(/`([^`]+)`/g, '<code>$1</code>')
       // Line breaks
@@ -66,7 +66,7 @@ export default function DappDetailPage({ params }: { params: { slug: string } })
       .replace(/^---$/gim, '<hr>')
     
     // Wrap lists
-    html = html.replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+    html = html.replace(/(<li>[\s\S]*?<\/li>)/g, '<ul>$1</ul>')
     
     // Wrap in paragraphs
     html = '<p>' + html + '</p>'
