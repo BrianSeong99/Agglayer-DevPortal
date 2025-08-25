@@ -38,7 +38,7 @@ export default function HeroAndNavigationSection() {
         {...motionTokens.section}
         transition={{ ...motionTokens.section.transition, delay: 0 }}
         className="absolute left-0 right-0 z-0 overflow-visible"
-        style={{ top: '120px', width: '100%', height: '600px' }}
+        style={{ top: '120px', width: '100%', height: '700px' }}
       >
         <Image
           src="/img/banner.svg"
@@ -127,7 +127,7 @@ export default function HeroAndNavigationSection() {
       </div>
 
       {/* Navigation Cards - positioned above the SVG */}
-      <div className="relative z-20" style={{ paddingTop: '304px' }}>
+      <div className="relative z-20" style={{ paddingTop: '384px' }}>
         <div className="max-w-narrow mx-auto px-6">
         <div className="grid md:grid-cols-3 gap-3">
           {navigationItems.map((item, index) => (
