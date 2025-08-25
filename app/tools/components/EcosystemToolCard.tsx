@@ -4,20 +4,7 @@ import { motion } from 'framer-motion'
 import Image from 'next/image'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { typography, colors, spacing, radius, motionTokens } from '@/shared/design-system'
-
-interface QuickAction {
-  label: string
-  url: string
-  external?: boolean
-}
-
-interface Tool {
-  id: string
-  name: string
-  icon: string
-  description: string
-  quickActions: QuickAction[]
-}
+import { Tool } from '../data/tools'
 
 interface EcosystemToolCardProps {
   tool: Tool
