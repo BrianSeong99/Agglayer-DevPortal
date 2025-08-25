@@ -36,6 +36,17 @@ export const examples: Example[] = [
     },
   },
   {
+    id: 'cross-chain-lending',
+    title: 'Cross Chain Lending',
+    description: 'Collateralize assets from one chain to borrow tokens on another, maximizing capital efficiency through Agglayer\'s Unified Bridge.',
+    icon: '/img/crosschain-lending.svg',
+    category: 'defi',
+    techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
+    urls: {
+      code: 'https://github.com/agglayer/cross-chain-lending-template',
+    },
+  },
+  {
     id: 'cross-chain-position-transfer',
     title: 'Crosschain Position Transfer',
     description: 'Seamlessly migrate liquidity positions between different protocols and chains while preserving exact parameters and unlocking enhanced yield opportunities.',
@@ -44,17 +55,6 @@ export const examples: Example[] = [
     techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
     urls: {
       code: 'https://github.com/agglayer/cross-chain-position-transfer-template',
-    },
-  },
-  {
-    id: 'cross-chain-lending',
-    title: 'Cross Chain Lending',
-    description: 'Collateralize assets from one chain to borrow tokens on another, maximizing capital efficiency across networks through Agglayer\'s Unified Bridge.',
-    icon: '/img/crosschain-lending.svg',
-    category: 'defi',
-    techStack: ['Solidity', 'React', 'TypeScript', 'Ethers.js', 'lxly.js', 'Node.js'],
-    urls: {
-      code: 'https://github.com/agglayer/cross-chain-lending-template',
     },
   },
 ];

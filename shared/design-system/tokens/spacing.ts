@@ -78,6 +78,13 @@ export const sizing = {
     '3xl': '64px',
     '4xl': '92px',
     '5xl': '96px',
+    '6xl': '128px',
+    '7xl': '160px',
+    '8xl': '192px',
+    '9xl': '224px',
+    '10xl': '256px',
+    '11xl': '288px',
+    '12xl': '320px',
   },
 
   // Component sizes

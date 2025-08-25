@@ -47,7 +47,7 @@ export default function FeaturedExamplesSection() {
               fontWeight: typography.textStyles.body.fontWeight,
               lineHeight: typography.textStyles.body.lineHeight,
               color: colors.text.primary,
-              maxWidth: sizing.container.xs,
+              maxWidth: sizing.container.sm,
             }}
           >
             Fork, customize, and deploy in minutes
@@ -75,15 +75,15 @@ export default function FeaturedExamplesSection() {
                 }}
               >
                 <div 
-                  className="flex items-center justify-start"
+                  className="flex items-center justify-center"
                   style={{ paddingTop: spacing[6], paddingLeft: spacing[6], paddingRight: spacing[6] }}
                 >
                   <div
-    className="flex items-center justify-center relative"
-    style={{ width: sizing.icon['3xl'], height: sizing.icon['3xl'] }}
-  >
-    <Image src={example.icon} alt={example.title} fill style={{ objectFit: 'contain'}} />
-  </div>
+                    className="flex items-center justify-center relative"
+                    style={{ width: sizing.icon['6xl'], height: sizing.icon['6xl'] }}
+                  >
+                    <Image src={example.icon} alt={example.title} fill style={{ objectFit: 'contain'}} />
+                  </div>
                 </div>
                 <div 
                   className="flex flex-col flex-1"

@@ -74,7 +74,7 @@ export default function QuickStartSection() {
   const steps = [
     {
       title: 'Install',
-      code: `# Clone & Install AggSandbox\ngit clone https://github.com/agglayer/aggsandbox.git && cd aggsandbox && make install`,
+      code: `# Clone AggSandbox\ngit clone https://github.com/agglayer/aggsandbox.git\n\n# Install AggSandbox\ncd aggsandbox && make install`,
     },
     {
       title: 'Start Sandbox',
@@ -114,10 +114,11 @@ export default function QuickStartSection() {
               fontWeight: typography.textStyles.body.fontWeight,
               lineHeight: typography.textStyles.body.lineHeight,
               color: colors.text.primary,
-              maxWidth: sizing.container.xs,
+              maxWidth: sizing.container.sm,
             }}
           >
-            Get your local development environment up and running in under 5 minutes
+            Get your local development environment <br/>
+            up and running in under 5 minutes
           </p>
         </motion.div>
 

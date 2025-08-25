@@ -24,6 +24,8 @@ export const typography = {
     '4xl': '48px',
     '5xl': '64px',
     '6xl': '72px',
+    '7xl': '80px',
+    '8xl': '96px',
   },
 
   // Font Weights
