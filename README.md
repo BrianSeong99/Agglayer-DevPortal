@@ -42,7 +42,7 @@ Visit `http://localhost:3000`
 
 - **[Documentation](https://docs.agglayer.dev/)** - Official Agglayer docs
 - **[lxly.js SDK](https://github.com/0xPolygon/lxly.js)** - Cross-chain JavaScript library
-- **[AggSandbox](https://github.com/NethermindEth/agg-sandbox)** - Local development environment
+- **[AggSandbox](https://github.com/agglayer/aggsandbox.git)** - Local development environment
 
 ## 📣 Questions?
 

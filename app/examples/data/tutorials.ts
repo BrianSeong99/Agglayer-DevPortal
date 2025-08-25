@@ -58,6 +58,6 @@ export const tutorials: Tutorial[] = [
     description: 'Local development, fork mode, and multi-L2 setup',
     category: 'tools',
     duration: '30 min',
-    url: 'https://github.com/NethermindEth/agg-sandbox',
+    url: 'https://docs.agglayer.dev/agglayer/aggsandbox',
   }
 ];

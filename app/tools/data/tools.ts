@@ -41,10 +41,10 @@ export const tools: Tool[] = [
     description: 'Local development environment with fork mode support, multi-L2 testing, and rich CLI tooling',
     category: 'essential',
     quickActions: [
-      { label: 'GitHub', url: 'https://github.com/0xPolygon/lxly.js', external: true },
-      { label: 'Doc', url: 'https://github.com/0xPolygon/lxly.js#readme', external: true },
+      { label: 'GitHub', url: 'https://github.com/agglayer/aggsandbox.git', external: true },
+      { label: 'Doc', url: 'https://docs.agglayer.dev/agglayer/aggsandbox', external: true },
     ],
-    quickInstall: 'git clone https://github.com/NethermindEth/agg-sandbox.git && cd agg-sandbox && make install',
+    quickInstall: 'git clone https://github.com/agglayer/aggsandbox.git && cd aggsandbox && make install',
     features: [
       'Local & Fork modes',
       'Multi-L2 support',
