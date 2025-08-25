@@ -160,8 +160,8 @@ export default function ToolsPage() {
               <div
                 key={tool.id}
                 style={{
-                  flexBasis: `calc(50% - ${spacing[1.25]})`, // 2 items per row with gap
-                  maxWidth: `calc(50% - ${spacing[1.25]})`
+                  flexBasis: `calc(50% - ${spacing[1.5]})`, // 2 items per row with gap
+                  maxWidth: `calc(50% - ${spacing[1.5]})`
                 }}
               >
                 <EcosystemToolCard tool={tool} index={index} />
