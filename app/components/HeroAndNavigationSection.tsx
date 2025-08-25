@@ -34,19 +34,38 @@ export default function HeroAndNavigationSection() {
   return (
     <section className="relative overflow-visible bg-white">
 
-      <motion.div
-        {...motionTokens.section}
-        transition={{ ...motionTokens.section.transition, delay: 0 }}
-        className="absolute left-0 right-0 z-0 overflow-visible"
-        style={{ top: '120px', width: '100%', height: '700px' }}
+      <div
+        style={{
+          position: 'absolute',
+          top: '120px',
+          left: '50%',
+          marginLeft: '-650px', // Half of the image width (1400px / 2 = 700px)
+          width: '1300px',
+          height: '700px',
+          zIndex: 0,
+          pointerEvents: 'none',
+        }}
       >
-        <Image
-          src="/img/banner.svg"
-          alt="Agglayer Banner"
-          fill
-          style={{ objectFit: 'contain' }}
-        />
-      </motion.div>
+        <motion.div
+          {...motionTokens.section}
+          transition={{ ...motionTokens.section.transition, delay: 0 }}
+          style={{ width: '100%', height: '100%' }}
+        >
+          <Image
+            src="/img/banner.svg"
+            alt="Agglayer Banner"
+            width={1400}
+            height={700}
+            style={{
+              width: '1400px',
+              height: '700px',
+              borderRadius: '20px',
+              objectFit: 'cover',
+            }}
+            priority
+          />
+        </motion.div>
+      </div>
 
       {/* Hero content */}
       <div className="relative max-w-narrow mx-auto px-6 pt-48 pb-12 z-10 w-full text-center">

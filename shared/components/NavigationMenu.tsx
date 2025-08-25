@@ -61,8 +61,8 @@ export default function ShadcnNavigationMenu() {
             <img
               src="/img/agglayer-logo.svg"
               alt="AggLayer Logo"
-              width={61}
-              height={13}
+              width={80}
+              height={30}
               style={{ display: 'block' }}
             />
           </div>
