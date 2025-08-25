@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700&display=swap');
+/* SF Mono is a system font on macOS, fallback to other monospace fonts */
 @import 'github-markdown-css/github-markdown.css';
 @import 'github-markdown-css/github-markdown-dark.css';
 
@@ -8,58 +10,124 @@
 
 @layer base {
   :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --radius: 0.5rem;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    /* Primary Colors */
+    --color-primary: #0071F7;
+    --color-primary-rgb: 0, 113, 247;
+    --color-primary-hsl: 212, 100%, 48%;
+    
+    /* Neutral Colors */
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray-50: #F9F9F9;
+    --color-gray-100: #F7FAFE;
+    --color-gray-150: #FBFAFA;
+    --color-gray-200: #F5F5F5;
+    --color-gray-300: #D9D9D9;
+    --color-gray-400: #A1A1AA;
+    --color-gray-500: #8E8E93;
+    --color-gray-600: #6B7280;
+    --color-gray-700: #23272F;
+    --color-gray-800: rgba(23, 23, 23, 0.59);
+    --color-gray-900: #0A0A0A;
+    
+    /* Text Colors */
+    --color-text-primary: #000000;
+    --color-text-secondary: rgba(0, 0, 0, 0.9);
+    --color-text-tertiary: rgba(0, 0, 0, 0.6);
+    --color-text-quaternary: rgba(0, 0, 0, 0.3);
+    --color-text-inverse: #FFFFFF;
+    --color-text-blue: rgba(0, 46, 101, 0.9);
+    --color-text-blue-muted: rgba(0, 46, 101, 0.8);
+    --color-text-blue-light: rgba(0, 46, 101, 0.6);
+    --color-text-link: #0071F7;
+    --color-text-link-muted: rgba(0, 113, 247, 0.8);
+    
+    /* Background Colors */
+    --color-bg-primary: #FFFFFF;
+    --color-bg-secondary: #F7FAFE;
+    --color-bg-tertiary: #F9F9F9;
+    --color-bg-quaternary: #FBFAFA;
+    --color-bg-overlay: rgba(255, 255, 255, 0.94);
+    
+    /* Environment Colors */
+    --color-env-mainnet: #00D4AA;
+    --color-env-cardona: #FF8C42;
+    --color-env-bali: #8B5CF6;
+    --color-env-agglayer: #3B82F6;
+    
+    /* Border Colors */
+    --color-border: rgba(0, 0, 0, 0.2);
+    --color-border-light: rgba(0, 0, 0, 0.1);
+    
+    /* Semantic Colors */
+    --color-success: #00D4AA;
+    --color-warning: #FF8C42;
+    --color-error: #EF4444;
+    --color-info: #0071F7;
+    
+    /* ShadCN Compatibility Variables (Light Mode) */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 216 71% 97%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 212 100% 48%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 216 71% 97%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 98%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 216 71% 97%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 212 100% 48%;
+    --radius: 0.625rem;
+    
+    /* Chart colors */
+    --chart-1: 212 100% 48%;
+    --chart-2: 160 84% 40%;
+    --chart-3: 30 90% 55%;
+    --chart-4: 270 90% 60%;
+    --chart-5: 340 80% 55%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    /* Dark mode colors - keeping existing dark theme for now */
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: rgba(255, 255, 255, 0.9);
+    --color-text-tertiary: rgba(255, 255, 255, 0.6);
+    --color-text-quaternary: rgba(255, 255, 255, 0.3);
+    --color-text-inverse: #000000;
+    
+    --color-bg-primary: #0A0A0A;
+    --color-bg-secondary: #17171797;
+    --color-bg-tertiary: #23272F;
+    --color-bg-quaternary: #2A2A2A;
+    
+    /* ShadCN Dark Mode Variables */
+    --background: 0 0% 4%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 212 100% 48%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 0 0% 14%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14%;
+    --input: 0 0% 14%;
+    --ring: 212 100% 48%;
   }
 }
 
@@ -67,149 +135,142 @@
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Typography base styles */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter Tight', 'Inter', sans-serif;
+    font-weight: 700;
+  }
+  
+  code, pre {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Fira Code', monospace;
   }
 }
 
-:root {
-  /* === Palette === */
-  --color-blue: #0071F7;
-  --color-blue-light: #e6f1fd;
-  --color-blue-dark: #005ac1;
-  --color-black: #000000;
-  --color-black-light: #17171797;
-  --color-white: #FFFFFF;
-  --color-white-light: #fffffff0;
-  --color-gray: #D9D9D9;
-  --color-gray-light: #f5f5f5;
-  --color-gray-dark: #23272f;
-  --color-gray-text: #6b7280;
-  --color-gray-text-dark: #a1a1aa;
-
-  /* === Backgrounds === */
-  --bg-main: var(--color-black);
-  --bg-sidebar: var(--color-black-light);
-  --bg-dashboard: var(--color-black-light);
-  --bg-card: var(--color-black-light);
-  --bg-card-light: var(--color-black-light);
-
-  /* === Text === */
-  --text-primary: var(--color-white);
-  --text-secondary: var(--color-gray-text-dark);
-  --text-sidebar: var(--color-white);
-
-  /* === Borders & Shadows === */
-  --border-card: var(--color-gray-dark);
-  --shadow-card: 0 8px 32px 0 rgba(0,0,0,0.30);
-
-  /* === Primary (Blue) === */
-  --primary: var(--color-blue);
-  --primary-light: var(--color-blue-light);
-  --primary-dark: var(--color-blue-dark);
-
-  /* === Accent (Blue) === */
-  --accent: var(--color-blue);
-  --accent-light: var(--color-blue-light);
-  --accent-dark: var(--color-blue-dark);
-
-  /* === Buttons & Links === */
-  --button-bg: var(--primary);
-  --button-text: var(--color-white);
-  --button-hover-bg: var(--primary-dark);
-  --link-active-bg: var(--primary-light);
-  --link-active-text: var(--primary-dark);
-  --link-hover-bg: var(--primary);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-main: var(--color-black);
-    --text-primary: var(--color-white);
-    --bg-sidebar: var(--color-black-light);
-    --bg-dashboard: var(--color-black-light);
-    --bg-card: var(--color-black-light);
-    --bg-card-light: var(--color-black-light);
-    --text-secondary: var(--color-gray-text-dark);
-    --text-sidebar: var(--color-white);
-    --border-card: var(--color-gray-dark);
-    --shadow-card: 0 8px 32px 0 rgba(0,0,0,0.30);
-    --primary: var(--color-blue);
-    --primary-light: var(--color-blue-light);
-    --primary-dark: var(--color-blue-dark);
-    --accent: var(--color-blue);
-    --accent-light: var(--color-blue-light);
-    --accent-dark: var(--color-blue-dark);
-    --button-bg: var(--primary);
-    --button-text: var(--color-black);
-    --button-hover-bg: var(--primary-dark);
-    --link-active-bg: var(--primary-light);
-    --link-active-text: var(--primary-dark);
-    --link-hover-bg: var(--primary);
+/* Component styles */
+@layer components {
+  /* Button styles from Figma */
+  .btn-primary {
+    @apply bg-primary text-white px-[15px] py-2 rounded-pill text-xs font-medium;
+    @apply transition-all duration-300 hover:shadow-primary;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-150 text-gray-500 px-[15px] py-2 rounded-pill text-xs font-normal;
+    @apply transition-all duration-300 hover:bg-gray-100;
+  }
+  
+  /* Card styles from Figma */
+  .card-primary {
+    @apply bg-gray-100 rounded-md p-6;
+    @apply transition-all duration-300 hover:shadow-card;
+  }
+  
+  .card-secondary {
+    @apply bg-white rounded-lg p-6;
+    @apply border border-border-light;
+  }
+  
+  /* Text styles */
+  .text-heading-1 {
+    @apply font-heading text-5xl font-bold leading-snug;
+  }
+  
+  .text-heading-2 {
+    @apply font-heading text-4xl font-bold leading-snug;
+  }
+  
+  .text-heading-3 {
+    @apply font-heading text-2xl font-bold leading-tight;
+  }
+  
+  .text-body {
+    @apply font-sans text-base font-normal leading-normal;
+  }
+  
+  .text-caption {
+    @apply font-mono text-xs font-normal leading-normal;
+  }
+  
+  /* Code block styles */
+  .code-block {
+    @apply bg-white rounded-lg p-6 font-mono text-xs leading-normal;
+    @apply overflow-auto max-h-code;
   }
 }
 
-body {
-  background: var(--bg-main);
-  color: var(--text-primary);
-  font-family: 'Inter', Arial, Helvetica, sans-serif;
+/* Custom utility classes */
+@layer utilities {
+  /* Text colors matching Figma */
+  .text-blue-primary {
+    color: var(--color-text-blue);
+  }
+  
+  .text-blue-muted {
+    color: var(--color-text-blue-muted);
+  }
+  
+  .text-blue-light {
+    color: var(--color-text-blue-light);
+  }
+  
+  /* Background patterns */
+  .bg-dots {
+    background-image: url('/dots.svg');
+    background-repeat: repeat;
+  }
+  
+  .bg-grid {
+    background-image: url('/grid.svg');
+    background-repeat: repeat;
+  }
+  
+  .bg-waves {
+    background-image: url('/waves.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 }
 
-.theme-btn {
-  background: var(--button-bg);
-  color: var(--button-text);
-  transition: all 0.4s ease;
-}
-.theme-btn:hover, .theme-btn:focus {
-  background: var(--button-hover-bg);
+/* GitHub Markdown theme overrides */
+.markdown-body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-/* Only apply the dark GitHub markdown theme when .dark is on the html */
 .dark .markdown-body {
-  /* The dark theme uses the .markdown-body-dark class, so copy its styles */
-  /* This import will do it for you: */
   @import 'github-markdown-css/github-markdown-dark.css';
 }
 
-/* Global transition styles matching agglayer.dev */
+/* Animations matching agglayer.dev timing */
 * {
-  transition-timing-function: ease;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .transition-all {
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .transition-fast {
-  transition: all 0.2s ease-out;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-normal {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.transition-slow {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .transition-smooth {
-  transition: all 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
-}
-
-.transition-opacity {
-  transition: opacity 0.4s ease;
-}
-
-.transition-transform {
-  transition: transform 0.4s ease;
-}
-
-@keyframes scroll {
-  100% { background-position: -3000px 0px; }
-}
-@keyframes scroll2 {
-  100% { background-position: 3000px 0px; }
-}
-
-/* Animation utilities */
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
+  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Custom animations */
@@ -235,6 +296,14 @@ body {
   100% { transform: rotate(360deg); }
 }
 
+@keyframes scroll {
+  100% { background-position: -3000px 0px; }
+}
+
+@keyframes scroll2 {
+  100% { background-position: 3000px 0px; }
+}
+
 .animate-float {
   animation: float 6s ease-in-out infinite;
 }
@@ -249,4 +318,13 @@ body {
 
 .animate-spin-slow {
   animation: spin-slow 20s linear infinite;
+}
+
+/* Animation delays */
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
+
+.animation-delay-4000 {
+  animation-delay: 4s;
 }

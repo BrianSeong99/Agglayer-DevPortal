@@ -15,6 +15,7 @@ export default function FeaturedExamplesSection() {
     description: example.description,
     url: example.urls.code || '/examples',
     icon: example.icon,
+
   }));
 
   return (
