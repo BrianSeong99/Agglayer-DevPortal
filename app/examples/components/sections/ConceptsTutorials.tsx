@@ -28,6 +28,7 @@ export function ConceptsTutorials({ tutorials }: ConceptsTutorialsProps) {
             difficulty={tutorial.difficulty}
             url={tutorial.url}
             index={index}
+            icon={tutorial.icon}
           />
         ))}
       </div>

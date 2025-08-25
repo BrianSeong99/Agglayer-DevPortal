@@ -19,7 +19,7 @@ export const tools: Tool[] = [
   {
     id: 'lxly-sdk',
     name: 'lxly.js SDK',
-    icon: 'package',
+    icon: '/img/lxlyjs-icon.svg',
     description: 'JavaScript library for cross-chain interactions on Agglayer with Unified Bridge support',
     category: 'essential',
     quickActions: [
@@ -37,7 +37,7 @@ export const tools: Tool[] = [
   {
     id: 'aggsandbox',
     name: 'AggSandbox',
-    icon: 'box',
+    icon: '/img/aggsandbox-icon.svg',
     description: 'Local development environment with fork mode support, multi-L2 testing, and rich CLI tooling',
     category: 'essential',
     quickActions: [
@@ -71,7 +71,7 @@ export const tools: Tool[] = [
   {
     id: 'special-k',
     name: 'Special K',
-    icon: 'tool',
+    icon: '/img/special-k-icon.svg',
     description: 'Katana\'s local development tool for fast chain deployment',
     category: 'additional',
     quickActions: [
@@ -81,7 +81,7 @@ export const tools: Tool[] = [
   {
     id: 'polygon-pos-kit',
     name: 'Polygon PoS Development Kit',
-    icon: 'tool',
+    icon: '/img/pos-dev-kit-icon.svg',
     description: 'Tools for Polygon PoS integration and contract deployment',
     category: 'additional',
     quickActions: [

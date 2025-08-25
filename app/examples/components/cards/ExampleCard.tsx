@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import Image from 'next/image';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
 import { Button } from '@/shared/components';
 
@@ -20,6 +21,7 @@ interface ExampleCardProps {
 export default function ExampleCard({
   title,
   description,
+  image,
   techStack,
   demoUrl,
   codeUrl,
@@ -44,7 +46,7 @@ export default function ExampleCard({
         width: '100%'
       }}
     >
-      {/* Preview Image Placeholder */}
+      {/* Preview Image */}
       <div style={{
         backgroundColor: '#EAF3FD',
         height: '207px',
@@ -53,9 +55,15 @@ export default function ExampleCard({
         marginBottom: spacing[2.5],
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        position: 'relative',
+        
       }}>
-        {/* Placeholder for image */}
+        {image ? (
+          <Image src={image} alt={title} width={120} height={120} style={{ objectFit: 'contain' }} />
+        ) : (
+          <div style={{ color: '#ccc', fontSize: '14px' }}>No image</div>
+        )}
       </div>
 
       {/* Content */}

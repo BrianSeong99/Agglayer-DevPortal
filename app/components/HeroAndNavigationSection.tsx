@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import Image from 'next/image';
 import { 
   IconApps,
   IconBook2
@@ -13,19 +14,19 @@ import { typography, motionTokens } from '@/shared/design-system';
 export default function HeroAndNavigationSection() {
   const navigationItems = [
     {
-      icon: <StackingCubes />,
+      icon: <Image src="/img/learn-icon.svg" alt="Learn" fill/>,
       title: 'Learn',
       description: 'Step-by-step tutorials and guides',
       href: '/examples?tab=tutorials',
     },
     {
-      icon: <StackingCubes />,
+      icon: <Image src="/img/examples-icon.svg" alt="Examples" fill style={{ objectFit: 'contain' }}/>,
       title: 'Examples',
       description: 'Production-ready templates and code samples',
       href: '/examples',
     },
     {
-      icon: <StackingCubes />,
+      icon: <Image src="/img/tools-icon.svg" alt="Tools" fill style={{ objectFit: 'contain' }}/>,
       title: 'Tools',
       description: 'Essential developer tools and SDKs',
       href: '/tools',
@@ -106,7 +107,7 @@ export default function HeroAndNavigationSection() {
                 className="group block bg-[#F7FAFE] rounded-[10px] h-[305px] overflow-hidden transition-all duration-300 hover:shadow-card hover:border-[#0071F7]/30"
               >
                 <div className="h-[193px] flex items-center justify-center">
-                  <div className="w-24 h-24 flex items-center justify-center">
+                  <div className="relative w-44 h-44 flex items-center justify-center">
                     {item.icon}
                   </div>
                 </div>

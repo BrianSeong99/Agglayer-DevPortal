@@ -35,6 +35,7 @@ export function ExamplesTabContent({ examples, isActive }: ExamplesTabContentPro
             key={example.id}
             title={example.title}
             description={example.description}
+            image={example.icon}
             techStack={example.techStack}
             demoUrl={example.urls.demo}
             codeUrl={example.urls.code}

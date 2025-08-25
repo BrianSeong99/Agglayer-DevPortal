@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { ClockIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { typography, colors, spacing, motionTokens } from '@/shared/design-system';
@@ -13,6 +14,7 @@ interface TutorialCardProps {
   difficulty?: 'Beginner' | 'Intermediate' | 'Advanced';
   url: string;
   index?: number;
+  icon?: string;
 }
 
 export default function TutorialCard({
@@ -22,6 +24,7 @@ export default function TutorialCard({
   difficulty,
   url,
   index = 0,
+  icon,
 }: TutorialCardProps) {
   const difficultyColors = {
     Beginner: { bg: 'rgba(34, 197, 94, 0.1)', text: '#22C55E', border: 'rgba(34, 197, 94, 0.3)' },
@@ -50,7 +53,7 @@ export default function TutorialCard({
         height: '100%'
       }}
     >
-      {/* Preview Image Placeholder */}
+      {/* Preview Image */}
       <div style={{
         backgroundColor: '#EAF3FD',
         height: '138px',
@@ -59,9 +62,20 @@ export default function TutorialCard({
         marginBottom: spacing[2.5],
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        position: 'relative'
       }}>
-        {/* Placeholder for tutorial preview */}
+        {icon ? (
+          <Image 
+            src={icon} 
+            alt={title} 
+            width={110} 
+            height={110}
+            style={{ objectFit: 'contain' }}
+          />
+        ) : (
+          <div style={{ color: '#ccc', fontSize: '14px' }}>No image</div>
+        )}
       </div>
 
       {/* Content */}
