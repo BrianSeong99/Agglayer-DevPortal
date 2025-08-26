@@ -56,7 +56,7 @@ export const tutorials: Tutorial[] = [
     category: 'tools',
     duration: '10 min',
     url: 'https://github.com/0xPolygon/lxly.js',
-    icon: '/img/dev-tools/lxly.svg',
+    icon: '/img/dev-tools/lxlyjs.svg',
   },
   {
     id: 'aggsandbox-tutorial',
